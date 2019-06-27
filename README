@@ -1,0 +1,29 @@
+Lilith 2.0
+
+by Thi Nhung Dao, Sabine Kraml, Duc Ninh Le and Loc Tran Quang 
+
+Contact: sabine.kraml[at]lpsc.in2p3.fr
+
+Original version: Lilith 1.1 
+(C) 2015 Jeremy Bernon and Beranger Dumont
+
+    Lilith is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Lilith is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
+
+
+Prerequisite: Python, SciPy and NumPy
+Tested with Python 2.7.5 (3.X not tested), Scipy 0.9.0 and Numpy 1.6.1
+
+More information available in the Lilith official webpage:
+http://lpsc.in2p3.fr/projects-th/lilith/
+
