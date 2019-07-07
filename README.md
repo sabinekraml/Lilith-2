@@ -8,4 +8,4 @@ Notes:
 
 - The __master__ branch contains the latest official version. If you want to see the validation (plots and scripts, plus the various versions of xml files used), chck out the __validation__ branch. 
 
-- In case of problems running the code, check whether the `__init.py__` file exists in lilith/internal/ and is executable. If not, create it (as an empty file) and declare it as executable. If the code still does not work, check that all the lilith .py files are executable.  
+- In case of problems running the code, check whether the `__init.py__` file exists in lilith/internal/ and is executable. If not, create it (as an empty file) and declare it as executable. If the code still does not work, check that all the Lilith Python (`.py`) files are executable.  
