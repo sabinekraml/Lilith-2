@@ -4,3 +4,4 @@ Lilith (Light Likelihood Fit for the Higgs) is a light and easy-to-use Python to
 
 Lilith-2.0 features variable Gaussian and Poisson likelihoods as well as a complete database of 36 fb-1 Run 2 results.
 
+NB the 'master' branch contains the latest official version. If you want to see the validation (plots and scripts, plus the various versions of xml files used), chck out the 'validation' branch. 
