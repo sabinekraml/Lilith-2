@@ -15,7 +15,7 @@ http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2016-22/
   <bestfit>0.</bestfit>
   
   <param>
-  <uncertainty side="left">1e-6</uncertainty>
+  <uncertainty side="left">3.83</uncertainty>
   <uncertainty side="right">3.83</uncertainty>
   </param>
 </expmu>
