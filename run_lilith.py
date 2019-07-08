@@ -2,12 +2,13 @@
 
 ##########################################################################
 #
-#  This is the main user file of Lilith
-#  made by J. Bernon and B. Dumont
+#  This file is part of Lilith
+#  v1 (2015) by Jeremy Bernon and Beranger Dumont 
+#  v2 (2019) by Thi Nhung Dao, Sabine Kraml, Duc Ninh Le, Loc Tran Quang 
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
-#  In case of questions email bernon@lpsc.in2p3.fr 
+#  In case of questions email sabine.kraml@lpsc.in2p3.fr 
 #
 #
 #    Lilith is free software: you can redistribute it and/or modify
