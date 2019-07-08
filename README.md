@@ -11,9 +11,10 @@ The generalized Poisson likelihood can be used for experimental results in 1 or 
 
 - Database 19.06 contains the __complete ATLAS and CMS Run 2 results for 36 fb-1__.
 
-Prerequisite: Python, SciPy and NumPy
+Prerequisites: Python 2.7 (not yet 3.X!), SciPy and NumPy; 
+the example codes doing a likelihood profile analysis require iminuit.
 
-Tested with Python 2.7 series (but not 3.X!), Scipy 0.13.0b1, Numpy 1.8.0rc1.
+Tested with Python 2.7.x (x>4), SciPy 0.13.0b1, NumPy 1.8.0rc1, iminuit 1.2.
 
 Notes:
 

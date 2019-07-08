@@ -1,10 +1,11 @@
 Lilith 2.0
 
-by Thi Nhung Dao, Sabine Kraml, Le Duc Ninh and Loc Tran Quang 
+by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung and Le Duc Ninh 
 
+Webpage: http://lpsc.in2p3.fr/projects-th/lilith/
 Contact: sabine.kraml[at]lpsc.in2p3.fr
 
-Original version: Lilith 1.1 
+Original version: Lilith 1.x 
 (C) 2015 Jeremy Bernon and Beranger Dumont
 
     Lilith is free software: you can redistribute it and/or modify
@@ -21,9 +22,12 @@ Original version: Lilith 1.1
     along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Prerequisite: Python, SciPy and NumPy
-Tested with Python 2.7.5 (3.X not tested), Scipy 0.9.0 and Numpy 1.6.1
+Prerequisites: Python 2.7 (not yet 3.X!), SciPy and NumPy; 
+the example codes doing a likelihood profile analysis require iminuit.
 
-More information (manual, download link, ...) available on the Lilith webpage:
-http://lpsc.in2p3.fr/projects-th/lilith/
+Tested with Python 2.7.x (x>4), SciPy 0.13.0b1, NumPy 1.8.0rc1, iminuit 1.2. 
+
+For information how to run Lilith, see https://arxiv.org/abs/1502.04138 
+For usage in micrOMEGAs, see https://arxiv.org/abs/1606.03834
+
 
