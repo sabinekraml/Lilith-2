@@ -2,8 +2,8 @@
 #
 # Lilith routine example
 #
-# To put in Lilith-1.1.X/examples/python/
-# To execute from /Lilith-1.X root folder
+# To put in Lilith-2.X/examples/python/ folder 
+# To execute from /Lilith-2.X root folder
 #
 # Constraints on cos(beta-alpha) and tan(beta) in the 2HDM of
 # Types I and II (in the sin(beta-alpha)>0 convention).
@@ -19,7 +19,7 @@
 #   Only Higgs-fermion-fermion coupling modifications affect
 #   this loop.
 #
-# Use the libraries matplotlib (plotting) and numpy (functions)
+# Uses the libraries matplotlib (plotting) and numpy (functions)
 #
 ##################################################################
 
@@ -42,7 +42,7 @@ import lilith
 print "***** reading parameters *****"
 
 # Experimental results
-exp_input = "data/ATLAS_best.list"
+exp_input = "data/latestRun2.list"
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
@@ -53,7 +53,7 @@ hmass = 125.09
 type = 2
 
 # Number of steps for the square grid (cba,tb), need ~300 for fine grid but quite long to run
-grid_subdivisions = 150
+grid_subdivisions = 100
 
 ######################################################################
 
@@ -66,18 +66,17 @@ if type == 2:
   output = "results/cba_tb_II_h_2d.out"
   outputplot = "results/cba_tb_II_h_2d.pdf"
 
-
 if type == 1:
   cba_min = -0.5
   cba_max = 0.5
-  tb_min = 0.5
-  tb_max = 60.
+  tb_min = 0.1
+  tb_max = 10.
 
 if type == 2:
-  cba_min = -0.15
+  cba_min = -0.1
   cba_max = 0.6
-  tb_min = 0.5
-  tb_max = 60.
+  tb_min = 0.1
+  tb_max = 10.
 
 
 ######################################################################
@@ -85,7 +84,7 @@ if type == 2:
 ######################################################################
 
 def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
-    """generate XML input from reduced couplings CGa, Cg"""
+    """generate XML input from reduced couplings CU, CD, CV"""
     
     sba = np.sqrt(1-cba**2)
     
@@ -179,7 +178,7 @@ print "***** plotting *****"
 matplotlib.rcParams['xtick.major.pad'] = 15
 matplotlib.rcParams['ytick.major.pad'] = 15
 
-fig = plt.figure(figsize=(8,7))
+fig = plt.figure(figsize=(7.5,7))
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
@@ -201,26 +200,38 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-Z = griddata(x, y, z2, xi, yi, interp="linear")
+#Z = griddata(x, y, z2, xi, yi, interp="linear")
+Z = griddata(x, y, z2, xi, yi)
 
 levels = np.arange(-2.0, 1.601, 0.4)
 cmap = matplotlib.cm.YlOrRd
 
 # Plotting the 68%, 95% and 99.7% CL contours
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],cmap=matplotlib.cm.get_cmap(cmap, len(levels) ))
+#ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
+#              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 # Title, labels, color bar etc.
-plt.title("  Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=20.5, ha="left")
+plt.title("          Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=15, ha="left")
 plt.xlabel(r'$\cos(\beta-\alpha)$',fontsize=25)
 plt.ylabel(r'$\tan\beta$',fontsize=25)
 plt.yscale('log')
 if type == 1:
   plt.xlim([-0.601,0.601])
+  plt.text(0.11, 0.2, r'2HDM Type-I', fontsize=15)
+  plt.text(0.08, 0.16, r'(Run 2, 36/fb, ATLAS+CMS)', fontsize=12)
 if type == 2:
   plt.xlim([-0.151,0.601])
+  plt.text(0.21, 0.2, r'2HDM Type-II', fontsize=15)
+  plt.text(0.21, 0.16, r'(Run 2, 36/fb, ATLAS+CMS)', fontsize=12)
 
-plt.tight_layout()
+fig.set_tight_layout(True)
+
+plt.show()
 
 # Saving figure (.pdf)
-plt.savefig(outputplot)
+fig.savefig(outputplot)
+
+print "***** done *****"
+
 

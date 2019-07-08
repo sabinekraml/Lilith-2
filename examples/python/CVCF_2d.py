@@ -1,4 +1,10 @@
-###############################################################
+##################################################################
+#
+# Lilith routine example for (CV, CF)  plots
+#
+# To put in Lilith-2.X/examples/python/ folder 
+# To execute from /Lilith-2.X root folder
+#
 #
 # Lilith routine for (CV, CF) validation plots
 #
@@ -6,7 +12,7 @@
 #
 # Use the libraries matplotlib (plotting) and numpy (functions)
 #
-###############################################################
+##################################################################
 
 import sys, os
 from matplotlib.mlab import griddata
@@ -17,6 +23,7 @@ import numpy as np
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
+print (lilith_dir)
 import lilith
 
 ######################################################################
@@ -26,7 +33,7 @@ import lilith
 print "***** reading parameters *****"
 
 # Experimental results
-exp_input = "data/validation.list"
+exp_input = "data/latestRun2.list"
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
@@ -34,16 +41,16 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # Output file
-output = "validation/ATLAS/CVCF_2d.out"
+output = "results/CVCF_2d.out"
 # Output plot
-#outputplot = "validation/ATLAS/CVCF_2d.pdf"
+outputplot = "results/CVCF_2d.pdf"
 
 
 # Range of the scan
-CV_min = 0.5
-CV_max = 1.5
-CF_min = 0.
-CF_max = 1.6
+CV_min = 0.8
+CV_max = 1.3
+CF_min = 0.7
+CF_max = 1.4
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -162,43 +169,30 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata(x, y, z2, xi, yi, interp="linear")
 
-# Plotting the 68%, 95% and 99.7% CL contours
-
-#ax.contour(xi,yi,Z,[2.3,5.99,11.83],linewidths=[2.5,2.5,2.5],colors=["#B22222","#FF8C00","#FFD700"])
-#cax=ax.imshow(Z, vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()], \
-#              aspect=(CGa_max-CGa_min)/(Cg_max-Cg_min), cmap=plt.get_cmap("rainbow"))
-#ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['0.25','0.5','0.75'], \
-#              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
+# Plotting the 68%, 95% and 99.7% CL regions
 
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
 
+# best fit point
 plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
+
+# Standard Model 
 plt.plot([1],[1], '+', c='k', ms=10)
 
-#  official ATLAS result
-dt = np.dtype([('cx', float), ('cy', float)])
-expCont = np.genfromtxt('validation/ATLAS/HIGG-2016-21-CVCF-2d-Grid.txt', dtype=dt)
-plt.plot(expCont['cx'],expCont['cy'], '.', c='b', label='ATLAS official')
-
-plt.legend(loc='lower right', fontsize=12)
-
 # Title, labels, color bar...
-plt.title("Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion)+"  ", fontsize=14.5, ha="left")
+plt.title("  Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=14.5, ha="left")
 plt.xlabel(r'$C_V$',fontsize=25)
 plt.ylabel(r'$C_F$',fontsize=25)
-plt.text(0.58, 1.42, r'Validation of', fontsize=13)
-plt.text(0.58, 1.32, r'ATLAS-HIGG-2016-21', fontsize=13)
-#plt.text(0.58, 1.22, r'(variable Gaussian)', fontsize=13)
-plt.text(0.58, 1.22, r'(Poisson)', fontsize=13)
 
-#plt.tight_layout()
 fig.set_tight_layout(True)
 
-# Saving figure (.pdf)
-#plt.savefig(outputplot)
-fig.savefig("validation/ATLAS/HIGG-2016-21-CVCF-Poisson.pdf")
+plt.show()
 
+# Saving figure (.pdf)
+fig.savefig(outputplot)
+
+print "***** done *****"
 
