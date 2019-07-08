@@ -1,11 +1,11 @@
 ###############################################################
 #
 # Lilith routine example
+# To put in Lilith-2.X/examples/python/ folder 
+# To execute from /Lilith-2.X root folder
 #
-# To execute from /Lilith-1.X root folder
-#
-# Constraints on reduced couplings
-# in the (CV, CF) model. CV: common coupling to EW gauge bosons,
+# Constraints on reduced couplings in the (CV, CF) model. 
+# CV: common coupling to EW gauge bosons,
 # CF: common coupling for fermions.
 # The loop-induced effective couplings CGa and Cg are
 # determined from CV and CF.
@@ -33,18 +33,23 @@ import lilith
 ######################################################################
 
 # Exprimental results
-#myexpinput = "data/ATLAS_36fb_full.list"
-#myexpinput = "data/ATLAS_best.list"
-myexpinput = "data/test.list"
+#myexpinput = "data/latest.list"
+myexpinput = "data/latestRUn2.list"
+
 # Lilith precision mode
 myprecision = "BEST-QCD"
+
 # Output
-plottitle = "results/CVCF_1dprofile_ATLAS_1Df_new.pdf"
+outputplot = "results/CVCF_1dprofiles.pdf"
+
 # Higgs mass to test
-myhmass = 125.
+myhmass = 125.09
 
 verbose=False
 timer=False
+
+print "\nTask: profile-likelihood analysis in (CF,CV) model"
+print "Experimental input:", myexpinput
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -102,22 +107,37 @@ lilithcalc = lilith.Lilith(verbose, timer)
 # Read experimental data
 lilithcalc.readexpinput(myexpinput)
 
-print "***** initializing (CV, CF) model fit *****"
+print "\n***** performing model fit: migrad, hesse, minos *****"
+
 # Initialize the fit; parameter starting values and limits
-m = Minuit(getL, CV=1, limit_CV=(0,3), CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=1, error_CF=1)
+m = Minuit(getL, CV=1, limit_CV=(0,3), CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=0.2, error_CF=0.2)
 
-print "***** performing (CV, CF) model fit *****"
-# Fit the model
+# Minimization and error estimation
 m.migrad()
-# Display parameter values at the best-fit point
-print "\nBest-fit point of the (CV, CF) model: "
-print "CV =", m.values["CV"], ", CF =", m.values["CF"],"\n"
+m.hesse()   # run covariance estimator
+m.minos()
 
-print "***** getting the 1-dimensional likelihood profile of CV *****"
+
+print "\nbest-fit point:", m.values 
+print "\nHesse errors:", m.errors
+print "\nMinos errors:"
+for key, value in m.merrors.items():
+    print key, value
+
+print "\nCorrelation matrix:\n", m.matrix(correlation=True)
+print "\nCovariance matrix:\n", m.matrix()
+
+
+# Display parameter values at the best-fit point
+#print "\nBest-fit point:" 
+#print "CV =", m.values["CV"], "\nCF =", m.values["CF"], "\n-2LogL =", m.fval
+
+
+print "\n***** getting the 1-dimensional likelihood profile of CV *****"
 # Profiling over CF
 xV,yV,rV = m.mnprofile('CV', bins=300, bound=(0., 3), subtract_min=True)
 
-print "***** getting the 1-dimensional likelihood profile of CF *****\n"
+print "***** getting the 1-dimensional likelihood profile of CF *****"
 # Profiling over CV
 xF,yF,rF = m.mnprofile('CF', bins=300, bound=(0., 3), subtract_min=True)
 
@@ -135,7 +155,7 @@ fig = plt.figure(figsize=(16,8))
 ax = fig.add_subplot(121)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=28, length=14, width=2)
+plt.tick_params(labelsize=26, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
 
 plt.plot(xV,yV,color="b",linewidth=2.5)
@@ -147,26 +167,31 @@ plt.axhline(y=1.,color='k',ls='dashed')
 plt.axhline(y=4.,color='k',ls='dashed')
 plt.axhline(y=9.,color='k',ls='dashed')
 
-plt.title(" Lilith "+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=21, ha="left")
+plt.title("Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=20, ha="left")
 
 ax = fig.add_subplot(122)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=25, length=10, width=1.3)
-plt.tick_params(which='minor', length=6, width=0.8)
+plt.tick_params(labelsize=26, length=14, width=2)
+plt.tick_params(which='minor', length=7, width=1.2)
 
 plt.plot(xF,yF,color="b",linewidth=2.5)
 plt.ylim([0,8])
-plt.xlim([0.6,1.501])
+plt.xlim([0.7,1.4])
 plt.xlabel(r'$C_F$', fontsize=34)
 plt.ylabel(r'$\Delta (-2\log L)$', fontsize=34)
 plt.axhline(y=1.,color='k',ls='dashed')
 plt.axhline(y=4.,color='k',ls='dashed')
 plt.axhline(y=9.,color='k',ls='dashed')
 
-plt.title(" Lilith "+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=21, ha="left")
+plt.title("Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=20, ha="left")
 
-plt.tight_layout()
-plt.savefig(plottitle, bbox_inches='tight')
+#fig.set_tight_layout(True)
+
+# Saving figure (.pdf)
+fig.savefig(outputplot, bbox_inches='tight')
+
+print "***** done *****\n"
+
 
 
