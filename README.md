@@ -2,7 +2,7 @@
 
 Lilith (Light Likelihood Fit for the Higgs) is a light and easy-to-use Python tool for constraining new physics from signal strength measurements of the 125 GeV Higgs boson. Lilith is provided with the latest experimental measurements from the ATLAS and CMS collaborations at the LHC. The Higgs likelihood is based on experimental results stored in an easily extensible XML database; it is evaluated from the user input, given in XML format in terms of reduced couplings or signal strengths. 
 
-New in version 2 (more in changelog.txt):
+New from version 2.0 onwards (more in changelog.txt):
 
 - Use of variable Gaussian and generalized Poisson likelihoods for a __better treatment of assymetric uncertainties__. 
 The generalized Poisson likelihood can be used for experimental results in 1 or 2 dimensions (the latter with correlation), while the variable Gaussian approximation is available for results of any dimension. 
@@ -13,7 +13,7 @@ The generalized Poisson likelihood can be used for experimental results in 1 or 
 
 Prerequisite: Python, SciPy and NumPy
 
-Tested with Python 2.7 series (but not 3.X), Scipy 0.9.0 and 0.13.0b1, Numpy 1.6.1 and 1.8.0rc1.
+Tested with Python 2.7 series (but not 3.X!), Scipy 0.13.0b1, Numpy 1.8.0rc1.
 
 Notes:
 
