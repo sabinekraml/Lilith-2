@@ -9,3 +9,5 @@ Notes:
 - The __master__ branch contains the latest official version. If you want to see the validation (plots and scripts, plus the various versions of xml files used), check out the __validation__ branch. 
 
 - In case of problems running the code, check whether the `__init.py__` file exists in lilith/internal/ and is executable. If not, create it (as an empty file) and declare it as executable. If the code still does not work, check that all the Lilith Python (`.py`) files are executable.  
+
+- If you get an error `ImportError: No module named lilith`, your path to Lilith is probably not correct. (e.g, when this happens with the Python example codes, check where `lilith_dir` points to)
