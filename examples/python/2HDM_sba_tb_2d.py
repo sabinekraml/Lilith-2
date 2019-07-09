@@ -58,6 +58,8 @@ grid_subdivisions = 100
 ######################################################################
 
 # Output file
+if (not os.path.exists("results")):
+    os.mkdir("results")
 if type == 1:
   output = "results/cba_tb_I_h_2d.out"
   outputplot = "results/cba_tb_I_h_2d.pdf"
@@ -200,8 +202,8 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-#Z = griddata(x, y, z2, xi, yi, interp="linear")
-Z = griddata(x, y, z2, xi, yi)
+Z = griddata(x, y, z2, xi, yi, interp="linear")
+#Z = griddata(x, y, z2, xi, yi)
 
 levels = np.arange(-2.0, 1.601, 0.4)
 cmap = matplotlib.cm.YlOrRd
@@ -227,11 +229,12 @@ if type == 2:
 
 fig.set_tight_layout(True)
 
-plt.show()
+#plt.show()
 
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
+print "results are stored in", lilith_dir + "/results"
 print "***** done *****"
 
 

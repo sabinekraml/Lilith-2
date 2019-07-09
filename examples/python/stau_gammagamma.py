@@ -48,6 +48,8 @@ m1_fixed = 85
 tb = 10
 
 # Output file
+if (not os.path.exists("results")):
+    os.mkdir("results")
 output = "results/grid_staus_theta_m2.out"
 # Output plot
 outputplot = "results/m1stau"+str(m1_fixed)+"GeV_tanbeta"\
@@ -257,4 +259,5 @@ cbar.set_label(r"$\Delta(-2\log L)$",fontsize=20)
 # Saving figure (.pdf)
 plt.savefig(outputplot)
 
-
+print "results are stored in", lilith_dir + "/results"
+print "***** done *****"

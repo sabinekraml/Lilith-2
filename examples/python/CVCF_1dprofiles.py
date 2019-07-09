@@ -34,12 +34,14 @@ import lilith
 
 # Exprimental results
 #myexpinput = "data/latest.list"
-myexpinput = "data/latestRUn2.list"
+myexpinput = "data/latestRun2.list"
 
 # Lilith precision mode
 myprecision = "BEST-QCD"
 
 # Output
+if (not os.path.exists("results")):
+    os.mkdir("results")
 outputplot = "results/CVCF_1dprofiles.pdf"
 
 # Higgs mass to test
@@ -191,6 +193,7 @@ plt.title("Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), f
 # Saving figure (.pdf)
 fig.savefig(outputplot, bbox_inches='tight')
 
+print "results are stored in", lilith_dir + "/results"
 print "***** done *****\n"
 
 

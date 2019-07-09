@@ -5,11 +5,6 @@
 # To put in Lilith-2.X/examples/python/ folder 
 # To execute from /Lilith-2.X root folder
 #
-#
-# Lilith routine for (CV, CF) validation plots
-#
-# To run from /Lilith-1.x root folder
-#
 # Use the libraries matplotlib (plotting) and numpy (functions)
 #
 ##################################################################
@@ -23,7 +18,7 @@ import numpy as np
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
-print (lilith_dir)
+#print (lilith_dir)
 import lilith
 
 ######################################################################
@@ -41,6 +36,8 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # Output file
+if (not os.path.exists("results")):
+    os.mkdir("results")
 output = "results/CVCF_2d.out"
 # Output plot
 outputplot = "results/CVCF_2d.pdf"
@@ -189,10 +186,11 @@ plt.ylabel(r'$C_F$',fontsize=25)
 
 fig.set_tight_layout(True)
 
-plt.show()
+#plt.show()
 
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
+print "results are stored in", lilith_dir + "/results"
 print "***** done *****"
 

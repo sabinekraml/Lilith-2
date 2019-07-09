@@ -1,8 +1,9 @@
 ###############################################################
 #
-# Lilith routine for (CV, CF) validation plots
+# Lilith routine example for (C_gluon, C_gamma) plots
 #
-# To run from /Lilith-1.x root folder
+# To put in Lilith-2.X/examples/python/ folder 
+# To run from /Lilith-2.X root folder
 #
 # Use the libraries matplotlib (plotting) and numpy (functions)
 #
@@ -15,7 +16,6 @@ import matplotlib
 import numpy as np
 
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-lilith_dir = lilith_dir+'/Lilith-2-2.0.rc1'
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
@@ -35,9 +35,11 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # Output file
-output = "testing/CgluCgam_2d.out"
+if (not os.path.exists("results")):
+    os.mkdir("results")
+output = "results/CgluCgam_2d.out"
 # Output plot
-outputplot = "testing/CgluCgam_2d.pdf"
+outputplot = "results/CgluCgam_2d.pdf"
 
 
 # Range of the scan
@@ -188,6 +190,7 @@ fig.set_tight_layout(True)
 
 # Saving figure (.pdf)
 #plt.savefig(outputplot)
-fig.savefig("testing/CgCGa_all.pdf")
+fig.savefig("results/CgCGa_all.pdf")
 
-
+print "results are stored in", lilith_dir + "/results"
+print "***** done *****"
