@@ -18,7 +18,6 @@ import numpy as np
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
-#print (lilith_dir)
 import lilith
 
 ######################################################################
@@ -29,21 +28,20 @@ print "***** reading parameters *****"
 
 # Experimental results
 exp_input = "data/latestRun2.list"
+
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
 hmass = 125.09
 
-# Output file
+# Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
-# Output plot
 outputplot = "results/CVCF_2d.pdf"
 
-
-# Range of the scan
+# Scan ranges
 CV_min = 0.8
 CV_max = 1.3
 CF_min = 0.7
@@ -167,7 +165,6 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata(x, y, z2, xi, yi, interp="linear")
 
 # Plotting the 68%, 95% and 99.7% CL regions
-
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
@@ -183,6 +180,7 @@ plt.plot([1],[1], '+', c='k', ms=10)
 plt.title("  Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=14.5, ha="left")
 plt.xlabel(r'$C_V$',fontsize=25)
 plt.ylabel(r'$C_F$',fontsize=25)
+plt.text(0.83, 0.75, r'Exp. input:'+exp_input, fontsize=12)
 
 fig.set_tight_layout(True)
 

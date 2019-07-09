@@ -50,16 +50,17 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # 2HDM type = 1, 2
-type = 2
+type = 1
 
 # Number of steps for the square grid (cba,tb), need ~300 for fine grid but quite long to run
-grid_subdivisions = 100
+grid_subdivisions = 150
 
 ######################################################################
 
-# Output file
+# Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
+
 if type == 1:
   output = "results/cba_tb_I_h_2d.out"
   outputplot = "results/cba_tb_I_h_2d.pdf"
@@ -68,6 +69,7 @@ if type == 2:
   output = "results/cba_tb_II_h_2d.out"
   outputplot = "results/cba_tb_II_h_2d.pdf"
 
+# Scan ranges
 if type == 1:
   cba_min = -0.5
   cba_max = 0.5
@@ -202,14 +204,18 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-Z = griddata(x, y, z2, xi, yi, interp="linear")
-#Z = griddata(x, y, z2, xi, yi)
+
+# griddata using Natural Neighbor (nn) interpolation
+Z = griddata(x, y, z2, xi, yi, interp='nn')
+# If you don't have natgrid installed, use instead linear interpolation
+#Z = griddata(x, y, z2, xi, yi, interp="linear")
 
 levels = np.arange(-2.0, 1.601, 0.4)
 cmap = matplotlib.cm.YlOrRd
 
-# Plotting the 68%, 95% and 99.7% CL contours
+# Plotting the 68%, 95% and 99.7% CL contours (filled regions)
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],cmap=matplotlib.cm.get_cmap(cmap, len(levels) ))
+
 #ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
 #              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 

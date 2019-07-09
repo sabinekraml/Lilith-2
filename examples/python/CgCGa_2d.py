@@ -27,24 +27,23 @@ import lilith
 print "***** reading parameters *****"
 
 # Experimental results
-exp_input = "data/latest.list"
+exp_input = "data/latestRun2.list"
+
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
 hmass = 125.09
 
-# Output file
+# Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CgluCgam_2d.out"
-# Output plot
 outputplot = "results/CgluCgam_2d.pdf"
 
-
-# Range of the scan
-Cg_min = 0.6
-Cg_max = 1.5
+# Scan ranges 
+Cg_min = 0.8
+Cg_max = 1.3
 CGa_min = 0.7
 CGa_max = 1.3
 
@@ -164,33 +163,34 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata(x, y, z2, xi, yi, interp="linear")
 
 # Plotting the 68%, 95% and 99.7% CL contours
-
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
+CS = ax.contour(xi,yi,Z,[2.3,5.99,11.83], colors=['silver'])
+CS.levels = ['68% CL', '95% CL', '99.7% CL']
+ax.clabel(CS, CS.levels, inline=1, fontsize=9, colors='k')
+
 ax.set_aspect((Cg_max-Cg_min)/(CGa_max-CGa_min))
 
+# best fit point
 plt.plot([Cgmin],[CGamin], '*', c='w', ms=10)
+# Standard Model 
 plt.plot([1],[1], '+', c='k', ms=10)
-
-#  official ATLAS result
-#dt = np.dtype([('cx', float), ('cy', float)])
-#expCont = np.genfromtxt('validation/ATLAS/HIGG-2016-21-CgluonCgamma-2d-Grid.txt', dtype=dt)
-#plt.plot(expCont['cx'],expCont['cy'], '.', c='b', label='ATLAS official')
-#plt.legend(loc='lower right', fontsize=12)
 
 # Title, labels, color bar...
 plt.title("  Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=14.5, ha="left")
 plt.xlabel(r'$C_g$',fontsize=25)
 plt.ylabel(r'$C_\gamma$',fontsize=25)
-#plt.text(0.61, 1.63, r'Data from ATLAS-HIGG-2016-21', fontsize=13)
+plt.text(0.83, 0.74, r'Exp. input:'+exp_input, fontsize=13)
 
 #plt.tight_layout()
 fig.set_tight_layout(True)
 
+#plt.show()
+
 # Saving figure (.pdf)
-#plt.savefig(outputplot)
-fig.savefig("results/CgCGa_all.pdf")
+fig.savefig(outputplot)
 
 print "results are stored in", lilith_dir + "/results"
 print "***** done *****"
+

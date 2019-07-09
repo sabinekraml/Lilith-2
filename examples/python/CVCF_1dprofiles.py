@@ -193,7 +193,7 @@ plt.title("Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), f
 # Saving figure (.pdf)
 fig.savefig(outputplot, bbox_inches='tight')
 
-print "results are stored in", lilith_dir + "/results"
+print  "result see " + lilith_dir + "/" + outputplot
 print "***** done *****\n"
 
 

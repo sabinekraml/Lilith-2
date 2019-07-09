@@ -1,11 +1,11 @@
 ###############################################################
 #
 # Lilith routine example
-# To execute from /Lilith-1.X root folder
+# To execute from /Lilith-2.X root folder
 #
 # Constraints on stau masses and mixing angle
-# from the additionnal contribution to
-# the Higgs to gamma-gamma decay rate
+# from the additionnal loop contribution to
+# the Higgs -> gamma gamma decay rate
 # (exemple from the  Lilith manual arXiv:1502.04138)
 #
 # Use the libraries matplotlib and numpy
@@ -35,23 +35,22 @@ import lilith
 print "***** reading parameters *****"
 
 # Experimental results
-exp_input = "data/latest.list"
+exp_input = "data/latestRun2.list"
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
-hmass = 125.
+hmass = 125.09
 
 # Stau 1 physical mass [GeV]
 m1_fixed = 85
 # Tan beta
 tb = 10
 
-# Output file
+# Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/grid_staus_theta_m2.out"
-# Output plot
 outputplot = "results/m1stau"+str(m1_fixed)+"GeV_tanbeta"\
               +str(tb)+"_theta_m2stau.pdf"
 
@@ -157,7 +156,7 @@ def usrXMLinput(mass=125., CGa=1, precision="BEST-QCD"):
 # Scan initialization
 ######################################################################
 
-print "***** stau 1 mass =", str(m1_fixed), "GeV, tan(beta) =", str(tb), "*****\n"
+print "***** stau1 mass =", str(m1_fixed), "GeV, tan(beta) =", str(tb), "*****\n"
 print "***** scan initialization *****"
 
 m2_min = max(100, m1_fixed)
@@ -214,11 +213,8 @@ matplotlib.rcParams['ytick.major.pad'] = 15
 fig, ax = plt.subplots()
 
 plt.minorticks_on()
-plt.tick_params(labelsize=16, length=10, width=1.3)
+plt.tick_params(labelsize=14, length=10, width=1.3)
 plt.tick_params(which='minor', length=7, width=0.6)
-
-
-
 
 # Getting the data
 data = np.genfromtxt(output)
@@ -237,24 +233,35 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-Z = griddata(x, y, z2, xi, yi, interp="linear")
+# griddata using Natural Neighbor (nn) interpolation
+Z = griddata(x, y, z2, xi, yi, interp='nn')
+# If you don't have natgrid installed, use instead linear interpolation
+#Z = griddata(x, y, z2, xi, yi, interp="linear")
 
-# Plotting the 68%, 95% and 99.7% CL contours
-ax.contour(xi,yi,Z,[2.3,5.99,11.83],linewidths=[2.5,2.5,2.5],colors=["#B22222","#FF8C00","#FFD700"])
-cax=ax.imshow(Z, vmin=0, vmax=15, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()], \
+# heat map of -2LogL
+cax = ax.imshow(Z, vmin=0, vmax=15, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()], \
               aspect=(theta_max-theta_min)/(m2_max-m2_min), cmap=plt.get_cmap("jet_r"))
 
-# Title, labels, color bar...
-plt.text(1.3*pi/8., 185, r"$m_{\widetilde{\tau}_1}="+str(m1_fixed)+"$"r"$\rm{\ GeV}$, $\tan\beta="+str(tb)+"$", fontsize=18, backgroundcolor="white")
-plt.title(" Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=14.5, ha="left")
-plt.xlabel(r'$\theta_{\widetilde{\tau}}$',fontsize=23)
-plt.ylabel(r'$m_{\widetilde{\tau}_2} \rm{[GeV]}$',fontsize=23)
-plt.xticks([0, pi/8., pi/4., 3*pi/8., pi/2.],
-          ['$0$', r'$\frac{\pi}{8}$', r'$\frac{\pi}{4}$', r'$\frac{3\pi}{8}$', r'$\frac{\pi}{2}$'], fontsize=20)
+# Plotting the 68%, 95% and 99.7% CL contours
+CS = ax.contour(xi,yi,Z,[2.3,5.99,11.83],linewidths=[2.5,2.5,2.5],colors=["#B22222","#FF8C00","#FFD700"])
+ax.clabel(CS, inline=1, fontsize=11, colors='white')
 
-plt.tight_layout()
+
+# Title, labels, color bar...
+plt.title("      Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=12, ha="left")
+plt.text(1.3*pi/8., 184, r"$m_{\widetilde{\tau}_1}="+str(m1_fixed)+"$"r"$\rm{\ GeV}$, $\tan\beta="+str(tb)+"$", fontsize=16, backgroundcolor="white")
+plt.xlabel(r'$\theta_{\widetilde{\tau}}$',fontsize=22)
+plt.ylabel(r'$m_{\widetilde{\tau}_2} \rm{[GeV]}$',fontsize=22)
+#plt.xticks([0, pi/8., pi/4., 3*pi/8., pi/2.],
+#          ['$0$', r'$\frac{\pi}{8}$', r'$\frac{\pi}{4}$', r'$\frac{3\pi}{8}$', r'$\frac{\pi}{2}$'], fontsize=20)
+plt.xticks([0, pi/8., pi/4., 3*pi/8., pi/2.],
+          ['$0$', r'$\pi/8$', r'$\pi/4$', r'$3\pi/8$', r'$\pi/2$'], fontsize=18)
+
 cbar = fig.colorbar(cax)
 cbar.set_label(r"$\Delta(-2\log L)$",fontsize=20)
+
+#plt.tight_layout()
+fig.set_tight_layout(True)
 
 # Saving figure (.pdf)
 plt.savefig(outputplot)
