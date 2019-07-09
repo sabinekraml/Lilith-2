@@ -26,11 +26,14 @@ For the changelog of the database of experimental results, see data/changelog
 		  * 2HDM fit routine added in examples/python
 		  * 13 TeV results supported (form factors, cross sections grids implemented)
 
-** June, 2019: v2.0 by Thi Nhung Dao, Sabine Kraml, Duc Ninh Le and Loc Tran Quang 
+** June, 2019: v2.0 by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung and Le Duc Ninh  
+    code:
       * extended likelihood calculation by variable Gaussian and generalized Poisson dist.
       * added use of N-dim correlation matrices (for Gaussian or variable Gaussian approx.)
       * added tH production mode and top = ttH+tH category
       * added gg -> VH for VH production mode
       * added tHq_tHW_ttH and WH_qqZH_ggZH_VBF xsection grids  
       * corrected a minor bug (prod == prod + "13") in computelikelihood.py
-      * updated database to 36fb-1 Run 2 results
+      * updated and improved python code examples
+    database:  
+      * updated database to 36fb-1 Run 2 results, see data/changelog.txt
