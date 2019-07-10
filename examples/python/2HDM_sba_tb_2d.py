@@ -205,10 +205,12 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
 
+try:
 # griddata using Natural Neighbor (nn) interpolation
-Z = griddata(x, y, z2, xi, yi, interp='nn')
+    Z = griddata(x, y, z2, xi, yi, interp='nn')
+except:
 # If you don't have natgrid installed, use instead linear interpolation
-#Z = griddata(x, y, z2, xi, yi, interp="linear")
+    Z = griddata(x, y, z2, xi, yi, interp="linear")
 
 levels = np.arange(-2.0, 1.601, 0.4)
 cmap = matplotlib.cm.YlOrRd

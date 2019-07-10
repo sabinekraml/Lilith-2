@@ -233,10 +233,12 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
+try:
 # griddata using Natural Neighbor (nn) interpolation
-Z = griddata(x, y, z2, xi, yi, interp='nn')
+    Z = griddata(x, y, z2, xi, yi, interp='nn')
+except:
 # If you don't have natgrid installed, use instead linear interpolation
-#Z = griddata(x, y, z2, xi, yi, interp="linear")
+    Z = griddata(x, y, z2, xi, yi, interp="linear")
 
 # heat map of -2LogL
 cax = ax.imshow(Z, vmin=0, vmax=15, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()], \
