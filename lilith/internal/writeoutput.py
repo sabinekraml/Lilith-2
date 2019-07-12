@@ -222,53 +222,54 @@ def results_xml(results, l, lilithversion, dbversion, filepath):
 """.format(dbversion))
             for result in results:
                 exp_ndf += int(result["dim"])
-                x = result["eff"]["x"]
-                if "y" in result["eff"]:
-                    y = result["eff"]["y"]
+
+# modified by Ninh for v2.0
+                if result["dim"] <= 2:
+                    x = result["eff"]["x"]
+                    if "y" in result["eff"]:
+                        y = result["eff"]["y"]
+                    else:
+                        y = {}
                 else:
-                    y = {}
+                    dd = []
+                    for i in range(result["dim"]):
+                        dd.append(result["eff"]["d" + str(i+1)])
+# end of modification
 
                 f.write("""  <analysis experiment="{}" source="{}">
 """.format(result["experiment"], result["source"]))
+# added by Ninh for v2.0
+                if result["dim"] > 2:
+                    f.write("""    <expmu dim="{}" type="{}">
+""".format(result["dim"], result["type"]))
+                    for i in range(result["dim"]):
+                        for key, val in dd[i].items():
+                            f.write("""      <eff axis={} prod="{}" decay="{}">{}</eff>
+""".format("d" + str(i+1), key[0], key[1], val))
+                    f.write("""    </expmu>
+""")
+# end of addition
+# corrected by Ninh for v2.0
                 if result["dim"] == 2:
-                    f.write("""    <expmu decay="{}" dim="{}" type="{}">
-""".format(x.keys()[0][-1], result["dim"], result["type"]))
+                    f.write("""    <expmu dim="{}" type="{}">
+""".format(result["dim"], result["type"]))
                     for key, val in x.items():
-                        f.write("""      <eff axis="x" prod="{}">{}</eff>
-""".format(key[0], val))
+                        f.write("""      <eff axis="x" prod="{}" decay="{}">{}</eff>
+""".format(key[0], key[1], val))
                     for key, val in y.items():
-                        f.write("""      <eff axis="y" prod="{}">{}</eff>
-""".format(key[0], val))
+                        f.write("""      <eff axis="y" prod="{}" decay="{}">{}</eff>
+""".format(key[0], key[1], val))
                     f.write("""    </expmu>
 """)
                 if result["dim"] == 1:
-                    if len(x.keys()) == 1:
-                        f.write("""    <expmu decay="{}" dim="{}" type="{}">
-""".format(x.keys()[0][-1], result["dim"], result["type"]))
-                        f.write("""      <eff prod="{}">{}</eff>
-""".format(x.keys()[0][0], x.values()[0]))
-                        f.write("""    </expmu>
-""")
-                    else:
-                        match = True
-                        for key, val in x.items():
-                            if key[-1]!=x.keys()[0][-1]: match = False
-                        if match:
-                            f.write("""    <expmu decay="{}" dim="{}" type="{}">
-""".format(x.keys()[0][-1], result["dim"], result["type"]))
-                            for key, val in x.items():
-                                f.write("""      <eff prod="{}">{}</eff>
-""".format(key[0], val))
-                            f.write("""    </expmu>
-""")
-                        else:
-                            f.write("""    <expmu dim="{}" type="{}">
+                    f.write("""    <expmu dim="{}" type="{}">
 """.format(result["dim"], result["type"]))
-                            for key, val in x.items():
-                                f.write("""      <eff prod="{}" decay="{}">{}</eff>
-""".format(key[0],key[1],val))
-                            f.write("""    </expmu>
+                    for key, val in x.items():
+                        f.write("""      <eff prod="{}" decay="{}">{}</eff>
+""".format(key[0], key[1], val))
+                    f.write("""    </expmu>
 """)
+# end of correction
 
                 f.write("""    <l>{}</l>
 """.format(result["l"]))

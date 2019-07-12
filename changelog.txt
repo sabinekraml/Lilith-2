@@ -32,8 +32,11 @@ For the changelog of the database of experimental results, see data/changelog
       * added use of N-dim correlation matrices (for Gaussian or variable Gaussian approx.)
       * added tH production mode and top = ttH+tH category
       * added gg -> VH for VH production mode
+      * added bbH production mode (but no experimental data available so far)
       * added tHq_tHW_ttH and WH_qqZH_ggZH_VBF xsection grids  
       * corrected a minor bug (prod == prod + "13") in computelikelihood.py
+      * corrected a bug in writeresults() with XML format (case dim = 2)
+      * fixed a minor bug in writeresults() with SLHA format
       * updated and improved python code examples
     database:  
       * updated database to 36fb-1 Run 2 results, see data/changelog.txt
