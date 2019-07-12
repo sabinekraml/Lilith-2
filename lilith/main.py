@@ -291,6 +291,8 @@ class Lilith:
                     ndf = self.exp_ndf - ndf
                 writeoutput.results_slha_pvalue(self.results, self.l, l_ref, ndf, filepath, self.dbversion)
 # added by Ninh for v2.0
+            except AttributeError:
+                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
             except IndexError:
                 writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
 # end of addition
