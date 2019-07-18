@@ -1,0 +1,48 @@
+<!--
+ATLAS result for mu(combined H production modes, ZZ) at mH = 125.09 GeV,
+best fit-values and uncertainties taken from Table 9
+and their correlation taken from Aux. Fig. 4c, shown in HIGG-2016-22
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2016-22/
+
+NB left uncertainties of VH, ttH fixed to 1e-5 instead of zero
+to avoid divegence while inversing the covariance matrice.
+-->
+
+<expmu dim="4" type="vn">
+  <experiment>CMS</experiment>
+  <source type="published">HIGG-2016-22</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+
+  <eff axis="d1" prod="ggH" decay="ZZ">1.0</eff>
+  <eff axis="d2" prod="VBF" decay="ZZ">1.0</eff>
+  <eff axis="d3" prod="VH" decay="ZZ">1.0</eff>
+  <eff axis="d4" prod="ttH" decay="ZZ">1.0</eff>
+
+  <bestfit>
+    <d1>1.11</d1>
+    <d2>4.</d2>
+    <d3>0.</d3>
+    <d4>0.</d4>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.21</uncertainty>
+    <uncertainty axis="d1" side="right">+0.23</uncertainty>
+    <uncertainty axis="d2" side="left">-1.5</uncertainty>
+    <uncertainty axis="d2" side="right">+1.8</uncertainty>
+    <uncertainty axis="d3" side="left">-1e-5</uncertainty>
+    <uncertainty axis="d3" side="right">+1.89</uncertainty>
+    <uncertainty axis="d4" side="left">-1e-5</uncertainty>
+    <uncertainty axis="d4" side="right">+3.83</uncertainty>
+    
+  <correlation entry="d1d2">-0.41</correlation>
+    <correlation entry="d1d3">0</correlation>
+    <correlation entry="d1d4">0</correlation>
+    
+  <correlation entry="d2d3">0</correlation>
+    <correlation entry="d2d4">0</correlation>
+    
+    <correlation entry="d3d4">0</correlation>
+  </param>
+</expmu>
