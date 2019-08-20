@@ -7,6 +7,9 @@ ATLAS-CMS_combination/Run1/ATLAS-CMS_ggH-VVH_ZZ_n68.xml
 ATLAS-CMS_combination/Run1/ATLAS-CMS_ggH-VVH_WW_n68.xml
 ATLAS-CMS_combination/Run1/ATLAS-CMS_ggH-VVH_bb_n68.xml
 ATLAS-CMS_combination/Run1/ATLAS-CMS_ggH-VVH_tautau_n68.xml
+ATLAS/Run1/HIGG-2013-03_ZH_invisible_s.xml
+ATLAS/Run1/CONF-2015-004_VBF_invisible_s.xml
+CMS/Run1/HIG-13-030_ZHVBF_invisible_f.xml
 
 #---------------------------
 #--- ATLAS Run2, 36 fb-1 ---

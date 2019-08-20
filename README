@@ -5,8 +5,8 @@ by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung and Le Duc Ninh
 Webpage: http://lpsc.in2p3.fr/projects-th/lilith/
 Contact: sabine.kraml[at]lpsc.in2p3.fr
 
-Original version: Lilith 1.x 
-(C) 2015 Jeremy Bernon and Beranger Dumont
+Original version: Lilith 1.1 
+(c) 2015 Jeremy Bernon and Beranger Dumont
 
     Lilith is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ the example codes doing a likelihood profile analysis require iminuit.
 Tested with Python 2.7.x (x>4), SciPy 0.13.0b1, NumPy 1.8.0rc1, iminuit 1.2. 
 
 For information how to run Lilith, see https://arxiv.org/abs/1502.04138 
+For the update to version 2, see https://arxiv.org/abs/1908.03952
 For usage in micrOMEGAs, see https://arxiv.org/abs/1606.03834
 
-
+** Please cite the relevant papers when you use Lilith for your work **
