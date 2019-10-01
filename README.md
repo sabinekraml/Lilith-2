@@ -9,7 +9,7 @@ The generalized Poisson likelihood can be used for experimental results in 1 or 
 
 - Use of __N-dim correlation matrices__ for ordinary and variable Gaussian likelihoods.
 
-- Database 19.06 contains the __complete ATLAS and CMS Run 2 results for 36 fb-1__.
+- Database 19.09 contains the __published ATLAS and CMS Run 2 results for 36 fb-1__ as of Sep 2019.
 
 Prerequisites: Python 2.7 (not yet 3.X!), SciPy and NumPy; 
 the example codes doing a likelihood profile analysis require iminuit.
