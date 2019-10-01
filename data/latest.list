@@ -25,9 +25,11 @@ ATLAS/Run2/36fb-1/HIGG-2016-22_ttH_ZZ_s.xml
 
 ## H -> WW
 ATLAS/Run2/36fb-1/HIGG-2016-07_ggH-VBF_WW_vn68.xml
+ATLAS/Run2/36fb-1/HIGG-2017-14_ZH-WH_WW_vn68.xml
 
-## H -> tautau
+## H -> tautau, mumu
 ATLAS/Run2/36fb-1/HIGG-2017-07_ggH-VBF_tautau_vn68.xml
+ATLAS/Run2/36fb-1/HIGG-2016-10_mumu_s.xml
 
 ## H -> bb
 ATLAS/Run2/36fb-1/HIGG-2016-29_WH_bb_ps.xml
@@ -39,6 +41,7 @@ ATLAS/Run2/36fb-1/HIGG-2017-02_ttH_combined_vn_dim3.xml
 
 ## H -> invisible
 ATLAS/Run2/36fb-1/HIGG-2016-28_ZH_invisible_f.xml
+ATLAS/Run2/36fb-1/HIGG-2018-54_VBF_invisible_f.xml
 
 
 #---------------------------
