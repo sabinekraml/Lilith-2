@@ -53,4 +53,6 @@ For the changelog of the Lilith library, see ../changelog
 ** June 2019: 19.06, full update with 36 fb-1 Run 2 results from ATLAS and CMS 	  
                      including N-dim correlations whereever available
 
+** Sep 30, 2019: 19.09, added 3 missing 36 fb-1 Run 2 results from ATLAS: 
+                        HIGG-2017-14, HIGG-2016-10 and HIGG-2018-54 	  
                              
