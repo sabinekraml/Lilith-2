@@ -1,0 +1,20 @@
+<!--
+ATLAS 139/fb result for mu(ttH, gamma gamma) at mH = 125.09 GeV from
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2019-004/
+NB: μ = 1.38+0.41−0.36 given on page 11 of the paper
+-->
+
+<expmu decay="tautau" dim="1" type="p">
+  <experiment>ATLAS</experiment>
+  <source type="preliminary">CONF-2019-004</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+
+  <eff prod="ttH">1.</eff>
+
+  <bestfit>1.38</bestfit>
+  <param>
+    <uncertainty side="right">0.41</uncertainty>
+    <uncertainty side="left">0.36</uncertainty>
+  </param> 
+</expmu>
