@@ -33,12 +33,17 @@ https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2019-028/
 
 http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HIG-19-001/index.html
 
-Fig 13a has 1D signal strengths for 4 production modes
-Fig 13b has 2D plot of 68% and 95% CL contours
+Fig 13a has 1D signal strengths for 4 production modes 
+Fig 13b has 2D plot of 68% and 95% CL contours  --> CMS provided likelihood grid !
 no correlation matrix (only for stage 1.1 STXS)
 
 
-*) ttH, H->inv (35 fbi)
+
+==============================================================
+===  New 35/fb results
+==============================================================
+
+*) CMS: ttH, H->inv (35 fbi)
 
 http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HIG-18-008/index.html
 
