@@ -24,7 +24,7 @@ Notes:
 
 - If you get an error `ImportError: No module named lilith`, your path to Lilith is probably not correct. (e.g, when this happens with the Python example codes, check where `lilith_dir` points to)
 
-Usage: see the original Lilith manual https://arxiv.org/abs/1502.04138 and the presentation of Lilith-2 in https://arxiv.org/abs/1908.03952
+Usage: see the original Lilith manual https://arxiv.org/abs/1502.04138 and the presentation of Lilith-2 in https://arxiv.org/abs/1908.03952 (published as https://scipost.org/SciPostPhys.7.4.052)
 
 For usage in micrOMEGAs, see https://arxiv.org/abs/1606.03834
 
