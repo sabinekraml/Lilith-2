@@ -9,11 +9,17 @@ Higgs 140/fb results
 Signal strength: https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2019-025/tab_09.png
 Correlations: https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2019-025/fig_12b.png
 
+Implemented: yes (SK)
+Validated: --
+
 *) ttH, H -> gamma gamma 
 
 σtt¯H×Bγγ=1.59+0.43−0.39 fb 
 signnal strength: μ = 1.38+0.41−0.36 on page 11 of the paper
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2019-004/
+
+Implemented: yes (SK)
+Validated: --
 
 *) H -> mu mu
 
@@ -23,6 +29,8 @@ ggH : ~90%
 rest: ~3%
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2019-028/
 
+Implemented: yes (SK)
+Validated: --
 
 
 ***********
@@ -37,6 +45,8 @@ Fig 13a has 1D signal strengths for 4 production modes
 Fig 13b has 2D plot of 68% and 95% CL contours  --> CMS provided likelihood grid !
 no correlation matrix (only for stage 1.1 STXS)
 
+Implemented: yes (SK)
+Validated: --
 
 
 ==============================================================
