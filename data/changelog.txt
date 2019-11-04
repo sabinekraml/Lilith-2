@@ -56,3 +56,14 @@ For the changelog of the Lilith library, see ../changelog
 ** Sep 30, 2019: 19.09, added 3 missing 36 fb-1 Run 2 results from ATLAS: 
                         HIGG-2017-14, HIGG-2016-10 and HIGG-2018-54 	  
                              
+-----------------------
+DB develop version:
+-----------------------
+
+** Oct 30, 2019: added 3 ATLAS CONF-Notes for 140/fb and ATLAS combination (16 channels) for 80/fb;
+             added CMS H->ZZ result for 140/fb (2D likelihood grid!)
+
+** Nov 4, 2019: put two last entries in HIGG-2018-54_VBF_invisible_f.xml back in order
+
+ 
+
