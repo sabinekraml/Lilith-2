@@ -1,2 +1,6 @@
 #can change the path to the experimental file
-/home/dao/nhung/Tools/Lilith/Lilith-2.0/Lilith-2/data/ATLAS/Run2/80fb-1/HIGG-2018-57_combined_vn_dim16.xml
+/home/ldninh/projects/lilith/git_clone/Lilith-2/data/ATLAS/Run2/80fb-1/HIGG-2018-57_combined_vn_dim4_gamgam.xml
+#/home/ldninh/projects/lilith/git_clone/Lilith-2/data/ATLAS/Run2/80fb-1/HIGG-2018-57_combined_vn_dim3_ZZ.xml
+#/home/ldninh/projects/lilith/git_clone/Lilith-2/data/ATLAS/Run2/80fb-1/HIGG-2018-57_combined_vn_dim3_tautau.xml
+#/home/ldninh/projects/lilith/git_clone/Lilith-2/data/ATLAS/Run2/80fb-1/HIGG-2018-57_combined_vn_dim3_bb.xml
+#/home/ldninh/projects/lilith/git_clone/Lilith-2/data/ATLAS/Run2/80fb-1/HIGG-2018-57_combined_vn_dim2_WW.xml

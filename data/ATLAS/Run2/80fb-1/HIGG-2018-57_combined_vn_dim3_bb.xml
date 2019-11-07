@@ -1,0 +1,43 @@
+<!--
+ATLAS combination of the H -> gammagamma, ZZ, WW, tautau, bb and mumu decay modes for 80/fb. 
+Best-fit values and uncertainties taken from Fig. 5, correlations from Fig. 6 at 
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-57/
+
+ttH+tH: "H->VV refers to the combination of H->WW and H->ZZ, with a relative weight 
+fixed by their respective SM branching fractions."
+BR(H->WW) = 2.152E-01, BR(H->ZZ) = 2.641E-02 i.e WW is 89%  
+-->
+
+<expmu dim="3" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="published">HIGG-2018-57</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="VBF" decay="bb">1.0</eff>  
+  <eff axis="d2" prod="VH" decay="bb">1.0</eff>
+  <eff axis="d3" prod="top" decay="bb">1.0</eff>
+
+  <bestfit>
+	<d1>3.01</d1>
+	<d2>1.19</d2>
+	<d3>0.79</d3>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="right">+1.67</uncertainty>
+    <uncertainty axis="d1" side="left">-1.61</uncertainty>
+	
+    <uncertainty axis="d2" side="right">+0.27</uncertainty>
+    <uncertainty axis="d2" side="left">-0.25</uncertainty>
+
+    <uncertainty axis="d3" side="right">+0.60</uncertainty>
+    <uncertainty axis="d3" side="left">-0.59</uncertainty>
+  
+    <correlation entry="d1d2">0</correlation>
+    <correlation entry="d1d3">-0.01</correlation>
+
+    <correlation entry="d2d3">0</correlation>
+  </param>
+</expmu>

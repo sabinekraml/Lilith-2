@@ -43,12 +43,12 @@ grid_subdivisions = 50
 # Output file
 output = "output/CVCF_"+publication+".out"
 # Output plot
-outputplot = "plots/CVCF_"+publication+".pdf"
+outputplot = "plots/CVCF_"+publication+"_gamgam.pdf"
 # Range of the scan
-CF_min = 0.7
-CF_max = 1.4
-CV_min = 0.9
-CV_max = 1.2
+CF_min = 0.4
+CF_max = 2.1
+CV_min = 0.4
+CV_max = 2.1
 
 verbose = False
 timer = False
@@ -118,7 +118,8 @@ if not os.path.exists("output"):
 	os.makedirs("output")
 
 if os.path.isfile(output):
-	iscan='no'
+#	iscan='no'
+	iscan='yes'
 else:
 	iscan='yes'
 
@@ -212,8 +213,8 @@ plt.plot([1],[1], '+', c='k', ms=10)
 
 #  official ATLAS result
 dt = np.dtype([('cx', float), ('cy', float)])
-expCont = np.genfromtxt('data/auxfig17_kv_kf_68-95.csv', dtype=dt)
-plt.plot(expCont['cx'],expCont['cy'], '.', c='b', label='ATLAS official')
+expCont = np.genfromtxt('data/fig12_CVCF_gammagamma.csv', dtype=dt)
+plt.plot(expCont['cx'],expCont['cy'], '.', c='b', label='ATLAS Fig 12')
 plt.legend(loc='lower right', ncol=1,frameon=False, prop={'size': 15},labelspacing=2.,handletextpad=0.5,fontsize=25)
 
 # Title, labels, color bar...
