@@ -48,6 +48,14 @@ no correlation matrix (only for stage 1.1 STXS)
 Implemented: yes (SK)
 Validated: --
 
+*) 36-137 /fb combination
+
+http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HIG-19-005/index.html
+
+Signal strengths best fits and uncertainties: Table 4
+Correlations: Additional Figure 6 
+Validation material: 8-parameters fit in Table 5. 
+
 
 ==============================================================
 ===  New 35/fb results
