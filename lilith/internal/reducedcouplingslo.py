@@ -31,7 +31,7 @@ from cmath import sqrt as csqrt
 from cmath import asin as casin
 from cmath import log as clog
 from scipy.interpolate import UnivariateSpline
-from param import *
+from .param import *
 
 wdir = '/'.join(os.path.realpath(__file__).split("/")[:-1])+'/Grids/'
 

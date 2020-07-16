@@ -243,7 +243,7 @@ def results_xml(results, l, lilithversion, dbversion, filepath):
                     f.write("""    <expmu dim="{}" type="{}">
 """.format(result["dim"], result["type"]))
                     for i in range(result["dim"]):
-                        for key, val in dd[i].items():
+                        for key, val in list(dd[i].items()):
                             f.write("""      <eff axis={} prod="{}" decay="{}">{}</eff>
 """.format("d" + str(i+1), key[0], key[1], val))
                     f.write("""    </expmu>
@@ -253,10 +253,10 @@ def results_xml(results, l, lilithversion, dbversion, filepath):
                 if result["dim"] == 2:
                     f.write("""    <expmu dim="{}" type="{}">
 """.format(result["dim"], result["type"]))
-                    for key, val in x.items():
+                    for key, val in list(x.items()):
                         f.write("""      <eff axis="x" prod="{}" decay="{}">{}</eff>
 """.format(key[0], key[1], val))
-                    for key, val in y.items():
+                    for key, val in list(y.items()):
                         f.write("""      <eff axis="y" prod="{}" decay="{}">{}</eff>
 """.format(key[0], key[1], val))
                     f.write("""    </expmu>
@@ -264,7 +264,7 @@ def results_xml(results, l, lilithversion, dbversion, filepath):
                 if result["dim"] == 1:
                     f.write("""    <expmu dim="{}" type="{}">
 """.format(result["dim"], result["type"]))
-                    for key, val in x.items():
+                    for key, val in list(x.items()):
                         f.write("""      <eff prod="{}" decay="{}">{}</eff>
 """.format(key[0], key[1], val))
                     f.write("""    </expmu>

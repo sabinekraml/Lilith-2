@@ -30,16 +30,16 @@
 import os.path, time, sys
 from warnings import warn
 # Lilith library
-from errors import ExpNdfComputationError, UserMuTotComputationError, \
+from .errors import ExpNdfComputationError, UserMuTotComputationError, \
                    UserInputIOError
-from internal.readexpinput import ReadExpInput
-from internal.readuserinput import ReadUserInput
-from internal.computereducedcouplings import ComputeReducedCouplings
-from internal.computemufromreducedcouplings import \
+from .internal.readexpinput import ReadExpInput
+from .internal.readuserinput import ReadUserInput
+from .internal.computereducedcouplings import ComputeReducedCouplings
+from .internal.computemufromreducedcouplings import \
     ComputeMuFromReducedCouplings
-from internal.computelikelihood import compute_likelihood
-import internal.writeoutput as writeoutput
-import version
+from .internal.computelikelihood import compute_likelihood
+from .internal.writeoutput import *
+
 
 class Lilith:
     """Main class. Reads the experimental and user input and computes the
@@ -87,13 +87,13 @@ class Lilith:
         """Print information only is verbose is True"""
         
         if self.verbose:
-            print message
+            print(message)
 
     def tinfo(self, action, dt):
         """Print time taken for a given action"""
 
         if self.timer:
-            print "- " + action + ": " + str(dt) + "s"
+            print("- " + action + ": " + str(dt) + "s")
 
     def readuserinput(self, userinput):
         """Read the XML input given by the user."""
@@ -157,7 +157,7 @@ class Lilith:
                     info_str += " (" + redCp["extra"]["name"] + ")"
                 info_str += ":"
                 self.info(info_str)
-                for cname,cvalue in new_redC.items():
+                for cname,cvalue in list(new_redC.items()):
                     self.info(". " + cname + " = " + str(cvalue))
                 redCp.update(new_redC)
         self.tinfo("computing missing reduced couplings", time.clock() - t0)
@@ -272,13 +272,13 @@ class Lilith:
 
 
     def writecouplings(self, filepath):
-        writeoutput.couplings(self.couplings, filepath)
+        couplings(self.couplings, filepath)
 
     def writesignalstrengths(self, filepath, tot=False):
         if tot:
-            writeoutput.signalstrengths(self.user_mu_tot, filepath)
+            signalstrengths(self.user_mu_tot, filepath)
         else:
-            writeoutput.signalstrengths(self.user_mu, filepath)
+            signalstrengths(self.user_mu, filepath)
 
     def writeresults(self, filepath, slha=False):
         if slha:
@@ -289,15 +289,15 @@ class Lilith:
                     l_ref = self.l_SM
                 if l_ref == 0:
                     ndf = self.exp_ndf - ndf
-                writeoutput.results_slha_pvalue(self.results, self.l, l_ref, ndf, filepath, self.dbversion)
+                results_slha_pvalue(self.results, self.l, l_ref, ndf, filepath, self.dbversion)
 # added by Ninh for v2.0
             except AttributeError:
-                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
+                results_slha(self.results, self.l, self.l_SM, filepath)
             except IndexError:
-                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
+                results_slha(self.results, self.l, self.l_SM, filepath)
 # end of addition
             except ValueError:
-                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
+                results_slha(self.results, self.l, self.l_SM, filepath)
         else:
-            writeoutput.results_xml(self.results, self.l, version.__version__, self.dbversion,
+            results_xml(self.results, self.l, version.__version__, self.dbversion,
                                     filepath)

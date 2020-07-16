@@ -50,8 +50,8 @@ myhmass = 125.09
 verbose=False
 timer=False
 
-print "\nTask: profile-likelihood analysis in (CF,CV) model"
-print "Experimental input:", myexpinput
+print("\nTask: profile-likelihood analysis in (CF,CV) model")
+print("Experimental input:", myexpinput)
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -109,7 +109,7 @@ lilithcalc = lilith.Lilith(verbose, timer)
 # Read experimental data
 lilithcalc.readexpinput(myexpinput)
 
-print "\n***** performing model fit: migrad, hesse, minos *****"
+print("\n***** performing model fit: migrad, hesse, minos *****")
 
 # Initialize the fit; parameter starting values and limits
 m = Minuit(getL, CV=1, limit_CV=(0,3), CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=0.2, error_CF=0.2)
@@ -120,14 +120,14 @@ m.hesse()   # run covariance estimator
 m.minos()
 
 
-print "\nbest-fit point:", m.values 
-print "\nHesse errors:", m.errors
-print "\nMinos errors:"
-for key, value in m.merrors.items():
-    print key, value
+print("\nbest-fit point:", m.values) 
+print("\nHesse errors:", m.errors)
+print("\nMinos errors:")
+for key, value in list(m.merrors.items()):
+    print(key, value)
 
-print "\nCorrelation matrix:\n", m.matrix(correlation=True)
-print "\nCovariance matrix:\n", m.matrix()
+print("\nCorrelation matrix:\n", m.matrix(correlation=True))
+print("\nCovariance matrix:\n", m.matrix())
 
 
 # Display parameter values at the best-fit point
@@ -135,11 +135,11 @@ print "\nCovariance matrix:\n", m.matrix()
 #print "CV =", m.values["CV"], "\nCF =", m.values["CF"], "\n-2LogL =", m.fval
 
 
-print "\n***** getting the 1-dimensional likelihood profile of CV *****"
+print("\n***** getting the 1-dimensional likelihood profile of CV *****")
 # Profiling over CF
 xV,yV,rV = m.mnprofile('CV', bins=300, bound=(0., 3), subtract_min=True)
 
-print "***** getting the 1-dimensional likelihood profile of CF *****"
+print("***** getting the 1-dimensional likelihood profile of CF *****")
 # Profiling over CV
 xF,yF,rF = m.mnprofile('CF', bins=300, bound=(0., 3), subtract_min=True)
 
@@ -148,7 +148,7 @@ xF,yF,rF = m.mnprofile('CF', bins=300, bound=(0., 3), subtract_min=True)
 # Plot
 ######################################################################
 
-print "***** plotting *****"
+print("***** plotting *****")
 
 matplotlib.rcParams['xtick.major.pad'] = 18
 matplotlib.rcParams['ytick.major.pad'] = 18
@@ -193,8 +193,8 @@ plt.title("Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), f
 # Saving figure (.pdf)
 fig.savefig(outputplot, bbox_inches='tight')
 
-print  "result see " + lilith_dir + "/" + outputplot
-print "***** done *****\n"
+print("result see " + lilith_dir + "/" + outputplot)
+print("***** done *****\n")
 
 
 

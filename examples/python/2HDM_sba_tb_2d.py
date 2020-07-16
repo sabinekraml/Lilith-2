@@ -24,7 +24,7 @@
 ##################################################################
 
 import sys, os
-from matplotlib.mlab import griddata
+from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -39,7 +39,7 @@ import lilith
 # Parameters
 ######################################################################
 
-print "***** reading parameters *****"
+print("***** reading parameters *****")
 
 # Experimental results
 exp_input = "data/latestRun2.list"
@@ -103,7 +103,7 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
       CD = sba - cba*tb
 
     else:
-      print "Error: 2HDM type parameter should be 1 or 2"
+      print("Error: 2HDM type parameter should be 1 or 2")
       sys.exit()
 
     myInputTemplate = """<?xml version="1.0"?>
@@ -136,7 +136,7 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
 # Scan initialization
 ######################################################################
 
-print "***** 2HDM scan initialization *****"
+print("***** 2HDM scan initialization *****")
 
 ## Prepare output
 fresults = open(output, 'w')
@@ -154,7 +154,7 @@ lilithcalc.readexpinput(exp_input)
 m2logLmin=10000
 max=-1
 
-print "***** running 2HDM scan *****"
+print("***** running 2HDM scan *****")
 
 for cba in np.linspace(cba_min, cba_max, grid_subdivisions):
     fresults.write('\n')
@@ -169,14 +169,14 @@ for cba in np.linspace(cba_min, cba_max, grid_subdivisions):
         fresults.write('%.5f    '%cba +'%.5f    '%tb + '%.5f     '%m2logL + '\n')
 fresults.close()
 
-print "***** scan finalized *****"
+print("***** scan finalized *****")
 
 ######################################################################
 # Plot routine
 ######################################################################
 
 
-print "***** plotting *****"
+print("***** plotting *****")
 
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 15
@@ -207,10 +207,11 @@ X, Y = np.meshgrid(xi, yi)
 
 try:
 # griddata using Natural Neighbor (nn) interpolation
-    Z = griddata(x, y, z2, xi, yi, interp='nn')
+    Z = griddata((x, y), z2, (X, Y), method="nearest")
+
 except:
 # If you don't have natgrid installed, use instead linear interpolation
-    Z = griddata(x, y, z2, xi, yi, interp="linear")
+    Z = griddata((x, y), z2, (X, Y), method="linear")
 
 levels = np.arange(-2.0, 1.601, 0.4)
 cmap = matplotlib.cm.YlOrRd
@@ -242,7 +243,7 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print "results are stored in", lilith_dir + "/results"
-print "***** done *****"
+print("results are stored in", lilith_dir + "/results")
+print("***** done *****")
 
 

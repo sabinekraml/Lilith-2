@@ -34,8 +34,8 @@ wdir = '/'.join(os.path.realpath(__file__).split("/")[:-1])+'/Grids/'
 def getBRfunctions(spline_deg=3):
     #### SM BR(h --> ff) ####
     BR_ferm_file = open(wdir+'BR_fermions.dat')
-    BR_ferm_file.next()
-    BR_ferm_file.next()
+    next(BR_ferm_file)
+    next(BR_ferm_file)
     ferm_grid = {"bb": [], "tautau": [], "cc": [], "mumu": [], "ss": []}
     hmass = []
     for line in BR_ferm_file:
@@ -57,8 +57,8 @@ def getBRfunctions(spline_deg=3):
 
     #### SM BR(h --> VV) ####
     BR_gauge_file = open(wdir+'BR_gauge.dat')
-    BR_gauge_file.next()
-    BR_gauge_file.next()
+    next(BR_gauge_file)
+    next(BR_gauge_file)
     gauge_grid = {"gg": [], "gammagamma": [], "Zgamma": [], "WW": [], "ZZ": []}
     hmass = []
     for line in BR_gauge_file:

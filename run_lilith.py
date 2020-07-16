@@ -36,21 +36,21 @@ options_long = ["help", "verbose", "timer", "silent", "mu=", "couplings=",
                 "results="]
 
 def print_usage():
-    print "\nUsage of Lilith:"
-    print "----------------"
-    print "./run_lilith model_input_xml [experimental_input_list]"
-    print "Example: ./run_lilith userinput/example_mu.xml [data/latest.list]\n"
+    print("\nUsage of Lilith:")
+    print("----------------")
+    print("./run_lilith model_input_xml [experimental_input_list]")
+    print("Example: ./run_lilith userinput/example_mu.xml [data/latest.list]\n")
 
 def print_options():
-    print "[options]"
-    print " -h or --help : dump this help"
-    print " -v or --verbose : print useful information on the screen"
-    print " -t or --timer : print execution time of various tasks"
-    print " -s or --silent : nothing is printed on the screen"
-    print " -m or --mu= : output signal strengths in XML format"
-    print (" -c or --couplings= : return missing couplings instead of the " +
-           "likelihood")
-    print " -r file or --results=file : prints the output in a file\n"
+    print("[options]")
+    print(" -h or --help : dump this help")
+    print(" -v or --verbose : print useful information on the screen")
+    print(" -t or --timer : print execution time of various tasks")
+    print(" -s or --silent : nothing is printed on the screen")
+    print(" -m or --mu= : output signal strengths in XML format")
+    print((" -c or --couplings= : return missing couplings instead of the " +
+           "likelihood"))
+    print(" -r file or --results=file : prints the output in a file\n")
 
 def warning(message):
     warn(message, Warning, stacklevel=3)
@@ -94,7 +94,7 @@ if len(sys.argv) >= 3:
         opts, args = getopt.getopt(sys.argv[n:], options_short,
                                    options_long)
     except getopt.GetoptError as err:
-        print err
+        print(err)
         print_usage()
         print_options()
         sys.exit()
@@ -104,17 +104,17 @@ if len(sys.argv) >= 3:
         if o in ("-v", "--verbose"):
             verbose = True
             if silent:
-                print o, "is incompatible with silent mode."
+                print(o, "is incompatible with silent mode.")
                 sys.exit()
         elif o in ("-t", "--timer"):
             timer = True
             if silent:
-                print o, "is incompatible with silent mode."
+                print(o, "is incompatible with silent mode.")
                 sys.exit()
         elif o in ("-s", "--silent"):
             silent = True
             if verbose or timer:
-                print o, "is incompatible with verbose mode."
+                print(o, "is incompatible with verbose mode.")
                 sys.exit()
         elif o in ("-h", "--help"):
             print_usage()
@@ -130,7 +130,7 @@ if len(sys.argv) >= 3:
             resultsmode = True
             resultsfilepath = a
         else:
-            print "unhandled option"
+            print("unhandled option")
             sys.exit()
 
 
@@ -164,34 +164,34 @@ if not silent:
     if lv2 > 0 and lv2 < 11:
         n_lspace2 = int(floor(0.5*(11-lv2)))
 
-    print ("\n" +
+    print(("\n" +
            "                           " +
-           "<><><><><><><><><><><><><>")
-    print ("                           " +
+           "<><><><><><><><><><><><><>"))
+    print(("                           " +
            " "*n_lspace + "Lilith version " + lilith.__version__+
            "\n                          "+" "*n_lspace2 +
-           "database version " + Lilithcalc.dbversion)
-    print ("                           " +
-           "<><><><><><><><><><><><><>\n")
+           "database version " + Lilithcalc.dbversion))
+    print(("                           " +
+           "<><><><><><><><><><><><><>\n"))
 
-    print ". User input: " + user_input_filepath + "\n"
+    print(". User input: " + user_input_filepath + "\n")
 
     if optionwarning:
         warning(optionwarning)
 
     if not couplingsmode:
         if not exp_input_filepath:
-            print (". Experimental input: latest LHC results " +
-                   "[data/latest.list]")
+            print((". Experimental input: latest LHC results " +
+                   "[data/latest.list]"))
         else:
-            print ". Experimental input: " + exp_input_filepath
-        print ("                      (" + str(len(Lilithcalc.exp_mu)) +
-               " files, Ndof = " + str(Lilithcalc.exp_ndf) + ")")
-        print "-2log(likelihood) = " + str(round(Lilithcalc.l,6))
+            print(". Experimental input: " + exp_input_filepath)
+        print(("                      (" + str(len(Lilithcalc.exp_mu)) +
+               " files, Ndof = " + str(Lilithcalc.exp_ndf) + ")"))
+        print("-2log(likelihood) = " + str(round(Lilithcalc.l,6)))
     else:
         if optionwarning=="":
             pp = pprint.PrettyPrinter()
-            print "Reduced couplings are:"
+            print("Reduced couplings are:")
             if len(Lilithcalc.couplings) == 1:
                 pp.pprint(Lilithcalc.couplings[0])
             else:
@@ -217,9 +217,9 @@ if resultsmode and resultsfilepath !="":
 
 
 if writtenmu and not silent:
-        print ". Signal strengths have been written in "+mufilepath
+        print(". Signal strengths have been written in "+mufilepath)
 if writtencouplings and not silent:
-        print ". Couplings have been written in "+couplingsfilepath
+        print(". Couplings have been written in "+couplingsfilepath)
 if writtenresults and not silent:
-        print ". Results have been written in "+resultsfilepath
+        print(". Results have been written in "+resultsfilepath)
 
