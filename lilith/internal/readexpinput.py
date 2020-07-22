@@ -867,9 +867,9 @@ class ReadExpInput:
                     i = x.index(cur_x)
 
             #Sort x and L for making interpolate.UnivariateSpline work
-            x_and_L=assemble(x,L)
-            x_and_L.sort(key = sortFirst)
-            x,L=separate(x_and_L)
+            #x_and_L=assemble(x,L)
+            #x_and_L.sort(key = sortFirst)
+            #x,L=separate(x_and_L)
 
             grid["x"] = x
             grid["L"] = L
