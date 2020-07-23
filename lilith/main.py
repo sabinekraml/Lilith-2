@@ -28,6 +28,7 @@
 
 # standard modules
 import os.path, time, sys
+import importlib
 from warnings import warn
 # Lilith library
 from .errors import ExpNdfComputationError, UserMuTotComputationError, \
@@ -38,8 +39,8 @@ from .internal.computereducedcouplings import ComputeReducedCouplings
 from .internal.computemufromreducedcouplings import \
     ComputeMuFromReducedCouplings
 from .internal.computelikelihood import compute_likelihood
-from .internal.writeoutput import *
-
+import lilith.internal.writeoutput as writeoutput
+import lilith.version as version
 
 class Lilith:
     """Main class. Reads the experimental and user input and computes the
@@ -272,13 +273,13 @@ class Lilith:
 
 
     def writecouplings(self, filepath):
-        couplings(self.couplings, filepath)
+        writeoutput.couplings(self.couplings, filepath)
 
     def writesignalstrengths(self, filepath, tot=False):
         if tot:
-            signalstrengths(self.user_mu_tot, filepath)
+            writeoutput.signalstrengths(self.user_mu_tot, filepath)
         else:
-            signalstrengths(self.user_mu, filepath)
+            writeoutput.signalstrengths(self.user_mu, filepath)
 
     def writeresults(self, filepath, slha=False):
         if slha:
@@ -289,15 +290,15 @@ class Lilith:
                     l_ref = self.l_SM
                 if l_ref == 0:
                     ndf = self.exp_ndf - ndf
-                results_slha_pvalue(self.results, self.l, l_ref, ndf, filepath, self.dbversion)
+                writeoutput.results_slha_pvalue(self.results, self.l, l_ref, ndf, filepath, self.dbversion)
 # added by Ninh for v2.0
             except AttributeError:
-                results_slha(self.results, self.l, self.l_SM, filepath)
+                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
             except IndexError:
-                results_slha(self.results, self.l, self.l_SM, filepath)
+                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
 # end of addition
             except ValueError:
-                results_slha(self.results, self.l, self.l_SM, filepath)
+                writeoutput.results_slha(self.results, self.l, self.l_SM, filepath)
         else:
-            results_xml(self.results, self.l, version.__version__, self.dbversion,
+            writeoutput.results_xml(self.results, self.l, version.__version__, self.dbversion,
                                     filepath)

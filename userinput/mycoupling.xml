@@ -59,7 +59,7 @@
     only types allowed: "invisible" and "undetected"
     -->
     <extraBR>
-      <BR to="invisible">0.9</BR>
+      <BR to="invisible">0.0</BR>
       <BR to="undetected">0.0</BR>
     </extraBR>
   </reducedcouplings>

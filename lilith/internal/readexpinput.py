@@ -875,7 +875,7 @@ class ReadExpInput:
             grid["L"] = L
             LChi2min = min(grid["L"])
 
-            Lxy = interpolate.UnivariateSpline(grid["x"], grid["L"], k=3, s=0)
+            Lxy = interpolate.UnivariateSpline(grid["x"], grid["L"], k=3, s=1)
 
         elif type == "f" and dim == 2:
             x = []
