@@ -865,17 +865,12 @@ class ReadExpInput:
                     i += 1
                 else:
                     i = x.index(cur_x)
-
-            #Sort x and L for making interpolate.UnivariateSpline work
-            #x_and_L=assemble(x,L)
-            #x_and_L.sort(key = sortFirst)
-            #x,L=separate(x_and_L)
-
+            
             grid["x"] = x
             grid["L"] = L
             LChi2min = min(grid["L"])
 
-            Lxy = interpolate.UnivariateSpline(grid["x"], grid["L"], k=3, s=1)
+            Lxy = interpolate.UnivariateSpline(grid["x"], grid["L"], k=3, s=0)
 
         elif type == "f" and dim == 2:
             x = []
@@ -969,20 +964,3 @@ def f_Poisson_corr(y, *params):
     f = z1*z2*y - corr*np.sqrt(z1*z2*(1+z2*(np.exp(z1*y**2) - 1)))
     return f
 
-#-- update for python3 : the grid["x"] list has to be sorted --
-
-def assemble(list1,list2):
-    list3=[]
-    for k in range(len(list1)):
-        list3+=[(list1[k],list2[k])]
-    return list3
-
-def separate(list3):
-    list1,list2=[],[]
-    for val in list3:
-        list1+=[val[0]]
-        list2+=[val[1]]
-    return list1,list2
-    
-def sortFirst(val): 
-    return val[0]
