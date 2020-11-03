@@ -1,0 +1,21 @@
+<!--
+ATLAS result for mu(ttH, gammagamma) at mH = 125.09 with 
+best-fit values and uncertainties taken from Section 9 at 
+http://cdsweb.cern.ch/record/2668103/files/ATLAS-CONF-2019-004
+-->
+
+<expmu decay="gammagamma" dim="1" type="p">
+  <experiment>ATLAS</experiment>
+  <source type="preliminary">CONF-2019-004</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  
+  <eff prod="top">1.</eff>
+
+  <bestfit>1.38</bestfit>
+ 
+  <param>
+    <uncertainty side="left">-0.36</uncertainty>
+    <uncertainty side="right">0.41</uncertainty>
+  </param>
+</expmu>

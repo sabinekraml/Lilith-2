@@ -1,0 +1,20 @@
+<!--
+ATLAS result for mu(H ->Zgamma) at mH = 125 GeV.
+Best-fit values and uncertainties taken from Table 4 at 
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-42/
+-->
+
+<expmu decay="Zgamma" dim="1" type="p">
+  <experiment>ATLAS</experiment>
+  <source type="published">HIGG-2018-42</source>
+  <sqrts>13</sqrts>
+  <mass>125</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <bestfit>2.0</bestfit>
+ 
+  <param>
+    <uncertainty side="left">-0.9</uncertainty>
+    <uncertainty side="right">1.0</uncertainty>
+  </param>
+</expmu>

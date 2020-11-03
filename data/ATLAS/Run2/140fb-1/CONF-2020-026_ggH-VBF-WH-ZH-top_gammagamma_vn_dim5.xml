@@ -1,0 +1,54 @@
+<!--
+ATLAS result for mu(H->gammagamma) at mH = 125.09 GeV for 5 prod. modes,
+with best fit-values and uncertainties fitted from Fig. 10, correlations taken from Fig. 11, at
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2020-026/
+-->
+
+<expmu dim="5" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="preliminary">CONF-2020-026</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="ggH" decay="gammagamma">1.0</eff>
+  <eff axis="d2" prod="VBF" decay="gammagamma">1.0</eff>
+  <eff axis="d3" prod="WH" decay="gammagamma">1.0</eff>
+  <eff axis="d4" prod="ZH" decay="gammagamma">1.0</eff>
+  <eff axis="d5" prod="top" decay="gammagamma">1.0</eff>
+
+  <bestfit>
+    <d1>1.02</d1>
+    <d2>1.34</d2>
+    <d3>2.33</d3>
+    <d4>-0.64</d4>
+    <d5>0.92</d5>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.11</uncertainty>
+    <uncertainty axis="d1" side="right">+0.11</uncertainty>
+    <uncertainty axis="d2" side="left">-0.24</uncertainty>
+    <uncertainty axis="d2" side="right">+0.26</uncertainty>
+    <uncertainty axis="d3" side="left">-0.50</uncertainty>
+    <uncertainty axis="d3" side="right">+0.55</uncertainty>
+    <uncertainty axis="d4" side="left">-0.57</uncertainty>
+    <uncertainty axis="d4" side="right">+0.61</uncertainty>
+    <uncertainty axis="d5" side="left">-0.24</uncertainty>
+    <uncertainty axis="d5" side="right">+0.27</uncertainty>
+     
+    <correlation entry="d1d2">-0.14</correlation>
+    <correlation entry="d1d3">-0.02</correlation>
+    <correlation entry="d1d4">-0.07</correlation>
+    <correlation entry="d1d5">0.07</correlation>
+    
+    <correlation entry="d2d3">0.03</correlation>
+    <correlation entry="d2d4">-0.02</correlation>
+    <correlation entry="d2d5">0.06</correlation>
+    
+    <correlation entry="d3d4">-0.42</correlation>
+    <correlation entry="d3d5">-0.01</correlation>
+    
+    <correlation entry="d4d5">-0.03</correlation>
+  </param>
+</expmu>

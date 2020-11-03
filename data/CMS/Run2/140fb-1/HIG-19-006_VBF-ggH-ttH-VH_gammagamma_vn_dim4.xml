@@ -1,0 +1,45 @@
+<!--
+CMS result for H -> gammagamma decay mode at mH = 125.38 GeV,
+with best-fit values and uncertainties taken from Fig. 11-a (correlations missing) at 
+http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-006/
+-->
+
+<expmu dim="4" type="vn">
+  <experiment>CMS</experiment>
+  <source type="published">HIG-19-006</source>
+  <sqrts>13</sqrts>
+  <mass>125.38</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="VBF" decay="gamma">1.0</eff>
+  <eff axis="d2" prod="ggH" decay="gamma">1.0</eff>
+  <eff axis="d3" prod="ttH" decay="gamma">1.0</eff>
+  <eff axis="d4" prod="VH" decay="gamma">1.0</eff>
+
+  <bestfit>
+  	<d1>1.36</d1>
+	<d2>0.63</d2>
+	<d3>2.32</d3>
+	<d4>5.48</d4>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.61</uncertainty>
+    <uncertainty axis="d1" side="right">+0.69</uncertainty>
+    <uncertainty axis="d2" side="left">-0.64</uncertainty>
+    <uncertainty axis="d2" side="right">+0.65</uncertainty>
+    <uncertainty axis="d3" side="left">-1.95</uncertainty>
+    <uncertainty axis="d3" side="right">+2.27</uncertainty>
+    <uncertainty axis="d4" side="left">-2.83</uncertainty>
+    <uncertainty axis="d4" side="right">+3.10</uncertainty>
+    
+    <correlation entry="d1d2">0</correlation>
+    <correlation entry="d1d3">0</correlation>
+    <correlation entry="d1d4">0</correlation>
+    
+    <correlation entry="d2d3">0</correlation>
+    <correlation entry="d2d4">0</correlation>
+    
+    <correlation entry="d3d4">0</correlation>
+  </param>
+</expmu>

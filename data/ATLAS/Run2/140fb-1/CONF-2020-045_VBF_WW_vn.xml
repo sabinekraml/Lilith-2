@@ -1,0 +1,21 @@
+<!--
+ATLAS result for mu(VBF, WW) at mH = 125 GeV with 
+best-fit values and uncertainties taken in Section 7 at 
+http://cdsweb.cern.ch/record/2728055/files/ATLAS-CONF-2020-045
+-->
+
+<expmu decay="WW" dim="1" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="preliminary">CONF-2020-045</source>
+  <sqrts>13</sqrts>
+  <mass>125</mass>
+
+  <eff prod="VBF">1.0</eff>
+
+  <bestfit>1.04</bestfit>
+ 
+  <param>
+    <uncertainty side="left">-0.20</uncertainty>
+    <uncertainty side="right">0.24</uncertainty>
+  </param>
+</expmu>
