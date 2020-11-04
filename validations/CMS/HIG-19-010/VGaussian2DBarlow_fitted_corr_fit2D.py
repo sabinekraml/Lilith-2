@@ -137,8 +137,8 @@ plt.tick_params(which='minor', length=7, width=1.2)
 
 # Plot
 plt.legend(loc='upper right', fontsize=12)
-plt.xlabel(r'$\mu_{tautau}^{VBF}$', fontsize=20)
-plt.ylabel(r'$\mu_{tautau}^{ggF}$', fontsize=20)
+plt.xlabel(r'$\mu_{\tau\tau}^{VBF}$', fontsize=20)
+plt.ylabel(r'$\mu_{\tau\tau}^{ggF}$', fontsize=20)
 # plt.title("$\mu$ from ATLAS-HIGG-2016-22 (VGaussian, 68% CL, fitted corr)")
 plt.title("$\mu$ from CMS-HIG-19-010 (VGaussian, 95% CL, fitted corr)")
 # plt.title("$\mu$ from ATLAS-HIGG-2016-22 (VGaussian using VGaussian data, corr = -0.27)")

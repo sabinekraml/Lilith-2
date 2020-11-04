@@ -179,7 +179,7 @@ plt.plot([CVmin], [CFmin], '*', c='w', ms=10)
 plt.plot([1], [1], '+', c='k', ms=10)
 
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('examples/python/Grids/ATLAS-HIGG-2018-28-fig_12.txt')
+expdata = np.genfromtxt('validations/ATLAS/HIGG-2018-28/HIGG-2018-28-CVCF-Grids.txt')
 xExp = expdata[:, 0]
 yExp = expdata[:, 1]
 plt.plot(xExp, yExp, '.', markersize=4, color='blue', label="ATLAS official")
