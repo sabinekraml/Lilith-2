@@ -30,8 +30,8 @@ https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-28/
     <uncertainty axis="d2" side="right">+0.46</uncertainty>
     <uncertainty axis="d3" side="left">-0.93</uncertainty>
     <uncertainty axis="d3" side="right">+1.17</uncertainty>
-    <uncertainty axis="d4" side="left">-1.23</uncertainty>
-    <uncertainty axis="d4" side="right">+1.72</uncertainty>
+    <uncertainty axis="d4" side="left">-1.2</uncertainty>
+    <uncertainty axis="d4" side="right">+1.7</uncertainty>
 
     <correlation entry="d1d2">-0.22</correlation>
     <correlation entry="d1d3">-0.27</correlation>
