@@ -6,7 +6,7 @@ http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HI
 
 <expmu dim="4" type="vn">
   <experiment>CMS</experiment>
-  <source type="published">HIG-19-015</source>
+  <source type="preliminary">HIG-19-015</source>
   <sqrts>13</sqrts>
   <mass>125.38</mass>
   <CL>68%</CL> <!-- optional -->

@@ -7,7 +7,7 @@ http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HI
 
 <expmu decay="tautau" dim="2" type="vn">
   <experiment>CMS</experiment>
-  <source type="published">HIG-19-010</source>
+  <source type="preliminary">HIG-19-010</source>
   <sqrts>13</sqrts>
   <mass>125.09</mass>
   <CL>68%</CL> <!-- optional -->
