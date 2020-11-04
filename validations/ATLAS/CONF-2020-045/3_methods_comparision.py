@@ -61,7 +61,7 @@ plt.plot(x2,y2,'-',markersize=2, color = 'y',label="Gaussian Appx.")
 
 plt.xlabel(r'$\mu_{ZZ}^{ggH}$', fontsize=20)
 plt.ylabel(r'-2 Loglikelihood', fontsize=20)
-plt.title("$\mu$ from ATLAS-CONF-2020-045 (Poisson)")
+plt.title("$\mu$ from ATLAS-CONF-2020-045")
 plt.legend(loc='upper right', fontsize=12)
 
 fig.set_tight_layout(True)
