@@ -28,7 +28,8 @@ L = 1/(2*(gam*sig1p - np.log(1 + gam*sig1p)))
 alpha = L*gam
 print(alpha,L)
 # Range of validation
-x2 = np.arange(0,2,0.005)
+n = 2.34
+x2 = np.arange(0.2585,n,0.005)
 # Log Likelihood
 y2 = -2*(-alpha*(x2 - cen1) + L*np.log(1 + alpha*(x2 - cen1)/L))
 # Plot
@@ -39,7 +40,7 @@ plt.plot(x2,y2,'-',markersize=2, color = 'g',label="Barlow's Poisson Appx.")
 sig1 = (2*sig1m*sig1p)/(sig1m+sig1p)
 sig2 = (sig1p-sig1m)/(sig1p+sig1m)
 # Range of validation
-x2 = np.arange(0,2,0.005)
+x2 = np.arange(0,n,0.005)
 # Log Likelihood
 y2 = (x2-cen1)**2/(sig1+sig2*(x2-cen1))**2
 # Plot
@@ -47,7 +48,7 @@ plt.plot(x2,y2,'-',markersize=2, color = 'r',label="Barlow's V. Gaussian Appx.")
 
 # Gaussian method
 # Range of validation
-x2 = np.arange(0,2,0.005)
+x2 = np.arange(0,n,0.005)
 # Log Likelihood
 # Left side
 x3 = np.arange(0,cen1,0.005)
