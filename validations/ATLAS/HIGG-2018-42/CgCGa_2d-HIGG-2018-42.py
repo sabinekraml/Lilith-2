@@ -43,9 +43,9 @@ outputplot = "validations/ATLAS/HIGG-2018-42/CgluCgam_2d.pdf"
 
 # Scan ranges 
 Cg_min = 0.8
-Cg_max = 1.16
+Cg_max = 2
 CGa_min = 0.9
-CGa_max = 1.35
+CGa_max = 2
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100

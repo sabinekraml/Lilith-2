@@ -42,10 +42,10 @@ output = "results/CVCF_2d.out"
 outputplot = "validations/ATLAS/HIGG-2019-14/CVCF_2d.pdf"
 
 # Scan ranges
-CV_min = 0.68
-CV_max = 1.3
-CF_min = 0.4
-CF_max = 2.4
+CV_min = -5
+CV_max = 10
+CF_min = -5
+CF_max = 10
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
