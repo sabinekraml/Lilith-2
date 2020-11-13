@@ -927,12 +927,27 @@ class ReadExpInput:
                         raise ExpInputError(self.filepath,
                                             '<eff> tags for "' + label + '" and "' +
                                             prod + '" cannot both be defined')
-                # also, only one multi-particle label can be used (VH or VVH),
+                # also, overlapping multi-particle labels cannot be both used (VH or VVH),
                 # not both
-                for label in multiprod:
-                    if label != prod and (label,decay) in eff_dict:
-                        raise ExpInputError(self.filepath,
-                                            '<eff> tags for "' + label + '" and "' +
+                if prod == "ZH" and ("VH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "ZH" and ("VVH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VVH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "VH" and ("VVH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VVH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "ZH" and ("VH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "tH" and ("top",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "top" + '" and "' +
                                              prod + '" cannot both be defined')
 
         # it is consistent, resolve multi-particle labels
