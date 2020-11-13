@@ -43,7 +43,7 @@ outputplot = "validations/CMS/HIG-19-010/CVCF_2d_fig10.pdf"
 # outputplot = "validations/CMS/HIG-19-010/CVCF_2d_fig14b.pdf"
 
 # Scan ranges
-CV_min = 0.3
+CV_min = 0.2
 CV_max = 1.3
 CF_min = 0.7
 CF_max = 1.3
