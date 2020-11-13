@@ -941,10 +941,6 @@ class ReadExpInput:
                     raise ExpInputError(self.filepath,
                                             '<eff> tags for "' + "VVH" + '" and "' +
                                              prod + '" cannot both be defined')
-                if prod == "ZH" and ("VH",decay) in eff_dict:
-                    raise ExpInputError(self.filepath,
-                                            '<eff> tags for "' + "VH" + '" and "' +
-                                             prod + '" cannot both be defined')
                 if prod == "tH" and ("top",decay) in eff_dict:
                     raise ExpInputError(self.filepath,
                                             '<eff> tags for "' + "top" + '" and "' +
