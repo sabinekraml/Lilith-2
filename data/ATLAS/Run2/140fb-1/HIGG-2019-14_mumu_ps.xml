@@ -1,0 +1,28 @@
+<!--
+ATLAS result for mu(H ->mumu) at mH = 125 GeV.
+Combined best-fit value and uncertainties taken from Figure 2 at 
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2019-14/
+-->
+
+<expmu decay="mumu" dim="1" type="p">
+  <experiment>ATLAS</experiment>
+  <source type="published">HIGG-2019-14</source>
+  <sqrts>13</sqrts>
+  <mass>125</mass>
+  <CL>68%</CL> <!-- optional -->
+
+   <eff prod="ggH">0.87217</eff>
+   <eff prod="VBF">0.06784</eff> 
+   <eff prod="WH">0.02464</eff>   
+   <eff prod="ZH">0.01579</eff>   
+   <eff prod="ttH">0.00915</eff>
+   <eff prod="bbH">0.00879</eff>
+   <eff prod="tH">0.00162</eff>
+
+  <bestfit>1.2</bestfit>
+ 
+  <param>
+    <uncertainty side="left">-0.6</uncertainty>
+    <uncertainty side="right">0.6</uncertainty>
+  </param>
+</expmu>

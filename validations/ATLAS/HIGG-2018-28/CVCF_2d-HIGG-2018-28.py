@@ -41,7 +41,8 @@ if (not os.path.exists("results")):
 output = "results/CVCF_2d.out"
 # outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a_no-theo-unc.pdf"
 # outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Table08.pdf"
+# outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Table08.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Table08-bbH.pdf"
 
 # Scan ranges
 CV_min = 0.68
@@ -190,7 +191,9 @@ plt.xlabel(r'$C_V$', fontsize=25)
 plt.ylabel(r'$C_F$', fontsize=25)
 # plt.text(0.6, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
 # plt.text(0.7, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a.xml', fontsize=12)
-plt.text(0.7, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Table08.xml', fontsize=12)
+# plt.text(0.7, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Table08.xml', fontsize=12)
+plt.text(0.7, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Table08-bbH.xml', fontsize=12)
+
 
 fig.set_tight_layout(True)
 
@@ -199,6 +202,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/results")
+print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2018-28/")
 print("***** done *****")
 

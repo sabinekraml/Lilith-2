@@ -39,7 +39,8 @@ hmass = 125.
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
-outputplot = "validations/CMS/HIG-19-010/CVCF_2d.pdf"
+outputplot = "validations/CMS/HIG-19-010/CVCF_2d_fig10.pdf"
+# outputplot = "validations/CMS/HIG-19-010/CVCF_2d_fig14b.pdf"
 
 # Scan ranges
 CV_min = 0.3
@@ -54,7 +55,7 @@ grid_subdivisions = 100
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
+def usrXMLinput(mass=125., CV=1, CF=1, precision="BEST-QCD"):
     """generate XML input from reduced couplings CV, CF"""
     
     myInputTemplate = """<?xml version="1.0"?>
@@ -186,7 +187,8 @@ plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="CMS official")
 plt.title("  Lilith-"+str(lilith.__version__)+", DB 20.11 develop", fontsize=14.5, ha="left")
 plt.xlabel(r'$C_V$',fontsize=25)
 plt.ylabel(r'$C_F$',fontsize=25)
-plt.text(0.83, 0.71, r'Exp. input: CMS-HIG-19-010', fontsize=12)
+plt.text(0.83, 0.71, r'Exp. input: CMS-HIG-19-010_fig10', fontsize=12)
+# plt.text(0.83, 0.71, r'Exp. input: CMS-HIG-19-010_fig14b', fontsize=12)
 
 fig.set_tight_layout(True)
 

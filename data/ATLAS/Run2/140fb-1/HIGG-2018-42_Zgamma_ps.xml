@@ -1,5 +1,5 @@
 <!--
-ATLAS result for mu(H ->Zgamma) at mH = 125 GeV.
+ATLAS result for mu(H -> Zgamma) at mH = 125 GeV.
 Best-fit values and uncertainties taken from Table 4 at 
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-42/
 -->
@@ -10,6 +10,14 @@ https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-42/
   <sqrts>13</sqrts>
   <mass>125</mass>
   <CL>68%</CL> <!-- optional -->
+
+   <eff prod="ggH">0.87217</eff>
+   <eff prod="VBF">0.06784</eff> 
+   <eff prod="WH">0.02464</eff>   
+   <eff prod="ZH">0.01579</eff>   
+   <eff prod="ttH">0.00915</eff>
+   <eff prod="bbH">0.00879</eff>
+   <eff prod="tH">0.00162</eff>
 
   <bestfit>2.0</bestfit>
  

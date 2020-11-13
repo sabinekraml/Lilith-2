@@ -24,7 +24,7 @@ http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HI
   </bestfit>
  
   <param>
-    <uncertainty axis="d1" side="left">-0.10</uncertainty>
+    <uncertainty axis="d1" side="left">-0.115</uncertainty>
     <uncertainty axis="d1" side="right">+0.13</uncertainty>
     <uncertainty axis="d2" side="left">-0.31</uncertainty>
     <uncertainty axis="d2" side="right">+0.36</uncertainty>
