@@ -100,9 +100,9 @@ class Lilith:
         """Read the XML input given by the user."""
 
         self.info("Reading the user input...")
-        t0 = time.clock()
+        t0 = time.time()
         userinput = ReadUserInput(userinput)
-        self.tinfo("reading of the user input", time.clock() - t0)
+        self.tinfo("reading of the user input", time.time() - t0)
         self.mode = userinput.mode
 
         if userinput.mode == "reducedcouplings":
@@ -133,7 +133,7 @@ class Lilith:
         computablecouplings = ["gg_prod_lhc8", "gg_decay", "gammagamma",
                                "Zgamma", "VBF","gg_prod_lhc13", "VBF13"]
 
-        t0 = time.clock()
+        t0 = time.time()
         for n,redCp in enumerate(self.couplings, start=1):
             missing_couplings = False
             for coupling in computablecouplings:
@@ -161,12 +161,12 @@ class Lilith:
                 for cname,cvalue in list(new_redC.items()):
                     self.info(". " + cname + " = " + str(cvalue))
                 redCp.update(new_redC)
-        self.tinfo("computing missing reduced couplings", time.clock() - t0)
+        self.tinfo("computing missing reduced couplings", time.time() - t0)
 
     def computemufromreducedcouplings(self):
         """Computes signal strengths from reduced couplings."""
 
-        t0 = time.clock()
+        t0 = time.time()
         self.user_mu = []
         for redCp in self.couplings:
             if self.mu_computation is None:
@@ -177,7 +177,7 @@ class Lilith:
             self.user_mu.append(self.mu_computation.getmu(redCp))
         self.compute_user_mu_tot()
         self.tinfo("computing mu from reduced couplings",
-                   time.clock() - t0)
+                   time.time() - t0)
 
     def compute_user_mu_tot(self):
         """Adds up the signal strengths obtained from the user input."""
@@ -255,10 +255,10 @@ class Lilith:
         elif not self.exp_mu:
             self.readexpinput()
 
-        t0 = time.clock()
+        t0 = time.time()
         self.results, self.l = compute_likelihood(self.exp_mu,
                                                   self.user_mu_tot,self.mode)
-        self.tinfo("computing the likelihood", time.clock() - t0)
+        self.tinfo("computing the likelihood", time.time() - t0)
         
     def computeSMlikelihood(self, userinput=None, exp_filepath=None,
                           userfilepath=None):
