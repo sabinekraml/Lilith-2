@@ -40,3 +40,6 @@ For the changelog of the database of experimental results, see data/changelog
       * updated and improved python code examples
     database:  
       * updated database to 36fb-1 Run 2 results, see data/changelog.txt
+
+** Aug, 2020: code converted to Python 3 by Marius Bertrand (still version 2.0)
+
