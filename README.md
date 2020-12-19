@@ -25,7 +25,7 @@ the example codes doing a likelihood profile analysis require iminuit.
 
 ### Usage
 
-- The usage is explained in the original Lilith __manual__ [arXiv:1502.04138](https://arxiv.org/abs/1502.04138) and the presentation of Lilith-2 in [arXiv:1908.03952](https://arxiv.org/abs/1908.03952) (published as https://scipost.org/SciPostPhys.7.4.052). For usage in micrOMEGAs, see [arXiv:1606.03834](https://arxiv.org/abs/1606.03834).
+- The usage is explained in the original Lilith manual [arXiv:1502.04138](https://arxiv.org/abs/1502.04138) and the presentation of Lilith-2 in [arXiv:1908.03952](https://arxiv.org/abs/1908.03952). For usage in micrOMEGAs, see [arXiv:1606.03834](https://arxiv.org/abs/1606.03834).
 
 - A __tutorial__ is available from the [Tools2020 workshop](https://indico.cern.ch/event/955391/contributions/4086275/).
 
