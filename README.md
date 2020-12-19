@@ -36,6 +36,8 @@ the example codes doing a likelihood profile analysis require iminuit.
 
 - In case of problems running the code, check whether the `__init.py__` file exists in lilith/internal/ and is executable. If not, create it (as an empty file) and declare it as executable. If the code still does not work, check that all the Lilith Python (`.py`) files are executable.  
 
+- If the example codes don't run, check whether they are executable; if they are not, do `chmod u+x` ...
+
 - If you get an error `ImportError: No module named lilith`, your path to Lilith is probably not correct. (e.g, when this happens with the Python example codes, check where `lilith_dir` points to)
 
 
