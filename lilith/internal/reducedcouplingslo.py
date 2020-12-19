@@ -3,6 +3,7 @@
 #  This file is part of Lilith
 #  v1 (2015) by Jeremy Bernon and Beranger Dumont 
 #  v2 (2019) by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung, Le Duc Ninh 
+#            converted to Python 3 by Marius Bertrand (Jul/Aug 2020)
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
@@ -31,7 +32,7 @@ from cmath import sqrt as csqrt
 from cmath import asin as casin
 from cmath import log as clog
 from scipy.interpolate import UnivariateSpline
-from param import *
+from .param import *
 
 wdir = '/'.join(os.path.realpath(__file__).split("/")[:-1])+'/Grids/'
 

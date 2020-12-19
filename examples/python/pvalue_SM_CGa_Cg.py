@@ -37,8 +37,8 @@ myhmass = 125.09
 verbose=False
 timer=False
 
-print "\nTask: Compute the SM point compatibility in the (CGa, Cg) model"
-print "Experimental input:", myexpinput
+print("\nTask: Compute the SM point compatibility in the (CGa, Cg) model")
+print("Experimental input:", myexpinput)
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -97,32 +97,32 @@ lilithcalc = lilith.Lilith(verbose,timer)
 # Read experimental data
 lilithcalc.readexpinput(myexpinput)
 
-print "\n***** evaluating SM -2LogL *****"
+print("\n***** evaluating SM -2LogL *****")
 # Evaluate Likelihood at the SM point
 SM_minus2logL = getL_CGaCg(1., 1.)
-print "-2LogL(SM) =", SM_minus2logL
+print("-2LogL(SM) =", SM_minus2logL)
 
-print "\n***** performing (CGa,Cg) model fit *****"
+print("\n***** performing (CGa,Cg) model fit *****")
 # Initialize the fit; parameter starting values and limits
 m = Minuit(getL_CGaCg, CGa=0.9, limit_CGa=(0,3), Cg=0.9, limit_Cg=(0,3), print_level=0, errordef=1, error_CGa=1, error_Cg=1)
 
 # Fit the model
 m.migrad()
 # Display parameter values at the best-fit point
-print "Best-fit point: "
-print "Cgamma =", m.values["CGa"]  
-print "Cgluon =", m.values["Cg"] 
+print("Best-fit point: ")
+print("Cgamma =", m.values["CGa"])  
+print("Cgluon =", m.values["Cg"]) 
 
 bestfit_CGa_Cg_minus2logL = m.fval
 
-print "-2LogL =", bestfit_CGa_Cg_minus2logL
+print("-2LogL =", bestfit_CGa_Cg_minus2logL)
 
-print "\n***** model comparison *****"
+print("\n***** model comparison *****")
 
 delta_minus2logL = SM_minus2logL - bestfit_CGa_Cg_minus2logL
 pval = 1 - stats.chi2.cdf(delta_minus2logL, 2)
 
-print "Delta(-2logL) =", delta_minus2logL
-print "p-value =", pval, "\n"
+print("Delta(-2logL) =", delta_minus2logL)
+print("p-value =", pval, "\n")
 
 

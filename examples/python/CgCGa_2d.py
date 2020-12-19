@@ -10,7 +10,7 @@
 ###############################################################
 
 import sys, os
-from matplotlib.mlab import griddata
+from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -24,7 +24,7 @@ import lilith
 # Parameters
 ######################################################################
 
-print "***** reading parameters *****"
+print("***** reading parameters *****")
 
 # Experimental results
 exp_input = "data/latestRun2.list"
@@ -87,7 +87,7 @@ def usrXMLinput(mass=125.09, CGa=1, Cg=1, precision="BEST-QCD"):
 # Scan initialization
 ######################################################################
 
-print "***** scan initialization *****"
+print("***** scan initialization *****")
 
 # Prepare output
 fresults = open(output, 'w')
@@ -105,7 +105,7 @@ lilithcalc.readexpinput(exp_input)
 m2logLmin=10000
 max=-1
 
-print "***** running scan *****"
+print("***** running scan *****")
 
 for Cg in np.linspace(Cg_min, Cg_max, grid_subdivisions):
     fresults.write('\n')
@@ -121,15 +121,15 @@ for Cg in np.linspace(Cg_min, Cg_max, grid_subdivisions):
 
 fresults.close()
 
-print "***** scan finalized *****"
-print "minimum at Cgluon, Cgamma, -2logL_min = ", Cgmin, CGamin, m2logLmin
+print("***** scan finalized *****")
+print("minimum at Cgluon, Cgamma, -2logL_min = ", Cgmin, CGamin, m2logLmin)
 
 ######################################################################
 # Plot routine
 ######################################################################
 
 
-print "***** plotting *****"
+print("***** plotting *****")
 
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 15
@@ -160,7 +160,7 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-Z = griddata(x, y, z2, xi, yi, interp="linear")
+Z = griddata((x, y), z2, (X,Y), method="linear")
 
 # Plotting the 68%, 95% and 99.7% CL contours
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
@@ -191,6 +191,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print "results are stored in", lilith_dir + "/results"
-print "***** done *****"
+print("results are stored in", lilith_dir + "/results")
+print("***** done *****")
 

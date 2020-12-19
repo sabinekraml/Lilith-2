@@ -3,6 +3,7 @@
 #  This file is part of Lilith
 #  v1 (2015) by Jeremy Bernon and Beranger Dumont 
 #  v2 (2019) by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung, Le Duc Ninh 
+#            converted to Python 3 by Marius Bertrand (Jul/Aug 2020)
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
@@ -58,13 +59,13 @@ class ComputeReducedCouplings:
             self.func_formfactors_LO = RedCoupLO.computeformfactors()
             # then, read the LO form factors at the mass specified in
             # the user input
-            for key, val in self.func_formfactors_LO.items():
+            for key, val in list(self.func_formfactors_LO.items()):
                 self.formfactors_LO[key] = val(self.mass)
 
             # only form factor from an interpolated grid at LO: VBF
             if "VBF" not in redCp:
                 self.func_formfactors_interp["VBF"] = RedCoupLO.VBF_ff()
-		self.func_formfactors_interp["VBF13"] = RedCoupLO.VBF13_ff() 
+                self.func_formfactors_interp["VBF13"] = RedCoupLO.VBF13_ff() 
         else:
             for key in ComputeReducedCouplings.formfactors_NNLOgridfunctions:
                 # store every needed interpolation function of form factors
@@ -74,7 +75,7 @@ class ComputeReducedCouplings:
 
         for key in self.func_formfactors_interp:
             self.formfactors_interp[key] = {}
-            for ff,val in self.func_formfactors_interp[key].items():
+            for ff,val in list(self.func_formfactors_interp[key].items()):
                 self.formfactors_interp[key][ff] = val(self.mass)
 
     def reset(self, redCp):
@@ -90,7 +91,7 @@ class ComputeReducedCouplings:
             if "VBF" not in redCp and "VBF" not in self.func_formfactors_interp:
                 self.func_formfactors_interp["VBF"] = RedCoupLO.VBF_ff()
                 new_func_ff.append("VBF")
-		self.func_formfactors_interp["VBF13"] = RedCoupLO.VBF13_ff() 
+                self.func_formfactors_interp["VBF13"] = RedCoupLO.VBF13_ff() 
                 new_func_ff.append("VBF13") 
 
         else:
@@ -103,13 +104,13 @@ class ComputeReducedCouplings:
                     new_func_ff.append(key)
 
         if self.precision == "LO":
-            for key, val in self.func_formfactors_LO.items():
+            for key, val in list(self.func_formfactors_LO.items()):
                 if redCp["extra"]["mass"] != self.mass or key in new_func_ff: 
                     self.formfactors_LO[key] = val(self.mass)
         for key in self.func_formfactors_interp:
             if redCp["extra"]["mass"] != self.mass or key in new_func_ff:
                 self.formfactors_interp[key] = {}
-                for ff,val in self.func_formfactors_interp[key].items():
+                for ff,val in list(self.func_formfactors_interp[key].items()):
                     self.formfactors_interp[key][ff] = val(self.mass)
         self.mass = redCp["extra"]["mass"]
 
@@ -164,7 +165,7 @@ class ComputeReducedCouplings:
                 redCp_new["gg_prod_lhc8"] = RedCoupNNLO.redCggF_LHC8(
                     Ct, Cb, self.formfactors_interp["gg_prod_lhc8"])
 
-	if "gg_prod_lhc13" not in redCp:
+        if "gg_prod_lhc13" not in redCp:
 #            print("computeC gg_prod_lhc13 not in redCp")
             if self.precision == "LO":
                 if "gg_decay" in redCp_new:
@@ -196,12 +197,12 @@ class ComputeReducedCouplings:
                 redCp_new["VBF"] = RedCoupNNLO.redCVBF(
                     CW, CZ, self.formfactors_interp["VBF"])
 
-	if "VBF13" not in redCp:
+        if "VBF13" not in redCp:
 #            print("computeC VBF13 not in redCp")
             if self.precision == "LO":
                 redCp_new["VBF13"] = RedCoupLO.redCVBF13(
                     CW, CZ, self.formfactors_interp["VBF13"])
-	    else:
+            else:
                 redCp_new["VBF13"] = RedCoupNNLO.redCVBF13(
                     CW, CZ, self.formfactors_interp["VBF13"])
 

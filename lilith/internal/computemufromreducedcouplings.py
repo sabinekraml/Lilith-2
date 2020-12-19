@@ -3,6 +3,7 @@
 #  This file is part of Lilith
 #  v1 (2015) by Jeremy Bernon and Beranger Dumont 
 #  v2 (2019) by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung, Le Duc Ninh 
+#            converted to Python 3 by Marius Bertrand (Jul/Aug 2020)
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
@@ -42,13 +43,13 @@ class ComputeMuFromReducedCouplings:
 
         # read the BR for an SM-like Higgs at the mass specified in
         # the user input
-        for key, val in self.func_BR.items():
+        for key, val in list(self.func_BR.items()):
             self.BR[key] = val(mass)
 
     def reset(self, mass):
         # evaluate the SM BR grids at the given mass, if not already done
         if mass != self.mass:
-            for key, val in self.func_BR.items():
+            for key, val in list(self.func_BR.items()):
                 self.BR[key] = val(mass)
             self.mass = mass
 
@@ -56,7 +57,7 @@ class ComputeMuFromReducedCouplings:
         """Computes the likelihood from reduced couplings."""
 
         try:
-            for key, val in redCp.items():
+            for key, val in list(redCp.items()):
                 if key == "extra":
                     continue
                 if redCp["extra"]["precision"] == "LO":
@@ -118,7 +119,7 @@ class ComputeMuFromReducedCouplings:
                       "qqZH": "qqZH", "ttH": "tt", "ggH13": "gg_prod_lhc13", "VBF13": "VBF13",
                       "tHq": "tHq", "tHW": "tHW", "bbH": "bb", "tHq13": "tHq13", "tHW13": "tHW13",
                       "ggZH": "ggZH", "ggZH13": "ggZH13"}
-        for prod,coupling in prod_modes.items():
+        for prod,coupling in list(prod_modes.items()):
             for decay in considered_decay_modes:
                 mu[(prod,decay)] = redCp[coupling]**2 * redBR[decay]
         if "extra" not in mu:

@@ -3,6 +3,7 @@
 #  This file is part of Lilith
 #  v1 (2015) by Jeremy Bernon and Beranger Dumont 
 #  v2 (2019) by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung, Le Duc Ninh 
+#            converted to Python 3 by Marius Bertrand (Jul/Aug 2020)
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
@@ -58,7 +59,7 @@ class ReadUserInput:
         # for the various (prod,decay) combinations 
         self.mu = []
 
-        for i in xrange(n_higgses):
+        for i in range(n_higgses):
             if self.mode == "reducedcouplings":
                 self.redC.append(self.get_nextreducedcouplings())
             elif self.mode == "signalstrengths":
@@ -322,10 +323,10 @@ class ReadUserInput:
         # with the multiparticle labels "uu", "dd" and "ll"---it should be treated
         # in the very end
 
-        for multip, p_list in multiparticles.items():
+        for multip, p_list in list(multiparticles.items()):
             self.check_multiparticle(redCp, multip, p_list)
         
-        for multip, p_list in multiparticles2.items():
+        for multip, p_list in list(multiparticles2.items()):
             self.check_multiparticle(redCp, multip, p_list)
 
         # now all reduced couplings have been properly defined, one can
@@ -470,23 +471,23 @@ class ReadUserInput:
         # also "VVH" includes "VH"; this should be treated at the end
 
         # -- first: production
-        for multip, p_list in multiprod.items():
+        for multip, p_list in list(multiprod.items()):
             self.check_multiprod(mup, multip, p_list)
 
-        for multip, p_list in multiprod2.items():
+        for multip, p_list in list(multiprod2.items()):
             self.check_multiprod(mup, multip, p_list)
 
-        for multip, p_list in multiprod3.items():
+        for multip, p_list in list(multiprod3.items()):
             self.check_multiprod(mup, multip, p_list)
 
-        for multip, p_list in multiprod4.items():
+        for multip, p_list in list(multiprod4.items()):
             self.check_multiprod(mup, multip, p_list)
 
-        for multip, p_list in multiprod5.items():
+        for multip, p_list in list(multiprod5.items()):
             self.check_multiprod(mup, multip, p_list)
 
         # now, one can delete all multiprod labels
-        for key,mu_value in mup.items():
+        for key,mu_value in list(mup.items()):
             if key == "extra":
                 continue
             prod,decay = key
@@ -494,14 +495,14 @@ class ReadUserInput:
                 del mup[prod,decay]
 
         # -- then: decay
-        for multip, p_list in multidecay.items():
+        for multip, p_list in list(multidecay.items()):
             self.check_multidecay(mup, multip, p_list)
 
-        for multip, p_list in multidecay2.items():
+        for multip, p_list in list(multidecay2.items()):
             self.check_multidecay(mup, multip, p_list)
 
         # now, one can delete all multidecay labels
-        for key,mu_value in mup.items():
+        for key,mu_value in list(mup.items()):
             if key == "extra":
                 continue
             prod,decay = key
@@ -579,7 +580,7 @@ class ReadUserInput:
     def check_multiprod(self, mup, multip, p_list):
         """for signal strengths mode"""
 
-        for key,mu_value in mup.items():
+        for key,mu_value in list(mup.items()):
             if key == "extra":
                 continue
             prod,decay = key
@@ -628,7 +629,7 @@ class ReadUserInput:
     def check_multidecay(self, mup, multip, p_list):
         """for signal strengths mode"""
 
-        for key,mu_value in mup.items():
+        for key,mu_value in list(mup.items()):
             if key == "extra":
                 continue
             prod,decay = key

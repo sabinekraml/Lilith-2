@@ -10,7 +10,7 @@
 ##################################################################
 
 import sys, os
-from matplotlib.mlab import griddata
+from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -24,10 +24,10 @@ import lilith
 # Parameters
 ######################################################################
 
-print "***** reading parameters *****"
+print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/latestRun2.list"
+exp_input = "data/example.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -42,10 +42,10 @@ output = "results/CVCF_2d.out"
 outputplot = "results/CVCF_2d.pdf"
 
 # Scan ranges
-CV_min = 0.8
-CV_max = 1.3
-CF_min = 0.7
-CF_max = 1.4
+CV_min = 0.9
+CV_max = 1.15
+CF_min = 0.75
+CF_max = 1.35
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -89,7 +89,7 @@ def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
 # Scan initialization
 ######################################################################
 
-print "***** scan initialization *****"
+print("***** scan initialization *****")
 
 # Prepare output
 fresults = open(output, 'w')
@@ -107,7 +107,7 @@ lilithcalc.readexpinput(exp_input)
 m2logLmin=10000
 max=-1
 
-print "***** running scan *****"
+print("***** running scan *****")
 
 for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
     fresults.write('\n')
@@ -123,15 +123,15 @@ for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
 
 fresults.close()
 
-print "***** scan finalized *****"
-print "minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin
+print("***** scan finalized *****")
+print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 
 ######################################################################
 # Plot routine
 ######################################################################
 
 
-print "***** plotting *****"
+print("***** plotting *****")
 
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 15
@@ -162,7 +162,7 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-Z = griddata(x, y, z2, xi, yi, interp="linear")
+Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting the 68%, 95% and 99.7% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
@@ -189,6 +189,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print "results are stored in", lilith_dir + "/results"
-print "***** done *****"
+print("results are stored in", lilith_dir + "/results")
+print("***** done *****")
 
