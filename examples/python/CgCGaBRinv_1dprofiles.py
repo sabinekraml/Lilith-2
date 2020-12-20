@@ -105,7 +105,10 @@ lilithcalc = lilith.Lilith(verbose, timer)
 lilithcalc.readexpinput(myexpinput)
 
 # Initialize the fit; parameter starting values and limits
-m = Minuit(getL, CGa=1, limit_CGa=(0,3), Cg=1, limit_Cg=(0,3), BRinv=0.2, limit_BRinv=(0,0.9), errordef=1, error_CGa=0.1, error_Cg=0.1, error_BRinv=0.1)
+m = Minuit(getL, CGa=1, Cg=1, BRinv=0.2)
+m.limits = [(0, 3), (0, 3), (0,0.9)]
+m.errordef = Minuit.LEAST_SQUARES
+m.errors = [0.1, 0.1, 0.1]
 
 print("\n***** performing model fit with iminuit *****")
 
@@ -121,8 +124,8 @@ print("\nMinos errors:")
 for key, value in list(m.merrors.items()):
     print(key, value)
 
-print("\nCorrelation matrix:\n", m.matrix(correlation=True))
-print("\nCovariance matrix:\n", m.matrix())
+print("\nCorrelation matrix:\n", m.covariance.correlation())
+print("\nCovariance matrix:\n", m.covariance)
 
 # Display parameter values at the best-fit point
 #print "Best-fit point: -2LogL =", m.fval
@@ -130,13 +133,13 @@ print("\nCovariance matrix:\n", m.matrix())
 
 print("\n***** getting the 1d likelihood profiles *****")
 # Profiling for CGa
-xGa,yGa,rGa = m.mnprofile('CGa', bins=300, bound=(0, 2), subtract_min=True)
+xGa,yGa,rGa = m.mnprofile('CGa', size=300, bound=(0, 2), subtract_min=True)
 
 # Profiling for Ca
-xg,yg,rg = m.mnprofile('Cg', bins=300, bound=(0, 2), subtract_min=True)
+xg,yg,rg = m.mnprofile('Cg', size=300, bound=(0, 2), subtract_min=True)
 
 # Profiling for BRinv
-xBR,yBR,rBR = m.mnprofile('BRinv', bins=300, bound=(0., 0.5), subtract_min=True)
+xBR,yBR,rBR = m.mnprofile('BRinv', size=300, bound=(0., 0.5), subtract_min=True)
 
 
 ######################################################################

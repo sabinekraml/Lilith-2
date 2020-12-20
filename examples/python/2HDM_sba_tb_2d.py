@@ -42,7 +42,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/example.list"
+exp_input = "data/latest.list"
 # Lilith precision mode
 my_precision = "BEST-QCD"
 

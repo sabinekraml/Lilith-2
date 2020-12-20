@@ -27,7 +27,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/example.list"
+exp_input = "data/latest.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -42,10 +42,10 @@ output = "results/CVCF_2d.out"
 outputplot = "results/CVCF_2d.pdf"
 
 # Scan ranges
-CV_min = 0.9
-CV_max = 1.15
-CF_min = 0.75
-CF_max = 1.35
+CV_min = 0.8
+CV_max = 1.3
+CF_min = 0.7
+CF_max = 1.4
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100

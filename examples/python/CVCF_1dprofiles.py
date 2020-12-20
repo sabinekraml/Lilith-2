@@ -112,7 +112,11 @@ lilithcalc.readexpinput(myexpinput)
 print("\n***** performing model fit: migrad, hesse, minos *****")
 
 # Initialize the fit; parameter starting values and limits
-m = Minuit(getL, CV=1, limit_CV=(0,3), CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=0.2, error_CF=0.2)
+m = Minuit(getL, CV=1, CF=1)
+m.limits = [(0, 3), (0, 3)]
+m.errordef = Minuit.LEAST_SQUARES
+m.errors = [0.2, 0.2]
+m.print_level = 0
 
 # Minimization and error estimation
 m.migrad()
@@ -126,9 +130,8 @@ print("\nMinos errors:")
 for key, value in list(m.merrors.items()):
     print(key, value)
 
-print("\nCorrelation matrix:\n", m.matrix(correlation=True))
-print("\nCovariance matrix:\n", m.matrix())
-
+print("\nCorrelation matrix:\n", m.covariance.correlation())
+print("\nCovariance matrix:\n", m.covariance)
 
 # Display parameter values at the best-fit point
 #print "\nBest-fit point:" 
@@ -137,11 +140,11 @@ print("\nCovariance matrix:\n", m.matrix())
 
 print("\n***** getting the 1-dimensional likelihood profile of CV *****")
 # Profiling over CF
-xV,yV,rV = m.mnprofile('CV', bins=300, bound=(0., 3), subtract_min=True)
+xV,yV,rV = m.mnprofile('CV', size=300, bound=(0., 3), subtract_min=True)
 
 print("***** getting the 1-dimensional likelihood profile of CF *****")
 # Profiling over CV
-xF,yF,rF = m.mnprofile('CF', bins=300, bound=(0., 3), subtract_min=True)
+xF,yF,rF = m.mnprofile('CF', size=300, bound=(0., 3), subtract_min=True)
 
 
 ######################################################################
