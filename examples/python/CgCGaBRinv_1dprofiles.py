@@ -97,7 +97,7 @@ def getL(CGa, Cg, BRinv):
 # Calculations
 ######################################################################
 
-print "***** initializating *****"
+print("***** initializating *****")
 
 # Initialize a Lilith object
 lilithcalc = lilith.Lilith(verbose, timer)
@@ -107,28 +107,28 @@ lilithcalc.readexpinput(myexpinput)
 # Initialize the fit; parameter starting values and limits
 m = Minuit(getL, CGa=1, limit_CGa=(0,3), Cg=1, limit_Cg=(0,3), BRinv=0.2, limit_BRinv=(0,0.9), errordef=1, error_CGa=0.1, error_Cg=0.1, error_BRinv=0.1)
 
-print "\n***** performing model fit with iminuit *****"
+print("\n***** performing model fit with iminuit *****")
 
 # Minimization and error estimation
 m.migrad()
 m.minos()
 
-print "\n***** fit summary *****"
+print("\n***** fit summary *****")
 
-print "\nbest-fit point:", m.values 
-print "\nHesse errors:", m.errors
-print "\nMinos errors:"
-for key, value in m.merrors.items():
-    print key, value
+print("\nbest-fit point:", m.values) 
+print("\nHesse errors:", m.errors)
+print("\nMinos errors:")
+for key, value in list(m.merrors.items()):
+    print(key, value)
 
-print "\nCorrelation matrix:\n", m.matrix(correlation=True)
-print "\nCovariance matrix:\n", m.matrix()
+print("\nCorrelation matrix:\n", m.matrix(correlation=True))
+print("\nCovariance matrix:\n", m.matrix())
 
 # Display parameter values at the best-fit point
 #print "Best-fit point: -2LogL =", m.fval
 #print "Cgamma =", m.values["CGa"], ", Cgluon =", m.values["Cg"], ", BRinv =", m.values["BRinv"],"\n"
 
-print "\n***** getting the 1d likelihood profiles *****"
+print("\n***** getting the 1d likelihood profiles *****")
 # Profiling for CGa
 xGa,yGa,rGa = m.mnprofile('CGa', bins=300, bound=(0, 2), subtract_min=True)
 
@@ -143,7 +143,7 @@ xBR,yBR,rBR = m.mnprofile('BRinv', bins=300, bound=(0., 0.5), subtract_min=True)
 # Plot
 ######################################################################
 
-print "***** plotting 1d profiles *****"
+print("***** plotting 1d profiles *****")
 
 matplotlib.rcParams['xtick.major.pad'] = 18
 matplotlib.rcParams['ytick.major.pad'] = 18
@@ -188,8 +188,8 @@ plt.title("   Lilith "+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion)
 fig.set_tight_layout(True)
 fig.savefig(outputplot)
 
-print  "result see " + lilith_dir + "/" + outputplot
-print "***** done *****\n"
+print("result see " + lilith_dir + "/" + outputplot)
+print("***** done *****\n")
 
 
 

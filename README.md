@@ -11,21 +11,37 @@ The generalized Poisson likelihood can be used for experimental results in 1 or 
 
 - Database 19.09 contains the __published ATLAS and CMS Run 2 results for 36 fb-1__ as of Sep 2019.
 
-Prerequisites: Python 2.7 (not yet 3.X!), SciPy and NumPy; 
+
+### Download 
+
+The latest official version can be found on the [releases page](https://github.com/sabinekraml/Lilith-2/releases). Note: 
+
+- Version 2.0 is in Python 2 (2.7.4 or higher)
+- Version 2.1 is in Python 3 (3.6 or higher)
+
+Other prerequisites are SciPy and NumPy; 
 the example codes doing a likelihood profile analysis require iminuit.
 
-Tested with Python 2.7.x (x>4), SciPy 0.13.0b1, NumPy 1.8.0rc1, iminuit 1.2.
 
-Notes:
+### Usage
 
-- The __master__ branch contains the latest official version. If you want to see the validation (plots and scripts, plus the various versions of xml files used), check out the __validation__ branch. 
+- The usage is explained in the original Lilith manual [arXiv:1502.04138](https://arxiv.org/abs/1502.04138) and the presentation of Lilith-2 in [arXiv:1908.03952](https://arxiv.org/abs/1908.03952). For usage in micrOMEGAs, see [arXiv:1606.03834](https://arxiv.org/abs/1606.03834).
+
+- A __tutorial__ is available from the [Tools2020 workshop](https://indico.cern.ch/event/955391/contributions/4086275/).
+
+**IMPORTANT: please cite the above papers** when you use Lilith for your work. Thank you.
+
+
+### Troubleshooting
 
 - In case of problems running the code, check whether the `__init.py__` file exists in lilith/internal/ and is executable. If not, create it (as an empty file) and declare it as executable. If the code still does not work, check that all the Lilith Python (`.py`) files are executable.  
 
+- If the example codes don't run, check whether they are executable; if they are not, do `chmod u+x` ...
+
 - If you get an error `ImportError: No module named lilith`, your path to Lilith is probably not correct. (e.g, when this happens with the Python example codes, check where `lilith_dir` points to)
 
-Usage: see the original Lilith manual https://arxiv.org/abs/1502.04138 and the presentation of Lilith-2 in https://arxiv.org/abs/1908.03952 (published as https://scipost.org/SciPostPhys.7.4.052)
 
-For usage in micrOMEGAs, see https://arxiv.org/abs/1606.03834
+### Ongoing developments
 
-**IMPORTANT: please cite the above papers** when you use Lilith for your work. Thank you.
+The current developments towards inclusion and validation of the ATLAS and CMS results for full Run 2 luminosity (~140/fb) are done on the __py3-fullRun2__ branch.
+

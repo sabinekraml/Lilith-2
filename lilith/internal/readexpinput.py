@@ -3,6 +3,7 @@
 #  This file is part of Lilith
 #  v1 (2015) by Jeremy Bernon and Beranger Dumont 
 #  v2 (2019) by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung, Le Duc Ninh 
+#            converted to Python 3 by Marius Bertrand (Jul/Aug 2020)
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
@@ -131,7 +132,7 @@ class ReadExpInput:
 
         optional_attribs = {"decay": allowed_decays}
 
-        for mandatory_attrib, allowed_values in mandatory_attribs.items():
+        for mandatory_attrib, allowed_values in list(mandatory_attribs.items()):
             if mandatory_attrib not in root.attrib:
                 # if "type" not in attribute
                 raise ExpInputError(self.filepath,
@@ -155,7 +156,7 @@ class ReadExpInput:
 
         decay = "mixture"
 
-        for optional_attrib, allowed_values in optional_attribs.items():
+        for optional_attrib, allowed_values in list(optional_attribs.items()):
             if optional_attrib in root.attrib:
                 # if "decay" in attribute
                 if root.attrib[optional_attrib] not in allowed_values:
@@ -200,7 +201,7 @@ class ReadExpInput:
                 source = child.text
             if child.tag == "sqrts":
                 sqrts = child.text
-    
+            
         return (experiment, source, sqrts)
 
     def read_eff(self, root, dim, decay):
@@ -217,13 +218,12 @@ class ReadExpInput:
                 mandatory_attribs["decay"] = allowed_decays
 
             for child in root:
-		if child.tag=="sqrts":
-			sqrts = child.text
-			if sqrts not in ["1.96","7","8","7.","8.","7.0","8.0","7+8","13","13.","13.0"]:
-				self.warning("sqrt(s) of experimental input is not a Tevatron (1.96) or 7,8,13 TeV LHC result."+
-				" Lilith will use automatically the 13 TeV form factors and cross sections if needed.")
+                if child.tag=="sqrts":
+                    sqrts = child.text
+                    if sqrts not in ["1.96","7","8","7.","8.","7.0","8.0","7+8","13","13.","13.0"]:
+                        self.warning("sqrt(s) of experimental input is not a Tevatron (1.96) or 7,8,13 TeV LHC result."+" Lilith will use automatically the 13 TeV form factors and cross sections if needed.")
                 if child.tag == "eff":
-                    for mandatory_attrib, allowed_values in mandatory_attribs.items():
+                    for mandatory_attrib, allowed_values in list(mandatory_attribs.items()):
                         if mandatory_attrib not in child.attrib:
                             # if "axis" or "prod" not in attribute
                             raise ExpInputError(self.filepath,
@@ -269,13 +269,13 @@ class ReadExpInput:
                 mandatory_attribs["decay"] = allowed_decays
             
             for child in root:
-		if child.tag=="sqrts":
+                if child.tag=="sqrts":
                         sqrts = child.text
-			if sqrts not in ["1.96","7","8","7.","8.","7.0","8.0","7+8","13","13.","13.0"]:
-				self.warning("sqrt(s) of experimental input is not a Tevatron (1.96) or 7,8,13 TeV LHC result."+
-				" Lilith will use automatically the 13 TeV form factors and cross sections if needed.")
+                        if sqrts not in ["1.96","7","8","7.","8.","7.0","8.0","7+8","13","13.","13.0"]:
+                            self.warning("sqrt(s) of experimental input is not a Tevatron (1.96) or 7,8,13 TeV LHC result."+
+                            " Lilith will use automatically the 13 TeV form factors and cross sections if needed.")
                 if child.tag == "eff":
-                    for mandatory_attrib, allowed_values in mandatory_attribs.items():
+                    for mandatory_attrib, allowed_values in list(mandatory_attribs.items()):
                         if mandatory_attrib not in child.attrib:
                             # if "axis" or "prod" not in attribute
                             raise ExpInputError(self.filepath,
@@ -329,13 +329,13 @@ class ReadExpInput:
                 mandatory_attribs["decay"] = allowed_decays
 
             for child in root:
-		if child.tag=="sqrts":
-                        sqrts = child.text
-			if sqrts not in ["1.96","7","8","7.","8.","7.0","8.0","7+8","13","13.","13.0"]:
-				self.warning("sqrt(s) of experimental input is not a Tevatron (1.96) or 7,8,13 TeV LHC result."+
-				" Lilith will use automatically the 13 TeV form factors and cross sections if needed.")
+                if child.tag=="sqrts":
+                    sqrts = child.text
+                    if sqrts not in ["1.96","7","8","7.","8.","7.0","8.0","7+8","13","13.","13.0"]:
+                        self.warning("sqrt(s) of experimental input is not a Tevatron (1.96) or 7,8,13 TeV LHC result."+
+                                " Lilith will use automatically the 13 TeV form factors and cross sections if needed.")
                 if child.tag == "eff":
-                    for mandatory_attrib, allowed_values in mandatory_attribs.items():
+                    for mandatory_attrib, allowed_values in list(mandatory_attribs.items()):
                         if mandatory_attrib not in child.attrib:
                             # if "axis" or "prod" not in attribute
                             raise ExpInputError(self.filepath,
@@ -375,13 +375,13 @@ class ReadExpInput:
                                             'value of <eff> tag with axis="' + axis_label +
                                             '" and prod="' + prod_label + '" and decay="' + decay_label + '" is not a number')
 
-
-	if sqrts in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]:
-	  self.eff_VVH = BR_SM.geteffVVHfunctions(8)
-          self.eff_top = BR_SM.getefftopfunctions(8)
-	else:
-	  self.eff_VVH = BR_SM.geteffVVHfunctions(13)
-          self.eff_top = BR_SM.getefftopfunctions(13)
+	
+        if sqrts in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]:
+            self.eff_VVH = BR_SM.geteffVVHfunctions(8)
+            self.eff_top = BR_SM.getefftopfunctions(8)
+        else:
+            self.eff_VVH = BR_SM.geteffVVHfunctions(13)
+            self.eff_top = BR_SM.getefftopfunctions(13)
 		
         effWH_VH = self.eff_VVH["eff_WH"](self.mass) # relative to VH
 
@@ -412,9 +412,9 @@ class ReadExpInput:
         multiprod = {"ZH": {"qqZH": effqqZH_ZH, "ggZH": effggZH_ZH}, "VH": {"WH": effWH_VH, "qqZH": effqqZH_VH, "ggZH": effggZH_VH}, "VVH": {"VBF": effVBF_VVH, "WH": effWH_VVH, "qqZH": effqqZH_VVH, "ggZH": effggZH_VVH}, "tH": {"tHq": efftHq_tH, "tHW": efftHW_tH}, "top": {"ttH": effttH_top, "tHq": efftHq_top, "tHW": efftHW_top}}
         
         if dim == 1:
-	    self.check_multiprod(eff["x"], multiprod)
+            self.check_multiprod(eff["x"], multiprod)
         elif dim == 2:
-	    self.check_multiprod(eff["x"], multiprod)
+            self.check_multiprod(eff["x"], multiprod)
             self.check_multiprod(eff["y"], multiprod)
         elif dim >= 3:
             for i in range(1,dim+1):
@@ -476,7 +476,7 @@ class ReadExpInput:
         # first, read the bestfit
         bestfit = {}
         LChi2min = 0
-                
+        
         for child in root:
             if child.tag == "bestfit":
                 if type == "f":
@@ -851,7 +851,6 @@ class ReadExpInput:
             grid_raw = grid_raw.strip("\n").strip().split("\n")
         
             i = -1
-        
             for line in grid_raw:
                 tab = line.split()
                 if len(tab) != 2:
@@ -867,7 +866,7 @@ class ReadExpInput:
                     i += 1
                 else:
                     i = x.index(cur_x)
-
+            
             grid["x"] = x
             grid["L"] = L
             LChi2min = min(grid["L"])
@@ -929,12 +928,23 @@ class ReadExpInput:
                         raise ExpInputError(self.filepath,
                                             '<eff> tags for "' + label + '" and "' +
                                             prod + '" cannot both be defined')
-                # also, only one multi-particle label can be used (VH or VVH),
+                # also, overlapping multi-particle labels cannot be both used (VH or VVH),
                 # not both
-                for label in multiprod:
-                    if label != prod and (label,decay) in eff_dict:
-                        raise ExpInputError(self.filepath,
-                                            '<eff> tags for "' + label + '" and "' +
+                if prod == "ZH" and ("VH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "ZH" and ("VVH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VVH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "VH" and ("VVH",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "VVH" + '" and "' +
+                                             prod + '" cannot both be defined')
+                if prod == "tH" and ("top",decay) in eff_dict:
+                    raise ExpInputError(self.filepath,
+                                            '<eff> tags for "' + "top" + '" and "' +
                                              prod + '" cannot both be defined')
 
         # it is consistent, resolve multi-particle labels
@@ -965,3 +975,4 @@ def f_Poisson_corr(y, *params):
     corr, z1, z2 = params
     f = z1*z2*y - corr*np.sqrt(z1*z2*(1+z2*(np.exp(z1*y**2) - 1)))
     return f
+

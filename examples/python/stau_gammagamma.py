@@ -13,7 +13,7 @@
 ###############################################################
 
 import sys, os
-from matplotlib.mlab import griddata
+from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -32,7 +32,7 @@ import lilith
 # Parameters
 ######################################################################
 
-print "***** reading parameters *****"
+print("***** reading parameters *****")
 
 # Experimental results
 exp_input = "data/latestRun2.list"
@@ -156,8 +156,8 @@ def usrXMLinput(mass=125., CGa=1, precision="BEST-QCD"):
 # Scan initialization
 ######################################################################
 
-print "***** stau1 mass =", str(m1_fixed), "GeV, tan(beta) =", str(tb), "*****\n"
-print "***** scan initialization *****"
+print("***** stau1 mass =", str(m1_fixed), "GeV, tan(beta) =", str(tb), "*****\n")
+print("***** scan initialization *****")
 
 m2_min = max(100, m1_fixed)
 m2_max = 1000.
@@ -180,7 +180,7 @@ lilithcalc.readexpinput(exp_input)
 m2logLmin=10000
 max=-1
 
-print "***** running scan *****"
+print("***** running scan *****")
 
 for theta in np.linspace(theta_min, theta_max, grid_subdivisions):
     fresults.write('\n')
@@ -197,14 +197,14 @@ for theta in np.linspace(theta_min, theta_max, grid_subdivisions):
 
 fresults.close()
 
-print "***** scan finalized *****"
+print("***** scan finalized *****")
 
 ######################################################################
 # Plot routine
 ######################################################################
 
 
-print "***** plotting *****"
+print("***** plotting *****")
 
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 15
@@ -235,10 +235,10 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 try:
 # griddata using Natural Neighbor (nn) interpolation
-    Z = griddata(x, y, z2, xi, yi, interp='nn')
+    Z = griddata((x, y), z2, (X,Y), method='nearest')
 except:
 # If you don't have natgrid installed, use instead linear interpolation
-    Z = griddata(x, y, z2, xi, yi, interp="linear")
+    Z = griddata((x, y), z2, (X,Y), method="linear")
 
 # heat map of -2LogL
 cax = ax.imshow(Z, vmin=0, vmax=15, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()], \
@@ -268,5 +268,5 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 plt.savefig(outputplot)
 
-print "results are stored in", lilith_dir + "/results"
-print "***** done *****"
+print("results are stored in", lilith_dir + "/results")
+print("***** done *****")

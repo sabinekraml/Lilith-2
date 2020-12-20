@@ -3,6 +3,7 @@
 #  This file is part of Lilith
 #  v1 (2015) by Jeremy Bernon and Beranger Dumont 
 #  v2 (2019) by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung, Le Duc Ninh 
+#            converted to Python 3 by Marius Bertrand (Jul/Aug 2020)
 #
 #  Web page: http://lpsc.in2p3.fr/projects-th/lilith/
 #
@@ -37,24 +38,24 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
         try:
             if mu["dim"] == 1:
                 user_mu_effscaled["x"] = 0.
-                for (prod,decay),eff_prod in mu["eff"]["x"].items():
-		    if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
+                for (prod,decay),eff_prod in list(mu["eff"]["x"].items()):
+                    if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
                       and (prod == "ggH" or prod == "VBF" or prod == "tHq" or prod == "tHW" or prod == "ggZH"):
                         if user_mode == "reducedcouplings":
                             prod = prod + "13"
                     user_mu_effscaled["x"] += eff_prod*user_mu[prod,decay]
             elif mu["dim"] == 2:
                 user_mu_effscaled["x"] = 0.
-                for (prod,decay),eff_prod in mu["eff"]["x"].items():
-		    if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
+                for (prod,decay),eff_prod in list(mu["eff"]["x"].items()):
+                    if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
                       and (prod == "ggH" or prod == "VBF" or prod == "tHq" or prod == "tHW" or prod == "ggZH"):
                         if user_mode == "reducedcouplings":
                             prod = prod + "13"
                     user_mu_effscaled["x"] += eff_prod*user_mu[prod,decay]
 
                 user_mu_effscaled["y"] = 0.
-                for (prod,decay),eff_prod in mu["eff"]["y"].items():
-		    if mu["sqrts"] not in ["1.96","7","8","7.","7.0","8.0","8.","7+8"]\
+                for (prod,decay),eff_prod in list(mu["eff"]["y"].items()):
+                    if mu["sqrts"] not in ["1.96","7","8","7.","7.0","8.0","8.","7+8"]\
                       and (prod == "ggH" or prod == "VBF" or prod == "tHq" or prod == "tHW" or prod == "ggZH"):
                         if user_mode == "reducedcouplings":
                             prod = prod + "13"
@@ -63,8 +64,8 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                 for i in range(1,mu["dim"]+1):
                     d = "d" + str(i)
                     user_mu_effscaled[d] = 0.
-                    for (prod,decay),eff_prod in mu["eff"][d].items():
-		        if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
+                    for (prod,decay),eff_prod in list(mu["eff"][d].items()):
+                        if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
                           and (prod == "ggH" or prod == "VBF" or prod == "tHq" or prod == "tHW" or prod == "ggZH"):
                             if user_mode == "reducedcouplings":
                                 prod = prod + "13"

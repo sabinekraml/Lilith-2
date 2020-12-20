@@ -1,4 +1,4 @@
-Lilith 2.0
+Lilith-2
 
 by Sabine Kraml, Tran Quang Loc, Dao Thi Nhung and Le Duc Ninh 
 
@@ -22,13 +22,15 @@ Original version: Lilith 1.1
     along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 
-Prerequisites: Python 2.7 (not yet 3.X!), SciPy and NumPy; 
-the example codes doing a likelihood profile analysis require iminuit.
+Lilith 2.0 is in Python 2 (2.7.4 or higher)
+Lilith 2.1 is in Python 3.x 
 
-Tested with Python 2.7.x (x>4), SciPy 0.13.0b1, NumPy 1.8.0rc1, iminuit 1.2. 
+Other prerequisites: SciPy and NumPy; 
+the example codes doing a likelihood profile analysis require iminuit.
 
 For information how to run Lilith, see https://arxiv.org/abs/1502.04138 
 For the update to version 2, see https://arxiv.org/abs/1908.03952
 For usage in micrOMEGAs, see https://arxiv.org/abs/1606.03834
+A tutorial is available at https://indico.cern.ch/event/955391/contributions/4086275/
 
 ** Please cite the relevant papers when you use Lilith for your work **
