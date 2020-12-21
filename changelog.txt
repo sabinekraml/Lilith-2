@@ -45,3 +45,5 @@ For the changelog of the database of experimental results, see data/changelog
     code:
       * code translated from Python 2 to Python 3
       * examples adapted to work with new iminuit 2.x series as well as iminuit 1.x
+    database:  
+      * HIGG-2018-54_VBF_invisible_f.xml extended for correct extrapolation
