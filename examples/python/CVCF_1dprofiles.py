@@ -19,6 +19,7 @@
 
 import sys, os
 import matplotlib.pyplot as plt
+import iminuit
 from iminuit import Minuit
 import matplotlib
 
@@ -27,6 +28,9 @@ sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
 
+iminuit_version = iminuit.__version__
+print("iminuit version:", iminuit_version)
+iminuit_version_f = float(iminuit_version[:3])
 
 ######################################################################
 # Parameters
@@ -112,11 +116,14 @@ lilithcalc.readexpinput(myexpinput)
 print("\n***** performing model fit: migrad, hesse, minos *****")
 
 # Initialize the fit; parameter starting values and limits
-m = Minuit(getL, CV=1, CF=1)
-m.limits = [(0, 3), (0, 3)]
-m.errordef = Minuit.LEAST_SQUARES
-m.errors = [0.2, 0.2]
-m.print_level = 0
+if iminuit_version_f < 2.0:
+  m = Minuit(getL, CV=1, limit_CV=(0,3), CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=0.2, error_CF=0.2)
+else:
+  m = Minuit(getL, CV=1, CF=1)
+  m.limits = [(0, 3), (0, 3)]
+  m.errordef = 1 # 1 for -2LogL (or least square), 0.5 for -LogL 
+  m.errors = [0.2, 0.2]
+  m.print_level = 0
 
 # Minimization and error estimation
 m.migrad()
@@ -130,8 +137,12 @@ print("\nMinos errors:")
 for key, value in list(m.merrors.items()):
     print(key, value)
 
-print("\nCorrelation matrix:\n", m.covariance.correlation())
-print("\nCovariance matrix:\n", m.covariance)
+if iminuit_version_f < 2.0:
+  print("\nCorrelation matrix:\n", m.matrix(correlation=True))
+  print("\nCovariance matrix:\n", m.matrix())
+else:
+  print("\nCorrelation matrix:\n", m.covariance.correlation())
+  print("\nCovariance matrix:\n", m.covariance)
 
 # Display parameter values at the best-fit point
 #print "\nBest-fit point:" 
@@ -140,11 +151,17 @@ print("\nCovariance matrix:\n", m.covariance)
 
 print("\n***** getting the 1-dimensional likelihood profile of CV *****")
 # Profiling over CF
-xV,yV,rV = m.mnprofile('CV', size=300, bound=(0., 3), subtract_min=True)
+if iminuit_version_f < 2.0:
+  xV,yV,rV = m.mnprofile('CV', bins=300, bound=(0., 3), subtract_min=True)
+else:
+  xV,yV,rV = m.mnprofile('CV', size=300, bound=(0., 3), subtract_min=True)
 
 print("***** getting the 1-dimensional likelihood profile of CF *****")
 # Profiling over CV
-xF,yF,rF = m.mnprofile('CF', size=300, bound=(0., 3), subtract_min=True)
+if iminuit_version_f < 2.0:
+  xF,yF,rF = m.mnprofile('CF', bins=300, bound=(0., 3), subtract_min=True)
+else:
+  xF,yF,rF = m.mnprofile('CF', size=300, bound=(0., 3), subtract_min=True)
 
 
 ######################################################################

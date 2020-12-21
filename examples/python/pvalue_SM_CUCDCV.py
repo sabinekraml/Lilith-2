@@ -12,6 +12,7 @@
 ###############################################################
 
 import sys, os
+import iminuit
 from iminuit import Minuit
 from math import floor
 from scipy import stats
@@ -21,6 +22,9 @@ sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
 
+iminuit_version = iminuit.__version__
+print("iminuit version:", iminuit_version)
+iminuit_version_f = float(iminuit_version[:3])
 
 ######################################################################
 # Parameters
@@ -105,11 +109,14 @@ print("-2LogL(SM) =", SM_minus2logL)
 
 print("\n***** performing (CU,CD,CV) model fit *****")
 # Initialize the fit; parameter starting values and limits
-m = Minuit(getL_CUCDCV, CU=0.9, CD=0.9, CV=0.9)
-m.limits = [(0, 3), (0, 3), (0,3)]
-m.errordef = Minuit.LEAST_SQUARES
-m.errors = [1, 1, 1]
-m.print_level = 0
+if iminuit_version_f < 2.0:
+  m = Minuit(getL_CUCDCV, CU=0.9, limit_CU=(0,3), CD=0.9, limit_CD=(0,3), CV=0.9, limit_CV=(0,3), print_level=0, errordef=1, error_CU=1, error_CD=1, error_CV=1)
+else:
+  m = Minuit(getL_CUCDCV, CU=0.9, CD=0.9, CV=0.9)
+  m.limits = [(0, 3), (0, 3), (0,3)]
+  m.errordef = 1 # 1 for -2LogL (or least square), 0.5 for -LogL 
+  m.errors = [1, 1, 1]
+  m.print_level = 0
 
 # Fit the model
 m.migrad()
