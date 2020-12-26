@@ -115,6 +115,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 
             # likelihood computation in case of a type="variable normal"
             # following "Variable Gaussian 2", Barlow arXiv:physics/0406120v1, Eq. 18
+            vn_type = 1
             if mu["type"] == "vn":
                 if mu["dim"] == 1:
                     unc_left = abs(mu["param"]["uncertainty"]["left"])
@@ -148,27 +149,54 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                     V1f = V1 + V1e*(z1-z10)
                     V2f = V2 + V2e*(z2-z20)
                     cur_l = 1.0/(1-p**2)*((z1-z10)**2/V1f-2*p*(z1-z10)*(z2-z20)/np.sqrt(V1f*V2f)+(z2-z20)**2/V2f)
-                elif mu["dim"] >= 3:
+                elif mu["dim"] >= 3 and vn_type == 2:
                     mu_vec = np.array([user_mu_effscaled["d1"] - mu["bestfit"]["d1"],
                                        user_mu_effscaled["d2"] - mu["bestfit"]["d2"],
                                        user_mu_effscaled["d3"] - mu["bestfit"]["d3"]])
                     for i in range(4,mu["dim"]+1):
                         d = "d"+str(i)
                         mu_vec = np.append(mu_vec,[user_mu_effscaled[d] - mu["bestfit"][d]])
-                    one_c = complex(1,0)
-                    unc_sym = np.sqrt((mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec)*one_c)
-                    cov_m_c = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-                    cov_m = cov_m_c.real
+
+                    unc_sym = np.sqrt(np.abs(mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec))
+                    cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
                     print("cor_m =",mu["param"]["corr_m"])
                     print("cov_m =",cov_m)
                     error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
                     error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
                     mu_th_VGau = error_th_p*error_th_m
                     mu_th_VGau_prime = error_th_p - error_th_m
-                    unc_sym_th = np.sqrt((mu_th_VGau + mu_th_VGau_prime*mu_vec)*one_c)
+                    unc_sym_th = np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec))
                     corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
-                    cov_m_th_c = unc_sym_th*corr_m_th*unc_sym_th.T
-                    cov_m_th = cov_m_th_c.real
+                    cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
+
+                    cov_m_tot = cov_m + cov_m_th
+                    print("cor_m_th =",corr_m_th)
+                    print("cov_m_th =",cov_m_th)
+                    print("cov_m_tot =",cov_m_tot)
+                    inv_cov_m = np.linalg.inv(cov_m_tot)
+                    cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
+
+                elif mu["dim"] >= 3 and vn_type == 1:
+                    mu_vec = np.array([user_mu_effscaled["d1"] - mu["bestfit"]["d1"],
+                                       user_mu_effscaled["d2"] - mu["bestfit"]["d2"],
+                                       user_mu_effscaled["d3"] - mu["bestfit"]["d3"]])
+                    for i in range(4,mu["dim"]+1):
+                        d = "d"+str(i)
+                        mu_vec = np.append(mu_vec,[user_mu_effscaled[d] - mu["bestfit"][d]])
+
+                    unc_sym = mu["param"]["SGau"] + mu["param"]["SGau_prime"]*mu_vec
+                    cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
+                    print("cor_m =",mu["param"]["corr_m"])
+                    print("cov_m =",cov_m)
+                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
+                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
+                    mu_th_VGau_sum = error_th_p + error_th_m
+                    mu_th_SGau = 2*error_th_p*error_th_m/mu_th_VGau_sum
+                    mu_th_SGau_prime = (error_th_p - error_th_m)/mu_th_VGau_sum
+                    unc_sym_th = mu_th_SGau + mu_th_SGau_prime*mu_vec
+                    corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+                    cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
+
                     cov_m_tot = cov_m + cov_m_th
                     print("cor_m_th =",corr_m_th)
                     print("cov_m_th =",cov_m_th)

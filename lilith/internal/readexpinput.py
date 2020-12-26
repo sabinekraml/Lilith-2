@@ -791,6 +791,9 @@ class ReadExpInput:
             elif type == "vn":
                 param["VGau"] = unc_right*abs(unc_left)
                 param["VGau_prime"] = unc_right - abs(unc_left)
+                param["VGau_sum"] = unc_right + abs(unc_left)
+                param["SGau"] = 2*param["VGau"]/param["VGau_sum"]
+                param["SGau_prime"] = param["VGau_prime"]/param["VGau_sum"]
                 param["corr_m"] = corr_m
 
         # check that everything is there

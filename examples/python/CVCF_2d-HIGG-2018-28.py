@@ -43,7 +43,7 @@ output = "results/CVCF_2d.out"
 # outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a.pdf"
 # outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Table08.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Table08-bbH.pdf"
-outputplot = "results/CVCF_2d_Table08-bbH_th.pdf"
+outputplot = "results/CVCF_2d_Table08-bbH_Vth_vn1.pdf"
 
 # Scan ranges
 CV_min = 0.68
