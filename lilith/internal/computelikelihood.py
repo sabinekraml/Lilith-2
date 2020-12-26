@@ -155,10 +155,25 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                     for i in range(4,mu["dim"]+1):
                         d = "d"+str(i)
                         mu_vec = np.append(mu_vec,[user_mu_effscaled[d] - mu["bestfit"][d]])
-
-                    unc_sym = np.sqrt(mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec)
-                    cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-                    inv_cov_m = np.linalg.inv(cov_m)
+                    one_c = complex(1,0)
+                    unc_sym = np.sqrt((mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec)*one_c)
+                    cov_m_c = unc_sym*mu["param"]["corr_m"]*unc_sym.T
+                    cov_m = cov_m_c.real
+                    print("cor_m =",mu["param"]["corr_m"])
+                    print("cov_m =",cov_m)
+                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
+                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
+                    mu_th_VGau = error_th_p*error_th_m
+                    mu_th_VGau_prime = error_th_p - error_th_m
+                    unc_sym_th = np.sqrt((mu_th_VGau + mu_th_VGau_prime*mu_vec)*one_c)
+                    corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+                    cov_m_th_c = unc_sym_th*corr_m_th*unc_sym_th.T
+                    cov_m_th = cov_m_th_c.real
+                    cov_m_tot = cov_m + cov_m_th
+                    print("cor_m_th =",corr_m_th)
+                    print("cov_m_th =",cov_m_th)
+                    print("cov_m_tot =",cov_m_tot)
+                    inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
             # likelihood computation in case of a type="Poisson"
