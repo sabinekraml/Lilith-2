@@ -43,3 +43,6 @@ For the changelog of the database of experimental results, see data/changelog
 
 ** Aug, 2020: code converted to Python 3 by Marius Bertrand (still version 2.0)
 
+** Dec, 2020: added Variable Gaussian 1, added abs() to the denominator of Variable Gaussian 2 to force LogL negative
+(this is to avoid numerical issue with sqrt() of the denominator)
+

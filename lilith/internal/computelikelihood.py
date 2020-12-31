@@ -115,15 +115,14 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 
             # likelihood computation in case of a type="variable normal"
             # following "Variable Gaussian 2", Barlow arXiv:physics/0406120v1, Eq. 18
-            vn_type = 1
             if mu["type"] == "vn":
                 if mu["dim"] == 1:
                     unc_left = abs(mu["param"]["uncertainty"]["left"])
                     unc_right = mu["param"]["uncertainty"]["right"]
                     if unc_left == 0:
-                        cur_l = (user_mu_effscaled["x"]-mu["bestfit"]["x"])/unc_right
+                        cur_l = np.abs(user_mu_effscaled["x"]-mu["bestfit"]["x"])/unc_right
                     elif unc_right == 0:
-                        cur_l = -(user_mu_effscaled["x"]-mu["bestfit"]["x"])/unc_left
+                        cur_l = np.abs(user_mu_effscaled["x"]-mu["bestfit"]["x"])/unc_left
                     else:
                         num = user_mu_effscaled["x"] - mu["bestfit"]["x"]
                         den = unc_left*unc_right + (unc_right - unc_left)*num
@@ -131,7 +130,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                             raise LikelihoodComputationError(
                               'divided by zero in 1D Variable Gaussian case')
                         else:
-                            cur_l = num**2/den
+                            cur_l = num**2/np.abs(den)
                 if mu["dim"] == 2:
                     p = mu["param"]["correlation"]
                     sig1p = mu["param"]["uncertainty"]["x"]["right"]
@@ -146,10 +145,10 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                     V1e = sig1p - sig1m
                     V2 = sig2p*sig2m
                     V2e = sig2p - sig2m
-                    V1f = V1 + V1e*(z1-z10)
-                    V2f = V2 + V2e*(z2-z20)
+                    V1f = np.abs(V1 + V1e*(z1-z10))
+                    V2f = np.abs(V2 + V2e*(z2-z20))
                     cur_l = 1.0/(1-p**2)*((z1-z10)**2/V1f-2*p*(z1-z10)*(z2-z20)/np.sqrt(V1f*V2f)+(z2-z20)**2/V2f)
-                elif mu["dim"] >= 3 and vn_type == 2:
+                elif mu["dim"] >= 3:
                     mu_vec = np.array([user_mu_effscaled["d1"] - mu["bestfit"]["d1"],
                                        user_mu_effscaled["d2"] - mu["bestfit"]["d2"],
                                        user_mu_effscaled["d3"] - mu["bestfit"]["d3"]])
@@ -159,8 +158,8 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 
                     unc_sym = np.sqrt(np.abs(mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec))
                     cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-                    print("cor_m =",mu["param"]["corr_m"])
-                    print("cov_m =",cov_m)
+#                    print("cor_m =",mu["param"]["corr_m"])
+#                    print("cov_m =",cov_m)
                     error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
                     error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
                     mu_th_VGau = error_th_p*error_th_m
@@ -170,13 +169,50 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
 
                     cov_m_tot = cov_m + cov_m_th
-                    print("cor_m_th =",corr_m_th)
-                    print("cov_m_th =",cov_m_th)
-                    print("cov_m_tot =",cov_m_tot)
+#                    print("cor_m_th =",corr_m_th)
+#                    print("cov_m_th =",cov_m_th)
+#                    print("cov_m_tot =",cov_m_tot)
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
-                elif mu["dim"] >= 3 and vn_type == 1:
+            # likelihood computation in case of a type="variable normal 1"
+            # following "Variable Gaussian 1", Barlow arXiv:physics/0406120v1, Eq. 15
+            if mu["type"] == "vn1":
+                if mu["dim"] == 1:
+                    unc_left = abs(mu["param"]["uncertainty"]["left"])
+                    unc_right = mu["param"]["uncertainty"]["right"]
+                    if unc_left == 0:
+                        cur_l = 1.0
+                    elif unc_right == 0:
+                        cur_l = 1.0
+                    else:
+                        num = user_mu_effscaled["x"] - mu["bestfit"]["x"]
+                        den = (2*unc_left*unc_right + (unc_right - unc_left)*num)/(unc_right + unc_left)
+                        if den == 0:
+                            raise LikelihoodComputationError(
+                              'divided by zero in 1D Variable Gaussian 1 case')
+                        else:
+                            cur_l = (num/den)**2
+                if mu["dim"] == 2:
+                    p = mu["param"]["correlation"]
+                    sig1p = mu["param"]["uncertainty"]["x"]["right"]
+                    sig1m = abs(mu["param"]["uncertainty"]["x"]["left"])
+                    sig2p = mu["param"]["uncertainty"]["y"]["right"]
+                    sig2m = abs(mu["param"]["uncertainty"]["y"]["left"])
+                    z10 = mu["bestfit"]["x"]
+                    z20 = mu["bestfit"]["y"]
+                    z1 = user_mu_effscaled["x"]
+                    z2 = user_mu_effscaled["y"]
+                    V1s = sig1p + sig1m
+                    V1 = 2*sig1p*sig1m/V1s
+                    V1e = (sig1p - sig1m)/V1s
+                    V2s = sig2p + sig2m
+                    V2 = 2*sig2p*sig2m/V2s
+                    V2e = (sig2p - sig2m)/V2s
+                    V1f = (V1 + V1e*(z1-z10))**2
+                    V2f = (V2 + V2e*(z2-z20))**2
+                    cur_l = 1.0/(1-p**2)*((z1-z10)**2/V1f-2*p*(z1-z10)*(z2-z20)/np.sqrt(V1f*V2f)+(z2-z20)**2/V2f)
+                elif mu["dim"] >= 3:
                     mu_vec = np.array([user_mu_effscaled["d1"] - mu["bestfit"]["d1"],
                                        user_mu_effscaled["d2"] - mu["bestfit"]["d2"],
                                        user_mu_effscaled["d3"] - mu["bestfit"]["d3"]])
@@ -186,10 +222,14 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 
                     unc_sym = mu["param"]["SGau"] + mu["param"]["SGau_prime"]*mu_vec
                     cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-                    print("cor_m =",mu["param"]["corr_m"])
-                    print("cov_m =",cov_m)
-                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
-                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
+#                    print("cor_m =",mu["param"]["corr_m"])
+#                    print("cov_m =",cov_m)
+# full theoretical errors (incl pdf)
+#                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
+#                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
+# theoretical errors without pdf
+                    error_th_p = np.array([0.0629283, 0.00672014, 0.07188083, 0.10060985])
+                    error_th_m = np.array([0.0629283, 0.00672014, 0.13282189, 0.13570322])
                     mu_th_VGau_sum = error_th_p + error_th_m
                     mu_th_SGau = 2*error_th_p*error_th_m/mu_th_VGau_sum
                     mu_th_SGau_prime = (error_th_p - error_th_m)/mu_th_VGau_sum
@@ -197,10 +237,21 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                     corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
 
-                    cov_m_tot = cov_m + cov_m_th
-                    print("cor_m_th =",corr_m_th)
-                    print("cov_m_th =",cov_m_th)
-                    print("cov_m_tot =",cov_m_tot)
+# ggF+bbH, VBF, VH (WH+ZH), ttH+tH
+                    error_pdf_p = np.array([0.01800715, 0.0251087, 0.0164991, 0.04354921])
+                    error_pdf_m = np.array([0.01800715, 0.0251087, 0.0164991, 0.04354921])
+                    mu_pdf_VGau_sum = error_pdf_p + error_pdf_m
+                    mu_pdf_SGau = 2*error_pdf_p*error_pdf_m/mu_pdf_VGau_sum
+                    mu_pdf_SGau_prime = (error_pdf_p - error_pdf_m)/mu_pdf_VGau_sum
+                    unc_sym_pdf = mu_pdf_SGau + mu_pdf_SGau_prime*mu_vec
+#                    corr_m_pdf = np.array([[1,-1,-1,1],[-1,1,1,-1],[-1,1,1,-1],[1,-1,-1,1]])
+                    corr_m_pdf = np.array([[1,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,1]])
+                    cov_m_pdf = unc_sym_pdf*corr_m_pdf*unc_sym_pdf.T
+
+                    cov_m_tot = cov_m + cov_m_th + cov_m_pdf
+#                    print("cor_m_pdf =",corr_m_pdf)
+#                    print("cov_m_pdf =",cov_m_pdf)
+#                    print("cov_m_tot =",cov_m_tot)
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
