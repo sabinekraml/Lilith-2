@@ -158,20 +158,22 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 
                     unc_sym = np.sqrt(np.abs(mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec))
                     cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-#                    print("cor_m =",mu["param"]["corr_m"])
-#                    print("cov_m =",cov_m)
-                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
-                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
-                    mu_th_VGau = error_th_p*error_th_m
-                    mu_th_VGau_prime = error_th_p - error_th_m
-                    unc_sym_th = np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec))
-                    corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
-                    cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
+##                    print("cor_m =",mu["param"]["corr_m"])
+##                    print("cov_m =",cov_m)
+## include theoretical errors with no correlations:
+#                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
+#                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
+#                    mu_th_VGau = error_th_p*error_th_m
+#                    mu_th_VGau_prime = error_th_p - error_th_m
+#                    unc_sym_th = np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec))
+#                    corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+#                    cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
 
-                    cov_m_tot = cov_m + cov_m_th
-#                    print("cor_m_th =",corr_m_th)
-#                    print("cov_m_th =",cov_m_th)
-#                    print("cov_m_tot =",cov_m_tot)
+                    cov_m_tot = cov_m # default option
+#                    cov_m_tot = cov_m + cov_m_th # include theoretical errors with no correlations
+##                    print("cor_m_th =",corr_m_th)
+##                    print("cov_m_th =",cov_m_th)
+##                    print("cov_m_tot =",cov_m_tot)
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
@@ -222,36 +224,37 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 
                     unc_sym = mu["param"]["SGau"] + mu["param"]["SGau_prime"]*mu_vec
                     cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-#                    print("cor_m =",mu["param"]["corr_m"])
-#                    print("cov_m =",cov_m)
-# full theoretical errors (incl pdf)
+##                    print("cor_m =",mu["param"]["corr_m"])
+##                    print("cov_m =",cov_m)
+## full theoretical errors (incl pdf):
 #                    error_th_p = np.array([0.06545401, 0.02599244, 0.07375007, 0.10963063])
 #                    error_th_m = np.array([0.06545401, 0.02599244, 0.13384272, 0.14251982])
-# theoretical errors without pdf
-                    error_th_p = np.array([0.0629283, 0.00672014, 0.07188083, 0.10060985])
-                    error_th_m = np.array([0.0629283, 0.00672014, 0.13282189, 0.13570322])
-                    mu_th_VGau_sum = error_th_p + error_th_m
-                    mu_th_SGau = 2*error_th_p*error_th_m/mu_th_VGau_sum
-                    mu_th_SGau_prime = (error_th_p - error_th_m)/mu_th_VGau_sum
-                    unc_sym_th = mu_th_SGau + mu_th_SGau_prime*mu_vec
-                    corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
-                    cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
+## theoretical errors without pdf:
+#                    error_th_p = np.array([0.0629283, 0.00672014, 0.07188083, 0.10060985])
+#                    error_th_m = np.array([0.0629283, 0.00672014, 0.13282189, 0.13570322])
+#                    mu_th_VGau_sum = error_th_p + error_th_m
+#                    mu_th_SGau = 2*error_th_p*error_th_m/mu_th_VGau_sum
+#                    mu_th_SGau_prime = (error_th_p - error_th_m)/mu_th_VGau_sum
+#                    unc_sym_th = mu_th_SGau + mu_th_SGau_prime*mu_vec
+#                    corr_m_th = np.array([[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
+#                    cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
 
-# ggF+bbH, VBF, VH (WH+ZH), ttH+tH
-                    error_pdf_p = np.array([0.01800715, 0.0251087, 0.0164991, 0.04354921])
-                    error_pdf_m = np.array([0.01800715, 0.0251087, 0.0164991, 0.04354921])
-                    mu_pdf_VGau_sum = error_pdf_p + error_pdf_m
-                    mu_pdf_SGau = 2*error_pdf_p*error_pdf_m/mu_pdf_VGau_sum
-                    mu_pdf_SGau_prime = (error_pdf_p - error_pdf_m)/mu_pdf_VGau_sum
-                    unc_sym_pdf = mu_pdf_SGau + mu_pdf_SGau_prime*mu_vec
-#                    corr_m_pdf = np.array([[1,-1,-1,1],[-1,1,1,-1],[-1,1,1,-1],[1,-1,-1,1]])
-                    corr_m_pdf = np.array([[1,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,1]])
-                    cov_m_pdf = unc_sym_pdf*corr_m_pdf*unc_sym_pdf.T
+## ggF+bbH, VBF, VH (WH+ZH), ttH+tH
+#                    error_pdf_p = np.array([0.01800715, 0.0251087, 0.0164991, 0.04354921])
+#                    error_pdf_m = np.array([0.01800715, 0.0251087, 0.0164991, 0.04354921])
+#                    mu_pdf_VGau_sum = error_pdf_p + error_pdf_m
+#                    mu_pdf_SGau = 2*error_pdf_p*error_pdf_m/mu_pdf_VGau_sum
+#                    mu_pdf_SGau_prime = (error_pdf_p - error_pdf_m)/mu_pdf_VGau_sum
+#                    unc_sym_pdf = mu_pdf_SGau + mu_pdf_SGau_prime*mu_vec
+##                    corr_m_pdf = np.array([[1,-1,-1,1],[-1,1,1,-1],[-1,1,1,-1],[1,-1,-1,1]])
+#                    corr_m_pdf = np.array([[1,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,1]])
+#                    cov_m_pdf = unc_sym_pdf*corr_m_pdf*unc_sym_pdf.T
 
-                    cov_m_tot = cov_m + cov_m_th + cov_m_pdf
-#                    print("cor_m_pdf =",corr_m_pdf)
-#                    print("cov_m_pdf =",cov_m_pdf)
-#                    print("cov_m_tot =",cov_m_tot)
+                    cov_m_tot = cov_m # default option
+#                    cov_m_tot = cov_m + cov_m_th + cov_m_pdf # include theoretical, pdf errors
+##                    print("cor_m_pdf =",corr_m_pdf)
+##                    print("cov_m_pdf =",cov_m_pdf)
+##                    print("cov_m_tot =",cov_m_tot)
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
