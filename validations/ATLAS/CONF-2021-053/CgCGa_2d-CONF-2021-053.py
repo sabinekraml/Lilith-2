@@ -1,13 +1,13 @@
-##################################################################
+###############################################################
 #
-# Lilith routine example for (CV, CF)  plots
+# Lilith routine example for (C_gluon, C_gamma) plots
 #
 # To put in Lilith-2.X/examples/python/ folder 
-# To execute from /Lilith-2.X root folder
+# To run from /Lilith-2.X root folder
 #
 # Use the libraries matplotlib (plotting) and numpy (functions)
 #
-##################################################################
+###############################################################
 
 import sys, os
 from scipy.interpolate import griddata
@@ -33,19 +33,19 @@ exp_input = "data/latestRun2.list"
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
-hmass = 125.
+hmass = 125.09
 
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "results/CVCF_2d.out"
-outputplot = "validations/CMS/HIG-19-015/CVCF_2d.pdf"
+output = "results/CgluCgam_2d.out"
+outputplot = "validations/ATLAS/CONF-2021-053/CgluCgam_2d.pdf"
 
-# Scan ranges
-CV_min = 0.5
-CV_max = 1.3
-CF_min = -1.2
-CF_max = 2.2
+# Scan ranges 
+Cg_min = 0.8
+Cg_max = 1.16
+CGa_min = 0.9
+CGa_max = 1.35
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -54,7 +54,7 @@ grid_subdivisions = 100
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
+def usrXMLinput(mass=125.09, CGa=1, Cg=1, precision="BEST-QCD"):
     """generate XML input from reduced couplings CV, CF"""
     
     myInputTemplate = """<?xml version="1.0"?>
@@ -64,12 +64,10 @@ def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
 <reducedcouplings>
   <mass>%(mass)s</mass>
 
-  <C to="tt">%(CF)s</C>
-  <C to="bb">%(CF)s</C>
-  <C to="cc">%(CF)s</C>
-  <C to="tautau">%(CF)s</C>
-  <C to="ZZ">%(CV)s</C>
-  <C to="WW">%(CV)s</C>
+  <C to="ff">1.</C>
+  <C to="VV">1.</C>
+  <C to="gammagamma">%(CGa)s</C>
+  <C to="gg">%(Cg)s</C>
 
   <extraBR>
     <BR to="invisible">0.</BR>
@@ -81,7 +79,7 @@ def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
 
 </lilithinput>
 """
-    myInput = {'mass':mass, 'CV':CV, 'CF':CF, 'precision':precision}
+    myInput = {'mass': mass, 'CGa': CGa, 'Cg': Cg, 'precision': precision}
         
     return myInputTemplate%myInput
 
@@ -109,22 +107,22 @@ max=-1
 
 print("***** running scan *****")
 
-for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
+for Cg in np.linspace(Cg_min, Cg_max, grid_subdivisions):
     fresults.write('\n')
-    for CF in np.linspace(CF_min, CF_max, grid_subdivisions):
-        myXML_user_input = usrXMLinput(hmass, CV=CV, CF=CF, precision=my_precision)
+    for CGa in np.linspace(CGa_min, CGa_max, grid_subdivisions):
+        myXML_user_input = usrXMLinput(hmass, CGa=CGa, Cg=Cg, precision=my_precision)
         lilithcalc.computelikelihood(userinput=myXML_user_input)
         m2logL = lilithcalc.l
         if m2logL < m2logLmin:
             m2logLmin = m2logL
-            CVmin = CV
-            CFmin = CF
-        fresults.write('%.5f    '%CV +'%.5f    '%CF + '%.5f     '%m2logL + '\n')
+            Cgmin = Cg
+            CGamin = CGa
+        fresults.write('%.5f    ' % Cg + '%.5f    ' % CGa + '%.5f     ' % m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
-print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
+print("minimum at Cgluon, Cgamma, -2logL_min = ", Cgmin, CGamin, m2logLmin)
 
 ######################################################################
 # Plot routine
@@ -168,35 +166,38 @@ xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 
 X, Y = np.meshgrid(xi, yi)
-Z = griddata((x, y), z2, (X, Y), method="linear")
+Z = griddata((x, y), z2, (X,Y), method="linear")
 
-# Plotting the 68%, 95% and 99.7% CL regions
+# Plotting the 68%, 95% and 99.7% CL contours
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
-ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
+CS = ax.contour(xi,yi,Z,[2.3,5.99,11.83], colors=['silver'])
+CS.levels = ['68% CL', '95% CL', '99.7% CL']
+ax.clabel(CS, CS.levels, inline=1, fontsize=9, colors='k')
+
+ax.set_aspect((0.33)/(CGa_max-CGa_min))
 
 # best fit point
-plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
-
+plt.plot([Cgmin],[CGamin], '*', c='w', ms=10)
 # Standard Model 
 plt.plot([1],[1], '+', c='k', ms=10)
 
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-19-015/CMS-PAS-HIG-19-015_CVCF-Grid.txt')
+expdata = np.genfromtxt('validations/ATLAS/CONF-2021-053/ATLAS-CONF-2021-053-fig_12.txt')
 xExp = expdata[:,0]
 yExp = expdata[:,1]
-plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="CMS official")
-plt.legend(loc='upper left')
-
+plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="ATLAS official")
+plt.legend()
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14, ha="left")
-plt.xlabel(r'$C_V$',fontsize=20)
-plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.75, 0.2, r'Data from CMS-HIG-19-015', fontsize=11)
-plt.text(0.8, 0.03, r'(Fig. 16 + Aux. Fig. 3)', fontsize=10)
+plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14.5, ha="left")
+plt.xlabel(r'$C_g$',fontsize=25)
+plt.ylabel(r'$C_\gamma$',fontsize=25)
+plt.text(0.83, 1.27, r'Data from: ATLAS-CONF-2021-053', fontsize=12)
+plt.text(0.83, 1.22, r'(Fig. 4 + Fig. 5)', fontsize=11)
 
+#plt.tight_layout()
 fig.set_tight_layout(True)
 
 #plt.show()
@@ -204,6 +205,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-19-015/")
+print("results are stored in", lilith_dir + "/validations/ATLAS/CONF-2021-053/")
 print("***** done *****")
 

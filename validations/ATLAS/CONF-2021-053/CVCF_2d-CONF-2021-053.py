@@ -39,13 +39,13 @@ hmass = 125.
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
-outputplot = "validations/CMS/HIG-19-015/CVCF_2d.pdf"
+outputplot = "validations/ATLAS/CONF-2021-053/CVCF_2d.pdf"
 
 # Scan ranges
-CV_min = 0.5
+CV_min = 0.8
 CV_max = 1.3
-CF_min = -1.2
-CF_max = 2.2
+CF_min = 0.7
+CF_max = 1.4
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -183,19 +183,18 @@ plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 plt.plot([1],[1], '+', c='k', ms=10)
 
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-19-015/CMS-PAS-HIG-19-015_CVCF-Grid.txt')
+expdata = np.genfromtxt('validations/ATLAS/CONF-2021-053/ATLAS-CONF-2021-053-fig_11.txt')
 xExp = expdata[:,0]
 yExp = expdata[:,1]
-plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="CMS official")
-plt.legend(loc='upper left')
-
+plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="ATLAS official")
+plt.legend()
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14, ha="left")
-plt.xlabel(r'$C_V$',fontsize=20)
-plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.75, 0.2, r'Data from CMS-HIG-19-015', fontsize=11)
-plt.text(0.8, 0.03, r'(Fig. 16 + Aux. Fig. 3)', fontsize=10)
+plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14.5, ha="left")
+plt.xlabel(r'$C_V$',fontsize=25)
+plt.ylabel(r'$C_F$',fontsize=25)
+plt.text(0.83, 1.3, r'Data from: ATLAS-CONF-2021-053', fontsize=12)
+plt.text(0.83, 1.22, r'(Fig. 4 + Fig. 5)', fontsize=11)
 
 fig.set_tight_layout(True)
 
@@ -204,6 +203,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-19-015/")
+print("results are stored in", lilith_dir + "/validations/ATLAS/CONF-2021-053/")
 print("***** done *****")
 

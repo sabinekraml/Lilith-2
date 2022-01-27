@@ -1,0 +1,141 @@
+<!--
+ATLAS combination of the H -> gammagamma, ZZ, WW, tautau, and bb decay modes.
+Best-fit values and uncertainties taken from Figure 04, correlations from Figure 05 at 
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2021-053/
+Implemented by Axel Iohner, 2022/01/26
+Validated: TBD
+-->
+
+<expmu dim="11" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="preliminary">ATLAS-CONF-2021-053</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="ggH" decay="gammagamma">1.0</eff>
+  <eff axis="d2" prod="ggH" decay="ZZ">1.0</eff>
+  <eff axis="d3" prod="ggH" decay="WW">1.0</eff>
+  
+  <eff axis="d4" prod="VBF" decay="gammagamma">1.0</eff>
+  <eff axis="d5" prod="VBF" decay="ZZ">1.0</eff>
+  <eff axis="d6" prod="VBF" decay="WW">1.0</eff>
+  
+  <eff axis="d7" prod="WH" decay="gammagamma">1.0</eff>
+  <eff axis="d8" prod="WH" decay="ZZ">1.0</eff>
+
+  <eff axis="d9" prod="top" decay="gammagamma">1.0</eff>
+  <eff axis="d10" prod="top" decay="ZZ">1.0</eff>
+  <eff axis="d11" prod="top" decay="WW">1.0</eff>
+
+
+  <bestfit>
+    	<d1>1.02</d1>
+    	<d2>0.95</d2>
+    	<d3>1.13</d3>
+    
+	<d4>1.47</d4>
+	<d5>1.31</d5>
+	<d6>1.09</d6>
+	
+	<d7>1.33</d7>
+	<d8>1.51</d8>
+	
+	<d9>0.93</d9>
+	<d10>1.69</d10>
+	<d11>1.64</d11>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.11</uncertainty>
+    <uncertainty axis="d1" side="right">+0.11</uncertainty>
+    <uncertainty axis="d2" side="left">-0.11</uncertainty>
+    <uncertainty axis="d2" side="right">+0.11</uncertainty>
+    <uncertainty axis="d3" side="left">-0.12</uncertainty>
+    <uncertainty axis="d3" side="right">+0.13</uncertainty>
+    <uncertainty axis="d4" side="left">-0.24</uncertainty>
+    <uncertainty axis="d4" side="right">+0.27</uncertainty>
+    <uncertainty axis="d5" side="left">-0.42</uncertainty>
+    <uncertainty axis="d5" side="right">+0.51</uncertainty>
+    <uncertainty axis="d6" side="left">-0.17</uncertainty>
+    <uncertainty axis="d6" side="right">+0.19</uncertainty>
+    <uncertainty axis="d7" side="left">-0.31</uncertainty>
+    <uncertainty axis="d7" side="right">+0.33</uncertainty>
+    <uncertainty axis="d8" side="left">-0.94</uncertainty>
+    <uncertainty axis="d8" side="right">+1.17</uncertainty>
+    <uncertainty axis="d9" side="left">-0.25</uncertainty>
+    <uncertainty axis="d9" side="right">+0.27</uncertainty>
+    <uncertainty axis="d10" side="left">-1.10</uncertainty>
+    <uncertainty axis="d10" side="right">+1.69</uncertainty>
+    <uncertainty axis="d11" side="left">-0.61</uncertainty>
+    <uncertainty axis="d11" side="right">+0.65</uncertainty>
+
+
+    
+	<correlation entry="d1d2">0.05</correlation>
+    <correlation entry="d1d3">0.09</correlation>
+    <correlation entry="d1d4">-0.12</correlation>
+	<correlation entry="d1d5">0.01</correlation>
+    <correlation entry="d1d6">0.02</correlation>
+    <correlation entry="d1d7">-0.06</correlation>
+	<correlation entry="d1d8">0</correlation>
+    <correlation entry="d1d9">0.06</correlation>
+    <correlation entry="d1d10">0</correlation>
+	<correlation entry="d1d11">0.01</correlation>
+    
+	<correlation entry="d2d3">0.10</correlation>
+    <correlation entry="d2d4">0</correlation>
+	<correlation entry="d2d5">-0.22</correlation>
+    <correlation entry="d2d6">0.01</correlation>
+    <correlation entry="d2d7">0</correlation>
+	<correlation entry="d2d8">-0.26</correlation>
+    <correlation entry="d2d9">0</correlation>
+    <correlation entry="d2d10">0.02</correlation>
+	<correlation entry="d2d11">0.01</correlation>
+	
+	<correlation entry="d3d4">0</correlation>
+	<correlation entry="d3d5">0</correlation>
+    <correlation entry="d3d6">-0.10</correlation>
+    <correlation entry="d3d7">0.01</correlation>
+	<correlation entry="d3d8">-0.03</correlation>
+    <correlation entry="d3d9">0</correlation>
+    <correlation entry="d3d10">0</correlation>
+	<correlation entry="d3d11">0.02</correlation>
+	
+	<correlation entry="d4d5">0.05</correlation>
+    <correlation entry="d4d6">0.13</correlation>
+    <correlation entry="d4d7">0.01</correlation>
+	<correlation entry="d4d8">0.01</correlation>
+    <correlation entry="d4d9">0.04</correlation>
+    <correlation entry="d4d10">0</correlation>
+	<correlation entry="d4d11">0.01</correlation>
+	
+    <correlation entry="d5d6">0.04</correlation>
+    <correlation entry="d5d7">0.01</correlation>
+	<correlation entry="d5d8">-0.04</correlation>
+    <correlation entry="d5d9">0</correlation>
+    <correlation entry="d5d10">0</correlation>
+	<correlation entry="d5d11">0</correlation>
+
+    <correlation entry="d6d7">0.01</correlation>
+	<correlation entry="d6d8">0.01</correlation>
+    <correlation entry="d6d9">0</correlation>
+    <correlation entry="d6d10">0</correlation>
+	<correlation entry="d6d11">0.01</correlation>
+
+	<correlation entry="d7d8">0.02</correlation>
+    <correlation entry="d7d9">-0.04</correlation>
+    <correlation entry="d7d10">0</correlation>
+	<correlation entry="d7d11">0.01</correlation>
+
+    <correlation entry="d8d9">0</correlation>
+    <correlation entry="d8d10">-0.18</correlation>
+	<correlation entry="d8d11">0.02</correlation>
+
+    <correlation entry="d9d10">0.01</correlation>
+	<correlation entry="d9d11">-0.01</correlation>
+
+	<correlation entry="d10d11">-0.11</correlation>
+    
+  </param>
+</expmu>

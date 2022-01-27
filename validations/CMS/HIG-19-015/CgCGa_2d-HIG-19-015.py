@@ -138,9 +138,15 @@ matplotlib.rcParams['ytick.major.pad'] = 15
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
+ax.yaxis.set_ticks_position('both')
+ax.yaxis.set_label_position('left')
+
+ax.xaxis.set_ticks_position('both')
+ax.xaxis.set_label_position('bottom')
+
 plt.minorticks_on()
-plt.tick_params(labelsize=20, length=14, width=2)
-plt.tick_params(which='minor', length=7, width=1.2)
+plt.tick_params(direction='in', labelsize=20, length=14, width=2)
+plt.tick_params(which='minor', direction='in', length=7, width=1.2)
 
 
 # Getting the data
@@ -170,7 +176,7 @@ CS = ax.contour(xi,yi,Z,[2.3,5.99,11.83], colors=['silver'])
 CS.levels = ['68% CL', '95% CL', '99.7% CL']
 ax.clabel(CS, CS.levels, inline=1, fontsize=9, colors='k')
 
-ax.set_aspect((Cg_max-Cg_min)/(CGa_max-CGa_min))
+ax.set_aspect((0.6)/(0.6))
 
 # best fit point
 plt.plot([Cgmin],[CGamin], '*', c='w', ms=10)
@@ -182,12 +188,14 @@ expdata = np.genfromtxt('validations/CMS/HIG-19-015/CMS-PAS-HIG-19-015_CgCGa-Gri
 xExp = expdata[:,0]
 yExp = expdata[:,1]
 plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="CMS official")
+plt.legend()
 
 # Title, labels, color bar...
-plt.title("  Lilith-"+str(lilith.__version__)+", DB 20.11 develop", fontsize=14.5, ha="left")
-plt.xlabel(r'$C_g$',fontsize=25)
-plt.ylabel(r'$C_\gamma$',fontsize=25)
-plt.text(0.83, 0.74, r'Exp. input: CMS-HIG-19-015', fontsize=13)
+plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14, ha="left")
+plt.xlabel(r'$C_g$',fontsize=20)
+plt.ylabel(r'$C_\gamma$',fontsize=20)
+plt.text(0.6, 0.7, r'Data from CMS-HIG-19-015', fontsize=11)
+plt.text(0.6, 0.6, r'(Fig. 16 + Aux. Fig. 3)', fontsize=10)
 
 #plt.tight_layout()
 fig.set_tight_layout(True)
