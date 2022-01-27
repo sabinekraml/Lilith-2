@@ -1,3 +1,6 @@
+### NB 36 fb-1 results correspond to DB19.09 ###
+### additional 140 fb-1 results available; preliminary DB22.01 ###
+
 #---------------------------
 #--- ATLAS Run2, 36 fb-1 ---
 #---------------------------
@@ -35,7 +38,7 @@ ATLAS/Run2/36fb-1/HIGG-2018-54_VBF_invisible_f.xml
 #--- CMS Run2, 36 fb-1 ---
 #---------------------------
 
-## Combination paper (all channels)
+## Combination paper (24 channels)
 CMS/Run2/36fb-1/HIG-17-031_combined_vn_dim24.xml
 
 ## VH, H -> tau tau
@@ -47,4 +50,20 @@ CMS/Run2/36fb-1/HIG-17-023_ggH_invisible_vs.xml
 CMS/Run2/36fb-1/HIG-17-023_qqH_invisible_f.xml
 CMS/Run2/36fb-1/HIG-17-023_VqqH_invisible_vs.xml
 CMS/Run2/36fb-1/HIG-17-023_ZllH_invisible_vs.xml
+
+
+#---------------------------
+#--- CMS Run2, 137 fb-1 ---
+#---------------------------
+
+## H -> gamma gamma
+#CMS/Run2/140fb-1/HIG-19-015_ggH-VBF-WH-ZH-ttH-tH_gammagamma_vn_dim6.xml   ## validated
+
+## H -> ZZ
+#CMS/Run2/140fb-1/PAS-HIG-19-001_ggH-VVH_ZZ_f.xml
+#CMS/Run2/140fb-1/HIG-19-001_ggH-VBF-VH-ttH_ZZ_vn_dim4.xml
+
+## H -> tau tau
+#CMS/Run2/140fb-1/PAS-HIG-19-010_VBF-ggH_tautau_vn68_fig10.xml
+
 

@@ -1,0 +1,66 @@
+<!--
+CMS result for H -> gammagamma decay mode at mH = 125.38 GeV for 137/fb.
+Best-fit values and uncertainties taken from Add. Table 1, correlations from Add. Fig. 5 at 
+http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-015/
+Implemented by Axel Iohner, 2022/01/21
+Validated: True
+-->
+
+<expmu dim="6" type="vn">
+  <experiment>CMS</experiment>
+  <source type="published">HIG-19-015</source>
+  <sqrts>13</sqrts>
+  <mass>125.38</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="ggH" decay="gammagamma">1.0</eff>
+  <eff axis="d2" prod="VBF" decay="gammagamma">1.0</eff>
+  <eff axis="d3" prod="WH" decay="gammagamma">1.0</eff>
+  <eff axis="d4" prod="ZH" decay="gammagamma">1.0</eff>
+  <eff axis="d5" prod="ttH" decay="gammagamma">1.0</eff>
+  <eff axis="d6" prod="tH" decay="gammagamma">1.0</eff>
+  
+  <bestfit>
+  	<d1>1.07</d1>
+	  <d2>0.81</d2>
+	  <d3>1.35</d3>
+	  <d4>1.32</d4>
+	  <d5>1.01</d5>
+	  <d6>6.13</d6>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.09</uncertainty>
+    <uncertainty axis="d1" side="right">+0.09</uncertainty>
+    <uncertainty axis="d2" side="left">-0.25</uncertainty>
+    <uncertainty axis="d2" side="right">+0.27</uncertainty>
+    <uncertainty axis="d3" side="left">-0.49</uncertainty>
+    <uncertainty axis="d3" side="right">+0.55</uncertainty>
+    <uncertainty axis="d4" side="left">-0.66</uncertainty>
+    <uncertainty axis="d4" side="right">+0.76</uncertainty>
+    <uncertainty axis="d5" side="left">-0.34</uncertainty>
+    <uncertainty axis="d5" side="right">+0.37</uncertainty>
+    <uncertainty axis="d6" side="left">-3.34</uncertainty>
+    <uncertainty axis="d6" side="right">+3.63</uncertainty>    
+        
+    <correlation entry="d1d2">-0.32</correlation>
+    <correlation entry="d1d3">0.01</correlation>
+    <correlation entry="d1d4">0.01</correlation>
+    <correlation entry="d1d5">0.03</correlation>
+    <correlation entry="d1d6">-0.02</correlation>
+    
+    <correlation entry="d2d3">0.01</correlation>
+    <correlation entry="d2d4">0</correlation>
+    <correlation entry="d2d5">0.04</correlation>
+    <correlation entry="d2d6">-0.05</correlation>   
+    
+    <correlation entry="d3d4">-0.16</correlation>
+    <correlation entry="d3d5">0.08</correlation>
+    <correlation entry="d3d6">-0.18</correlation>
+    
+    <correlation entry="d4d5">0.01</correlation>
+    <correlation entry="d4d6">-0.03</correlation>
+    
+    <correlation entry="d5d6">-0.59</correlation>    
+  </param>
+</expmu>

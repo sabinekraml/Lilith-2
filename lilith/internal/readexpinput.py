@@ -127,8 +127,8 @@ class ReadExpInput:
         allowed_decays = ["gammagamma", "ZZ", "WW", "Zgamma",
                           "tautau", "bb", "cc", "mumu", "invisible", "gg"]
 
-        mandatory_attribs = {"type":["n", "vn", "p", "f"]}  
-                             # types vn and p added for variable Gaussian and Poisson fits
+        mandatory_attribs = {"type":["n", "vn", "vn1", "p", "f"]}  
+                             # types vn and vn1 for variable Gaussian, p for Poisson fits
 
         optional_attribs = {"decay": allowed_decays}
 
@@ -597,7 +597,7 @@ class ReadExpInput:
                 # ignore all comments
                 continue
 
-            if dim == 1 and (type == "n" or type == "vn" or type == "p"):
+            if dim == 1 and (type == "n" or type == "vn" or type == "vn1" or type == "p"):
                 if child.tag == "uncertainty":
                     if "side" not in child.attrib:
                         try:
@@ -655,7 +655,7 @@ class ReadExpInput:
                 
                 param[child.tag] = param_value
 
-            elif dim == 2 and (type == "vn" or type == "p"):
+            elif dim == 2 and (type == "vn" or type == "vn1" or type == "p"):
                 allowed_tags = ["uncertainty", "correlation"]
                 if child.tag not in allowed_tags:
                     raise ExpInputError(self.filepath,
@@ -788,13 +788,16 @@ class ReadExpInput:
                 cov_m = unc_sym*corr_m*unc_sym.T
                 inv_cov_m = np.linalg.inv(cov_m)
                 param["inv_cov_m"] = inv_cov_m
-            elif type == "vn":
+            elif type == "vn" or type == "vn1":
                 param["VGau"] = unc_right*abs(unc_left)
                 param["VGau_prime"] = unc_right - abs(unc_left)
+                param["VGau_sum"] = unc_right + abs(unc_left)
+                param["SGau"] = 2*param["VGau"]/param["VGau_sum"]
+                param["SGau_prime"] = param["VGau_prime"]/param["VGau_sum"]
                 param["corr_m"] = corr_m
 
         # check that everything is there
-        if (type == "n" or type == "vn" or type == "p") and dim == 1:
+        if (type == "n" or type == "vn" or type == "vn1" or type == "p") and dim == 1:
             if ("uncertainty" not in param or
                 "left" not in param["uncertainty"] or
                 "right" not in param["uncertainty"]):
@@ -809,7 +812,7 @@ class ReadExpInput:
                 raise ExpInputError(self.filepath,
                                     "a, b, c tags are not given in block param")
 
-        elif (type == "vn" or type == "p") and dim == 2:  # added by LDN
+        elif (type == "vn" or type == "vn1" or type == "p") and dim == 2:  # added by LDN
             if ("uncertainty" not in param or
                 "x" not in param["uncertainty"] or
                 "y" not in param["uncertainty"] or 

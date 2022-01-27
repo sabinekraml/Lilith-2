@@ -56,3 +56,6 @@ For the changelog of the Lilith library, see ../changelog
 ** Sep 30, 2019: 19.09, added 3 missing 36 fb-1 Run 2 results from ATLAS: 
                         HIGG-2017-14, HIGG-2016-10 and HIGG-2018-54 	  
                              
+** Jan 27, 2022: added some CMS results for full Run 2 luminosity; 
+                 preliminary database version 22.01
+                 
