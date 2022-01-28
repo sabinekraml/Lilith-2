@@ -24,10 +24,10 @@ Other prerequisites are SciPy and NumPy;
 the example codes doing a likelihood profile analysis require iminuit.
 
 
-### Usage and citations
+### Documentation
 
-- Original Lilith manual [arXiv:1502.04138](https://arxiv.org/abs/1502.04138)
-- Presentation of __Lilith-2__: [arXiv:1908.03952](https://arxiv.org/abs/1908.03952) and [arXiv:2012.11408](https://arxiv.org/abs/2012.11408)
+- The working principle and usage are explained in the original Lilith manual, [arXiv:1502.04138](https://arxiv.org/abs/1502.04138)
+- Details pertaining to __Lilith-2__ are explained in [arXiv:1908.03952](https://arxiv.org/abs/1908.03952) and [arXiv:2012.11408](https://arxiv.org/abs/2012.11408)
 - For usage in micrOMEGAs, see [arXiv:1606.03834](https://arxiv.org/abs/1606.03834).
 - A __tutorial__ is available from the [Tools2020 workshop](https://indico.cern.ch/event/955391/contributions/4086275/).
 
@@ -45,4 +45,4 @@ the example codes doing a likelihood profile analysis require iminuit.
 
 ### Ongoing developments
 
-The current developments towards inclusion and validation of the ATLAS and CMS results for full Run 2 luminosity (~140/fb) are done on the __py3-fullRun2__ branch. 
+The current developments towards inclusion and validation of the ATLAS and CMS results for full Run 2 luminosity (~140/fb) are done on the __py3-fullRun2-dev__ branch. 
