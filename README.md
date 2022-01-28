@@ -11,7 +11,7 @@ The generalized Poisson likelihood can be used for experimental results in 1 or 
 
 - Database 19.09 contains the __published ATLAS and CMS Run 2 results for 36 fb-1__ as of Sep 2019.
 
-- Preliminary database 22.01 contains in addition some CMS Run 2 results for 137 fb-1 (see [releases page](https://github.com/sabinekraml/Lilith-2/releases) and [data/changelog.txt](https://github.com/sabinekraml/Lilith-2/blob/master/data/changelog.txt) ).
+- Preliminary database 22.01-beta.1 contains in addition some CMS Run 2 results for 137 fb-1 (see [releases page](https://github.com/sabinekraml/Lilith-2/releases) and [data/changelog.txt](https://github.com/sabinekraml/Lilith-2/blob/master/data/changelog.txt) ).
 
 ### Download 
 
