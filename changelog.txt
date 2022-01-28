@@ -47,3 +47,14 @@ For the changelog of the database of experimental results, see data/changelog
       * examples adapted to work with new iminuit 2.x series as well as iminuit 1.x
     database:  
       * HIGG-2018-54_VBF_invisible_f.xml extended for correct extrapolation
+
+** Dec 31, 2020: 
+      * added "Variable Gaussian 1" (see Barlow arXiv:physics/0406120v1, Eq. 15) as type vn1
+      * added abs() to the denominator of Variable Gaussian 2 (type vn) to force LogL negative
+        (this is to avoid numerical issue with sqrt() of the denominator)
+
+** work in progress: adding theory uncertainties with their correlations   
+
+
+
+

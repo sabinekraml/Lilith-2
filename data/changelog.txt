@@ -35,7 +35,7 @@ For the changelog of the Lilith library, see ../changelog
                     full 2D likelihood added
 		  * ATLAS-CONF-2015-004 (VBF+ggH)(invisible)
                     1D result added
-                  * CMS-HIG-14-004 VBF(bb)
+      * CMS-HIG-14-004 (VBF)(bb)
 		    1D result added
 		  * ATLAS-HIGG-2014-06 (ggH+ttH,VBF+VH)(gamma-gamma,tau-tau,ZZ)
 		    supersedes ATLAS-CONF-2015-007 (results unchanged)
@@ -56,6 +56,18 @@ For the changelog of the Lilith library, see ../changelog
 ** Sep 30, 2019: 19.09, added 3 missing 36 fb-1 Run 2 results from ATLAS: 
                         HIGG-2017-14, HIGG-2016-10 and HIGG-2018-54 	  
                              
-** Jan 27, 2022: added some CMS results for full Run 2 luminosity; 
-                 preliminary database version 22.01
+** Jan 27, 2022: preliminary database version 22.01 with some CMS results for full Run 2 luminosity; 
+		  + CMS-PAS-HIG-19-001 (ggH+ttH+bbH,VBF+VH)(ZZ) 
+		    2D nllhd grid, validated
+		  + CMS-PAS-HIG-19-010 (ggH,VBF)(tau-tau) 
+		    2D result with correlations, 2 equivalent versions, validated
+		  - CMS-PAS-HIG-19-005 (combination of 23 channels, H -> gammagamma, ZZ, WW, tautau, bb, mumu)		  
+		    23 channels with correlations, validated=false, multi-dim fit doesn't reproduce cms results
+		  o CMS-HIG-19-001 (ggH,VBF,VH,ttH)(ZZ) 
+		    4D STXS w/correlations, no validation material, 2do: compare to PAS
+		  o CMS-HIG-19-013 (ttH)(gamma-gamma)
+		    1D nllhd, no validation material
+		  + CMS-HIG-19-015 (ggH,VBF,WH,ZH,ttH,tH)(gamma-gamma)
+		    6D result with correlations, validated
+
                  

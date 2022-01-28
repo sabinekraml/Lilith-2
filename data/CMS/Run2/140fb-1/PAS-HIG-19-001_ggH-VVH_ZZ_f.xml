@@ -6,7 +6,7 @@ Data file provided by CMS Higgs group upon request (contact: meng.xiao@cern.ch)
 Comments: 3rd column is Delta(-2logL) with mH profiled; 
 relative contributions of prod. modes computed from Table 2.
 published paper does not include this information (only contours)
-Validated: tbd
+Validated: true
 -->
 
 <expmu decay="ZZ" dim="2" type="f">
