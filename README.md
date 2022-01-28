@@ -15,7 +15,7 @@ The generalized Poisson likelihood can be used for experimental results in 1 or 
 
 ### Download 
 
-The latest official version can be found on the [releases page](https://github.com/sabinekraml/Lilith-2/releases). Note: 
+Download your version of choice from the [releases page](https://github.com/sabinekraml/Lilith-2/releases). Note: 
 
 - Version 2.0 is in Python 2 (2.7.4 or higher)
 - Version 2.1 is in Python 3 (3.6 or higher)
@@ -26,10 +26,9 @@ the example codes doing a likelihood profile analysis require iminuit.
 
 ### Usage and citations
 
-- Original Lilith manual [arXiv:1502.04138](https://arxiv.org/abs/1502.04138) 
-- Presentayion of Lilith-2: [arXiv:1908.03952](https://arxiv.org/abs/1908.03952) and [arXiv:1908.03952](https://arxiv.org/abs/1908.03952). 
+- Original Lilith manual [arXiv:1502.04138](https://arxiv.org/abs/1502.04138)
+- Presentation of __Lilith-2__: [arXiv:1908.03952](https://arxiv.org/abs/1908.03952) and [arXiv:2012.11408](https://arxiv.org/abs/2012.11408)
 - For usage in micrOMEGAs, see [arXiv:1606.03834](https://arxiv.org/abs/1606.03834).
-
 - A __tutorial__ is available from the [Tools2020 workshop](https://indico.cern.ch/event/955391/contributions/4086275/).
 
 **IMPORTANT: please cite the above papers** when you use Lilith for your work. Thank you.
