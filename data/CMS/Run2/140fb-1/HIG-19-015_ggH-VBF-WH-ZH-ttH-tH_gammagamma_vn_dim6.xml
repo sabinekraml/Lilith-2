@@ -3,7 +3,7 @@ CMS result for H -> gammagamma decay mode at mH = 125.38 GeV for 137/fb.
 Best-fit values and uncertainties taken from Add. Table 1, correlations from Add. Fig. 5 at 
 http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-015/
 Implemented by Axel Iohner, 2022/01/21
-Validated: True
+Validated: False
 -->
 
 <expmu dim="6" type="vn">

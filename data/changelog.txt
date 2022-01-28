@@ -67,7 +67,7 @@ For the changelog of the Lilith library, see ../changelog
 		    4D STXS w/correlations, no validation material, 2do: compare to PAS
 		  o CMS-HIG-19-013 (ttH)(gamma-gamma)
 		    1D nllhd, no validation material
-		  + CMS-HIG-19-015 (ggH,VBF,WH,ZH,ttH,tH)(gamma-gamma)
-		    6D result with correlations, validated
+		  + CMS-HIG-19-015 (ggH,VBF,VH,ttH+tH)(gamma-gamma)
+		    4D result with correlations, validated
 
                  
