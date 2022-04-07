@@ -48,11 +48,11 @@ ATLAS/Run2/36fb-1/HIGG-2018-54_VBF_invisible_f.xml
 #---------------------------
 
 ## H -> gamma gamma
-ATLAS/Run2/140fb-1/CONF-2019-025_ggH-VBF-VH-ttH_ZZ_vn_dim4.xml
+#ATLAS/Run2/140fb-1/CONF-2019-025_ggH-VBF-VH-ttH_ZZ_vn_dim4.xml
 
 ## H -> mumu
-ATLAS/Run2/140fb-1/CONF-2019-028_mumu_s.xml
-ATLAS/Run2/140fb-1/CONF-2019-028_mumu_s.xml
+#ATLAS/Run2/140fb-1/CONF-2019-028_mumu_s.xml
+#ATLAS/Run2/140fb-1/CONF-2019-028_mumu_s.xml
 
 #---------------------------
 #--- CMS Run2, 36 fb-1 ---
