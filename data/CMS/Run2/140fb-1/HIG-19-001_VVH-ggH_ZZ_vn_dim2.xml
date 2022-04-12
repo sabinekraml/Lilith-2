@@ -1,6 +1,6 @@
 <!--
 CMS result for H -> ZZ decay mode at mH = 125.38 GeV.
-Best-fit values and uncertainties taken from Tab. 5, correlations from Fig. 15-a at 
+Best-fit values and uncertainties taken from HEP Fig. 12, hypothetical correlation -0.1 at 
 http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-001/
 -->
 
@@ -27,7 +27,7 @@ http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-00
     <uncertainty axis="y" side="left">-0.12</uncertainty>
     <uncertainty axis="y" side="right">+0.14</uncertainty>
     
-    <correlation entry="xy">-0.3</correlation>
+    <correlation entry="xy">-0.1</correlation>
 
   </param>
 
