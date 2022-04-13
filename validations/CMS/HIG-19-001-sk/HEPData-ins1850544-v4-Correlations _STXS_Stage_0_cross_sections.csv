@@ -1,0 +1,27 @@
+#: table_doi: 10.17182/hepdata.102525.v4/t12
+#: name: Correlations: STXS Stage 0 cross sections
+#: description: Observed correlation matrix between the measured cross sections for the Stage 0 for HZZ decay.
+#: data_file: STXS_Stage0_Correlation.yaml
+#: keyword reactions: P P --> H-> Z Z X
+#: keyword cmenergies: 13000.0
+#: SQRT(S) [TeV],13
+#: ABS(YRAP(HIGGS)),<2.5
+#: MH [GeV],125.38
+STXS region (x),STXS region (y),Observed correlation
+ggH,ggH,1.0
+ggH,qqH,-0.33
+ggH,VH lep,-0.05
+ggH,ttH,0.01
+qqH,ggH,-0.33
+qqH,qqH,1.0
+qqH,VH lep,0.01
+qqH,ttH,-0.05
+VH lep,ggH,-0.05
+VH lep,qqH,0.01
+VH lep,VH lep,1.0
+VH lep,ttH,-0.05
+ttH,ggH,0.01
+ttH,qqH,-0.05
+ttH,VH lep,-0.05
+ttH,ttH,1.0
+

@@ -1,0 +1,46 @@
+#: table_doi: 10.17182/hepdata.102525.v4/t10
+#: name: STXS Stage 0 cross sections
+#: description: The measured product of cross section times branching fraction for HZZ decay and the SM predictions for the Stage 0 STXS production bins and the inclusive measurement at mH= 125.38 GeV.
+#: data_file: STXS_Stage0.yaml
+#: keyword reactions: P P --> H-> Z Z X
+#: keyword cmenergies: 13000.0
+#: SQRT(S) [TeV],13
+#: ABS(YRAP(HIGGS)),<2.5
+#: MH [GeV],125.38
+STXS region,SM predicted cross section times branching ratio [fb],Theory +,Theory -
+ggH,1192,95,-95
+qqH,122,6,-6
+VH lep,25.9,0.8,-0.8
+ttH,15.9,1.4,-1.4
+Inclusive,1369,164,-164
+
+#: SQRT(S) [TeV],13
+#: ABS(YRAP(HIGGS)),<2.5
+#: MH [GeV],125.38
+STXS region,Observed cross section times branching ratio [fb],Total +,Total -
+ggH,1214,135,-125
+qqH,61,53,-44
+VH lep,41,52,-35
+ttH,3,16,-3
+Inclusive,1318,130,-122
+
+#: SQRT(S) [TeV],13
+#: ABS(YRAP(HIGGS)),<2.5
+#: MH [GeV],125.38
+STXS region,Observed ratio to SM,Total +,Total -
+ggH,1.02,0.11,-0.1
+qqH,0.5,0.44,-0.36
+VH lep,1.56,1.99,-1.34
+ttH,0.16,0.98,-0.16
+Inclusive,0.96,0.1,-0.09
+
+#: SQRT(S) [TeV],13
+#: ABS(YRAP(HIGGS)),<2.5
+#: MH [GeV],125.38
+STXS region,Expected ratio to SM,Total +,Total -
+ggH,1.0,0.117,-0.108
+qqH,1.0,0.507,-0.426
+VH lep,1.0,1.634,-0.98
+ttH,1.0,1.33,-0.771
+Inclusive,1.0,0.101,-0.092
+

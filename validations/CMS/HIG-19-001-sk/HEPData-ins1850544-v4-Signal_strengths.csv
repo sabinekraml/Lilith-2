@@ -1,0 +1,26 @@
+#: table_doi: 10.17182/hepdata.102525.v4/t7
+#: name: Signal strengths
+#: description: Results of likelihood scans for the signal strength modifiers corresponding to the five main SM H boson production mechanisms. The uncertainties, corresponding to one standard deviation confidence intervals, include both statistical and systematic sources. The additional breakdown of the uncertainties into their separate statistical and systematic contributions is also shown.
+#: data_file: Signal_strengths.yaml
+#: keyword reactions: P P --> H-> Z Z X
+#: keyword cmenergies: 13000.0
+#: SQRT(S) [TeV],13
+#: MH [GeV],125.38
+Parameter,Observed,Total +,Total -,Syst only +,Syst only -,Stat only +,Stat only -,Exp. syst +,Exp. syst -,Th. syst +,Th. syst -
+$\mu_{ggH}$,0.99,0.143,-0.128,0.11,-0.09,0.09,-0.09,0,0,0,0
+$\mu_{VBF}$,0.48,0.483,-0.385,0.14,-0.1,0.46,-0.37,0,0,0,0
+$\mu_{ZH}$,0.0,5.446,-0.0,3.24,-0.0,4.38,-0.0,0,0,0,0
+$\mu_{WH}$,1.66,1.742,-1.663,0.85,-0.0,1.52,-1.66,0,0,0,0
+$\mu_{ttH}$,0.17,0.976,-0.169,0.42,-0.0,0.88,-0.17,0,0,0,0
+$\mu$ (inclusive),0.94,0.118,-0.106,0,0,0.07,-0.07,0.06,-0.05,0.07,-0.06
+
+#: SQRT(S) [TeV],13
+#: MH [GeV],125.38
+Parameter,Expected,Total +,Total -,Syst only +,Syst only -,Stat only +,Stat only -,Exp. syst +,Exp. syst -,Th. syst +,Th. syst -
+$\mu_{ggH}$,1.0,0.158,-0.14,0.12,-0.1,0.1,-0.1,0,0,0,0
+$\mu_{VBF}$,1.0,0.554,-0.456,0.18,-0.12,0.53,-0.44,0,0,0,0
+$\mu_{ZH}$,1.0,8.283,-1.0,6.76,-0.0,4.79,-1.0,0,0,0,0
+$\mu_{WH}$,1.0,1.828,-1.0,0.75,-0.0,1.83,-1.0,0,0,0,0
+$\mu_{ttH}$,1.0,1.229,-0.769,0.51,-0.06,1.23,-0.77,0,0,0,0
+$\mu$ (inclusive),1.0,0.13,-0.112,0,0,0.08,-0.07,0.06,-0.06,0.08,-0.07
+

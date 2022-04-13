@@ -1,0 +1,46 @@
+#: table_doi: 10.17182/hepdata.102459.v2/t2
+#: name: Correlations: production mode signal strength
+#: description: Observed and expected correlations between the parameters in the production mode signal strength fit.
+#: data_file: correlations:_production_mode_signal_strength.yaml
+#: keyword reactions: P P --> H ( --> GAMMA GAMMA ) X
+#: keyword cmenergies: 13000
+#: SQRT(S) [TeV],13
+#: MH [GeV],125.38
+Parameter (x),Parameter (y),Observed correlation
+$\mu_{ggH}$,$\mu_{ggH}$,1.0
+$\mu_{ggH}$,$\mu_{VBF}$,-0.204
+$\mu_{ggH}$,$\mu_{VH}$,-0.036
+$\mu_{ggH}$,$\mu_{top}$,0.037
+$\mu_{VBF}$,$\mu_{ggH}$,-0.204
+$\mu_{VBF}$,$\mu_{VBF}$,1.0
+$\mu_{VBF}$,$\mu_{VH}$,0.018
+$\mu_{VBF}$,$\mu_{top}$,0.015
+$\mu_{VH}$,$\mu_{ggH}$,-0.036
+$\mu_{VH}$,$\mu_{VBF}$,0.018
+$\mu_{VH}$,$\mu_{VH}$,1.0
+$\mu_{VH}$,$\mu_{top}$,-0.065
+$\mu_{top}$,$\mu_{ggH}$,0.037
+$\mu_{top}$,$\mu_{VBF}$,0.015
+$\mu_{top}$,$\mu_{VH}$,-0.065
+$\mu_{top}$,$\mu_{top}$,1.0
+
+#: SQRT(S) [TeV],13
+#: MH [GeV],125.38
+Parameter (x),Parameter (y),Expected correlation
+$\mu_{ggH}$,$\mu_{ggH}$,1.0
+$\mu_{ggH}$,$\mu_{VBF}$,-0.17
+$\mu_{ggH}$,$\mu_{VH}$,-0.056
+$\mu_{ggH}$,$\mu_{top}$,0.026
+$\mu_{VBF}$,$\mu_{ggH}$,-0.17
+$\mu_{VBF}$,$\mu_{VBF}$,1.0
+$\mu_{VBF}$,$\mu_{VH}$,0.032
+$\mu_{VBF}$,$\mu_{top}$,0.005
+$\mu_{VH}$,$\mu_{ggH}$,-0.056
+$\mu_{VH}$,$\mu_{VBF}$,0.032
+$\mu_{VH}$,$\mu_{VH}$,1.0
+$\mu_{VH}$,$\mu_{top}$,-0.063
+$\mu_{top}$,$\mu_{ggH}$,0.026
+$\mu_{top}$,$\mu_{VBF}$,0.005
+$\mu_{top}$,$\mu_{VH}$,-0.063
+$\mu_{top}$,$\mu_{top}$,1.0
+
