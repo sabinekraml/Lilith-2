@@ -1,11 +1,6 @@
 ##################################################################
 #
-# Lilith routine example for (CV, CF)  plots
-#
-# To put in Lilith-2.X/examples/python/ folder 
-# To execute from /Lilith-2.X root folder
-#
-# Use the libraries matplotlib (plotting) and numpy (functions)
+# Lilith routine for (CV, CF) validation plots
 #
 ##################################################################
 
@@ -15,10 +10,14 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 sys.path.append(lilith_dir)
-sys.path.append('../..')
 import lilith
+
+validation_dir = lilith_dir+"validations/CMS/HIG-20-013/"
+
+print("lilith_dir: ",lilith_dir)
+print("validation_dir: ",validation_dir)
 
 ######################################################################
 # Parameters
@@ -27,19 +26,17 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/latestRun2WW.list"
+exp_input = validation_dir+"thisRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
-hmass = 125.38
+hmass = 125.09
 
 # Output files
-if (not os.path.exists("results")):
-    os.mkdir("results")
-output = "results/CVCF-HIG-20-013_2d.out"
-outputplot = "validations/CMS/HIG-20-013/CVCF-HIG-20-013_2d.pdf"
+output = validation_dir+"HIG-20-013-CVCF_2d.out"
+outputplot = validation_dir+"HIG-20-013-CVCF_2d.pdf"
 
 # Scan ranges
 CV_min = 0.8
@@ -130,14 +127,13 @@ print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 # Plot routine
 ######################################################################
 
-
 print("***** plotting *****")
 
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 8
 matplotlib.rcParams['ytick.major.pad'] = 8
 
-fig = plt.figure()
+fig = plt.figure( figsize=(5,5) )
 ax = fig.add_subplot(111)
 
 ax.yaxis.set_ticks_position('both')
@@ -147,8 +143,9 @@ ax.xaxis.set_ticks_position('both')
 ax.xaxis.set_label_position('bottom')
 
 plt.minorticks_on()
-plt.tick_params(direction='in', labelsize=15, length=12, width=1.8)
-plt.tick_params(which='minor', direction='in', length=6, width=1)
+plt.tick_params(direction='in', labelsize=14, length=10, width=2)
+plt.tick_params(which='minor', direction='in', length=7, width=1.2)
+
 
 # Getting the data
 data = np.genfromtxt(output)
@@ -157,10 +154,12 @@ x = data[:,0]
 y = data[:,1]
 z = data[:,2]
 
+
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2=[]
 for z_el in z:
   z2.append(z_el-z.min())
+
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), grid_subdivisions)
@@ -169,14 +168,15 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
-CS = plt.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'], \
-              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
+# Plotting the 68% and 95% CL regions
+ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'])#, \
+              #vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
 
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-20-013/CMS-HIG-20-013_CVCF-Grid.txt')
+expdata = np.genfromtxt('validations/CMS/HIG-20-013/HIG-20-013_CVCF-Grid.txt')
 xExp68 = expdata[1:87,0]
 yExp68 = expdata[1:87,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
@@ -196,10 +196,10 @@ plt.plot([1], [1], '+',markersize=8, color = '#eed8d7', label="SM prediction")
 plt.legend(loc='upper right')
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14, ha="left")
-plt.xlabel(r'$C_V$',fontsize=20)
-plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.82, 0.52, r'Data from CMS-HIG-20-013 Fig. 22 + Fig. 23', fontsize=10.5)
+plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
+plt.xlabel(r'$C_V$',fontsize=18)
+plt.ylabel(r'$C_F$',fontsize=18)
+plt.text(0.82, 0.52, r'Data from CMS-HIG-20-013 Fig. 22 + Fig. 23', fontsize=10)
 
 fig.set_tight_layout(True)
 
@@ -208,6 +208,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-19-015/")
+print("results are stored in", lilith_dir + "/validations/CMS/HIG-20-013/")
 print("***** done *****")
 
