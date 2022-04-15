@@ -5,6 +5,7 @@ http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-00
 HEPData: https://doi.org/10.17182/hepdata.102525.v4/t7 (signal strengths, Fig. 11-b)
          https://doi.org/10.17182/hepdata.102525.v4/t12 (correlations, Fig. 15-a)
 Implemented by Sabine Kraml, 13/04/2022
+Updated by William Vaginay for VVH uncertainty,  15/04/2022
 Validated: TBD
 -->
 
@@ -29,8 +30,8 @@ Validated: TBD
   <param>
     <uncertainty axis="d1" side="right">+0.143</uncertainty>
     <uncertainty axis="d1" side="left">-0.128</uncertainty>
-    <uncertainty axis="d2" side="right">+0.38</uncertainty>
-    <uncertainty axis="d2" side="left">-0.3</uncertainty>
+    <uncertainty axis="d2" side="right">+0.36</uncertainty>
+    <uncertainty axis="d2" side="left">-0.31</uncertainty>
     <uncertainty axis="d3" side="right">+0.976</uncertainty>
     <uncertainty axis="d3" side="left">-0.169</uncertainty>
     

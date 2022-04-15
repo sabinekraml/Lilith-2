@@ -43,7 +43,7 @@ outputplot = validation_dir+"HIG-19-001-mumu-dim3_corr020.pdf"
 # Scan ranges 
 muf_min = 0
 muf_max = 2
-mub_min = 0
+mub_min = -0.25
 mub_max = 2
 
 # Number of grid steps in each of the two dimensions (squared grid)
@@ -173,7 +173,7 @@ ax.set_aspect((muf_max-muf_min)/(mub_max-mub_min))
 
 
 # read data for official 68% and 95% CL contours & plot + best data fit point
-expdata = np.genfromtxt('validations/CMS/HIG-19-001/CMS-HIG-19-001_mumu-Grid.txt')
+expdata = np.genfromtxt('validations/CMS/HIG-19-001/HIG-19-001_mumu-Grid.txt')
 xExp68 = expdata[1:48,0]
 yExp68 = expdata[1:48,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
@@ -197,10 +197,10 @@ plt.legend(loc='upper left')
 plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'$\mu$(ggH,ttH)',fontsize=18)
 plt.ylabel(r'$\mu$(VBF,VH)',fontsize=18)
-#plt.text(0.1, 0.25, r'Data from', fontsize=12)
-plt.text(0.1, 0.12, r'Data from CMS-HIG-19-001 Figs. 11b + 15a', fontsize=10)
-#plt.text(0.1, 0.25, r'Exp. input:', fontsize=12)
-#plt.text(0.1, 0.12, r'HIG-19-001_ggH-VVH-top_ZZ_vn_dim3-2.xml', fontsize=12)
+plt.text(0.1, 0.05, r'Data from CMS-HIG-19-001', fontsize=9.5)
+plt.text(0.1, -0.05, r'$\mu_{VBF}$ and $\mu_{VH}$ combined in $\mu_{VVH}$ from Fig. 11b', fontsize=9.5)
+plt.text(0.1, -0.15, r'$\rho$(ggH,VVH) adjusted to -0.2 from Fig. 15a', fontsize=9.5)
+
 
 fig.set_tight_layout(True)
 
