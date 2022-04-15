@@ -193,12 +193,14 @@ plt.plot([mufmin],[mubmin], '*', markersize=8, color = 'black', label = 'Lilith 
 plt.plot([1], [1], '+',markersize=8, color = '#eed8d7', label="SM prediction")
 plt.legend(loc='upper left')
 
+
 # Title, labels, color bar...
 plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'$\mu$(ggH,ttH)',fontsize=18)
 plt.ylabel(r'$\mu$(VBF,VH)',fontsize=18)
-plt.text(0.1, 0.05, r'Data from CMS-HIG-19-001', fontsize=9.5)
-plt.text(0.1, -0.05, r'$\mu_{VBF}$ and $\mu_{VH}$ combined in $\mu_{VVH}$ from Fig. 11b', fontsize=9.5)
+plt.text(0.1, 0.15, r'Data from CMS-HIG-19-001', fontsize=9.5)
+plt.text(0.1, 0.05, r'$\mu_{ggH}$ and $\mu_{top}$ from Fig. 11b', fontsize=9.5)
+plt.text(0.1, -0.05, r'$\mu_{VBF}$ and $\mu_{VH}$ combined in $\mu_{VVH}$ from Fig. 12', fontsize=9.5)
 plt.text(0.1, -0.15, r'$\rho$(ggH,VVH) adjusted to -0.2 from Fig. 15a', fontsize=9.5)
 
 
