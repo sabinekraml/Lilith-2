@@ -14,7 +14,7 @@ lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/CMS/HIG-20-013/"
+validation_dir = lilith_dir+"validations/CMS/HIG-19-010-wv/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -35,14 +35,16 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # Output files
-output = validation_dir+"HIG-20-013-CVCF_2d.out"
-outputplot = validation_dir+"HIG-20-013-CVCF_2d.pdf"
+output = validation_dir+"HIG-19-010-CVCF_2d-fig10.out"
+#output = validation_dir+"HIG-19-010-CVCF_2d-fig14b.out"
+outputplot = validation_dir+"HIG-19-010-CVCF_2d_fig10.pdf"
+#outputplot = validation_dir+"HIG-19-010-CVCF_2d_fig14b.pdf"
 
 # Scan ranges
-CV_min = 0.8
-CV_max = 1.2
-CF_min = 0.4
-CF_max = 1.6
+CV_min = 0.2
+CV_max = 1.3
+CF_min = 0.7
+CF_max = 1.3
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -51,7 +53,7 @@ grid_subdivisions = 100
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.38, CV=1, CF=1, precision="BEST-QCD"):
+def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
     """generate XML input from reduced couplings CV, CF"""
     
     myInputTemplate = """<?xml version="1.0"?>
@@ -127,6 +129,7 @@ print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 # Plot routine
 ######################################################################
 
+
 print("***** plotting *****")
 
 # Preparing plot
@@ -154,12 +157,10 @@ x = data[:,0]
 y = data[:,1]
 z = data[:,2]
 
-
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2=[]
 for z_el in z:
   z2.append(z_el-z.min())
-
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), grid_subdivisions)
@@ -168,38 +169,42 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
-
 # Plotting the 68% and 95% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'])#, \
               #vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
 
+
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-20-013/HIG-20-013_CVCF-Grid.txt')
-xExp68 = expdata[1:87,0]
-yExp68 = expdata[1:87,1]
+expdata = np.genfromtxt('validations/CMS/HIG-19-010-wv/HIG-19-010-CVCF-Grid.txt')
+xExp68 = expdata[1:114,0]
+yExp68 = expdata[1:114,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
-xExp95 = expdata[88:,0]
-yExp95 = expdata[88:,1]
+xExp95 = expdata[114:,0]
+yExp95 = expdata[114:,1]
 plt.plot(xExp95,yExp95,'--',markersize=3, color = '#ff7b00', label="CMS official 95% CL")
 xExpbf = expdata[0,0]
 yExpbf = expdata[0,1]
 plt.plot(xExpbf,yExpbf,'D',markersize=4, color = '#6cc7e3', label="CMS official best fit")
 
 
-# best fit point
-plt.plot([CVmin],[CFmin], '*', markersize=8, color = 'black', label = 'Lilith best fit')
-
-# Standard Model 
-plt.plot([1], [1], '+',markersize=8, color = '#eed8d7', label="SM prediction")
-plt.legend(loc='upper right')
-
 # Title, labels, color bar...
 plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'$C_V$',fontsize=18)
 plt.ylabel(r'$C_F$',fontsize=18)
-plt.text(0.82, 0.52, r'Data from CMS-HIG-20-013 Fig. 22 + Fig. 23', fontsize=10)
+plt.text(0.25, 0.75, r'Data from HIG-19-010', fontsize=9.5)
+plt.text(0.25, 0.73, r'$\mu$ from Fig. 10 and $\rho$ fitted from 95% CL in Fig. 14b', fontsize=9.5)
+#plt.text(0.25, 0.73, r'$\mu$ and $\rho$ fitted from 95% CL in Fig. 14b', fontsize=9.5)
+
+
+# best fit point
+plt.plot([CVmin],[CFmin], '*', markersize=8, color = 'black', label = 'Lilith best fit')
+
+
+# Standard Model 
+plt.plot([1], [1], '+',markersize=8, color = '#eed8d7', label="SM prediction")
+plt.legend(loc='upper left')
 
 fig.set_tight_layout(True)
 
@@ -208,6 +213,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-20-013/")
+print("results are stored in", lilith_dir + "/validations/CMS/HIG-19-010-wv/")
 print("***** done *****")
 

@@ -1,0 +1,30 @@
+<!--
+CMS result for mu(VBF, tautau) & mu(ggH, tautau) at mH = 125.09 GeV,
+with best-fit values and uncertainties taken from Fig. 10 and their
+correlation fitted from 95% CL in Fig. 14-b at
+http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HIG-19-010/
+-->
+
+<expmu decay="tautau" dim="2" type="vn">
+  <experiment>CMS</experiment>
+  <source type="preliminary">HIG-19-010</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="x" prod="VBF">1.0</eff>
+  <eff axis="y" prod="ggH">1.0</eff>
+
+  <bestfit>
+    <x>0.67</x>
+    <y>0.98</y>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="x" side="left">-0.22</uncertainty>
+    <uncertainty axis="x" side="right">+0.23</uncertainty>
+    <uncertainty axis="y" side="left">-0.19</uncertainty>
+    <uncertainty axis="y" side="right">+0.20</uncertainty>
+    <correlation>-0.2650519054584007</correlation>
+  </param>
+</expmu>
