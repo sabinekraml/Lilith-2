@@ -1,6 +1,6 @@
 ##################################################################
 #
-# Lilith routine for (CV, Ct) validation plots
+# Lilith routine for (Ct, CV) validation plots
 #
 ##################################################################
 
@@ -15,9 +15,6 @@ sys.path.append(lilith_dir)
 import lilith
 
 validation_dir = lilith_dir+"validations/CMS/HIG-19-008/"
-
-print("lilith_dir: ",lilith_dir)
-print("validation_dir: ",validation_dir)
 
 ######################################################################
 # Parameters
@@ -36,26 +33,22 @@ hmass = 125.09
 
 # Output files
 #zoom
-output = validation_dir+"HIG-19-008-CVCt_2d-fig14_zoom.out"
-#output = validation_dir+"HIG-19-008-CVCt_2d-fig15a_zoom.out"
-outputplot = validation_dir+"HIG-19-008-CVCt_2d_fig14_zoom.pdf"
-#outputplot = validation_dir+"HIG-19-008-CVCt_2d_fig15a_zoom.pdf"
+output = validation_dir+"HIG-19-008-CtCV_2d-fig14_zoom.out"
+outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig14_zoom.pdf"
+#output = validation_dir+"HIG-19-008-CtCV_2d-fig15a_zoom.out"
+#outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig15a_zoom.pdf"
 
-#output = validation_dir+"HIG-19-008-CVCt_2d-fig14.out"
-#output = validation_dir+"HIG-19-008-CVCt_2d-fig15a.out"
-#outputplot = validation_dir+"HIG-19-008-CVCt_2d_fig14.pdf"
-#outputplot = validation_dir+"HIG-19-008-CVCt_2d_fig15a.pdf"
+#output = validation_dir+"HIG-19-008-CtCV_2d-fig14.out"
+#outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig14.pdf"
+#output = validation_dir+"HIG-19-008-CtCV_2d-fig15a.out"
+#outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig15a.pdf"
 
 # Scan ranges
-CV_min = 0.8
-CV_max = 2
 Ct_min = 0.5
 Ct_max = 1.5
+CV_min = 0.8
+CV_max = 2
 
-#CV_min = 0.8
-#CV_max = 2
-#Ct_min = 0.5
-#Ct_max = 1.5
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -64,8 +57,41 @@ grid_subdivisions = 100
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.09, CV=1, Ct=1, precision="BEST-QCD"):
-    """generate XML input from reduced couplings CV, Ct"""
+#def usrXMLinput(mass=125.09, Ct=1, CV=1, precision="BEST-QCD"):
+#    """generate XML input from reduced couplings Ct, CV"""
+#    
+#    myInputTemplate = """<?xml version="1.0"?>
+
+#<lilithinput>
+
+#<reducedcouplings>
+#  <mass>%(mass)s</mass>
+
+#  <C to="tt">%(Ct)s</C>
+#  <C to="bb">1</C>
+#  <C to="cc">1</C>
+#  <C to="tautau">1</C>
+#  <C to="ZZ">%(CV)s</C>
+#  <C to="WW">%(CV)s</C>
+
+#  <extraBR>
+#    <BR to="invisible">0.</BR>
+#    <BR to="undetected">0.</BR>
+#  </extraBR>
+
+#  <precision>%(precision)s</precision>
+#</reducedcouplings>
+
+#</lilithinput>
+#"""
+#    myInput = {'mass':mass, 'Ct':Ct, 'CV':CV, 'precision':precision}
+#        
+#    return myInputTemplate%myInput
+
+#sqrt(2.633*Ct**2 + 3.578*Cv**2 -5.211*Ct*Cv)  sqrt(2.909*Ct**2 + 2.310*Cv**2 -4.220*Ct*Cv)
+
+def usrXMLinput(mass=125.09, Ct=1, CV=1, precision="BEST-QCD"):
+    """generate XML input from reduced couplings Ct, CV"""
     
     myInputTemplate = """<?xml version="1.0"?>
 
@@ -91,7 +117,7 @@ def usrXMLinput(mass=125.09, CV=1, Ct=1, precision="BEST-QCD"):
 
 </lilithinput>
 """
-    myInput = {'mass':mass, 'CV':CV, 'Ct':Ct, 'precision':precision}
+    myInput = {'mass':mass, 'Ct':Ct, 'CV':CV, 'precision':precision}
         
     return myInputTemplate%myInput
 
@@ -119,22 +145,22 @@ max=-1
 
 print("***** running scan *****")
 
-for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
+for Ct in np.linspace(Ct_min, Ct_max, grid_subdivisions):
     fresults.write('\n')
-    for Ct in np.linspace(Ct_min, Ct_max, grid_subdivisions):
-        myXML_user_input = usrXMLinput(hmass, CV=CV, Ct=Ct, precision=my_precision)
+    for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
+        myXML_user_input = usrXMLinput(hmass, Ct=Ct, CV=CV, precision=my_precision)
         lilithcalc.computelikelihood(userinput=myXML_user_input)
         m2logL = lilithcalc.l
         if m2logL < m2logLmin:
             m2logLmin = m2logL
-            CVmin = CV
             Ctmin = Ct
-        fresults.write('%.5f    '%CV +'%.5f    '%Ct + '%.5f     '%m2logL + '\n')
+            CVmin = CV
+        fresults.write('%.5f    '%Ct +'%.5f    '%CV + '%.5f     '%m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
-print("minimum at CV, Ct, -2logL_min = ", CVmin, Ctmin, m2logLmin)
+print("minimum at Ct, CV, -2logL_min = ", Ctmin, CVmin, m2logLmin)
 
 ######################################################################
 # Plot routine
@@ -184,33 +210,33 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'])#, \
               #vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
-ax.set_aspect((CV_max-CV_min)/(Ct_max-Ct_min))
+ax.set_aspect((Ct_max-Ct_min)/(CV_max-CV_min))
 
 
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-19-008/HIG-19-008-CVCt-Grid_zoom.txt')
-xExp68 = expdata[1:58,1]
-yExp68 = expdata[1:58,0]
+expdata = np.genfromtxt('validations/CMS/HIG-19-008/HIG-19-008-CtCV-Grid_zoom.txt')
+xExp68 = expdata[1:58,0]
+yExp68 = expdata[1:58,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
-xExp95 = expdata[58:,1]
-yExp95 = expdata[58:,0]
+xExp95 = expdata[58:,0]
+yExp95 = expdata[58:,1]
 plt.plot(xExp95,yExp95,'--',markersize=3, color = '#ff7b00', label="CMS official 95% CL")
-xExpbf = expdata[0,1]
-yExpbf = expdata[0,0]
+xExpbf = expdata[0,0]
+yExpbf = expdata[0,1]
 plt.plot(xExpbf,yExpbf,'D',markersize=4, color = '#6cc7e3', label="CMS official best fit")
 
 
 # Title, labels, color bar...
 plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
-plt.xlabel(r'$C_V$',fontsize=18)
-plt.ylabel(r'$C_t$',fontsize=18)
-plt.text(0.9, 0.6, r'Data from HIG-19-008', fontsize=9.5)
-plt.text(0.9, 0.55, r'$\mu$ from Fig. 14 and $\rho$ fitted from 95% CL in Fig. 15a', fontsize=9.5)
+plt.xlabel(r'$C_t$',fontsize=18)
+plt.ylabel(r'$C_V$',fontsize=18)
+plt.text(0.55, 0.9, r'Data from HIG-19-008', fontsize=9.5)
+plt.text(0.55, 0.85, r'$\mu$ from Fig. 14 and $\rho$ fitted from 95% CL in Fig. 15a', fontsize=9.5)
 #plt.text(0.25, 0.73, r'$\mu$ and $\rho$ fitted from 95% CL in Fig. 14b', fontsize=9.5)s
 
 
 # best fit point
-plt.plot([CVmin],[Ctmin], '*', markersize=8, color = 'black', label = 'Lilith best fit')
+plt.plot([Ctmin],[CVmin], '*', markersize=8, color = 'black', label = 'Lilith best fit')
 
 
 # Standard Model 

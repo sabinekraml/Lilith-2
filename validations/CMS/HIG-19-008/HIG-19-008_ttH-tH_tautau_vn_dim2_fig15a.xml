@@ -1,0 +1,32 @@
+<!--
+CMS result for H -> tautau decay mode at mH = 125.09 GeV,
+Best-fit values and uncertainties and their correlation fitted from 95% CL in Fig. 15-a at
+http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-008/index.html
+Implemented by William Vaginay 20/04/2022
+Fit TBD
+-->
+
+<expmu decay="tautau" dim="2" type="vn">
+  <experiment>CMS</experiment>
+  <source type="published">HIG-19-008</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="x" prod="ttH">1.0</eff>
+  <eff axis="y" prod="tH">1.0</eff>
+
+  <bestfit>
+    <x>0.9279559177987796</x>
+    <y>5.983051099311637</y>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="x" side="left">-0.23901752974630947</uncertainty>
+    <uncertainty axis="x" side="right">+0.2598745711648347</uncertainty>
+    <uncertainty axis="y" side="left">-4.0757276694986855</uncertainty>
+    <uncertainty axis="y" side="right">+4.0512447344911395</uncertainty>
+    <correlation>-0.2508891023877273</correlation>
+  </param>
+</expmu>
+
