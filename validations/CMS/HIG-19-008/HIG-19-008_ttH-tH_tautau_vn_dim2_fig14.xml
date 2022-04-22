@@ -3,7 +3,6 @@ CMS result for H -> tautau decay mode at mH = 125.09 GeV,
 Best-fit values and uncertainties taken from Fig. 14, correlation fitted from 95% CL in Fig. 15-a at
 http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-008/index.html
 Implemented by William Vaginay 20/04/2022
-Fit TBD
 -->
 
 <expmu decay="tautau" dim="2" type="vn">

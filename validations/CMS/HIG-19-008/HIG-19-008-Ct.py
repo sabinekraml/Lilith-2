@@ -34,8 +34,8 @@ hmass = 125.09
 
 # Output files
 #zoom
-output = validation_dir+"HIG-19-008-CtCV_2d-fig14_zoom.out"
-outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig14_zoom.pdf"
+output = validation_dir+"HIG-19-008-Ct_1d-fig14_zoom.out"
+outputplot = validation_dir+"HIG-19-008-Ct_1d_fig14_zoom.pdf"
 #output = validation_dir+"HIG-19-008-CtCV_2d-fig15a_zoom.out"
 #outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig15a_zoom.pdf"
 
@@ -63,6 +63,37 @@ grid_subdivisions = 100
 ######################################################################
 # * usrXMLinput: generate XML user input
 ######################################################################
+
+#def usrXMLinput(mass=125.09, Ct=1, CV=1, precision="BEST-QCD"):
+#    """generate XML input from reduced couplings Ct, CV"""
+#    
+#    myInputTemplate = """<?xml version="1.0"?>
+
+#<lilithinput>
+
+#<reducedcouplings>
+#  <mass>%(mass)s</mass>
+
+#  <C to="tt">%(Ct)s</C>
+#  <C to="bb">1</C>
+#  <C to="cc">1</C>
+#  <C to="tautau">1</C>
+#  <C to="ZZ">%(CV)s</C>
+#  <C to="WW">%(CV)s</C>
+
+#  <extraBR>
+#    <BR to="invisible">0.</BR>
+#    <BR to="undetected">0.</BR>
+#  </extraBR>
+
+#  <precision>%(precision)s</precision>
+#</reducedcouplings>
+
+#</lilithinput>
+#"""
+#    myInput = {'mass':mass, 'Ct':Ct, 'CV':CV, 'precision':precision}
+#        
+#    return myInputTemplate%myInput
 
 #sqrt(2.633*Ct**2 + 3.578*CV**2 -5.211*Ct*CV)  sqrt(2.909*Ct**2 + 2.310*CV**2 -4.220*Ct*CV)
 

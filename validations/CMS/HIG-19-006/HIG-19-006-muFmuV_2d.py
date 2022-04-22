@@ -1,6 +1,6 @@
 ##################################################################
 #
-# Lilith routine for (Ct, CV) validation plots
+# Lilith routine for (muF, muV) validation plots
 #
 ##################################################################
 
@@ -14,7 +14,10 @@ lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/CMS/HIG-19-008/"
+validation_dir = lilith_dir+"validations/CMS/HIG-19-006/"
+
+print("lilith_dir: ",lilith_dir)
+print("validation_dir: ",validation_dir)
 
 ######################################################################
 # Parameters
@@ -24,7 +27,6 @@ print("***** reading parameters *****")
 
 # Experimental results
 exp_input = validation_dir+"thisRun2.list"
-#exp_input = "validations/CMS/HIG-19-015/thisRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -33,29 +35,18 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # Output files
-#zoom
-output = validation_dir+"HIG-19-008-CtCV_2d-fig14_zoom.out"
-outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig14_zoom.pdf"
-#output = validation_dir+"HIG-19-008-CtCV_2d-fig15a_zoom.out"
-#outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig15a_zoom.pdf"
+#if (not os.path.exists("results")):
+#    os.mkdir("results")
+output = validation_dir+"HIG-19-006-mumu_2d.out"
+outputplot = validation_dir+"HIG-19-006-mumu_2d.pdf"
+#output = validation_dir+"HIG-19-006-mumu_2d_cor024.out"
+#outputplot = validation_dir+"HIG-19-006-mumu_2d_cor024.pdf"
 
-#output = validation_dir+"HIG-19-008-CtCV_2d-fig14.out"
-#outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig14.pdf"
-#output = validation_dir+"HIG-19-008-CtCV_2d-fig15a.out"
-#outputplot = validation_dir+"HIG-19-008-CtCV_2d_fig15a.pdf"
-
-# Scan ranges
-#Ct_min = 0.5
-#Ct_max = 1.5
-#CV_min = 0.8
-#CV_max = 2
-
-# Scan ranges
-Ct_min = -1.5
-Ct_max = 1.5
-CV_min = 0
-CV_max = 2
-
+# Scan ranges 
+muf_min = -1.5
+muf_max = 2.5
+muv_min = 0
+muv_max = 5
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -64,35 +55,26 @@ grid_subdivisions = 100
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-#sqrt(2.633*Ct**2 + 3.578*CV**2 -5.211*Ct*CV)  sqrt(2.909*Ct**2 + 2.310*CV**2 -4.220*Ct*CV)
-
-def usrXMLinput(mass=125.09, Ct=1, CV=1, precision="BEST-QCD"):
-    """generate XML input from reduced couplings Ct, CV"""
+def usrXMLinput(mass=125.38, muf=1, muv=1, precision="BEST-QCD"):
+    """generate XML input from signal strengths muf, muv"""
     
     myInputTemplate = """<?xml version="1.0"?>
 
 <lilithinput>
 
-<reducedcouplings>
+<signalstrengths>
   <mass>%(mass)s</mass>
 
-  <C to="tt">%(Ct)s</C>
-  <C to="bb">1</C>
-  <C to="cc">1</C>
-  <C to="tautau">1</C>
-  <C to="VV">%(CV)s</C>
-
-  <extraBR>
-    <BR to="invisible">0.</BR>
-    <BR to="undetected">0.</BR>
-  </extraBR>
+  <mu prod="VVH" decay="mumu">%(muv)s</mu>
+  <mu prod="ggH" decay="mumu">%(muf)s</mu>
+  <mu prod="ttH" decay="mumu">%(muf)s</mu>
 
   <precision>%(precision)s</precision>
-</reducedcouplings>
+</signalstrengths>
 
 </lilithinput>
 """
-    myInput = {'mass':mass, 'Ct':Ct, 'CV':CV, 'precision':precision}
+    myInput = {'mass':mass, 'muf':muf, 'muv':muv, 'precision':precision}
         
     return myInputTemplate%myInput
 
@@ -120,22 +102,23 @@ max=-1
 
 print("***** running scan *****")
 
-for Ct in np.linspace(Ct_min, Ct_max, grid_subdivisions):
+for muf in np.linspace(muf_min, muf_max, grid_subdivisions):
     fresults.write('\n')
-    for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
-        myXML_user_input = usrXMLinput(hmass, Ct=Ct, CV=CV, precision=my_precision)
+    for muv in np.linspace(muv_min, muv_max, grid_subdivisions):
+        myXML_user_input = usrXMLinput(hmass, muf=muf, muv=muv, precision=my_precision)
         lilithcalc.computelikelihood(userinput=myXML_user_input)
         m2logL = lilithcalc.l
         if m2logL < m2logLmin:
             m2logLmin = m2logL
-            Ctmin = Ct
-            CVmin = CV
-        fresults.write('%.5f    '%Ct +'%.5f    '%CV + '%.5f     '%m2logL + '\n')
+            mufmin = muf
+            muvmin = muv
+        fresults.write('%.5f    ' % muf + '%.5f    ' % muv + '%.5f     ' % m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
-print("minimum at Ct, CV, -2logL_min = ", Ctmin, CVmin, m2logLmin)
+print("minimum at muf, muv, -2logL_min = ", mufmin, muvmin, m2logLmin)
+
 
 ######################################################################
 # Plot routine
@@ -148,7 +131,7 @@ print("***** plotting *****")
 matplotlib.rcParams['xtick.major.pad'] = 8
 matplotlib.rcParams['ytick.major.pad'] = 8
 
-fig = plt.figure( figsize=(5,5) )
+fig = plt.figure()
 ax = fig.add_subplot(111)
 
 ax.yaxis.set_ticks_position('both')
@@ -169,10 +152,12 @@ x = data[:,0]
 y = data[:,1]
 z = data[:,2]
 
+
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2=[]
 for z_el in z:
   z2.append(z_el-z.min())
+
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), grid_subdivisions)
@@ -181,42 +166,45 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
+
 # Plotting the 68% and 95% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'])#, \
               #vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
-ax.set_aspect((Ct_max-Ct_min)/(CV_max-CV_min))
+ax.set_aspect((muf_max-muf_min)/(muv_max-muv_min))
 
 
-# read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-19-008/HIG-19-008-CtCV-Grid_zoom.txt')
-xExp68 = expdata[1:58,0]
-yExp68 = expdata[1:58,1]
+# read data for official 68% and 95% CL contours & plot + best data fit point
+expdata = np.genfromtxt('validations/CMS/HIG-19-006/HIG-19-006-mumu-Grid.txt')
+xExp68 = expdata[1:110,0]
+yExp68 = expdata[1:110,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
-xExp95 = expdata[58:,0]
-yExp95 = expdata[58:,1]
+xExp95 = expdata[110:,0]
+yExp95 = expdata[110:,1]
 plt.plot(xExp95,yExp95,'--',markersize=3, color = '#ff7b00', label="CMS official 95% CL")
 xExpbf = expdata[0,0]
 yExpbf = expdata[0,1]
 plt.plot(xExpbf,yExpbf,'D',markersize=4, color = '#6cc7e3', label="CMS official best fit")
 
 
-# Title, labels, color bar...
-plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
-plt.xlabel(r'$C_t$',fontsize=18)
-plt.ylabel(r'$C_V$',fontsize=18)
-#plt.text(0.55, 0.9, r'Data from HIG-19-008', fontsize=9.5)
-#plt.text(0.55, 0.85, r'$\mu$ from Fig. 14 and $\rho$ fitted from 95% CL in Fig. 15a', fontsize=9.5)
-#plt.text(0.25, 0.73, r'$\mu$ and $\rho$ fitted from 95% CL in Fig. 14b', fontsize=9.5)s
-
-
-# best fit point
-plt.plot([Ctmin],[CVmin], '*', markersize=8, color = 'black', label = 'Lilith best fit')
+# best Lilith fit point
+plt.plot([mufmin],[muvmin], '*', markersize=8, color = 'black', label = 'Lilith best fit')
 
 
 # Standard Model 
 plt.plot([1], [1], '+',markersize=8, color = '#eed8d7', label="SM prediction")
 plt.legend(loc='upper left')
+
+
+# Title, labels, color bar...
+plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
+plt.xlabel(r'$\mu$(ggH,ttH)',fontsize=18)
+plt.ylabel(r'$\mu$(VBF,VH)',fontsize=18)
+#plt.text(0.1, 0.15, r'Data from CMS-HIG-19-006', fontsize=9.5)
+#plt.text(0.1, 0.05, r'$\mu_{ggH}$ and $\mu_{top}$ from Fig. 11b', fontsize=9.5)
+#plt.text(0.1, -0.05, r'$\mu_{VBF}$ and $\mu_{VH}$ combined in $\mu_{VVH}$ from Fig. 12', fontsize=9.5)
+#plt.text(0.1, -0.15, r'$\rho$(ggH,VVH) adjusted to -0.2 from Fig. 15a', fontsize=9.5)
+
 
 fig.set_tight_layout(True)
 
@@ -225,6 +213,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-19-008/")
 print("***** done *****")
+print("results are stored in", validation_dir)
 
