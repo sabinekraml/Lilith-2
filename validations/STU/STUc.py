@@ -1,5 +1,9 @@
 import numpy as np
 
+#File for S,T,U calculation using 2HDMc formulas 
+
+
+#Values
 mW = 80.398
 mZ = 91.1876
 Gf = 1.16637*10**(-5)
@@ -7,6 +11,8 @@ sW2 = 0.23116
 sW = np.sqrt(sW2)
 cW2 = 1-sW2
 cW = np.sqrt(cW2)
+
+#2HDM parameters
 mh = 125
 mhref = 125
 mH = 1000
@@ -15,7 +21,7 @@ mHpm = 1000
 cosba = 0
 sinba = np.sqrt(1-cosba**2)
 
-
+#Useful fonctions
 def F(x,y):
 	if x-y == 0:
 		return 0
@@ -56,6 +62,8 @@ def Gchapeau(x,Q):
 	return G(x,Q,Q) + 12*Gtilde(x,Q,Q)
 
 
+
+#S,T,U formulas (cste expressed as fct of Gf, cW2 and mZ only)
 def Tcalc(mH, mA, mHpm):
 	cste = Gf*np.sqrt(2)/(16*np.pi**2)
 	return cste*( 
@@ -77,10 +85,14 @@ def Ucalc(mH, mA, mHpm):
 	return cste*(
 	cosba**2*G(mHpm**2,mh**2,mW**2) + sinba**2*G(mHpm**2,mH**2,mW**2) + G(mHpm**2,mA**2,mW**2) 
 	- (sW2-cW2)**2*G(mHpm**2,mHpm**2,mZ**2) 
-	- cosba**2*G(mh**2,mA**2,mZ**2) - sinba**2*G(mH**2,mA**2,mZ**2) + sinba**2*( Gchapeau(mh**2,mW**2) - Gchapeau(mh**2,mZ**2) ) + cosba**2*( Gchapeau(mH**2,mW**2) - Gchapeau(mH**2,mZ**2) ) - Gchapeau(mhref**2,mW**2) + Gchapeau(mhref**2,mZ**2) )
+	- cosba**2*G(mh**2,mA**2,mZ**2) - sinba**2*G(mH**2,mA**2,mZ**2) 
+	+ sinba**2*( Gchapeau(mh**2,mW**2) - Gchapeau(mh**2,mZ**2) ) + cosba**2*( Gchapeau(mH**2,mW**2) - Gchapeau(mH**2,mZ**2) ) 
+	- Gchapeau(mhref**2,mW**2) + Gchapeau(mhref**2,mZ**2) )
 
-print("corrmw ", np.sqrt( ( (1/137)*mZ**2*cW2)/(cW2-sW2) )*(-0.06/2+cW2*0.11+(cW2-sW2)*0.14/(4*sW2) ) )
-print("corrmw ", np.sqrt(((1/137)*mZ**2*cW2)/(cW2-sW2)*(0.15/2+cW2*0.27+(cW2-sW2)*0/(4*sW2) ) ) )
-print("test = ", F(1000**2,1024**2))
-print("T = ", Tcalc(mH = 1396, mA = 1240, mHpm = 1000))
+#Prints
+prefactor = ((1/137)*cW2*mZ**2)/(cW2-sW2)
+print("corrmw ", np.sqrt( prefactor*(- 0.06/2+0.11*cW2+0.14*(cW2-sW2)/(4*sW2) ) ) ) #Values from 2204.03796
+print("corrmw ", np.sqrt( prefactor*(0.15/2+0.27*cW2+0*(cW2-sW2)/(4*sW2) ) ) ) #For U=0
+
+print("T = ", Tcalc(mH = 1396, mA = 1024, mHpm = 1000))
 print("S = ", Scalc(mH = 1396, mA = 1024, mHpm = 1000))
