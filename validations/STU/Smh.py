@@ -10,7 +10,7 @@ from scipy.interpolate import griddata
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-import STUc
+import STUc as STUc
 
 lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 sys.path.append(lilith_dir)
@@ -34,23 +34,16 @@ Tcen = 0.27
 Tsigma = 0.06
 STcorrelation = 0.93
 
-#Scen = 0.05
-#Ssigma = 0.08
-#Tcen = 0.09
-#Tsigma = 0.07
-#STcorrelation = 0.92
-
 
 # Output files
-#output = validation_dir+"STU0PDG.out"
-output = validation_dir+"STU0.out"
-outputplot = validation_dir+"STU0.pdf"
+output = validation_dir+"Smh.out"
+outputplot = validation_dir+"Smh.pdf"
 
 # Scan ranges
-S_min = -0.2
-S_max = 0.4
-T_min = -0.1
+T_min = -0.5
 T_max = 0.5
+mHpm_min = 0
+mHpm_max = 200
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -68,18 +61,18 @@ fresults = open(output, 'w')
 # Likelihood Calculation
 ######################################################################
 
-def func(X, cen1, cen2, sig1p, sig1m, sig2p, sig2m, p):
-    z1, z2 = X[0], X[1]
-    z10, z20 = cen1, cen2
+#def func(X, cen1, cen2, sig1p, sig1m, sig2p, sig2m, p):
+#    z1, z2 = X[0], X[1]
+#    z10, z20 = cen1, cen2
 
-    V1 = sig1p * sig1m
-    V1e = sig1p - sig1m
-    V2 = sig2p * sig2m
-    V2e = sig2p - sig2m
-    V1f = V1 + V1e * (z1 - z10)
-    V2f = V2 + V2e * (z2 - z20)
-    L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
-    return L2t
+#    V1 = sig1p * sig1m
+#    V1e = sig1p - sig1m
+#    V2 = sig2p * sig2m
+#    V2e = sig2p - sig2m
+#    V1f = V1 + V1e * (z1 - z10)
+#    V2f = V2 + V2e * (z2 - z20)
+#    L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
+#    return L2t
 
 ######################################################################
 # Scan routine
@@ -90,7 +83,7 @@ max=-1
 
 print("***** running scan *****")
 
-for S in np.linspace(S_min, S_max, grid_subdivisions):
+for mHpm in np.linspace(mHpm_min, mHpm_max, grid_subdivisions):
     fresults.write('\n')
     for T in np.linspace(T_min, T_max, grid_subdivisions):
         m2logL = func([S,T], Scen, Tcen, Ssigma, Ssigma, Tsigma, Tsigma, STcorrelation)
@@ -168,7 +161,7 @@ plt.legend(loc='upper right')
 # Title, labels, color bar...
 #plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'S',fontsize=16)
-plt.ylabel(r'T',fontsize=16)
+plt.ylabel(r'$T$',fontsize=16)
 plt.text(-0.15, 0.45, r'fixed U = 0', fontsize=11)
 
 fig.set_tight_layout(True)
