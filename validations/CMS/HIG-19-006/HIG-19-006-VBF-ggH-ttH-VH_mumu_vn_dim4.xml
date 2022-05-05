@@ -1,10 +1,10 @@
 <!--
 CMS result for H -> mumu decay mode at mH = 125.38 GeV.
-Best-fit values and uncertainties taken from Fig. 11a, no correlations yet 
+Best-fit values and uncertainties taken from Fig. 11a, no correlations
 http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-006/index.html
-HEPData: https://doi.org/10.17182/hepdata.102459.v2/t1 (signal strengths, Fig 16)
-         https://doi.org/10.17182/hepdata.102459.v2/t2 (correlations)
+HEPData: https://www.hepdata.net/record/ins1815813 (signal strengths, Fig 11)
 Implemented by William Vaginay, 22/04/2022
+Validated : TBD
 -->
 
 <expmu decay="mumu" dim="4" type="vn">

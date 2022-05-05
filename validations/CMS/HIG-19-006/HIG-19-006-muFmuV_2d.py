@@ -37,10 +37,10 @@ hmass = 125.09
 # Output files
 #if (not os.path.exists("results")):
 #    os.mkdir("results")
-output = validation_dir+"HIG-19-006-mumu_2d.out"
-outputplot = validation_dir+"HIG-19-006-mumu_2d.pdf"
-#output = validation_dir+"HIG-19-006-mumu_2d_cor024.out"
-#outputplot = validation_dir+"HIG-19-006-mumu_2d_cor024.pdf"
+#output = validation_dir+"HIG-19-006-mumu_2d.out"
+#outputplot = validation_dir+"HIG-19-006-mumu_2d.pdf"
+output = validation_dir+"HIG-19-006-mumu_2d_cor024.out"
+outputplot = validation_dir+"HIG-19-006-mumu_2d_cor024.pdf"
 
 # Scan ranges 
 muf_min = -1.5
