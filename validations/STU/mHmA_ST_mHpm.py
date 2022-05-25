@@ -1,8 +1,8 @@
 ##################################################################
 #
-# The 1- and 2-σ regions allowed by the oblique parameter fit (S and T combined) for 2HDM in the alignment limit in the plane of
-# ∆mA versus ∆mH, where ∆mA = mA − mH± and ∆mH = mH − mH± 
-# using best fit from Table 3 : https://arxiv.org/pdf/2204.03796.pdf
+# (S,T) with fixed U = 0, using best fit and correlations from Table 3 :
+# https://arxiv.org/pdf/2204.03796.pdf
+# 2d likelihood contour on the $m_H$, $m_A$ plane with $m_Hpm$ minimized at each point
 #
 ##################################################################
 
@@ -17,7 +17,8 @@ lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/STU/"
+#validation_dir = lilith_dir+"validations/STU/"
+validation_dir = lilith_dir+"validations/STU/range/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -35,18 +36,29 @@ Tcen = 0.27
 Tsigma = 0.06
 STcorrelation = 0.93
 
-# Output files
-output = validation_dir+"mHmA_ST.out"
-outputplot = validation_dir+"mHmA_ST.pdf"
-
 # Scan ranges
-mH_min = -400
-mH_max = 400
-mA_min = -400
-mA_max = 400
+#mA_min = 600
+#mA_max = 1400
+#mH_min = 600
+#mH_max = 1400
+#mHpm_min = 500
+#mHpm_max = 1000
+mA_min = 200
+mA_max = 2000
+mH_min = 200
+mH_max = 2000
+mHpm_min = 200
+mHpm_max = 2000
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
+mHpm_precision = 360
+
+# Output files
+#output = validation_dir+"mHmA_ST_mHpm.out"
+#outputplot = validation_dir+"mHmA_ST_mHpm.pdf"
+output = validation_dir+"mHmA_ST_mHpm_" + str(mHpm_precision) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".out"
+outputplot = validation_dir+"mHmA_ST_mHpm_" + str(mHpm_precision) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".pdf"
 
 ######################################################################
 # Scan initialization
@@ -61,45 +73,52 @@ fresults = open(output, 'w')
 # Likelihood Calculation
 ######################################################################
 
-def func(X, cen1, cen2, sig1p, sig1m, sig2p, sig2m, p):
-    z1, z2 = X[0], X[1]
-    z10, z20 = cen1, cen2
+def func(mH, mA, mHpm):
+		z10, z20 = Scen, Tcen
+		sig1m, sig1p = Ssigma, Ssigma
+		sig2m, sig2p = Tsigma, Tsigma
+		p = STcorrelation
 
-    V1 = sig1p * sig1m
-    V1e = sig1p - sig1m
-    V2 = sig2p * sig2m
-    V2e = sig2p - sig2m
-    V1f = V1 + V1e * (z1 - z10)
-    V2f = V2 + V2e * (z2 - z20)
-    L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
-    return L2t
+		z1, z2 = calc.Scalc(mh = 125, mH = mH, mA = mA, mHpm = mHpm, sinba = 1), calc.Tcalc(mh = 125, mH = mH, mA = mA, mHpm = mHpm, sinba = 1)
+
+		V1 = sig1p * sig1m
+		V1e = sig1p - sig1m
+		V2 = sig2p * sig2m
+		V2e = sig2p - sig2m
+		V1f = V1 + V1e * (z1 - z10)
+		V2f = V2 + V2e * (z2 - z20)
+		L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
+#		print("mH, mA, mHpm, L2t = ", mH, mA, mHpm, L2t)
+		return L2t
 
 ######################################################################
-# Scan routine
+# Scan initialization
 ######################################################################
 
 m2logLmin=10000
-max=-1
 
 print("***** running scan *****")
-
-my_mHpm = 1000
 
 for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
-        m2logL = func([calc.Scalc(mh = 125, mH = mH + my_mHpm, mA = mA + my_mHpm, mHpm = my_mHpm, sinba = 1) , calc.Tcalc(mh = 125, mH = mH + my_mHpm, mA = mA + my_mHpm, mHpm = my_mHpm, sinba = 1) ], Scen, Tcen, Ssigma, Ssigma, Tsigma, Tsigma, STcorrelation)
-        if m2logL < m2logLmin:
-            m2logLmin = m2logL
+        m2logLmincurrent=10000
+#        print("mH, mA = ", mH, mA)
+        for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
+            m2logL = func(mH=mH, mA=mA, mHpm=mHpm)
+            if m2logL < m2logLmincurrent:
+                m2logLmincurrent = m2logL
+#            print("mHpm, m2logL, m2logLmincurrent = ", mHpm, m2logL, m2logLmincurrent)
+        fresults.write('%.5f    '%mH +'%.5f    '%mA + '%.5f     '%m2logLmincurrent + '\n')
+        if m2logLmincurrent < m2logLmin:
+            m2logLmin = m2logLmincurrent
             mHmin = mH
             mAmin = mA
-        fresults.write('%.5f    '%mH +'%.5f    '%mA + '%.5f     '%m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
 print("minimum at mH, mA, -2logL_min = ", mHmin, mAmin, m2logLmin)
-
 
 ######################################################################
 # Plot routine
@@ -138,7 +157,6 @@ z2=[]
 for z_el in z:
   z2.append(z_el-z.min())
 
-
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), grid_subdivisions)
 yi = np.linspace(y.min(), y.max(), grid_subdivisions)
@@ -148,24 +166,30 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 
 # Plotting the 68% and 95% CL regions
-ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'])#, \
+#ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99, 7.81],colors=['#ff3300','#ffa500', '#ffff00'])#, \
+#              #vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
+ax.contourf(xi,yi,Z,[10**(-10),3.506,7.815],colors=['#ff3300','#ffa500',])#, \
               #vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
+
+#sc = ax.scatter(x, y, c=z2)
+#cbar = fig.colorbar(sc)
 
 ax.set_aspect((mH_max-mH_min)/(mA_max-mA_min))
 
 # best fit point
 plt.plot([mHmin],[mAmin], '+', markersize=8, color = 'black', label = 'best fit')
-plt.legend(loc='upper right')
+#plt.legend(loc='upper right')
 
 # Title, labels, color bar...
 #plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
-plt.xlabel(r'$\Delta m_H$[GeV]',fontsize=16)
-plt.ylabel(r'$\Delta m_A$[GeV]',fontsize=16)
-plt.text(-360, 335, r'$\cos(\beta - \alpha) = 0$, $m_{H^{\pm}} = 1TeV$', fontsize=9)
-plt.text(-360, 285, f"Best points ($\Delta m_H, \Delta m_A$) = ({mHmin:.0f}, {mAmin:.0f})", fontsize=9)
-plt.text(-360, 255, f"with $\chi^{2}$ = {m2logLmin:.3f}, S = {calc.Scalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}, T = {calc.Tcalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}", fontsize=9)
-plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
-plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
+plt.xlabel(r'$m_H$[GeV]',fontsize=16)
+plt.ylabel(r'$m_A$[GeV]',fontsize=16)
+plt.text(mH_min + 100, mA_max - 150, r'Contour plot in the $m_H$, $m_A$ plane with $m_{H^{\pm}}$ minimized at each point', fontsize=7)
+plt.text(mH_min + 100, mA_max - 250, fr"Range of $m_{{H^{{\pm}}}}$ = ({mHpm_min},{mHpm_max}), with $\cos(\beta - \alpha) = 0$", fontsize=7)
+plt.text(mH_min + 100, mA_max - 350, f"Best point ($m_H, m_A$) = ({mHmin:.0f}, {mAmin:.0f})", fontsize=7)
+#plt.text(-360, 255, f"with $\chi^{2}$ = {m2logLmin:.3f}, S = {calc.Scalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}, T = {calc.Tcalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}", fontsize=9)
+#plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
+#plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
 
 fig.set_tight_layout(True)
 
