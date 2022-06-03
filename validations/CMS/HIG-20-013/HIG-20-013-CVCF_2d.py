@@ -10,11 +10,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/CMS/HIG-20-013/"
+validation_dir = lilith_dir+"/validations/CMS/HIG-20-013/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -176,7 +176,7 @@ ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'])#, \
 ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
 
 # read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/CMS/HIG-20-013/HIG-20-013_CVCF-Grid.txt')
+expdata = np.genfromtxt(validation_dir+'HIG-20-013_CVCF-Grid.txt')
 xExp68 = expdata[1:87,0]
 yExp68 = expdata[1:87,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
@@ -203,11 +203,8 @@ plt.text(0.82, 0.52, r'Data from CMS-HIG-20-013 Fig. 22 + Fig. 23', fontsize=10)
 
 fig.set_tight_layout(True)
 
-#plt.show()
-
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-20-013/")
+print("results are stored in", validation_dir)
 print("***** done *****")
-
