@@ -14,7 +14,7 @@ import matplotlib
 import numpy as np
 import subprocess
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
@@ -23,8 +23,10 @@ validation_dir = lilith_dir+"validations/STU/rangeminimize2HDMc/"
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
 
-calc2HDM_dir = "/home/Willy/2HDMc/2HDMC-1.8.0/"
+calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))+"/2HDMc/2HDMC-1.8.0/"
 sys.path.append(calc2HDM_dir)
+
+print("calc2HDM_dir = ", calc2HDM_dir)
 
 ######################################################################
 # Parameters

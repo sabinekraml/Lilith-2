@@ -15,7 +15,7 @@ import numpy as np
 import STU_2HDM as calc
 import time
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
