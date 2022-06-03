@@ -12,17 +12,19 @@ from scipy.optimize import minimize
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-import STU_2HDM as calc
-import time
+import subprocess
 
 lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/STU/rangeminimize/"
+validation_dir = lilith_dir+"validations/STU/rangeminimize2HDMc/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
+
+calc2HDM_dir = "/home/Willy/2HDMc/2HDMC-1.8.0/"
+sys.path.append(calc2HDM_dir)
 
 ######################################################################
 # Parameters
@@ -52,7 +54,7 @@ mHpm_min = 200
 mHpm_max = 2000
 
 # Number of grid steps in each of the two dimensions (squared grid)
-grid_subdivisions = 100
+grid_subdivisions = 50
 
 # Output files
 output = validation_dir+"mHmA_ST_mHpm_" + str(grid_subdivisions) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".out"
@@ -77,7 +79,9 @@ def func(mHpm, mH, mA):
 		sig2m, sig2p = Tsigma, Tsigma
 		p = STcorrelation
 
-		z1, z2 = calc.Scalc(mh = 125, mH = mH, mA = mA, mHpm = mHpm, sinba = 1), calc.Tcalc(mh = 125, mH = mH, mA = mA, mHpm = mHpm, sinba = 1)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+#		print(p1.stdout)
+		z1, z2 = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095])
 
 		V1 = sig1p * sig1m
 		V1e = sig1p - sig1m
@@ -108,7 +112,7 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     i+=1
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
-        funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
+        funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 0.001, 'eps': 1} )
         m2logL = funcminimized.fun
         mHpmfit = funcminimized.x
         if funcminimized.success == False :

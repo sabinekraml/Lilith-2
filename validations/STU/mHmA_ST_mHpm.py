@@ -48,11 +48,11 @@ mA_max = 2000
 mH_min = 200
 mH_max = 2000
 mHpm_min = 200
-mHpm_max = 2000
+mHpm_max = 700
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
-mHpm_precision = 360
+mHpm_precision = 60
 
 # Output files
 #output = validation_dir+"mHmA_ST_mHpm.out"
@@ -96,10 +96,16 @@ def func(mH, mA, mHpm):
 ######################################################################
 
 m2logLmin=10000
+i=1
 
 print("***** running scan *****")
 
 for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
+    if i==1:
+        print("mH = ", mH)
+    if i%10==0:
+        print("mH = ", mH)
+    i+=1
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
         m2logLmincurrent=10000
@@ -108,7 +114,8 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
             m2logL = func(mH=mH, mA=mA, mHpm=mHpm)
             if m2logL < m2logLmincurrent:
                 m2logLmincurrent = m2logL
-#            print("mHpm, m2logL, m2logLmincurrent = ", mHpm, m2logL, m2logLmincurrent)
+#            print("mH, mA, mHpm, m2logL, m2logLmincurrent = ", mH, mA, mHpm, m2logL, m2logLmincurrent)
+        print("mH, mA, mHpm, m2logLmincurrent = ", mH, mA, mHpm, m2logLmincurrent)
         fresults.write('%.5f    '%mH +'%.5f    '%mA + '%.5f     '%m2logLmincurrent + '\n')
         if m2logLmincurrent < m2logLmin:
             m2logLmin = m2logLmincurrent
