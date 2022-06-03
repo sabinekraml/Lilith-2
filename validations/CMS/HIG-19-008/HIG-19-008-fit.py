@@ -1,3 +1,4 @@
+import os
 from scipy.optimize import fsolve
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,10 +6,10 @@ import matplotlib
 import scipy.optimize as optimize
 import sys
 
+grid_dir = os.path.dirname(os.path.abspath(__file__))+"/"
 # Open the 1D grid files
-
 # Choose VBF - ggH - ttH - VH
-f = open('validations/CMS/HIG-19-008/HIG-19-008-muttHmutH-Grid95.txt', 'r')
+f = open(grid_dir+'HIG-19-008-muttHmutH-Grid95.txt', 'r')
 
 # Plot the grids
 fig = plt.figure()

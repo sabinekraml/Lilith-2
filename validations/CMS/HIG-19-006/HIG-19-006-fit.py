@@ -1,3 +1,4 @@
+import os
 from scipy.optimize import fsolve
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,10 +6,11 @@ import matplotlib
 import scipy.optimize as optimize
 import sys
 
-# Open the 1D grid files
+grid_dir = os.path.dirname(os.path.abspath(__file__))+"/"
 
+# Open the 1D grid files
 # Choose VBF - ggH - ttH - VH
-f = open('validations/CMS/HIG-19-006/HIG-19-006-mumu-Grid95.txt', 'r')
+f = open(grid_dir+'HIG-19-006-mumu-Grid95.txt', 'r')
 
 # Plot the grids
 fig = plt.figure()
@@ -32,7 +34,7 @@ def func(X, sig1p, sig1m, sig2p, sig2m, p):
     V1f = V1 + V1e * (z1 - z10)
     V2f = V2 + V2e * (z2 - z20)
     L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
-    print("L2t = ", L2t)
+#    print("L2t = ", L2t)
     return L2t
 
 def fit5para(xr, yr):

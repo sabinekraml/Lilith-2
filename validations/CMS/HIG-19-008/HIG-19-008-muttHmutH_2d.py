@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
@@ -169,7 +169,7 @@ ax.set_aspect((mutH_max-mutH_min)/(muttH_max-muttH_min))
 
 
 # read data for official 68% and 95% CL contours & plot + best data fit point
-expdata = np.genfromtxt('validations/CMS/HIG-19-008/HIG-19-008-muttHmutH-Grid.txt')
+expdata = np.genfromtxt(validation_dir+'HIG-19-008-muttHmutH-Grid.txt')
 xExp68 = expdata[1:67,0]
 yExp68 = expdata[1:67,1]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")

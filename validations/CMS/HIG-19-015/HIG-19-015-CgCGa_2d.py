@@ -10,14 +10,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
 validation_dir = lilith_dir+"validations/CMS/HIG-19-015/"
-
-print("lilith_dir: ",lilith_dir)
-print("validation_dir: ",validation_dir)
 
 ######################################################################
 # Parameters
@@ -172,7 +169,7 @@ ax.set_aspect((Cg_max-Cg_min)/(CGa_max-CGa_min))
 
 
 # read data for official 68% and 95% CL contours & plot + best data fit point
-expdata = np.genfromtxt('validations/CMS/HIG-19-015/HIG-19-015_CgCGa-Grid.txt')
+expdata = np.genfromtxt(validation_dir+'HIG-19-015_CgCGa-Grid.txt')
 xExp68 = expdata[1:57,1]
 yExp68 = expdata[1:57,0]
 plt.plot(xExp68,yExp68,'--',markersize=3, color = '#ff0800', label="CMS official 68% CL")
@@ -207,6 +204,5 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/CMS/HIG-19-015/")
+print("results are stored in", validation_dir)
 print("***** done *****")
-

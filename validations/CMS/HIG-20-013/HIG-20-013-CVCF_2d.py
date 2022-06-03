@@ -10,14 +10,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"/validations/CMS/HIG-20-013/"
-
-print("lilith_dir: ",lilith_dir)
-print("validation_dir: ",validation_dir)
+validation_dir = lilith_dir+"validations/CMS/HIG-20-013/"
 
 ######################################################################
 # Parameters
