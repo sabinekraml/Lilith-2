@@ -35,11 +35,22 @@ print("calc2HDM_dir = ", calc2HDM_dir)
 print("***** reading parameters *****")
 
 # Values
-Scen = 0.15
-Ssigma = 0.08
-Tcen = 0.27
-Tsigma = 0.06
-STcorrelation = 0.93
+Scen = 0.06
+Ssigma = 0.10
+Tcen = 0.11
+Tsigma = 0.12
+Ucen = 0.14
+Usigma = 0.09
+STcorrelation = 0.9
+SUcorrelation = -0.59
+TUcorrelation = -0.85
+CEN = np.array([Scen, Tcen, Ucen])
+SIG = np.diag([Ssigma, Tsigma, Usigma])
+COR = np.array(([1, STcorrelation, SUcorrelation],
+                [STcorrelation, 1 , TUcorrelation],
+                [SUcorrelation, TUcorrelation, 1]))	
+C = SIG.dot(COR).dot(SIG)
+C_inv = np.linalg.inv(C)
 
 # Scan ranges
 #mA_min = 600
@@ -59,8 +70,8 @@ mHpm_max = 2000
 grid_subdivisions = 50
 
 # Output files
-output = validation_dir+"mHmA_ST_mHpm_" + str(grid_subdivisions) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".out"
-outputplot = validation_dir+"mHmA_ST_mHpm_" + str(grid_subdivisions) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".pdf"
+output = validation_dir+"mHmA_STU_mHpm_" + str(grid_subdivisions) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".out"
+outputplot = validation_dir+"mHmA_STU_mHpm_" + str(grid_subdivisions) + "_" + str(mHpm_min) + "-" + str(mHpm_max) + ".pdf"
 
 ######################################################################
 # Scan initialization
@@ -95,6 +106,14 @@ def func(mHpm, mH, mA):
 #		print("mH, mA, mHpm, L2t = ", mH, mA, mHpm, L2t)
 		return L2t
 
+def funcmatrix(mHpm, mH, mA):
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
+		X = [S, T, U]
+#		print("X = ", X)
+		L2t = C_inv.dot(X-CEN).dot((X-CEN).T)
+		return L2t
+
 ######################################################################
 # Scan initialization
 ######################################################################
@@ -114,7 +133,8 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     i+=1
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
-        funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 0.001, 'eps': 1} )
+#        funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
+        funcminimized = minimize(funcmatrix, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
         m2logL = funcminimized.fun
         mHpmfit = funcminimized.x
         if funcminimized.success == False :

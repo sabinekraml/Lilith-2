@@ -51,6 +51,24 @@ mH_max = 2000
 mHpm_min = 200
 mHpm_max = 2000
 
+# STU Values
+#Scen = 0.06
+#Ssigma = 0.10
+#Tcen = 0.11
+#Tsigma = 0.12
+#Ucen = 0.14
+#Usigma = 0.09
+#STcorrelation = 0.9
+#SUcorrelation = -0.59
+#TUcorrelation = -0.85
+#CEN = np.array([Scen, Tcen, Ucen])
+#SIG = np.diag([Ssigma, Tsigma, Usigma])
+#COR = np.array(([1, STcorrelation, SUcorrelation],
+#                [STcorrelation, 1 , TUcorrelation],
+#                [SUcorrelation, TUcorrelation, 1]))	
+#C = SIG.dot(COR).dot(SIG)
+#C_inv = np.linalg.inv(C)
+
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
 
@@ -78,7 +96,6 @@ def func(mHpm, mH, mA):
 		p = STcorrelation
 
 		z1, z2 = calc.Scalc(mh = 125, mH = mH, mA = mA, mHpm = mHpm, sinba = 1), calc.Tcalc(mh = 125, mH = mH, mA = mA, mHpm = mHpm, sinba = 1)
-
 		V1 = sig1p * sig1m
 		V1e = sig1p - sig1m
 		V2 = sig2p * sig2m
@@ -87,6 +104,13 @@ def func(mHpm, mH, mA):
 		V2f = V2 + V2e * (z2 - z20)
 		L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
 #		print("mH, mA, mHpm, L2t = ", mH, mA, mHpm, L2t)
+		return L2t
+
+def funcmatrix(mHpm, mH, mA):
+		S, T, U = calc.Scalc(mh = 125, mH = mH, mA = mA, mHpm = float(mHpm), sinba = 1), calc.Tcalc(mh = 125, mH = mH, mA = mA, mHpm = float(mHpm), sinba = 1), calc.Ucalc(mh = 125, mH = mH, mA = mA, mHpm = float(mHpm), sinba = 1)
+		X = [S, T, U]
+#		print("X = ", X)
+		L2t = C_inv.dot(X-CEN).dot((X-CEN).T)
 		return L2t
 
 ######################################################################
@@ -109,6 +133,7 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
         funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
+#        funcminimized = minimize(funcmatrix, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
         m2logL = funcminimized.fun
         mHpmfit = funcminimized.x
         if funcminimized.success == False :
