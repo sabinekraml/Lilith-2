@@ -20,19 +20,19 @@ import lilith
 
 validation_dir = lilith_dir+"validations/STU/rangeminimize2HDMc/"
 
-print("lilith_dir: ",lilith_dir)
-print("validation_dir: ",validation_dir)
+print("lilith_dir: ",lilith_dir, flush=True)
+print("validation_dir: ",validation_dir, flush=True)
 
 calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))+"/2HDMc/2HDMC-1.8.0/"
 sys.path.append(calc2HDM_dir)
 
-print("calc2HDM_dir = ", calc2HDM_dir)
+print("calc2HDM_dir = ", calc2HDM_dir, flush=True)
 
 ######################################################################
 # Parameters
 ######################################################################
 
-print("***** reading parameters *****")
+print("***** reading parameters *****", flush=True)
 
 # Values
 Scen = 0.06
@@ -77,7 +77,7 @@ outputplot = validation_dir+"mHmA_STU_mHpm_" + str(grid_subdivisions) + "_" + st
 # Scan initialization
 ######################################################################
 
-print("***** scan initialization *****")
+print("***** scan initialization *****", flush=True)
 
 # Prepare output
 fresults = open(output, 'w')
@@ -95,23 +95,36 @@ def func(mHpm, mH, mA):
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
 #		print(p1.stdout)
 		z1, z2 = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095])
+		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 
-		V1 = sig1p * sig1m
-		V1e = sig1p - sig1m
-		V2 = sig2p * sig2m
-		V2e = sig2p - sig2m
-		V1f = V1 + V1e * (z1 - z10)
-		V2f = V2 + V2e * (z2 - z20)
-		L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
-#		print("mH, mA, mHpm, L2t = ", mH, mA, mHpm, L2t)
+		if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:
+				V1 = sig1p * sig1m
+				V1e = sig1p - sig1m
+				V2 = sig2p * sig2m
+				V2e = sig2p - sig2m
+				V1f = V1 + V1e * (z1 - z10)
+				V2f = V2 + V2e * (z2 - z20)
+				L2t = 1 / (1 - p ** 2) * ( (z1 - z10) ** 2 / V1f - 2 * p * (z1 - z10) * (z2 - z20) / np.sqrt(V1f * V2f) + (z2 - z20) ** 2 / V2f )
+		#		print("mH, mA, mHpm, L2t = ", mH, mA, mHpm, L2t)
+		else:
+				L2t = 10000
 		return L2t
 
 def funcmatrix(mHpm, mH, mA):
+
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+
 		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
 		X = [S, T, U]
 #		print("X = ", X)
 		L2t = C_inv.dot(X-CEN).dot((X-CEN).T)
+
+#		if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:
+#				L2t = C_inv.dot(X-CEN).dot((X-CEN).T)
+#		else:
+#				L2t = 10000		
+
 		return L2t
 
 ######################################################################
@@ -123,22 +136,23 @@ mHpm0=500
 i=1
 mHpm_precision = 100
 
-print("***** running scan *****")
+print("***** running scan *****", flush=True)
 
 for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     if i==1:
-        print("mH = ", mH)
-    if i%10==0:
-        print("mH = ", mH)
+        print("mH = ", mH, flush=True)
+    if i%5==0:
+        print("mH = ", mH, flush=True)
     i+=1
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
+#        print("mA = ", mA)
 #        funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
         funcminimized = minimize(funcmatrix, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
         m2logL = funcminimized.fun
         mHpmfit = funcminimized.x
         if funcminimized.success == False :
-            print("Could not minimize for (mH, mA) = ", mH, mA)
+            print("Could not minimize for (mH, mA) = ", mH, mA, flush=True)
 #        print("mH, mA, mHpm, m2logLminpas = ", mH, mA, mHpmfit, m2logL)
 #        m2logLminpas=10000
 #        for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
@@ -157,14 +171,14 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
 fresults.write('\n' + '%.5f    '%mHmin + '%.5f    '%mAmin + '%.5f    '%m2logLmin + '%.5f    '%mHpmmin)
 fresults.close()
 
-print("***** scan finalized *****")
-print("minimum at mH, mA, mHpm, -2logL_min = ", mHmin, mAmin, mHpmmin, m2logLmin)
+print("***** scan finalized *****", flush=True)
+print("minimum at mH, mA, mHpm, -2logL_min = ", mHmin, mAmin, mHpmmin, m2logLmin, flush=True)
 
 ######################################################################
 # Plot routine
 ######################################################################
 
-print("***** plotting *****")
+print("***** plotting *****", flush=True)
 
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 8
@@ -224,9 +238,10 @@ plt.plot([data[-1,0]],[data[-1,1]], '+', markersize=8, color = 'black', label = 
 #plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'$m_H$[GeV]',fontsize=16)
 plt.ylabel(r'$m_A$[GeV]',fontsize=16)
-plt.text(mH_min + 100, mA_max - 150, r'Contour plot in the $m_H$, $m_A$ plane with $m_{H^{\pm}}$ minimized at each point', fontsize=7)
-plt.text(mH_min + 100, mA_max - 250, fr"Range of $m_{{H^{{\pm}}}}$ = ({mHpm_min},{mHpm_max}), with $\cos(\beta - \alpha) = 0$", fontsize=7)
-plt.text(mH_min + 100, mA_max - 350, fr"Best point ($m_H, m_A$) = ({data[-1,0]:.0f}, {data[-1,1]:.0f}) with $\chi^{2}$ = {data[-1,2]:.3f} and $m_{{H^{{\pm}}}}$ = {data[-1,3]:.0f}", fontsize=7) 
+plt.text(mH_min + 100, mA_max - 150, r'Values from 2HDMc with unit, pert and stab conditions', fontsize=7)
+plt.text(mH_min + 100, mA_max - 250, r'Contour plot in the $m_H$, $m_A$ plane with $m_{H^{\pm}}$ minimized at each point', fontsize=7)
+plt.text(mH_min + 100, mA_max - 350, fr"Range of $m_{{H^{{\pm}}}}$ = ({mHpm_min},{mHpm_max}), with $\cos(\beta - \alpha) = 0$", fontsize=7)
+plt.text(mH_min + 100, mA_max - 450, fr"Best point ($m_H, m_A$) = ({data[-1,0]:.0f}, {data[-1,1]:.0f}) with $\chi^{2}$ = {data[-1,2]:.3f} and $m_{{H^{{\pm}}}}$ = {data[-1,3]:.0f}", fontsize=7) 
 #plt.text(-360, 255, f"with $\chi^{2}$ = {m2logLmin:.3f}, S = {calc.Scalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}, T = {calc.Tcalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}", fontsize=9)
 #plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
 #plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
@@ -236,5 +251,5 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", validation_dir)
-print("***** done *****")
+print("results are stored in", validation_dir, flush=True)
+print("***** done *****", flush=True)
