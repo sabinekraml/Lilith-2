@@ -86,6 +86,8 @@ import STU_2HDM as calc
 
 print(os.path.dirname)
 
+#teeeest
+
 #lilith_dir = "/home/Willy/Lilith/Lilith-2/"
 #sys.path.append(lilith_dir)
 #import lilith
