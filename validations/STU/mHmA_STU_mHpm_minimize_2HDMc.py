@@ -146,7 +146,7 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     i+=1
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
-#        print("mA = ", mA)
+        print("mA = ", mA, flush=True)
 #        funcminimized = minimize(func, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
         funcminimized = minimize(funcmatrix, (mH+mA)/2 , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),), options={'ftol': 1e-3, 'eps': 1} )
         m2logL = funcminimized.fun

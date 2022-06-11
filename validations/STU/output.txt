@@ -29,11 +29,11 @@ Block GAUGE  # SM Gauge couplings
 Block MINPAR    # Model parameters
 # Parameters for general potential in generic basis
     3        1.00000000e+01   # tan(beta)
-   11        7.93730436e+01   # lambda_1
-   12        2.65645324e-01   # lambda_2
-   13        1.67907822e+00   # lambda_3
-   14       -7.58523098e-01   # lambda_4
-   15       -1.45397442e+00   # lambda_5
+   11        5.87782304e+03   # lambda_1
+   12        8.45490323e-01   # lambda_2
+   13        5.91581083e+01   # lambda_3
+   14       -5.89003745e+01   # lambda_4
+   15       -5.87756531e+01   # lambda_5
    16        0.00000000e+00   # lambda_6
    17        0.00000000e+00   # lambda_7
    18        8.00000000e+02   # m_12^2
@@ -64,9 +64,9 @@ Block MASS      #  Mass spectrum (kinematic masses)
     23        9.11534900e+01   # MZ
     24        8.03695100e+01   # MW
     25        1.25000000e+02   # Mh1, lightest CP-even Higgs
-    35        2.36734694e+02   # Mh2, heaviest CP-even Higgs
-    36        3.10204082e+02   # Mh3, CP-odd Higgs
-    37        2.74127441e+02   # Mhc
+    35        1.88979592e+03   # Mh2, heaviest CP-even Higgs
+    36        1.88979592e+03   # Mh3, CP-odd Higgs
+    37        1.89079592e+03   # Mhc
 Block ALPHA     # Effective Higgs mixing parameter
              -9.96686525e-02   # alpha
 Block UCOUPL
@@ -105,59 +105,56 @@ DECAY  6     1.33806940e+00   # top decays
        7.53726451e-05     2      24     1
        1.63658200e-03     2      24     3
        9.98288045e-01     2      24     5
-DECAY  25     4.33814191e-03   # h1 decays, lightest CP-even Higgs
+DECAY  25     4.33817161e-03   # h1 decays, lightest CP-even Higgs
 #            BR          NDA    ID1   ID2
-       2.25324574e-04     2       3    -3
-       2.76705655e-02     2       4    -4
-       6.16531132e-01     2       5    -5
-       4.93807518e-09     2      11   -11
-       2.11117222e-04     2      13   -13
-       5.96331365e-02     2      15   -15
-       1.96175176e-03     2      22    22
-       2.43137416e-02     2      23    23
-       1.94639994e-01     2      24   -24
-       1.38823810e-03     2      23    22
-       7.34249943e-02     2      21    21
-DECAY  35     7.66873993e-05   # h2 decays, heaviest CP-even Higgs
+       2.25323032e-04     2       3    -3
+       2.76703761e-02     2       4    -4
+       6.16526911e-01     2       5    -5
+       4.93804138e-09     2      11   -11
+       2.11115777e-04     2      13   -13
+       5.96327283e-02     2      15   -15
+       1.96685106e-03     2      22    22
+       2.43135752e-02     2      23    23
+       1.94638662e-01     2      24   -24
+       1.38996086e-03     2      23    22
+       7.34244917e-02     2      21    21
+DECAY  35     8.46672426e-01   # h2 decays, heaviest CP-even Higgs
 #            BR          NDA    ID1   ID2
-       2.12898095e-04     2       3    -3
-       2.61793415e-02     2       4    -4
-       5.86702366e-01     2       5    -5
-       5.29041010e-09     2      11   -11
-       2.26181275e-04     2      13   -13
-       6.39439135e-02     2      15   -15
-       1.84025986e-02     2      22    22
-       1.24341147e-02     2      23    22
-       2.91898581e-01     2      21    21
-DECAY  36     1.82297885e-03   # h3 decays, CP-odd Higgs
+       1.09407097e-07     2       3    -3
+       1.34849319e-05     2       4    -4
+       3.03024768e-04     2       5    -5
+       9.92525345e-01     2       6    -6
+       3.82517167e-12     2      11   -11
+       1.63538025e-07     2      13   -13
+       4.62493156e-05     2      15   -15
+       3.27110440e-03     2      22    22
+       2.96432329e-03     2      23    22
+       8.76195464e-04     2      21    21
+DECAY  36     8.61391654e-01   # h3 decays, CP-odd Higgs
 #            BR          NDA    ID1   ID2
-       1.03552050e-05     2       3    -3
-       1.38457640e-03     2       4    -4
-       3.00855367e-02     2       5    -5
-       4.22701241e-02     2       6    -6
-       2.91620008e-10     2      11   -11
-       1.24676627e-05     2      13   -13
-       3.52570118e-03     2      15   -15
-       3.00962713e-04     2      22    22
-       7.00006225e-05     2      23    22
-       1.15177211e-01     2      21    21
-       7.23811192e-01     2      23    35
-       4.16759364e-02     2      24   -37
-       4.16759364e-02     2      37   -24
-DECAY  37     6.33100299e-02   # Charged Higgs decays
+       1.00089638e-07     2       3    -3
+       1.33728637e-05     2       4    -4
+       2.89884601e-04     2       5    -5
+       9.98638269e-01     2       6    -6
+       3.75980817e-12     2      11   -11
+       1.60743534e-07     2      13   -13
+       4.54591805e-05     2      15   -15
+       3.15410315e-06     2      22    22
+       1.26758953e-06     2      23    22
+       1.00833160e-03     2      21    21
+DECAY  37     8.06627030e-01   # Charged Higgs decays
 #            BR          NDA    ID1   ID2
-       1.39848034e-08     2       2    -3
-       9.55675566e-09     2       2    -5
-       1.74128111e-06     2       4    -1
-       3.27892122e-05     2       4    -3
-       1.37498636e-06     2       4    -5
-       7.44135769e-05     2       6    -1
-       1.62308860e-03     2       6    -3
-       9.96773293e-01     2       6    -5
-       7.42047033e-12     2     -11    12
-       3.17248174e-07     2     -13    14
-       8.97122240e-05     2     -15    16
-       1.40324668e-03     2      24    35
+       5.58303632e-09     2       2    -3
+       3.81750671e-09     2       2    -5
+       6.95193465e-07     2       4    -1
+       1.30908427e-05     2       4    -3
+       5.49237008e-07     2       4    -5
+       7.51362555e-05     2       6    -1
+       1.63145735e-03     2       6    -3
+       9.98230319e-01     2       6    -5
+       4.01719881e-12     2     -11    12
+       1.71747787e-07     2     -13    14
+       4.85712457e-05     2     -15    16
 #
 BLOCK MGUSER
          1      -0.00000000e+00   # REPLGH1EE   , Real part of scalar part of h1ee coupling
@@ -213,24 +210,24 @@ BLOCK MGUSER
         51       0.00000000e+00   # REPRGH1CC   , Real part of pseudo scalar part of h1cc coupling
         52       0.00000000e+00   # IMPRGH1CC   , Imaginary part of pseudo scalar part of h1cc coupling
         53       0.00000000e+00   # REPLGH2CC   , Real part of scalar part of h2cc coupling
-        54       2.39707703e-04   # IMPLGH2CC   , Imaginary part of scalar part of h2cc coupling
+        54       2.06650551e-04   # IMPLGH2CC   , Imaginary part of scalar part of h2cc coupling
         55       0.00000000e+00   # REPRGH2CC   , Real part of pseudo scalar part of h2cc coupling
         56       0.00000000e+00   # IMPRGH2CC   , Imaginary part of pseudo scalar part of h2cc coupling
         57       0.00000000e+00   # REPLGH3CC   , Real part of scalar part of h3cc coupling
         58       0.00000000e+00   # IMPLGH3CC   , Imaginary part of scalar part of h3cc coupling
-        59      -2.34559077e-04   # REPRGH3CC   , Real part of pseudo scalar part of h3cc coupling
+        59      -2.06650551e-04   # REPRGH3CC   , Real part of pseudo scalar part of h3cc coupling
         60       0.00000000e+00   # IMPRGH3CC   , Imaginary part of pseudo scalar part of h3cc coupling
         61      -0.00000000e+00   # REPLGH1TT   , Real part of scalar part of h1tt coupling
         62      -6.87440524e-01   # IMPLGH1TT   , Imaginary part of scalar part of h1tt coupling
         63       0.00000000e+00   # REPRGH1TT   , Real part of pseudo scalar part of h1tt coupling
         64       0.00000000e+00   # IMPRGH1TT   , Imaginary part of pseudo scalar part of h1tt coupling
         65       0.00000000e+00   # REPLGH2TT   , Real part of scalar part of h2tt coupling
-        66       6.52379776e-02   # IMPLGH2TT   , Imaginary part of scalar part of h2tt coupling
+        66       5.62412632e-02   # IMPLGH2TT   , Imaginary part of scalar part of h2tt coupling
         67       0.00000000e+00   # REPRGH2TT   , Real part of pseudo scalar part of h2tt coupling
         68       0.00000000e+00   # IMPRGH2TT   , Imaginary part of pseudo scalar part of h2tt coupling
         69       0.00000000e+00   # REPLGH3TT   , Real part of scalar part of h3tt coupling
         70       0.00000000e+00   # IMPLGH3TT   , Imaginary part of scalar part of h3tt coupling
-        71      -6.38367462e-02   # REPRGH3TT   , Real part of pseudo scalar part of h3tt coupling
+        71      -5.62412632e-02   # REPRGH3TT   , Real part of pseudo scalar part of h3tt coupling
         72       0.00000000e+00   # IMPRGH3TT   , Imaginary part of pseudo scalar part of h3tt coupling
         73      -0.00000000e+00   # REPLGH1DD   , Real part of scalar part of h1dd coupling
         74      -0.00000000e+00   # IMPLGH1DD   , Imaginary part of scalar part of h1dd coupling
@@ -249,61 +246,61 @@ BLOCK MGUSER
         87       0.00000000e+00   # REPRGH1SS   , Real part of pseudo scalar part of h1ss coupling
         88       0.00000000e+00   # IMPRGH1SS   , Imaginary part of pseudo scalar part of h1ss coupling
         89       0.00000000e+00   # REPLGH2SS   , Real part of scalar part of h2ss coupling
-        90       2.14681306e-05   # IMPLGH2SS   , Imaginary part of scalar part of h2ss coupling
+        90       1.85075447e-05   # IMPLGH2SS   , Imaginary part of scalar part of h2ss coupling
         91       0.00000000e+00   # REPRGH2SS   , Real part of pseudo scalar part of h2ss coupling
         92       0.00000000e+00   # IMPRGH2SS   , Imaginary part of pseudo scalar part of h2ss coupling
         93       0.00000000e+00   # REPLGH3SS   , Real part of scalar part of h3ss coupling
         94       0.00000000e+00   # IMPLGH3SS   , Imaginary part of scalar part of h3ss coupling
-        95       2.10070216e-05   # REPRGH3SS   , Real part of pseudo scalar part of h3ss coupling
+        95       1.85075447e-05   # REPRGH3SS   , Real part of pseudo scalar part of h3ss coupling
         96      -0.00000000e+00   # IMPRGH3SS   , Imaginary part of pseudo scalar part of h3ss coupling
         97      -0.00000000e+00   # REPLGH1BB   , Real part of scalar part of h1bb coupling
         98      -1.20092936e-02   # IMPLGH1BB   , Imaginary part of scalar part of h1bb coupling
         99       0.00000000e+00   # REPRGH1BB   , Real part of pseudo scalar part of h1bb coupling
        100       0.00000000e+00   # IMPRGH1BB   , Imaginary part of pseudo scalar part of h1bb coupling
        101       0.00000000e+00   # REPLGH2BB   , Real part of scalar part of h2bb coupling
-       102       1.13967972e-03   # IMPLGH2BB   , Imaginary part of scalar part of h2bb coupling
+       102       9.82510946e-04   # IMPLGH2BB   , Imaginary part of scalar part of h2bb coupling
        103       0.00000000e+00   # REPRGH2BB   , Real part of pseudo scalar part of h2bb coupling
        104       0.00000000e+00   # IMPRGH2BB   , Imaginary part of pseudo scalar part of h2bb coupling
        105       0.00000000e+00   # REPLGH3BB   , Real part of scalar part of h3bb coupling
        106       0.00000000e+00   # IMPLGH3BB   , Imaginary part of scalar part of h3bb coupling
-       107       1.11520080e-03   # REPRGH3BB   , Real part of pseudo scalar part of h3bb coupling
+       107       9.82510946e-04   # REPRGH3BB   , Real part of pseudo scalar part of h3bb coupling
        108      -0.00000000e+00   # IMPRGH3BB   , Imaginary part of pseudo scalar part of h3bb coupling
        109      -0.00000000e+00   # REPLGHCUD   , Real part of scalar part of hcud coupling
        110      -0.00000000e+00   # IMPLGHCUD   , Imaginary part of scalar part of hcud coupling
        111      -0.00000000e+00   # REPRGHCUD   , Real part of pseudo scalar part of hcud coupling
        112      -0.00000000e+00   # IMPRGHCUD   , Imaginary part of pseudo scalar part of hcud coupling
        113      -0.00000000e+00   # REPLGHCUS   , Real part of scalar part of hcus coupling
-       114      -3.38029989e-06   # IMPLGHCUS   , Imaginary part of scalar part of hcus coupling
+       114      -2.94888407e-06   # IMPLGHCUS   , Imaginary part of scalar part of hcus coupling
        115      -0.00000000e+00   # REPRGHCUS   , Real part of pseudo scalar part of hcus coupling
-       116      -3.38029989e-06   # IMPRGHCUS   , Imaginary part of pseudo scalar part of hcus coupling
+       116      -2.94888407e-06   # IMPRGHCUS   , Imaginary part of pseudo scalar part of hcus coupling
        117      -0.00000000e+00   # REPLGHCUB   , Real part of scalar part of hcub coupling
-       118      -2.79519847e-06   # IMPLGHCUB   , Imaginary part of scalar part of hcub coupling
+       118      -2.43845709e-06   # IMPLGHCUB   , Imaginary part of scalar part of hcub coupling
        119      -0.00000000e+00   # REPRGHCUB   , Real part of pseudo scalar part of hcub coupling
-       120      -2.79519847e-06   # IMPRGHCUB   , Imaginary part of pseudo scalar part of hcub coupling
+       120      -2.43845709e-06   # IMPRGHCUB   , Imaginary part of pseudo scalar part of hcub coupling
        121       0.00000000e+00   # REPLGHCCD   , Real part of scalar part of hccd coupling
-       122       3.77201221e-05   # IMPLGHCCD   , Imaginary part of scalar part of hccd coupling
+       122       3.29060352e-05   # IMPLGHCCD   , Imaginary part of scalar part of hccd coupling
        123      -0.00000000e+00   # REPRGHCCD   , Real part of pseudo scalar part of hccd coupling
-       124      -3.77201221e-05   # IMPRGHCCD   , Imaginary part of pseudo scalar part of hccd coupling
+       124      -3.29060352e-05   # IMPRGHCCD   , Imaginary part of pseudo scalar part of hccd coupling
        125       0.00000000e+00   # REPLGHCCS   , Real part of scalar part of hccs coupling
-       126       1.48429692e-04   # IMPLGHCCS   , Imaginary part of scalar part of hccs coupling
+       126       1.29486131e-04   # IMPLGHCCS   , Imaginary part of scalar part of hccs coupling
        127      -0.00000000e+00   # REPRGHCCS   , Real part of pseudo scalar part of hccs coupling
-       128      -1.77631619e-04   # IMPRGHCCS   , Imaginary part of pseudo scalar part of hccs coupling
+       128      -1.54961118e-04   # IMPRGHCCS   , Imaginary part of pseudo scalar part of hccs coupling
        129      -0.00000000e+00   # REPLGHCCB   , Real part of scalar part of hccb coupling
-       130      -2.59088976e-05   # IMPLGHCCB   , Imaginary part of scalar part of hccb coupling
+       130      -2.26022359e-05   # IMPLGHCCB   , Imaginary part of scalar part of hccb coupling
        131      -0.00000000e+00   # REPRGHCCB   , Real part of pseudo scalar part of hccb coupling
-       132      -3.97105764e-05   # IMPRGHCCB   , Imaginary part of pseudo scalar part of hccb coupling
+       132      -3.46424548e-05   # IMPRGHCCB   , Imaginary part of pseudo scalar part of hccb coupling
        133       0.00000000e+00   # REPLGHCTD   , Real part of scalar part of hctd coupling
-       134       3.95223081e-04   # IMPLGHCTD   , Imaginary part of scalar part of hctd coupling
+       134       3.44782145e-04   # IMPLGHCTD   , Imaginary part of scalar part of hctd coupling
        135      -0.00000000e+00   # REPRGHCTD   , Real part of pseudo scalar part of hctd coupling
-       136      -3.95223081e-04   # IMPRGHCTD   , Imaginary part of pseudo scalar part of hctd coupling
+       136      -3.44782145e-04   # IMPRGHCTD   , Imaginary part of pseudo scalar part of hctd coupling
        137       0.00000000e+00   # REPLGHCTS   , Real part of scalar part of hcts coupling
-       138       1.84103324e-03   # IMPLGHCTS   , Imaginary part of scalar part of hcts coupling
+       138       1.60606862e-03   # IMPLGHCTS   , Imaginary part of scalar part of hcts coupling
        139      -0.00000000e+00   # REPRGHCTS   , Real part of pseudo scalar part of hcts coupling
-       140      -1.84224531e-03   # IMPRGHCTS   , Imaginary part of pseudo scalar part of hcts coupling
+       140      -1.60712600e-03   # IMPRGHCTS   , Imaginary part of pseudo scalar part of hcts coupling
        141       0.00000000e+00   # REPLGHCTB   , Real part of scalar part of hctb coupling
-       142       4.47505280e-02   # IMPLGHCTB   , Imaginary part of scalar part of hctb coupling
+       142       3.90391751e-02   # IMPLGHCTB   , Imaginary part of scalar part of hctb coupling
        143      -0.00000000e+00   # REPRGHCTB   , Real part of pseudo scalar part of hctb coupling
-       144      -4.63418735e-02   # IMPRGHCTB   , Imaginary part of pseudo scalar part of hctb coupling
+       144      -4.04274227e-02   # IMPRGHCTB   , Imaginary part of pseudo scalar part of hctb coupling
        145      -0.00000000e+00   # REPLGHCVEE  , Real part of scalar part of hcvee coupling
        146      -1.46750859e-07   # IMPLGHCVEE  , Imaginary part of scalar part of hcvee coupling
        147      -0.00000000e+00   # REPRGHCVEE  , Real part of pseudo scalar part of hcvee coupling
@@ -343,19 +340,19 @@ BLOCK MGUSER
        181       0.00000000e+00   # REGH1H1H1   , Real part of h1h1h1 coupling
        182      -1.90378083e+02   # IMGH1H1H1   , Imaginary part of h1h1h1 coupling
        183       0.00000000e+00   # REGH1H1H2   , Real part of h1h1h2 coupling
-       184      -1.62391928e-14   # IMGH1H1H2   , Imaginary part of h1h1h2 coupling
+       184      -1.55896251e-12   # IMGH1H1H2   , Imaginary part of h1h1h2 coupling
        185       0.00000000e+00   # REGH1H2H2   , Real part of h1h2h2 coupling
-       186      -4.53055693e+02   # IMGH1H2H2   , Imaginary part of h1h2h2 coupling
+       186      -2.90070088e+04   # IMGH1H2H2   , Imaginary part of h1h2h2 coupling
        187       0.00000000e+00   # REGH1H3H3   , Real part of h1h3h3 coupling
-       188      -7.79456181e+02   # IMGH1H3H3   , Imaginary part of h1h3h3 coupling
+       188      -2.90070088e+04   # IMGH1H3H3   , Imaginary part of h1h3h3 coupling
        189       0.00000000e+00   # REGH2H2H2   , Real part of h2h2h2 coupling
-       190      -5.78550553e+03   # IMGH2H2H2   , Imaginary part of h2h2h2 coupling
+       190      -4.29811710e+05   # IMGH2H2H2   , Imaginary part of h2h2h2 coupling
        191       0.00000000e+00   # REGH2H3H3   , Real part of h2h3h3 coupling
-       192      -1.92850184e+03   # IMGH2H3H3   , Imaginary part of h2h3h3 coupling
+       192      -1.43270570e+05   # IMGH2H3H3   , Imaginary part of h2h3h3 coupling
        193      -0.00000000e+00   # REGH1HCHC   , Real part of h1hchc coupling
-       194      -6.08221760e+02   # IMGH2HCHC   , Imaginary part of h1hchc coupling
+       194      -2.90377178e+04   # IMGH2HCHC   , Imaginary part of h1hchc coupling
        195      -0.00000000e+00   # REGH2HCHC   , Real part of h2hchc coupling
-       196      -1.92850184e+03   # IMGH2HCHC   , Imaginary part of h2hchc coupling
+       196      -1.43270570e+05   # IMGH2HCHC   , Imaginary part of h2hchc coupling
        197       0.00000000e+00   # REGAAHCHC   ,  Real part of aahchc coupling
        198       1.89748697e-01   # IMGAAHCHC   ,  Imaginary part of aahchc coupling
        199       0.00000000e+00   # REGAZHCHC   ,  Real part of azhchc coupling

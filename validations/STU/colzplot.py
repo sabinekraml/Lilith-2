@@ -13,11 +13,11 @@ import matplotlib
 import numpy as np
 import STU_2HDM as calc
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/STU/rangeminimize/"
+validation_dir = lilith_dir+"validations/STU/rangeminimize2HDMc/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -37,11 +37,11 @@ mHpm_min = 200
 mHpm_max = 2000
 
 # Number of grid steps in each of the two dimensions (squared grid)
-grid_subdivisions = 100
+grid_subdivisions = 50
 
 # Output files
-output = validation_dir+"mHmA_ST_mHpm_100_200-2000.out"
-outputplot = validation_dir+"mHmA_ST_mHpm_100_200-2000_colz.pdf"
+output = validation_dir+"mHmA_STU_mHpm_50_200-2000.out"
+outputplot = validation_dir+"mHmA_STU_mHpm_50_200-2000_colz.pdf"
 
 
 ######################################################################
@@ -113,5 +113,5 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "validations/STU/")
+print("results are stored in", validation_dir)
 print("***** done *****")
