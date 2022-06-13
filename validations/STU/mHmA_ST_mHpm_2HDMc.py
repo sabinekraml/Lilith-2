@@ -97,7 +97,7 @@ def func(mHpm, mH, mA):
 		sig2m, sig2p = Tsigma, Tsigma
 		p = STcorrelation
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1'], capture_output=True, text=True)
 #		print(p1.stdout)
 		z1, z2 = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095])
 
@@ -117,7 +117,7 @@ def funccons(mHpm, mH, mA):
 		sig2m, sig2p = Tsigma, Tsigma
 		p = STcorrelation
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1'], capture_output=True, text=True)
 		z1, z2 = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095])
 		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 

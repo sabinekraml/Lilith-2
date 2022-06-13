@@ -1,6 +1,6 @@
 ##################################################################
 #
-# (S,T) with fixed U = 0, using best fit and correlations from Table 3 :
+# (S,T,U) using best fit and correlations from Table 3 :
 # https://arxiv.org/pdf/2204.03796.pdf
 # 2d likelihood contour on the $m_H$, $m_A$ plane with $m_Hpm$ minimized at each point
 #
@@ -92,7 +92,7 @@ def func(mHpm, mH, mA):
 		sig2m, sig2p = Tsigma, Tsigma
 		p = STcorrelation
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1'], capture_output=True, text=True)
 #		print(p1.stdout)
 		z1, z2 = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095])
 		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
@@ -112,7 +112,7 @@ def func(mHpm, mH, mA):
 
 def funcmatrix(mHpm, mH, mA):
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1', 'output.txt'], capture_output=True, text=True)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm[0]), '1.00000', '0.00000', '0.00000', '800.00000', '10.', '1'], capture_output=True, text=True)
 		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 
 		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
