@@ -22,8 +22,8 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 type = 1
 
 # Scan ranges
-mA0 = 200
-mH0 = 200
+mA0 = 500
+mH0 = 700
 mHpm_min = 200
 mHpm_max = 2000
 if type == 1:
