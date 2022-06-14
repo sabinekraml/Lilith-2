@@ -189,6 +189,14 @@ def func(X, mH, mA):
 
 		return L2t
 
+#def constrains(e, p):
+#    return -e - p + 1
+
+#cons = ({'type': 'ineq',
+#       'fun': prob_bound,
+#       'args': arguments       
+#       })
+
 ######################################################################
 # Scan initialization
 ######################################################################
@@ -210,13 +218,13 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
 #        print("mA = ", mA, flush=True)
 #        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0] , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'ftol': 1e-3}, 'finite_diff_rel_step': [1,0.1,0.5] )
-        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
+        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 1})
 #        print("nfev = ", funcminimized.nfev)
 #        print("m2logL = ", funcminimized.fun)
         m2logL = funcminimized.fun
         fit = funcminimized.x
         if funcminimized.success == False :
-            print("Could not minimize for (mH, mA) = ", mH, mA, flush=True)
+            print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
         fresults.write('%.5f    '%mH + '%.5f    '%mA + '%.5f    '%m2logL + '%.5f    '%fit[0] + '%.5f    '%fit[1] + '%.5f    '%fit[2] + '\n')
 
         if m2logL < m2logLmin:
@@ -278,7 +286,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=10, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=50, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
