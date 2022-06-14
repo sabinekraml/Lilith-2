@@ -20,23 +20,23 @@
 #ax.scatter3D(X, Y, Z, c=U, alpha=0.7, marker='.')
 #plt.show()
 
-#from mpl_toolkits.mplot3d import Axes3D
-#import matplotlib.pyplot as plt
-#import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
 
-#fig = plt.figure()
-#ax = fig.add_subplot(111, projection='3d')
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
 
-#x = np.random.standard_normal(100)
-#y = np.random.standard_normal(100)
-#z = np.random.standard_normal(100)
-#c = np.random.standard_normal(100)
+x = np.random.standard_normal(100)
+y = np.random.standard_normal(100)
+z = np.random.standard_normal(100)
+c = np.random.standard_normal(100)
 
-#print("c = ",c)
+print("c = ",c)
 
-#img = ax.scatter(x, y, z, c=c, cmap=plt.hot())
-#fig.colorbar(img)
-#plt.show()
+img = ax.scatter(x, y, z, c=c, cmap=plt.hot())
+fig.colorbar(img)
+plt.show()
 
 #import matplotlib
 #import matplotlib.pyplot as plt

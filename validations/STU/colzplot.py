@@ -18,7 +18,8 @@ sys.path.append(lilith_dir)
 import lilith
 
 #validation_dir = lilith_dir+"validations/STU/rangeminimize2HDMc/"
-validation_dir = lilith_dir+"validations/STU/rangeminimize_cba_tb/"
+#validation_dir = lilith_dir+"validations/STU/rangeminimize_cba_tb/"
+validation_dir = lilith_dir+"validations/STU/rangeminuit2HDMc_mHpm_cba_tb/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -43,8 +44,10 @@ grid_subdivisions = 50
 # Output files
 #output = validation_dir+"mHmA_STU_mHpm_50_200-2000.out"
 #outputplot = validation_dir+"mHmA_STU_mHpm_50_200-2000_colz.pdf"
-output = validation_dir+"mHmA_STU_mHpm_cba_tb_50_200-2000_-0.25-0.25_0.1-10_I.out"
-outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_50_200-2000_-0.25-0.25_0.1-10_I_colz.pdf"
+#output = validation_dir+"mHmA_STU_mHpm_cba_tb_50_200-2000_-0.25-0.25_0.1-10_I.out"
+#outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_50_200-2000_-0.25-0.25_0.1-10_I_colz.pdf"
+output = validation_dir+"mHmA_STU_mHpm_cba_tb_50_I_2HDMc_stra0.out"
+outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_50_I_2HDMc_stra0_colz.pdf"
 
 ######################################################################
 # Plot routine
@@ -100,10 +103,9 @@ ax.set_aspect((mH_max-mH_min)/(mA_max-mA_min))
 
 # best fit point
 plt.plot([data[-1,0]],[data[-1,1]], '+', markersize=8, color = 'black', label = 'best fit')
-#plt.legend(loc='upper right')
+plt.legend(loc='upper right')
 
 # Title, labels, color bar...
-#plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'$m_H$[GeV]',fontsize=12)
 plt.ylabel(r'$m_A$[GeV]',fontsize=12)
 #plt.text(mH_min + 100, mA_min + 350, r'Scatter plot in the $m_H$, $m_A$ plane with $m_{H^{\pm}}$ minimized at each point', fontsize=6)

@@ -286,7 +286,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=50, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=15, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
@@ -297,7 +297,6 @@ plt.plot([data[-1,0]],[data[-1,1]], '+', markersize=8, color = 'black', label = 
 plt.legend(loc='upper right')
 
 # Title, labels, color bar...
-#plt.title("Lilith-2.1, DB 22.x validation", fontsize=12, ha="center")
 plt.xlabel(r'$m_H$[GeV]',fontsize=16)
 plt.ylabel(r'$m_A$[GeV]',fontsize=16)
 
