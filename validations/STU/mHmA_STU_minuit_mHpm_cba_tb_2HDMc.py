@@ -92,12 +92,12 @@ grid_subdivisions = 50
 
 # Output files
 if type == 1:
-  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "2HDMc" + ".out"
-  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "2HDMc" + ".pdf"
+  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "stra1" + "_" + "2HDMc" + ".out"
+  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "stra1" + "_" + "2HDMc" + ".pdf"
 
 if type == 2:
-  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "2HDMc" + ".out"
-  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "2HDMc" + ".pdf"
+  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra1" + "_" + "2HDMc" + ".out"
+  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra1" + "_" + "2HDMc" + ".pdf"
 
 
 ######################################################################
