@@ -68,6 +68,7 @@ for mH in np.linspace(mH_min, mH_max, mH_precision):
 			print("mH = ", mH, flush=True)
 	i+=1
 	for mA in np.linspace(mA_min, mA_max, mH_precision):
+		print("mA = ", mA, flush=True)
 		for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 			cons = False
 			cba_cons = 0
@@ -87,7 +88,9 @@ for mH in np.linspace(mH_min, mH_max, mH_precision):
 						tb_cons = tb
 			
 			if cons:					
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '\n')
+				fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '\n')
+			else:
+				fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + 'nan    ' + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '\n')
 
 fresults.close()
 
@@ -120,4 +123,4 @@ ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", validation_dir)
+print("results are stored in", validation_dir, flush=True)
