@@ -46,8 +46,8 @@ grid_subdivisions = 50
 #outputplot = validation_dir+"mHmA_STU_mHpm_50_200-2000_colz.pdf"
 #output = validation_dir+"mHmA_STU_mHpm_cba_tb_50_200-2000_-0.25-0.25_0.1-10_I.out"
 #outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_50_200-2000_-0.25-0.25_0.1-10_I_colz.pdf"
-output = validation_dir+"mHmA_STU_mHpm_cba_tb_50_I_2HDMc_stra0.out"
-outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_50_I_2HDMc_stra0_colz.pdf"
+output = validation_dir+"mHmA_STU_mHpm_cba_tb_50_I_stra1_2HDMc.out"
+outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_50_I_stra1_2HDMc_colz.pdf"
 
 ######################################################################
 # Plot routine

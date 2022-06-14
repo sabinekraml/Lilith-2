@@ -40,11 +40,11 @@ if type == 2:
   tb_max = 10
 
 # Precisions
-mA_precision = 50
-mH_precision = 50
-mHpm_precision = 50
-cba_precision = 20
-tb_precision = 20
+mA_precision = 20
+mH_precision = 20
+mHpm_precision = 20
+cba_precision = 10
+tb_precision = 10
 
 # Output files
 if type == 1:
@@ -64,16 +64,14 @@ i=1
 for mH in np.linspace(mH_min, mH_max, mH_precision):
 	if i==1:
 			print("mH = ", mH, flush=True)
-	if i%10==0:
+	if i%2==0:
 			print("mH = ", mH, flush=True)
 	i+=1
 	for mA in np.linspace(mA_min, mA_max, mH_precision):
-		print("mA = ", mA)
 		for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 			cons = False
 			cba_cons = 0
 			tb_cons = 0
-			print("mHpm = ", mHpm)
 			for cba in np.linspace(cba_min, cba_max, cba_precision):
 #				print("cba = ", cba)
 #				print("cons = ", cons)
@@ -91,6 +89,7 @@ for mH in np.linspace(mH_min, mH_max, mH_precision):
 			if cons:					
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '\n')
 
+fresults.close()
 
 ######################################################################
 # Plot routine
