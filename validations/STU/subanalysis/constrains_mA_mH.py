@@ -53,12 +53,10 @@ if type == 2:
 fresults = open(output, 'w')
 
 
-i=1
+i=0
 
 for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
-	if i==1:
-			print("mHpm = ", mHpm, flush=True)
-	if i%2==0:
+	if i%(mHpm_precision/10)==0:
 			print("mHpm = ", mHpm, flush=True)
 	i+=1
 #	print("mHpm = ", mHpm, flush=True)
@@ -82,6 +80,7 @@ for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 			else:
 					fresults.write('%.2f    '%mHpm + '%.2f    '%cba_cons + '%.2f    '%tb_cons + 'nan    ' + '\n')
 
+print("mHpm = ", mHpm, flush=True)
 fresults.close()
 
 print("***** scan finalized *****", flush=True)
