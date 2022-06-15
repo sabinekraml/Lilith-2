@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 import subprocess
+import iminuit 
+
+print("iminuit version ", iminuit.__version__)
 
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
 sys.path.append(lilith_dir)
@@ -53,12 +56,19 @@ C_STU = SIG_STU.dot(COR_STU).dot(SIG_STU)
 C_STU_inv = np.linalg.inv(C_STU)
 
 # Scan ranges
-mA_min = 200
-mA_max = 2000
-mH_min = 200
-mH_max = 2000
-mHpm_min = 200
-mHpm_max = 2000
+#mA_min = 200
+#mA_max = 800
+#mH_min = 200
+#mH_max = 800
+#mHpm_min = 200
+#mHpm_max = 800
+mA_min = 250
+mA_max = 700
+mH_min = 300
+mH_max = 700
+mHpm_min = 620
+mHpm_max = 700
+
 
 # Experimental results
 #exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"
@@ -74,6 +84,9 @@ my_hmass = 125
 # 2HDM type = 1, 2
 type = 1
 
+# Fit strategy
+strategy = 0
+
 # Scan ranges
 if type == 1:
   cba_min = -0.25
@@ -88,16 +101,16 @@ if type == 2:
   tb_max = 10
 
 # Number of grid steps in each of the two dimensions (squared grid)
-grid_subdivisions = 50
+grid_subdivisions = 2
 
 # Output files
 if type == 1:
-  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "stra1" + "_" + "2HDMc" + ".out"
-  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "stra1" + "_" + "2HDMc" + ".pdf"
+  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
+  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
 if type == 2:
-  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra1" + "_" + "2HDMc" + ".out"
-  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra1" + "_" + "2HDMc" + ".pdf"
+  output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
+  outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
 
 ######################################################################
@@ -174,6 +187,8 @@ def func(X, mH, mA):
 
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
 		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+		cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+
 
 		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
 		X_STU = [S, T, U]
@@ -185,44 +200,59 @@ def func(X, mH, mA):
 		
 		L2t = L2t_STU + L2t_cba_tb
 
-#		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], '%.4f '%X[2], L2t)
+		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], '%.4f '%X[2], L2t, cons)
+
+		if cons == False:
+			L2t = 10000
 
 		return L2t
 
-#def constrains(e, p):
-#    return -e - p + 1
+def cons(X):
+		mHpm, cba, tb = X[0], X[1], X[2]
 
-#cons = ({'type': 'ineq',
-#       'fun': prob_bound,
-#       'args': arguments       
-#       })
+		m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
+		sinba = np.sqrt(1-cba**2)
+
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
+		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+		cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+		if cons:
+			return 1
+		else:
+			return -1
+
+cons = ({'type': 'ineq',
+       'fun': cons,     
+       })
 
 ######################################################################
 # Scan initialization
 ######################################################################
 
 m2logLmin=10000
-cba0=0.001
+#cba0=0.001
+#tb0=1.001
+cba0=-0.2
 tb0=1.001
-i=1
+i=0
 
 print("***** running scan *****", flush=True)
 
 for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
-    if i==1:
-        print("mH = ", mH, flush=True)
-    if i%10==0:
+    if i%(grid_subdivisions/10)==0:
         print("mH = ", mH, flush=True)
     i+=1
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
-#        print("mA = ", mA, flush=True)
-#        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0] , args=(mH, mA), method='SLSQP', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'ftol': 1e-3}, 'finite_diff_rel_step': [1,0.1,0.5] )
-        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 1})
+        print("mA = ", mA, flush=True)
+#        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), constraints=cons, options={'stra': 0})
+        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
 #        print("nfev = ", funcminimized.nfev)
 #        print("m2logL = ", funcminimized.fun)
         m2logL = funcminimized.fun
         fit = funcminimized.x
+#        print("m2logL = ", m2logL)
+#        print("fit = ", fit)
         if funcminimized.success == False :
             print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
         fresults.write('%.5f    '%mH + '%.5f    '%mA + '%.5f    '%m2logL + '%.5f    '%fit[0] + '%.5f    '%fit[1] + '%.5f    '%fit[2] + '\n')
@@ -235,11 +265,12 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
             cbamin = fit[1]
             tbmin = fit[2]
 
-fresults.write('\n' + '%.5f    '%mHmin + '%.5f    '%mAmin + '%.5f    '%m2logLmin + '%.5f    '%mHpmmin + '%.5f    '%cbamin + '%.5f    '%tbmin)
+#fresults.write('\n' + '%.5f    '%mHmin + '%.5f    '%mAmin + '%.5f    '%m2logLmin + '%.5f    '%mHpmmin + '%.5f    '%cbamin + '%.5f    '%tbmin)
+print("mH = ", mH, flush=True)
 fresults.close()
 
 print("***** scan finalized *****", flush=True)
-print("minimum at mH, mA, mHpm, cba, tb -2logL_min = ", mHmin, mAmin, mHpmmin, cbamin, tbmin, m2logLmin, flush=True)
+#print("minimum at mH, mA, mHpm, cba, tb -2logL_min = ", mHmin, mAmin, mHpmmin, cbamin, tbmin, m2logLmin, flush=True)
 
 ######################################################################
 # Plot routine
@@ -277,13 +308,6 @@ z = data[0:-1,2]
 z2=[]
 for z_el in z:
   z2.append(z_el-z.min())
-
-# Interpolating the grid
-xi = np.linspace(x.min(), x.max(), grid_subdivisions)
-yi = np.linspace(y.min(), y.max(), grid_subdivisions)
-
-X, Y = np.meshgrid(xi, yi)
-Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
 sc = ax.scatter(x, y, c=z2, vmin=0, vmax=15, cmap="jet_r")

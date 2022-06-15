@@ -62,23 +62,15 @@ for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 #	print("mHpm = ", mHpm, flush=True)
 	for cba in np.linspace(cba_min, cba_max, cba_precision):
 		for tb in np.linspace(tb_min, tb_max, tb_precision):
-			cons = False
-			cba_cons = 0
-			tb_cons = 0
 			m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH0/np.sqrt(tb))
 			sba = np.sqrt(1-cba**2)
 			p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH0), str(mA0), str(mHpm), str(sba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
 			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
-					
-			if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:
-				cons = True
-				cba_cons = cba
-				tb_cons = tb		
 				
-			if cons:				
-				fresults.write('%.2f    '%mHpm + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '1    ' + '\n')
+			if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:				
+				fresults.write('%.2f    '%mHpm + '%.2f    '%cba + '%.2f    '%tb + '1    ' + '\n')
 			else:
-					fresults.write('%.2f    '%mHpm + '%.2f    '%cba_cons + '%.2f    '%tb_cons + 'nan    ' + '\n')
+					fresults.write('%.2f    '%mHpm + '%.2f    '%cba + '%.2f    '%tb+ 'nan    ' + '\n')
 
 print("mHpm = ", mHpm, flush=True)
 fresults.close()
