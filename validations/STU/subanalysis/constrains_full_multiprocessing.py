@@ -156,29 +156,29 @@ fresultsfinal.close()
 # Plot routine
 ######################################################################
 
-## Preparing plot
-#fig = plt.figure()
-#ax = fig.add_subplot(111, projection='3d')
+# Preparing plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
 
-## Getting the data
-#data = np.genfromtxt(output)
-#x = data[:,0]
-#y = data[:,1]
-#z = data[:,2]
-#consvalue = data[:,3]
+# Getting the data
+data = np.genfromtxt(outputfinal)
+x = data[:,0]
+y = data[:,1]
+z = data[:,2]
+consvalue = data[:,3]
 
-## Plotting
-#sc = ax.scatter(x, y, z, c=consvalue)
-##cbar = fig.colorbar(sc)
+# Plotting
+sc = ax.scatter(x, y, z, c=consvalue, s=30)
+#cbar = fig.colorbar(sc)
 
-## Title, labels, color bar...
-#ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
-#ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
-#ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
+# Title, labels, color bar...
+ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
+ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
+ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 
-##plt.show()
+# Saving figure (.pdf)
+fig.savefig(outputplot)
 
-## Saving figure (.pdf)
-#fig.savefig(outputplot)
+plt.show()
 
-#print("results are stored in", validation_dir, flush=True)
+print("results are stored in", validation_dir, flush=True)
