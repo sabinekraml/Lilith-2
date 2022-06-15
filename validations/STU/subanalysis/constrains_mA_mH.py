@@ -15,17 +15,14 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 # Parameters
 ######################################################################
 
-
-#print("m12, sba = ", np.cos( np.arctan(2.18) - np.arccos(0.25) ) * (200/np.sqrt(2.18)), np.sqrt(1-0.25**2) )
-
 # 2HDM type = 1, 2
 type = 1
 
 # Scan ranges
-mA0 = 500
-mH0 = 700
-mHpm_min = 200
-mHpm_max = 2000
+mA0 = 250
+mH0 = 300
+mHpm_min = 600
+mHpm_max = 700
 if type == 1:
   cba_min = -0.25
   cba_max = 0.25
@@ -38,9 +35,9 @@ if type == 2:
   tb_max = 10
 
 # Precisions
-mHpm_precision = 50
-cba_precision = 20
-tb_precision = 20
+mHpm_precision = 10
+cba_precision = 50
+tb_precision = 50
 
 # Output files
 if type == 1:
@@ -61,7 +58,7 @@ i=1
 for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 	if i==1:
 			print("mHpm = ", mHpm, flush=True)
-	if i%10==0:
+	if i%2==0:
 			print("mHpm = ", mHpm, flush=True)
 	i+=1
 #	print("mHpm = ", mHpm, flush=True)
@@ -87,33 +84,37 @@ for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 
 fresults.close()
 
+print("***** scan finalized *****", flush=True)
+
 ######################################################################
 # Plot routine
 ######################################################################
 
-# Preparing plot
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+## Preparing plot
+#fig = plt.figure()
+#ax = fig.add_subplot(111, projection='3d')
 
-# Getting the data
-data = np.genfromtxt(output)
-x = data[:,0]
-y = data[:,1]
-z = data[:,2]
-consvalue = data[:,3]
+## Getting the data
+#data = np.genfromtxt(output)
+#x = data[:,0]
+#y = data[:,1]
+#z = data[:,2]
+#consvalue = data[:,3]
 
-# Plotting
-sc = ax.scatter(x, y, z, c=consvalue)
-#cbar = fig.colorbar(sc)
+## Plotting
+#sc = ax.scatter(x, y, z, c=consvalue)
+##cbar = fig.colorbar(sc)
 
-# Title, labels, color bar...
-ax.set_xlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
-ax.set_ylabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
-ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)
+## Title, labels, color bar...
+#ax.set_xlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
+#ax.set_ylabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
+#ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)
 
-# Saving figure (.pdf)
-fig.savefig(outputplot)
+## Saving figure (.pdf)
+#fig.savefig(outputplot)
 
-#plt.show()
+##plt.show()
 
-print("results are stored in", validation_dir)
+#print("results are stored in", validation_dir)
+
+print("***** done *****", flush=True)
