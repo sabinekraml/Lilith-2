@@ -19,9 +19,6 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 # Parameters
 ######################################################################
 
-
-#print("m12, sba = ", np.cos( np.arctan(2.18) - np.arccos(0.25) ) * (200/np.sqrt(2.18)), np.sqrt(1-0.25**2) )
-
 # 2HDM type = 1, 2
 type = 1
 
