@@ -245,7 +245,6 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
         print("mA = ", mA, flush=True)
-#        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), constraints=cons, options={'stra': 0})
         funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
 #        print("nfev = ", funcminimized.nfev)
 #        print("m2logL = ", funcminimized.fun)

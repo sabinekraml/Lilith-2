@@ -20,23 +20,23 @@
 #ax.scatter3D(X, Y, Z, c=U, alpha=0.7, marker='.')
 #plt.show()
 
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-import numpy as np
+#from mpl_toolkits.mplot3d import Axes3D
+#import matplotlib.pyplot as plt
+#import numpy as np
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+#fig = plt.figure()
+#ax = fig.add_subplot(111, projection='3d')
 
-x = np.random.standard_normal(100)
-y = np.random.standard_normal(100)
-z = np.random.standard_normal(100)
-c = np.random.standard_normal(100)
+#x = np.random.standard_normal(100)
+#y = np.random.standard_normal(100)
+#z = np.random.standard_normal(100)
+#c = np.random.standard_normal(100)
 
-print("c = ",c)
+#print("c = ",c)
 
-img = ax.scatter(x, y, z, c=c, cmap=plt.hot())
-fig.colorbar(img)
-plt.show()
+#img = ax.scatter(x, y, z, c=c, cmap=plt.hot())
+#fig.colorbar(img)
+#plt.show()
 
 #import matplotlib
 #import matplotlib.pyplot as plt
@@ -76,15 +76,15 @@ plt.show()
 #ax.set_zlabel('z')
 #plt.show()
 
-import sys, os
-from scipy.interpolate import griddata
-from scipy.optimize import minimize
-import matplotlib.pyplot as plt
-import matplotlib
-import numpy as np
-import STU_2HDM as calc
+#import sys, os
+#from scipy.interpolate import griddata
+#from scipy.optimize import minimize
+#import matplotlib.pyplot as plt
+#import matplotlib
+#import numpy as np
+#import STU_2HDM as calc
 
-print(os.path.dirname)
+
 
 #teeeest
 
@@ -180,3 +180,77 @@ print(os.path.dirname)
 
 
 #print("***** scan finalized *****")
+
+import sys, os
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+
+#m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
+
+x = np.linspace(-0.5,0.5,50)
+y = np.arccos(x)
+
+#print(np.arccos(0.25))
+#print(np.cos(1.823)) # = -0.25
+#print(np.cos(1.318)) # =  0.25
+#print(np.arccos(np.cos(1.823)))
+#print(np.arccos(np.cos(1.318)))	
+
+print(np.cos(-np.pi/2))
+print(np.cos(1.823))
+
+#print(np.arctan(0.1))
+#print(np.arctan(10))
+
+#print(np.tan(0.0996)) # = 0.1
+#print(np.tan(1.4711)) # = 10
+#print(np.tan(1.6)) 
+
+#print(np.arctan(np.tan(0.01)))
+#print(np.arctan(np.tan(1.47)))
+#print(np.arctan(np.tan(1.7)))
+
+
+#y = []
+#for i in x:
+#	if i<0:
+#		y.append(-np.arccos(i))
+#	if i==0:
+#		y.append(0)
+#	if i>0:
+#		y.append(np.arccos(i))
+
+#x = np.linspace(0.1,10,50)
+#y = []
+#for i in x:	
+#	if i>0 and i<=(np.pi/2):
+#		y.append(np.arctan(np.tan(i)))
+#	if i>(np.pi/2) and i<=(3*np.pi/2):
+#		y.append(np.arctan(np.tan(i))+np.pi)
+#	if i>(3*np.pi/2) and i<=(5*np.pi/2):
+#		y.append(np.arctan(np.tan(i))+2*np.pi)
+#	if i>(5*np.pi/2) and i<=(7*np.pi/2):
+#		y.append(np.arctan(np.tan(i))+3*np.pi)
+
+
+#a = 25
+#b = 2.3
+#cba = np.cos(b-a)
+#ba = np.arccos(cba)
+#print("b-a = ", b-a, ba)
+#tb = np.tan(b)
+#ca = np.cos(a)
+#ca2 = np.cos( np.arctan(tb) - np.arccos(cba) )
+#print("test = ", ca, ca2)
+
+# setting the axes at the centre
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+
+# plot the function
+plt.plot(x,y, 'r')
+
+# show the plot
+#plt.show()
+
