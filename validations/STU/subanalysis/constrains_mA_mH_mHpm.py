@@ -99,9 +99,9 @@ def func(iteration):
 	cba = cbalist[iteration]
 
 	for tb in np.linspace(tb_min, tb_max, tb_precision):
-    if i%(tb_precision/10)==0:
-        print("tb = ", tb flush=True)
-    i+=1
+		if i%(tb_precision/10)==0 and iteration==0:
+			print("tb = ", tb, flush=True)
+		i+=1
 		for m12 in np.linspace(m12_min, m12_max, m12_precision):
 			sba = np.sqrt(1-cba**2)
 			p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH0), str(mA0), str(mHpm0), str(sba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
@@ -112,10 +112,9 @@ def func(iteration):
 			else:
 					fresults.write('%.4f    '%cba + '%.2f    '%tb + '%.2f    '%m12 + 'nan    ' + '\n')
 
-print("tb = ", tb, flush=True)
-fresults.close()
-
-print("***** scan finalized *****", flush=True)
+	if iteration==0:
+		print("tb = ", tb_max, flush=True)
+	fresults.close()
 
 ######################################################################
 # Multiprocessing
@@ -128,6 +127,8 @@ if __name__ == '__main__':
 	pool.map(func, iterationlist)
 
 stop = time.perf_counter()
+
+print("***** scan finalized *****", flush=True)
 
 print("time = ", stop-start, flush=True)
 
