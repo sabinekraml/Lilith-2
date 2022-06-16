@@ -14,10 +14,12 @@ lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.
 validation_dir = lilith_dir+"validations/STU/subanalysis/"
 calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))+"/2HDMc/2HDMC-1.8.0/"
 
-outputfinal = validation_dir+"constrains_50_50_50_20_20_I.out"
-outputplot = validation_dir+"constrains_50_50_50_20_20_I.pdf"
+#outputfinal = validation_dir+"constrains_50_50_50_20_20_I.out"
+#outputplot = validation_dir+"constrains_50_50_50_20_20_I.pdf"
 #outputfinal = validation_dir+"constrains_250_300_10_50_50_I.out"
 #outputplot = validation_dir+"constrains_250_300_10_50_50_I.pdf"
+outputfinal = validation_dir+"constrains_1200_1200_1050_40_40_100_I.out"
+outputplot = validation_dir+"constrains_1200_1200_1050_40_40_100_I.pdf"
 
 # Preparing plot
 fig = plt.figure()
@@ -38,9 +40,12 @@ sc = ax.scatter(x, y, z, c=consvalue, s=30)
 #cbar = fig.colorbar(sc)
 
 # Title, labels, color bar...
-ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
-ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
-ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
+ax.set_xlabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
+ax.set_ylabel(r'$\tan(\beta)$[GeV]',fontsize=10)
+ax.set_zlabel(r'$m_{12}$[GeV]',fontsize=10)
+#ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
+#ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
+#ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 #ax.set_xlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 #ax.set_ylabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
 #ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)

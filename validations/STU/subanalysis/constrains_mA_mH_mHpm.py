@@ -28,7 +28,7 @@ type = 1
 # Scan ranges
 mA0 = 1200
 mH0 = 1200
-mHpm0 = 1050
+mHpm0 = 1000
 m12_min = 0
 m12_max = 2000
 
@@ -70,7 +70,7 @@ if type == 1:
 		output.append(validation_dir+"multiprocessing/constrains" + "_" + str(i) + ".out")
 		outputplot = validation_dir+"multiprocessing/constrains" + "_"  + str(i) + ".pdf"
 
-	outputfinal = validation_dir+"multiprocessing/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(mHpm0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(m12_precision) + "_" + "I" + ".out"
+	outputfinal = validation_dir+"constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(mHpm0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(m12_precision) + "_" + "I" + ".out"
 
 
 if type == 2:
@@ -79,7 +79,7 @@ if type == 2:
 		output.append(validation_dir+"multiprocessing/constrains" + "_" + str(i) + ".out")
 		outputplot = validation_dir+"multiprocessing/constrains" + "_"  + str(i) + ".pdf"
 
-	outputfinal = validation_dir+"multiprocessing/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(mHpm0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(m12_precision) + "_" + "II" + ".out"
+	outputfinal = validation_dir+"constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(mHpm0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(m12_precision) + "_" + "II" + ".out"
 
 ######################################################################
 # Tests
@@ -139,6 +139,8 @@ for i in iterationlist:
 	fresultsfinal.write(content+"\n")
 	fresults.close()
 fresultsfinal.close()
+
+
 
 ######################################################################
 # Plot routine
