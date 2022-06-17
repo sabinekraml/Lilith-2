@@ -57,7 +57,6 @@ for i in range(cba_precision):
 
 # Output files
 output = []
-outputplot = []
 if type == 1:
 	for i in range(cba_precision):
 		output.append(validation_dir+"multiprocessing/constrains" + "_" + str(i) + ".out")
@@ -71,15 +70,6 @@ if type == 2:
 		
 	outputfinal = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(mHpm_precision) + "_" + str(m12_precision) + "_" + "II" + ".out"
 	outputplot = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(mHpm_precision) + "_" + str(m12_precision) + "_" + "II" + ".pdf"
-
-
-if type == 2:
-
-	for i in range(cba_precision):
-		output.append(validation_dir+"multiprocessing/constrains" + "_" + str(i) + ".out")
-		
-	outputplot = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(mHpm0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(m12_precision) + "_" + "II" + ".pdf"
-	outputfinal = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(mHpm0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(m12_precision) + "_" + "II" + ".out"
 
 
 ######################################################################

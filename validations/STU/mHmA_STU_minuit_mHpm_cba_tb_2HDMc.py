@@ -112,7 +112,6 @@ if type == 2:
   output = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
   outputplot = validation_dir+"mHmA_STU_mHpm_cba_tb_" + str(grid_subdivisions) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
-
 ######################################################################
 # Scan initialization
 ######################################################################
