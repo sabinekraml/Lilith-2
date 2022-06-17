@@ -26,7 +26,7 @@ type = 1
 mA0 = 1200
 mH0 = 1200
 mHpm_min = 800
-mHpm_max = 1400
+mHpm_max = 1600
 m12_min = 0
 m12_max = 2000
 
@@ -44,7 +44,7 @@ if type == 2:
 # Precisions
 cba_precision = 40
 tb_precision = 40
-mHpm_precision = 60
+mHpm_precision = 160
 m12_precision = 200
 
 cbalist = []
@@ -70,7 +70,7 @@ if type == 2:
 		output.append(validation_dir+"multiprocessing/constrains" + "_" + str(i) + ".out")
 		
 	outputfinal = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(mHpm_precision) + "_" + str(m12_precision) + "_" + "II" + ".out"
-	outputplot = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(mHpm_precision) + "_" + str(m12_precision) + "_" + "II" + ".pdf
+	outputplot = validation_dir+"m12/constrains" + "_" + str(mA0) + "_" + str(mH0) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + str(mHpm_precision) + "_" + str(m12_precision) + "_" + "II" + ".pdf"
 
 
 if type == 2:
@@ -94,6 +94,8 @@ def func(iteration):
 	cba = cbalist[iteration]
 
 	for tb in np.linspace(tb_min, tb_max, tb_precision):
+		if i==1 and iteration==0:
+			print("tb = ", tb, flush=True)		
 		if i%(tb_precision/10)==0 and iteration==0:
 			print("tb = ", tb, flush=True)
 		i+=1
@@ -172,3 +174,5 @@ fig.savefig(outputplot)
 #plt.show()
 
 print("results are stored in", validation_dir, flush=True)
+
+#4142216
