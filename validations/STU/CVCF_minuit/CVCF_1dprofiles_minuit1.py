@@ -22,11 +22,11 @@ import matplotlib.pyplot as plt
 from iminuit import Minuit
 import matplotlib
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/STU/"
+validation_dir = lilith_dir+"validations/STU/CVCF_minuit/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -39,13 +39,13 @@ print("iminuit version:", iminuit.__version__)
 ######################################################################
 
 # Exprimental results
-myexpinput = "../../data/latestRun2.list"
+myexpinput = lilith_dir+"validations/STU/latestRun2.list"
 
 # Lilith precision mode
 myprecision = "BEST-QCD"
 
 # Output
-outputplot = "CVCF_1dprofiles_minuit1.pdf"
+outputplot = validation_dir + "CVCF_1dprofiles_minuit1.pdf"
 
 # Higgs mass to test
 myhmass = 125.09

@@ -29,11 +29,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/STU/"
+validation_dir = lilith_dir+"validations/STU/cba_tb/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -45,7 +45,7 @@ print("validation_dir: ",validation_dir)
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = validation_dir+"thisRun2.list"
+exp_input = lilith_dir+"validations/STU/latestRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -54,7 +54,7 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # 2HDM type = 1, 2
-type = 2
+type = 1
 
 # Output files
 if type == 1:

@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 
-validation_dir = lilith_dir+"validations/STU/"
+validation_dir = lilith_dir+"validations/STU/art/"
 
 print("lilith_dir: ",lilith_dir)
 print("validation_dir: ",validation_dir)
@@ -19,9 +19,8 @@ print("validation_dir: ",validation_dir)
 #outputplot = validation_dir+"art/epeecosmique.pdf"
 #output = validation_dir+"range/mHmA_ST_mHpm_60_200-700.out"
 #outputplot = validation_dir+"art/araigneedemer.pdf"
-output = validation_dir+"range/mHmA_ST_mHpm_30_200-700.out"
-outputplot = validation_dir+"art/idkyet.pdf"
-
+output = lilith_dir+"validations/STU/range/mHmA_ST_mHpm_30_200-700.out"
+outputplot = validation_dir+"idkyet.pdf"
 
 ######################################################################
 # Plot routine
@@ -64,5 +63,5 @@ plt.axis('off')
 # Saving figure (.pdf)
 fig.savefig(outputplot, bbox_inches='tight')
 
-print("results are stored in", lilith_dir + "validations/STU/art/")
+print("results are stored in", validation_dir)
 print("***** done *****")
