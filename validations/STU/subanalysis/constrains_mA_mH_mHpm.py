@@ -28,7 +28,7 @@ type = 1
 # Scan ranges
 mA0 = 200
 mH0 = 200
-mHpm0 = 640
+mHpm0 = 604
 m12_min = 0
 m12_max = 2000
 
