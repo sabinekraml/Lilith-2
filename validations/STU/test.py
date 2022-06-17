@@ -191,14 +191,27 @@ import numpy as np
 x = np.linspace(-0.5,0.5,50)
 y = np.arccos(x)
 
+#print(np.arccos(-0.8))
+#print(0.5*(np.pi-2*np.arcsin(-0.8)))
+
+tb = 2
+cba = -0.1
+mH = 500
+b = np.arctan(tb)
+sba = np.sqrt(1-cba**2)
+m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
+m12better = ( np.sin(b)*sba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
+print("m12 = ", m12)
+print("m12better = ", m12better)
+
 #print(np.arccos(0.25))
 #print(np.cos(1.823)) # = -0.25
 #print(np.cos(1.318)) # =  0.25
 #print(np.arccos(np.cos(1.823)))
 #print(np.arccos(np.cos(1.318)))	
 
-print(np.cos(-np.pi/2))
-print(np.cos(1.823))
+#print(np.cos(-np.pi/2))
+#print(np.cos(1.823))
 
 #print(np.arctan(0.1))
 #print(np.arctan(10))

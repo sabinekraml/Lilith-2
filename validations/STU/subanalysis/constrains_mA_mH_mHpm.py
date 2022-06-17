@@ -26,27 +26,21 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 type = 1
 
 # Scan ranges
-mA0 = 1200
-mH0 = 1200
-mHpm0 = 1400
+mA0 = 200
+mH0 = 200
+mHpm0 = 640
 m12_min = 0
 m12_max = 2000
 
-if type == 1:
-  cba_min = -0.25
-  cba_max = 0.25
-  tb_min = 0.1
-  tb_max = 10
-if type == 2:
-  cba_min = -0.05
-  cba_max = 0.05
-  tb_min = 0.1
-  tb_max = 10
+cba_min = -1
+cba_max = 1
+tb_min = 0.1
+tb_max = 10
 
 # Precisions
-cba_precision = 40
-tb_precision = 40
-m12_precision = 100
+cba_precision = 80
+tb_precision = 80
+m12_precision = 200
 #mH_precision = 2
 #mA_precision = 5
 #mHpm_precision = 5
