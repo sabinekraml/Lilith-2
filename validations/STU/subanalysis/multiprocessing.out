@@ -1,28 +1,14 @@
 tb =  0.1
-tb =  0.3538461538461538
-tb =  1.1153846153846154
-tb =  2.1307692307692307
-tb =  3.146153846153846
-tb =  4.161538461538461
-tb =  5.176923076923076
-tb =  6.192307692307692
-tb =  7.207692307692307
-tb =  8.223076923076922
-tb =  9.238461538461538
+tb =  1.1025316455696204
+tb =  2.1050632911392406
+tb =  3.107594936708861
+tb =  4.110126582278481
+tb =  5.112658227848101
+tb =  6.115189873417721
+tb =  7.1177215189873415
+tb =  8.120253164556962
+tb =  9.122784810126582
 tb =  10
 ***** scan finalized *****
-time =  25541.55863910541
-Traceback (most recent call last):
-  File "/theo/vaginay/Lilith/Lilith-2/validations/STU/subanalysis/constrains_mA_mH_withm12.py", line 152, in <module>
-    fig = plt.figure()
-  File "/usr/lib64/python3.10/site-packages/matplotlib/pyplot.py", line 787, in figure
-    manager = new_figure_manager(
-  File "/usr/lib64/python3.10/site-packages/matplotlib/pyplot.py", line 306, in new_figure_manager
-    return _backend_mod.new_figure_manager(*args, **kwargs)
-  File "/usr/lib64/python3.10/site-packages/matplotlib/backend_bases.py", line 3494, in new_figure_manager
-    return cls.new_figure_manager_given_figure(num, fig)
-  File "/usr/lib64/python3.10/site-packages/matplotlib/backends/_backend_tk.py", line 925, in new_figure_manager_given_figure
-    window = tk.Tk(className="matplotlib")
-  File "/usr/lib64/python3.10/tkinter/__init__.py", line 2299, in __init__
-    self.tk = _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)
-_tkinter.TclError: couldn't connect to display "localhost:12.0"
+time =  709.9774230923504
+results are stored in /theo/vaginay/Lilith/Lilith-2/validations/STU/subanalysis/
