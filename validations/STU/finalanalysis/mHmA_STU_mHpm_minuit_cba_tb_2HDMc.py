@@ -60,19 +60,19 @@ my_precision = "BEST-QCD"
 my_hmass = 125
 
 # 2HDM type = 1, 2
-type = 1
+yukawatype = 1
 
 # Fit strategy
 strategy = 0
 
 # Scan ranges
-if type == 1:
+if yukawatype == 1:
   cba_min = -0.25
   cba_max = 0.25
   tb_min = 0.1
   tb_max = 10
 
-if type == 2:
+if yukawatype == 2:
   cba_min = -0.05
   cba_max = 0.05
   tb_min = 0.1
@@ -85,8 +85,6 @@ if type == 2:
 #tb_precision = 40
 mH_precision = 2
 mA_precision = 2
-cba_precision = 5
-tb_precision = 5
 
 # Multiprocessing lists
 mHlist = []
@@ -102,13 +100,24 @@ output = []
 for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_cba_tb_" + str(i) + ".out")
 
-if type == 1:		
+if yukawatype == 1:		
 	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
 	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
-if type == 1:
+if yukawatype == 2:
 	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
 	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
+
+######################################################################
+# Scan initialization
+######################################################################
+
+print("***** scan initialization *****", flush=True)
+
+# Initialize a Lilith object
+lilithcalc = lilith.Lilith(verbose=False,timer=False)
+# Read experimental data
+lilithcalc.readexpinput(exp_input)
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -119,12 +128,12 @@ def usrXMLinput(mass=125, cba=0., tb=1., precision="BEST-QCD"):
     
     sba = np.sqrt(1-cba**2)
     
-    if type == 1:
+    if yukawatype == 1:
       CV = sba
       CU = sba + cba/tb
       CD = sba + cba/tb
     
-    elif type == 2:
+    elif yukawatype == 2:
       CV = sba
       CU = sba + cba/tb
       CD = sba - cba*tb
@@ -179,9 +188,12 @@ def func(X, mH, mA):
 
 		myXML_user_input = usrXMLinput(mass=my_hmass, cba=cba, tb=tb, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
+		print("compute likelihood ok")
 		L2t_cba_tb = lilithcalc.l
 		
 		L2t = L2t_STU + L2t_cba_tb
+
+#		L2t = L2t_STU
 
 #		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t)
 
@@ -195,11 +207,6 @@ m2logLmin=10000
 cba0=0.001
 tb0=1.001
 i=0
-
-# Initialize a Lilith object
-lilithcalc = lilith.Lilith(verbose=False,timer=False)
-# Read experimental data
-lilithcalc.readexpinput(exp_input)
 
 print("***** running scan *****", flush=True)
 
@@ -290,11 +297,11 @@ plt.tick_params(which='minor', direction='in', length=7, width=1.2)
 
 
 # Getting the data
-data = np.genfromtxt(output)
+data = np.genfromtxt(outputfinal)
 
-x = data[0:-1,0]
-y = data[0:-1,1]
-z = data[0:-1,2]
+x = data[:,0]
+y = data[:,1]
+z = data[:,2]
 
 
 # Substracting the -2LogL minimum to form Delta(-2LogL)
