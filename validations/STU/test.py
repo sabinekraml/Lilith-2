@@ -185,8 +185,14 @@ import sys, os
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
+from scipy.optimize import minimize
 
 #m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
+
+def func(x):
+	return x**2
+
+minimize(func, [1], bounds=((0,1),(0,2)))
 
 x = np.linspace(-0.5,0.5,50)
 y = np.arccos(x)

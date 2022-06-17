@@ -43,11 +43,17 @@ C_STU = SIG_STU.dot(COR_STU).dot(SIG_STU)
 C_STU_inv = np.linalg.inv(C_STU)
 
 # Scan ranges
-mA_min = 200
-mA_max = 2000
-mH_min = 200
-mH_max = 2000
-mHpm = 500
+#mA_min = 200
+#mA_max = 2000
+#mH_min = 200
+#mH_max = 2000
+#mHpm = 500
+
+mA_min = 250
+mA_max = 700
+mH_min = 300
+mH_max = 700
+mHpm = 620
 
 # Experimental results
 #exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"
@@ -85,6 +91,8 @@ if yukawatype == 2:
 #tb_precision = 40
 mH_precision = 2
 mA_precision = 2
+cba_precision = 40
+tb_precision = 40
 
 # Multiprocessing lists
 mHlist = []
@@ -114,10 +122,7 @@ if yukawatype == 2:
 
 print("***** scan initialization *****", flush=True)
 
-# Initialize a Lilith object
-lilithcalc = lilith.Lilith(verbose=False,timer=False)
-# Read experimental data
-lilithcalc.readexpinput(exp_input)
+
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -173,25 +178,33 @@ def usrXMLinput(mass=125, cba=0., tb=1., precision="BEST-QCD"):
 # Likelihood Calculation
 ######################################################################
 
-def func(X, mH, mA):
+def func(X, mH, mA, grid, lilithcalc):
 		cba, tb = X[0], X[1]
 
-		sinba = np.sqrt(1-cba**2)
 		b = np.arctan(tb)
+		sinba = np.sqrt(1-cba**2)
 		m12 = ( np.sin(b)*sinba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
 
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
 
 		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
+		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+		cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
 		myXML_user_input = usrXMLinput(mass=my_hmass, cba=cba, tb=tb, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
-		print("compute likelihood ok")
+#		print("compute likelihood ok")
 		L2t_cba_tb = lilithcalc.l
-		
+
 		L2t = L2t_STU + L2t_cba_tb
+
+		if cons == False and grid == True:
+			L2t = 10000
+		if cons == False and grid == False:
+			L2t = L2t + 1000
 
 #		L2t = L2t_STU
 
@@ -199,13 +212,14 @@ def func(X, mH, mA):
 
 		return L2t
 
+
 ######################################################################
 # Scan
 ######################################################################
 
-m2logLmin=10000
-cba0=0.001
-tb0=1.001
+
+#cba0=0.001
+#tb0=1.001
 i=0
 
 print("***** running scan *****", flush=True)
@@ -213,9 +227,14 @@ print("***** running scan *****", flush=True)
 def funcmulti(iteration):
 
 	# Prepare output
-	fresults = open(output[iteration], 'w')
+	fresults = open(output[iteration], 'w')# Initialize a Lilith object
+	lilithcalc = lilith.Lilith(verbose=False,timer=False)
+	# Read experimental data
+	lilithcalc.readexpinput(exp_input)
 
+	m2logLmin=10000
 	i=0
+
 	mH = mHlist[iteration]
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
@@ -223,12 +242,51 @@ def funcmulti(iteration):
 			print("mA = ", mA, flush=True)
 		i+=1
 		fresults.write('\n')
-#			for cba in np.linspace(cba_min, cba_max, cba_precision):
-#				for tb in np.linspace(tb_min, tb_max, tb_precision):
-#		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
-#		cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
 
-		funcminimized = minimize(func, [cba0,tb0], args=(mH, mA), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
+#		cons_cba = False
+#		is_cons_tb = False
+#		cba_cons_min = cba_min
+#		cba_cons_max = cba_max
+#		for cba_cons in np.linspace(cba_min, cba_max, cba_precision):
+#			cons_tb = False
+#			tb_cons_min = tb_min
+#			tb_cons_max = tb_max
+#			if is_cons_tb and not cons_cba:
+#				cba_cons_min = cba_cons
+#				cons_cba = True
+#			if cons_cba and not is_cons_tb:
+#				cba_cons_max = cba_cons
+#				cons_cba = False
+#			for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
+#				b_cons = np.arctan(tb_cons)
+#				sinba_cons = np.sqrt(1-cba_cons**2)
+#				m12_cons = ( np.sin(b_cons)*sinba_cons + cba_cons*np.cos(b_cons) ) * (mH/np.sqrt(tb_cons))
+#				p1_cons = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba_cons), '0.00000', '0.00000', str(m12_cons), str(tb_cons), str(type)], capture_output=True, text=True)
+#				Treelevelunitarity, Perturbativity, Stability = int(p1_cons.stdout[969]), int(p1_cons.stdout[994]), int(p1_cons.stdout[1019])
+#				cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+#				if cba_cons == cba_precision//2:
+#					if cons and not cons_tb:
+#						tb_cons_min = tb_cons
+#						cons_tb = True
+#						is_cons_tb = True
+#					if cons_tb and not cons:
+#						tb_cons_max = tb_cons
+#						cons_tb = False
+#				j+=1
+
+		for cba_cons in np.linspace(cba_min, cba_max, cba_precision):
+			print("cba = ", cba_cons)
+			for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
+				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True, lilithcalc=lilithcalc)
+				if m2logL < m2logLmin:
+					m2logLmin = m2logL
+					cba0 = cba_cons
+					tb0 = tb_cons
+	
+		print("minimized ok")
+
+		grid = False
+		funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid, lilithcalc), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
 
 		m2logL = funcminimized.fun
 		fit = funcminimized.x

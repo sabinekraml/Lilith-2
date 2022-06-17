@@ -199,10 +199,10 @@ def func(X, mH, mA):
 		
 		L2t = L2t_STU + L2t_cba_tb
 
-		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], '%.4f '%X[2], L2t, cons)
-
 		if cons == False:
-			L2t = 10000
+			L2t = L2t + 1000
+
+		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], '%.4f '%X[2], L2t, cons)
 
 		return L2t
 
@@ -231,7 +231,7 @@ cons = ({'type': 'ineq',
 m2logLmin=10000
 #cba0=0.001
 #tb0=1.001
-cba0=-0.2
+cba0=0
 tb0=1.001
 i=0
 
@@ -244,7 +244,7 @@ for mH in np.linspace(mH_min, mH_max, grid_subdivisions):
     fresults.write('\n')
     for mA in np.linspace(mA_min, mA_max, grid_subdivisions):
         print("mA = ", mA, flush=True)
-        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
+        funcminimized = minimize(func, [(mH+mA)/2,cba0,tb0], args=(mH, mA), method='migrad', bounds=((mHpm_min,mHpm_max),(cba_min,cba_max),(tb_min,tb_max)), options={'stra': 2})
 #        print("nfev = ", funcminimized.nfev)
 #        print("m2logL = ", funcminimized.fun)
         m2logL = funcminimized.fun
