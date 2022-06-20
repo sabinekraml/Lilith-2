@@ -98,8 +98,8 @@ if yukawatype == 2:
 #tb_precision = 40
 mH_precision = 80
 mA_precision = 80
-cba_precision = 40
-tb_precision = 40
+cba_precision = 100
+tb_precision = 100
 
 # Multiprocessing lists
 mHlist = []
