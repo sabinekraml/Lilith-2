@@ -178,8 +178,12 @@ def usrXMLinput(mass=125, cba=0., tb=1., precision="BEST-QCD"):
 # Likelihood Calculation
 ######################################################################
 
-def func(X, mH, mA, grid, lilithcalc):
+def func(X, mH, mA, grid):
 		cba, tb = X[0], X[1]
+
+		lilithcalc = lilith.Lilith(verbose=False,timer=False)
+		# Read experimental data
+		lilithcalc.readexpinput(exp_input)
 
 		b = np.arctan(tb)
 		sinba = np.sqrt(1-cba**2)
@@ -228,9 +232,6 @@ def funcmulti(iteration):
 
 	# Prepare output
 	fresults = open(output[iteration], 'w')# Initialize a Lilith object
-	lilithcalc = lilith.Lilith(verbose=False,timer=False)
-	# Read experimental data
-	lilithcalc.readexpinput(exp_input)
 
 	m2logLmin=10000
 	i=0
@@ -280,7 +281,7 @@ def funcmulti(iteration):
 		for cba_cons in np.linspace(0, cba_max, cba_precision):
 			print("cba = ", cba_cons)
 			for tb_cons in np.linspace(tb_min, 3, tb_precision):
-				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True, lilithcalc=lilithcalc)
+				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True)
 				if m2logL < m2logLmin:
 					m2logLmin = m2logL
 					cba0 = cba_cons
@@ -289,7 +290,7 @@ def funcmulti(iteration):
 		print("minimized ok")
 
 		grid = False
-		funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid, lilithcalc), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
+		funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
 
 		m2logL = funcminimized.fun
 		fit = funcminimized.x
