@@ -201,19 +201,21 @@ def func(X, mH, mA, grid):
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
-		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
-		lilithcalc.computelikelihood(userinput=myXML_user_input)
-		print("compute likelihood ok", flush=True)
-		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
+#		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
+#		lilithcalc.computelikelihood(userinput=myXML_user_input)
+#		print("compute likelihood ok", flush=True)
+#		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
 
-		L2t = L2t_STU + L2t_cba_tb
+#		L2t = L2t_STU + L2t_cba_tb
+
+		L2t = L2t_STU
 
 		if cons == False and grid == True:
 			L2t = 10000
 		if cons == False and grid == False:
 			L2t = L2t + 1000
 
-#		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons)
+		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons)
 
 		return L2t
 
