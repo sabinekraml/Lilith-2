@@ -1,3 +1,6 @@
 *.pyc
 .DS_Store
 /results
+/validations/STU/subanalysis/multiprocessing/
+/validations/STU/finalanalysis/multiprocessing/
+
