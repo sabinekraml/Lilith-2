@@ -58,8 +58,9 @@ mH_max = 700
 mHpm = 620
 
 # Experimental results
-#exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"
-exp_input = validation_dir + "latestRun2.list"
+#exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"*
+exp_input = lilith_dir+"validations/STU/latestRun2.list"
+#exp_input = validation_dir + "latestRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -93,8 +94,8 @@ if yukawatype == 2:
 #tb_precision = 40
 mH_precision = 1
 mA_precision = 1
-cba_precision = 20
-tb_precision = 20
+cba_precision = 10
+tb_precision = 10
 
 # Multiprocessing lists
 mHlist = []
@@ -212,8 +213,6 @@ def func(X, mH, mA, grid):
 		if cons == False and grid == False:
 			L2t = L2t + 1000
 
-#		L2t = L2t_STU
-
 #		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons)
 
 		return L2t
@@ -222,7 +221,6 @@ def func(X, mH, mA, grid):
 ######################################################################
 # Scan
 ######################################################################
-
 
 #cba0=0.001
 #tb0=1.001
@@ -233,7 +231,7 @@ print("***** running scan *****", flush=True)
 def funcmulti(iteration):
 
 	# Prepare output
-	fresults = open(output[iteration], 'w')# Initialize a Lilith object
+	fresults = open(output[iteration], 'w')
 
 	m2logLmin=10000
 	i=0
@@ -296,6 +294,7 @@ def funcmulti(iteration):
 
 		m2logL = funcminimized.fun
 		fit = funcminimized.x
+#		print("fit = ", m2logL, fit)
 		if funcminimized.success == False :
 			print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
 		fresults.write('%.5f    '%mH + '%.5f    '%mA + '%.5f    '%m2logL + '%.5f    '%fit[0] + '%.5f    '%fit[1]+ '\n')
