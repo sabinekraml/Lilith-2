@@ -89,10 +89,10 @@ if yukawatype == 2:
 #mA_precision = 80
 #cba_precision = 40
 #tb_precision = 40
-mH_precision = 2
-mA_precision = 2
-cba_precision = 40
-tb_precision = 40
+mH_precision = 1
+mA_precision = 1
+cba_precision = 20
+tb_precision = 20
 
 # Multiprocessing lists
 mHlist = []
@@ -196,7 +196,7 @@ def func(X, mH, mA, grid, lilithcalc):
 
 		myXML_user_input = usrXMLinput(mass=my_hmass, cba=cba, tb=tb, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
-#		print("compute likelihood ok")
+		print("compute likelihood ok")
 		L2t_cba_tb = lilithcalc.l
 
 		L2t = L2t_STU + L2t_cba_tb
@@ -208,7 +208,7 @@ def func(X, mH, mA, grid, lilithcalc):
 
 #		L2t = L2t_STU
 
-#		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t)
+#		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons)
 
 		return L2t
 
@@ -274,9 +274,12 @@ def funcmulti(iteration):
 #						cons_tb = False
 #				j+=1
 
-		for cba_cons in np.linspace(cba_min, cba_max, cba_precision):
+		cba0 = 0
+		tb0 = 0
+
+		for cba_cons in np.linspace(0, cba_max, cba_precision):
 			print("cba = ", cba_cons)
-			for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
+			for tb_cons in np.linspace(tb_min, 3, tb_precision):
 				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True, lilithcalc=lilithcalc)
 				if m2logL < m2logLmin:
 					m2logLmin = m2logL
