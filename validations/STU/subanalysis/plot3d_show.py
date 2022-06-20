@@ -20,8 +20,10 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputplot = validation_dir+"constrains_250_300_10_50_50_I.pdf"
 #outputfinal = validation_dir+"m12/constrains_1200_1200_40_40_160_200_I.out"
 #outputplot = validation_dir+"m12/constrains_1200_1200_40_40_160_200_I.pdf"
-outputfinal = validation_dir+"m12/constrains_200_200_604_80_80_200_I.out"
-outputplot = validation_dir+"m12/constrains_200_200_604_80_80_200_I.pdf"
+#outputfinal = validation_dir+"m12/constrains_200_200_604_80_80_200_I.out"
+#outputplot = validation_dir+"m12/constrains_200_200_604_80_80_200_I.pdf"
+outputfinal = validation_dir+"m12/constrains_650_650_500_50_50_200_I.out"
+outputplot = validation_dir+"m12/constrains_650_650_500_50_50_200_I.pdf"
 
 # Preparing plot
 fig = plt.figure()
