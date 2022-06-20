@@ -145,9 +145,9 @@ def usrXMLinput(mass=125, cba=0., tb=1., precision="BEST-QCD"):
       CU = sba + cba/tb
       CD = sba - cba*tb
 
-    else:
-      print("Error: 2HDM type parameter should be 1 or 2", flush=True)
-      sys.exit()
+#    else:
+#      print("Error: 2HDM type parameter should be 1 or 2", flush=True)
+#      sys.exit()
 
     myInputTemplate = """<?xml version="1.0"?>
 
