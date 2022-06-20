@@ -245,10 +245,8 @@ def funcmulti(iteration):
 
 	mH = mHlist[iteration]
 
-	print(mH_min)
-
 	# Initialize a Lilith object
-	lilithcalc = lilith.Lilith(verbose=False,timer=False)
+	lilithcalc = lilith.Lilith()
 	# Read experimental data
 	lilithcalc.readexpinput(exp_input)
 
