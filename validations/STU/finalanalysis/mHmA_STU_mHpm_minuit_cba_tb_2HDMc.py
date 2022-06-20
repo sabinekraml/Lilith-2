@@ -45,17 +45,23 @@ C_STU = SIG_STU.dot(COR_STU).dot(SIG_STU)
 C_STU_inv = np.linalg.inv(C_STU)
 
 # Scan ranges
-#mA_min = 200
-#mA_max = 2000
-#mH_min = 200
-#mH_max = 2000
-#mHpm = 500
+mA_min = 200
+mA_max = 2000
+mH_min = 200
+mH_max = 2000
+mHpm = 500
 
-mA_min = 250
-mA_max = 700
-mH_min = 300
-mH_max = 700
-mHpm = 620
+#mA_min = 250
+#mA_max = 700
+#mH_min = 300
+#mH_max = 700
+#mHpm = 620
+
+mA_min = 200
+mA_max = 800
+mH_min = 768
+mH_max = 800
+mHpm = 500
 
 # Experimental results
 #exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"*
@@ -93,8 +99,8 @@ if type == 2:
 #tb_precision = 40
 mH_precision = 1
 mA_precision = 1
-cba_precision = 10
-tb_precision = 10
+cba_precision = 15
+tb_precision = 15
 
 # Multiprocessing lists
 mHlist = []
@@ -124,7 +130,10 @@ if type == 2:
 
 print("***** scan initialization *****", flush=True)
 
-
+# Initialize a Lilith object
+lilithcalc = lilith.Lilith(verbose=False,timer=False)
+# Read experimental data
+lilithcalc.readexpinput(exp_input)
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -183,11 +192,6 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
 def func(X, mH, mA, grid):
 		cba, tb = X[0], X[1]
 
-		# Initialize a Lilith object
-		lilithcalc = lilith.Lilith(verbose=False,timer=False)
-		# Read experimental data
-		lilithcalc.readexpinput(exp_input)
-
 		b = np.arctan(tb)
 		sinba = np.sqrt(1-cba**2)
 		m12 = ( np.sin(b)*sinba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
@@ -201,21 +205,21 @@ def func(X, mH, mA, grid):
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
-#		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
-#		lilithcalc.computelikelihood(userinput=myXML_user_input)
+		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
+		lilithcalc.computelikelihood(userinput=myXML_user_input)
 #		print("compute likelihood ok", flush=True)
-#		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
+		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
 
-#		L2t = L2t_STU + L2t_cba_tb
+		L2t = L2t_STU + L2t_cba_tb
 
-		L2t = L2t_STU
+#		L2t = L2t_STU
 
 		if cons == False and grid == True:
 			L2t = 10000
 		if cons == False and grid == False:
-			L2t = L2t + 1000
+			L2t = L2t + 100
 
-		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons)
+		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons, flush=True)
 
 		return L2t
 
@@ -241,7 +245,7 @@ def funcmulti(iteration):
 	mH = mHlist[iteration]
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
-		if i%(mH_precision/10)==0 and iteration == 0:
+		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
 		i+=1
 		fresults.write('\n')
@@ -281,7 +285,7 @@ def funcmulti(iteration):
 		tb0 = 0
 
 		for cba_cons in np.linspace(0, cba_max, cba_precision):
-			print("cba = ", cba_cons)
+#			print("cba = ", cba_cons)
 			for tb_cons in np.linspace(tb_min, 3, tb_precision):
 				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True)
 				if m2logL < m2logLmin:
@@ -289,7 +293,7 @@ def funcmulti(iteration):
 					cba0 = cba_cons
 					tb0 = tb_cons
 	
-		print("minimized ok")
+#		print("minimized ok", flush=True)
 
 		grid = False
 		funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
@@ -310,7 +314,7 @@ def funcmulti(iteration):
 
 #	fresults.write('\n' + '%.5f    '%mHmin + '%.5f    '%mAmin + '%.5f    '%m2logLmin + '%.5f    '%mHpmmin + '%.5f    '%cbamin + '%.5f    '%tbmin)
 
-	print("mH = ", mH, flush=True)
+	print("mA = ", mA, flush=True)
 	fresults.close()
 
 ######################################################################
@@ -383,7 +387,7 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=20, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=50, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
