@@ -158,7 +158,6 @@ for cba in np.linspace(cba_min, cba_max, grid_subdivisions):
     for tb in np.linspace(tb_min, tb_max, grid_subdivisions):
         myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
         lilithcalc.computelikelihood(userinput=myXML_user_input)
-        print("lilith ok")
         m2logL = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
         if m2logL < m2logLmin:
             m2logLmin = m2logL
