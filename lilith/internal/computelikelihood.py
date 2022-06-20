@@ -176,6 +176,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 ##                    print("cov_m_th =",cov_m_th)
 ##                    print("cov_m_tot =",cov_m_tot)
                     print("test avant linalg")
+                    print(cov_m_tot)
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     print("test après linalg")
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
