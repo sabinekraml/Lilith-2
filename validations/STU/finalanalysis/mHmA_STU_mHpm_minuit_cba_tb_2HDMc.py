@@ -246,11 +246,12 @@ def funcmulti(iteration):
 	mH = mHlist[iteration]
 
 	# Initialize a Lilith object
-	lilithcalc = lilith.Lilith()
+	lilithcalc = lilith.Lilith(verbose=False,timer=False)
 	# Read experimental data
 	lilithcalc.readexpinput(exp_input)
 
 	myXML_user_input = usrXMLinput(hmass, tb=2, cba=0.1, precision=my_precision)
+	print(myXML_user_input)
 	lilithcalc.computelikelihood(userinput=myXML_user_input)
 	print(lilithcalc.l)
 
