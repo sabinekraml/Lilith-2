@@ -202,7 +202,7 @@ def func(X, mH, mA, grid):
 
 		myXML_user_input = usrXMLinput(mass=my_hmass, cba=cba, tb=tb, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
-		print("compute likelihood ok")
+		print("compute likelihood ok", flush=True)
 		L2t_cba_tb = lilithcalc.l
 
 		L2t = L2t_STU + L2t_cba_tb
