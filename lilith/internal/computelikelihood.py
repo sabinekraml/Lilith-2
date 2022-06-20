@@ -29,6 +29,7 @@ from ..errors import LikelihoodComputationError
 import numpy as np
 
 def compute_likelihood(exp_mu, user_mu, user_mode):
+    print(exp_mu, user_mu, user_mode)
     """Computes the likelihood from experimental mu and user mu."""
     likelihood_results = []
     l = 0. # actually -2log(likelihood)
