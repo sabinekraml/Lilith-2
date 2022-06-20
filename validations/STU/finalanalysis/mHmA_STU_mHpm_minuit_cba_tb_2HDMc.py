@@ -59,29 +59,28 @@ mHpm = 620
 
 # Experimental results
 #exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"*
-exp_input = lilith_dir+"validations/STU/latestRun2.list"
-#exp_input = validation_dir + "latestRun2.list"
+exp_input = validation_dir + "latestRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
-my_hmass = 125
+hmass = 125.09
 
 # 2HDM type = 1, 2
-yukawatype = 1
+type = 1
 
 # Fit strategy
 strategy = 0
 
 # Scan ranges
-if yukawatype == 1:
+if type == 1:
   cba_min = -0.25
   cba_max = 0.25
   tb_min = 0.1
   tb_max = 10
 
-if yukawatype == 2:
+if type == 2:
   cba_min = -0.05
   cba_max = 0.05
   tb_min = 0.1
@@ -111,11 +110,11 @@ output = []
 for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_cba_tb_" + str(i) + ".out")
 
-if yukawatype == 1:		
+if type == 1:		
 	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
 	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
-if yukawatype == 2:
+if type == 2:
 	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
 	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
@@ -131,24 +130,24 @@ print("***** scan initialization *****", flush=True)
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125, cba=0., tb=1., precision="BEST-QCD"):
+def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
     """generate XML input from reduced couplings CU, CD, CV"""
     
     sba = np.sqrt(1-cba**2)
     
-    if yukawatype == 1:
+    if type == 1:
       CV = sba
       CU = sba + cba/tb
       CD = sba + cba/tb
     
-    elif yukawatype == 2:
+    elif type == 2:
       CV = sba
       CU = sba + cba/tb
       CD = sba - cba*tb
 
-#    else:
-#      print("Error: 2HDM type parameter should be 1 or 2", flush=True)
-#      sys.exit()
+    else:
+      print("Error: 2HDM type parameter should be 1 or 2")
+      sys.exit()
 
     myInputTemplate = """<?xml version="1.0"?>
 
@@ -184,6 +183,7 @@ def usrXMLinput(mass=125, cba=0., tb=1., precision="BEST-QCD"):
 def func(X, mH, mA, grid):
 		cba, tb = X[0], X[1]
 
+		# Initialize a Lilith object
 		lilithcalc = lilith.Lilith(verbose=False,timer=False)
 		# Read experimental data
 		lilithcalc.readexpinput(exp_input)
@@ -201,10 +201,10 @@ def func(X, mH, mA, grid):
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
-		myXML_user_input = usrXMLinput(mass=my_hmass, cba=cba, tb=tb, precision=my_precision)
+		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
 		print("compute likelihood ok", flush=True)
-		L2t_cba_tb = lilithcalc.l
+		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
 
 		L2t = L2t_STU + L2t_cba_tb
 
