@@ -13,6 +13,7 @@ from multiprocessing import Pool
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
+print("lilith_dir: ",lilith_dir)
 
 validation_dir = lilith_dir+"validations/STU/finalanalysis/"
 calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))+"/2HDMc/2HDMC-1.8.0/"
@@ -55,11 +56,11 @@ mHpm = 500
 #mH_max = 700
 #mHpm = 620
 
-mA_min = 200
-mA_max = 800
-mH_min = 768
-mH_max = 800
-mHpm = 500
+#mA_min = 200
+#mA_max = 800
+#mH_min = 768
+#mH_max = 800
+#mHpm = 500
 
 # Experimental results
 #exp_input = lilith_dir+"validations/STU/" + "thisRun2.list"*
@@ -131,7 +132,7 @@ print("***** scan initialization *****", flush=True)
 # Initialize a Lilith object
 lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
-lilithcalc.readexpinput(exp_input)
+#lilithcalc.readexpinput(exp_input)
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -204,8 +205,10 @@ def func(X, mH, mA, grid):
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
 		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
-		lilithcalc.computelikelihood(userinput=myXML_user_input)
-#		print("compute likelihood ok", flush=True)
+#		lilithcalc.computelikelihood(userinput=myXML_user_input)
+		lilithcalc.computelikelihood(userinput=myXML_user_input, exp_filepath=exp_input)
+
+		print("compute likelihood ok", flush=True)
 		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
 
 		L2t = L2t_STU + L2t_cba_tb
