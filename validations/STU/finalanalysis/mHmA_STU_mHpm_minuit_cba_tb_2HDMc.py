@@ -22,6 +22,8 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 # Parameters
 ######################################################################
 
+print(np.__version__)
+
 print("***** reading parameters *****", flush=True)
 
 # Values
