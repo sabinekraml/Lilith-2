@@ -43,9 +43,9 @@ tb_min = 0.1
 tb_max = 3
 
 # Precisions
-cba_precision = 20
-tb_precision = 20
-m12_precision = 50
+cba_precision = 40
+tb_precision = 40
+m12_precision = 200
 #mH_precision = 2
 #mA_precision = 5
 #mHpm_precision = 5
