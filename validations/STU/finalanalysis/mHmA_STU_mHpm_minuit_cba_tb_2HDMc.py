@@ -183,11 +183,6 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
         
     return myInputTemplate%myInput
 
-myXML_user_input = usrXMLinput(hmass, tb=2, cba=0.1, precision=my_precision)
-lilithcalc.computelikelihood(userinput=myXML_user_input)
-print(lilithcalc.l)
-
-
 
 ######################################################################
 # Likelihood Calculation
@@ -199,6 +194,7 @@ def func(X, mH, mA, grid):
 		b = np.arctan(tb)
 		sinba = np.sqrt(1-cba**2)
 		m12 = ( np.sin(b)*sinba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
+
 
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
 
@@ -248,6 +244,15 @@ def funcmulti(iteration):
 	i=0
 
 	mH = mHlist[iteration]
+
+	# Initialize a Lilith object
+	lilithcalc = lilith.Lilith(verbose=False,timer=False)
+	# Read experimental data
+	lilithcalc.readexpinput(exp_input)
+
+	myXML_user_input = usrXMLinput(hmass, tb=2, cba=0.1, precision=my_precision)
+	lilithcalc.computelikelihood(userinput=myXML_user_input)
+	print(lilithcalc.l)
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
