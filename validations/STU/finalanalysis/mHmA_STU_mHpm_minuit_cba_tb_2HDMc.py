@@ -132,7 +132,7 @@ print("***** scan initialization *****", flush=True)
 # Initialize a Lilith object
 lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
-#lilithcalc.readexpinput(exp_input)
+lilithcalc.readexpinput(exp_input)
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -205,8 +205,7 @@ def func(X, mH, mA, grid):
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
 		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
-#		lilithcalc.computelikelihood(userinput=myXML_user_input)
-		lilithcalc.computelikelihood(userinput=myXML_user_input, exp_filepath=exp_input)
+		lilithcalc.computelikelihood(userinput=myXML_user_input)
 
 		print("compute likelihood ok", flush=True)
 		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
