@@ -183,6 +183,11 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
         
     return myInputTemplate%myInput
 
+myXML_user_input = usrXMLinput(hmass, tb=2, cba=0.1, precision=my_precision)
+lilithcalc.computelikelihood(userinput=myXML_user_input)
+print(lilithcalc.l)
+
+
 
 ######################################################################
 # Likelihood Calculation
