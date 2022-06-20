@@ -241,10 +241,6 @@ def funcmulti(iteration):
 
 	mH = mHlist[iteration]
 
-	myXML_user_input = usrXMLinput(hmass, tb=2, cba=0.1, precision=my_precision)
-	lilithcalc.computelikelihood(userinput=myXML_user_input)
-	print(lilithcalc.l)
-
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
