@@ -32,19 +32,19 @@ type = 1
 #m12_min = 0
 #m12_max = 2000
 mA0 = 650
-mH0 = 550
+mH0 = 650
 mHpm0 = 500
 m12_min = 0
 m12_max = 2000
 
 cba_min = 0
-cba_max = 0.25
+cba_max = 1
 tb_min = 0.1
-tb_max = 3
+tb_max = 10
 
 # Precisions
-cba_precision = 40
-tb_precision = 40
+cba_precision = 50
+tb_precision = 50
 m12_precision = 200
 #mH_precision = 2
 #mA_precision = 5
