@@ -22,8 +22,6 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 # Parameters
 ######################################################################
 
-print(np.__version__)
-
 print("***** reading parameters *****", flush=True)
 
 # Values
@@ -97,8 +95,8 @@ if type == 2:
 #mA_precision = 80
 #cba_precision = 40
 #tb_precision = 40
-mH_precision = 1
-mA_precision = 1
+mH_precision = 2
+mA_precision = 2
 cba_precision = 15
 tb_precision = 15
 
@@ -219,7 +217,7 @@ def func(X, mH, mA, grid):
 		if cons == False and grid == False:
 			L2t = L2t + 100
 
-		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons, flush=True)
+#		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons, flush=True)
 
 		return L2t
 
