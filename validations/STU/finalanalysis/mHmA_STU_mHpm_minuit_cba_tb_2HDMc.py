@@ -73,19 +73,19 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # 2HDM type = 1, 2
-type = 1
+yukawatype = 1
 
 # Fit strategy
 strategy = 0
 
 # Scan ranges
-if type == 1:
+if yukawatype == 1:
   cba_min = -0.25
   cba_max = 0.25
   tb_min = 0.1
   tb_max = 10
 
-if type == 2:
+if yukawatype == 2:
   cba_min = -0.05
   cba_max = 0.05
   tb_min = 0.1
@@ -96,10 +96,10 @@ if type == 2:
 #mA_precision = 80
 #cba_precision = 40
 #tb_precision = 40
-mH_precision = 2
-mA_precision = 2
-cba_precision = 15
-tb_precision = 15
+mH_precision = 80
+mA_precision = 80
+cba_precision = 40
+tb_precision = 40
 
 # Multiprocessing lists
 mHlist = []
@@ -115,11 +115,11 @@ output = []
 for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_cba_tb_" + str(i) + ".out")
 
-if type == 1:		
+if yukawatype == 1:		
 	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
 	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
-if type == 2:
+if yukawatype == 2:
 	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
 	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
 
@@ -143,12 +143,12 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
     
     sba = np.sqrt(1-cba**2)
     
-    if type == 1:
+    if yukawatype == 1:
       CV = sba
       CU = sba + cba/tb
       CD = sba + cba/tb
     
-    elif type == 2:
+    elif yukawatype == 2:
       CV = sba
       CU = sba + cba/tb
       CD = sba - cba*tb
@@ -196,7 +196,7 @@ def func(X, mH, mA, grid):
 		m12 = ( np.sin(b)*sinba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
 
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(yukawatype)], capture_output=True, text=True)
 
 		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
 		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
@@ -207,13 +207,9 @@ def func(X, mH, mA, grid):
 
 		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
-
-		print("compute likelihood ok", flush=True)
 		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
 
 		L2t = L2t_STU + L2t_cba_tb
-
-#		L2t = L2t_STU
 
 		if cons == False and grid == True:
 			L2t = 10000
@@ -237,12 +233,6 @@ print("***** running scan *****", flush=True)
 
 def funcmulti(iteration):
 
-	matrix = [[0.03485009, -0.02414144, -0.04327359, 0.00468334],
-	 [-0.02414144, 0.2294008, 0.00822403, 0.00300394],
-	 [-0.04327359, 0.00822403, 0.73707952, -0.05384574],
-	 [ 0.00468334, 0.00300394, -0.05384574, 0.39335827]]
-	print(np.linalg.inv(matrix))
-
 	# Prepare output
 	fresults = open(output[iteration], 'w')
 
@@ -251,11 +241,6 @@ def funcmulti(iteration):
 
 	mH = mHlist[iteration]
 
-	# Initialize a Lilith object
-	lilithcalc = lilith.Lilith(verbose=False,timer=False)
-	# Read experimental data
-	lilithcalc.readexpinput(exp_input)
-
 	myXML_user_input = usrXMLinput(hmass, tb=2, cba=0.1, precision=my_precision)
 	lilithcalc.computelikelihood(userinput=myXML_user_input)
 	print(lilithcalc.l)
@@ -263,6 +248,7 @@ def funcmulti(iteration):
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
+			print("time = ", time.perf_counter()-start, flush=True)
 		i+=1
 		fresults.write('\n')
 

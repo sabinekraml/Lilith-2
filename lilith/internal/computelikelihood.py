@@ -116,7 +116,6 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
             # likelihood computation in case of a type="variable normal"
             # following "Variable Gaussian 2", Barlow arXiv:physics/0406120v1, Eq. 18
             if mu["type"] == "vn":
-                print(mu["dim"])
                 if mu["dim"] == 1:
                     unc_left = abs(mu["param"]["uncertainty"]["left"])
                     unc_right = mu["param"]["uncertainty"]["right"]
@@ -175,10 +174,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 ##                    print("cor_m_th =",corr_m_th)
 ##                    print("cov_m_th =",cov_m_th)
 ##                    print("cov_m_tot =",cov_m_tot)
-                    print("test avant linalg")
-                    print(cov_m_tot)
                     inv_cov_m = np.linalg.inv(cov_m_tot)
-                    print("test après linalg")
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
             # likelihood computation in case of a type="variable normal 1"
