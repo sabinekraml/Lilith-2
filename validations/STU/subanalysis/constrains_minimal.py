@@ -57,9 +57,9 @@ for mass in np.linspace(mass_min, mass_max, mass_precision):
 		print("mass = ", mass, flush=True)
 	i+=1
 	for m122 in np.linspace(m122_min, m122_max, m122_precision):
-		if j%(m122_precision/10)==0:
-			print("m122 = ", m122, flush=True)
-		j+=1
+#		if j%(m122_precision/10)==0:
+#			print("m122 = ", m122, flush=True)
+#		j+=1
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mass), str(mass), str(mass), str(-1), '0.00000', '0.00000', str(m122), str(1.5), str(yukawatype)], capture_output=True, text=True)
 		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 			
