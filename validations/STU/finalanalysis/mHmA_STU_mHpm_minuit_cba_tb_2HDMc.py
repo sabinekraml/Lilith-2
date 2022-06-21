@@ -48,7 +48,7 @@ mA_min = 200
 mA_max = 2000
 mH_min = 200
 mH_max = 2000
-mHpm = 500
+mHpm = 1000
 
 #mA_min = 250
 #mA_max = 700
@@ -92,14 +92,14 @@ if yukawatype == 2:
   tb_max = 10
 
 # Precisions
-#mH_precision = 80
-#mA_precision = 80
-#cba_precision = 40
-#tb_precision = 40
-mH_precision = 80
-mA_precision = 80
+mH_precision = 40
+mA_precision = 40
 cba_precision = 100
 tb_precision = 100
+#mH_precision = 2
+#mA_precision = 2
+#cba_precision = 10
+#tb_precision = 10
 
 # Multiprocessing lists
 mHlist = []
@@ -116,12 +116,12 @@ for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_cba_tb_" + str(i) + ".out")
 
 if yukawatype == 1:		
-	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
-	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "I" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
+	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_I_" + "stra" + str(strategy) + "_2HDMc" + ".out"
+	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_I_" + "stra" + str(strategy) + "_2HDMc" + ".pdf"
 
 if yukawatype == 2:
-	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".out"
-	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mHpm) + "_" + "II" + "_" + "stra" + str(strategy) + "_" + "2HDMc" + ".pdf"
+	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_II_" + "stra" + str(strategy) + "_2HDMc" + ".out"
+	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_II_" + "stra" + str(strategy) + "_2HDMc" + ".pdf"
 
 ######################################################################
 # Scan initialization
@@ -227,7 +227,7 @@ def func(X, mH, mA, grid):
 
 #cba0=0.001
 #tb0=1.001
-i=0
+bestfit=[]
 
 print("***** running scan *****", flush=True)
 
@@ -235,18 +235,18 @@ def funcmulti(iteration):
 
 	# Prepare output
 	fresults = open(output[iteration], 'w')
-
-	m2logLmin=10000
 	i=0
-
 	mH = mHlist[iteration]
+	m2logLmin=10000
+	mAmin = 0
+	cbamin = 0
+	tbmin = 0
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
 			print("time = ", time.perf_counter()-start, flush=True)
 		i+=1
-		fresults.write('\n')
 
 #		cons_cba = False
 #		is_cons_tb = False
@@ -281,38 +281,49 @@ def funcmulti(iteration):
 
 		cba0 = 0
 		tb0 = 0
+		m2logLmingrid=m2logLmin
 
 		for cba_cons in np.linspace(0, cba_max, cba_precision):
 #			print("cba = ", cba_cons)
 			for tb_cons in np.linspace(tb_min, 3, tb_precision):
 				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True)
-				if m2logL < m2logLmin:
-					m2logLmin = m2logL
+				if m2logL < m2logLmingrid:
+					m2logLmingrid = m2logL
 					cba0 = cba_cons
 					tb0 = tb_cons
 	
 #		print("minimized ok", flush=True)
 
-		grid = False
-		funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
+		if m2logLmingrid==m2logLmin:
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + '10000.00000    ' + '0.000    ' + '0.000    ')
 
-		m2logL = funcminimized.fun
-		fit = funcminimized.x
-#		print("fit = ", m2logL, fit)
-		if funcminimized.success == False :
-			print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
-		fresults.write('%.5f    '%mH + '%.5f    '%mA + '%.5f    '%m2logL + '%.5f    '%fit[0] + '%.5f    '%fit[1]+ '\n')
+		else:
+			grid = False
+			funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
 
-#		if m2logL < m2logLmin:
-#			m2logLmin = m2logL
-#			mHmin = mH
-#			mAmin = mA
-#			cbamin = fit[0]
-#			tbmin = fit[1]
+			m2logL = funcminimized.fun
+			fit = funcminimized.x
+	#		print("fit = ", m2logL, fit)
+			if funcminimized.success == False :
+				print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
 
-#	fresults.write('\n' + '%.5f    '%mHmin + '%.5f    '%mAmin + '%.5f    '%m2logLmin + '%.5f    '%mHpmmin + '%.5f    '%cbamin + '%.5f    '%tbmin)
+			if m2logL < m2logLmin:
+				m2logLmin = m2logL
+				mAmin = mA
+				cbamin = fit[0]
+				tbmin = fit[1]
 
-	print("mA = ", mA, flush=True)
+		fresults.write('\n')	
+
+#	fresults.write('\n' + '%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%cbamin + '%.3f    '%tbmin)
+#	bestfit.append('%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%cbamin + '%.3f    '%tbmin)
+#	print("multi ",bestfit)
+
+	if iteration == 0:
+		print("mA = ", mA, flush=True)
+	print("mH = ", mH, " : done")
+
 	fresults.close()
 
 ######################################################################
@@ -332,11 +343,27 @@ print("***** scan finalized *****", flush=True)
 print("time = ", stop-start, flush=True)
 
 fresultsfinal = open(outputfinal, 'w')
+bestfit = []
 for i in iterationlist:
 	fresults = open(output[i])
+#	data = np.genfromtxt(fresults)[:,-1]
+#	print(data)
 	content = fresults.read()
 	fresultsfinal.write(content+"\n")
+#	print(np.genfromtxt(fresults))
+#	data = np.genfromtxt(output)[:,-1]
+#	print(data)
+#	bestfit.append(data)
 	fresults.close()
+
+#m2logLfit = bestfit[3]
+#print(m2logLfit)
+#indexmin = np.argmin(m2logLfit)
+#print(indexmin)
+#bestfitfinal = bestfit[indexmin]
+#print(bestfitfinal)
+#fresultsfinal.write('\n' + '%.2f    '%bestfitfinal[0] + '%.2f    '%bestfitfinal[1] + '%.5f    '%bestfitfinal[2] + '%.3f    '%bestfitfinal[3] + '%.3f    '%bestfitfinal[4])
+
 fresultsfinal.close()
 
 ######################################################################
@@ -385,7 +412,7 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=50, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=100, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
@@ -413,3 +440,5 @@ fig.savefig(outputplot)
 
 print("results are stored in", validation_dir, flush=True)
 print("***** done *****", flush=True)
+
+#3882552
