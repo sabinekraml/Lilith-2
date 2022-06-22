@@ -84,16 +84,14 @@ if type == 2:
 ######################################################################
 
 def func(iteration):
-
 	# Prepare output
 	fresults = open(output[iteration], 'w')
-	i=1
+	i=0
 	mH = mHlist[iteration]
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
-			print("time = ", time.perf_counter()-start, flush=True)
 		i+=1
 		for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 			cons = False
@@ -123,6 +121,15 @@ def func(iteration):
 				fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '\n')
 			else:
 				fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + 'nan    ' + '%.2f    '%cba_cons + '%.2f    '%tb_cons + '\n')
+
+		if iteration == 0 and mA is not mA_max:
+			print("time = ", time.perf_counter()-start, flush=True)
+			
+	if iteration == 0:
+		print("mA = ", mA, flush=True)
+		print("time = ", time.perf_counter()-start, flush=True)
+		
+	print("mH = ", mH, " : done")
 
 	fresults.close()
 
