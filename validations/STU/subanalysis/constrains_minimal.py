@@ -20,18 +20,18 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 yukawatype = 1
 
 # Scan ranges
-mass_min = 600
-mass_max = 1000
-m122_min = 0
-m122_max = 1000000
+mass_min = 1000
+mass_max = 2000
+m122_min = 100000
+m122_max = 3000000
 
 cba0 = 0
 sba0 = 1
 tb0 = 1.5
 
 # Precisions
-mass_precision = 5
-m122_precision = 10000
+mass_precision = 10
+m122_precision = 30
 
 # Output files
 if yukawatype == 1:
@@ -61,7 +61,11 @@ for mass in np.linspace(mass_min, mass_max, mass_precision):
 #			print("m122 = ", m122, flush=True)
 #		j+=1
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mass), str(mass), str(mass), str(-1), '0.00000', '0.00000', str(m122), str(1.5), str(yukawatype)], capture_output=True, text=True)
-		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+
+		if m122>999999:
+			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+		else:
+			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 			
 		if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:				
 			fresults.write('%.4f    '%mass + '%.2f    '%m122 + '1    ' + '\n')
