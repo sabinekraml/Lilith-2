@@ -10,6 +10,10 @@ import concurrent.futures
 from concurrent.futures import ProcessPoolExecutor as executor 
 from multiprocessing import Pool
 
+#from math import floor, log, sqrt, sin, cos, atan
+#from cmath import sqrt as csqrt
+#from cmath import asin as casin
+
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 sys.path.append(lilith_dir)
 import lilith
@@ -48,7 +52,7 @@ mA_min = 200
 mA_max = 2000
 mH_min = 200
 mH_max = 2000
-mHpm = 1000
+mHpm = 500
 
 #mA_min = 750
 #mA_max = 800
@@ -120,9 +124,111 @@ lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
 lilithcalc.readexpinput(exp_input)
 
+########################################################################
+# SM and H+ LO contribution to the reduced H-gamma-gamma coupling CGa
+########################################################################
+
+## Values
+
+#mW = 80.398 
+#v = 246
+#mZ = 91.1876
+
+#mt = 173.1
+#mb = 4.75
+#mc = 1.4
+#mtau = 1.777
+#sW2 = 0.23116
+
+# New values ????
+
+#def fhiggs(t):
+#    if t<=1.:
+#        return casin(sqrt(t))**2.
+#    else:
+#        return -(log((sqrt(t)+sqrt(t-1.))/(sqrt(t)-sqrt(t-1.)))-np.pi*1j)**2./4.
+
+#def A0(tau):
+#    return -1./tau *(1.-1./tau * fhiggs(tau))
+
+#def A12(tau):
+#    return 2./tau *(1.+(1.-1./tau) * fhiggs(tau))
+
+#def A1(tau):
+#    return -(3.*tau+2.*tau**2. +3.*(2.*tau-1.) * fhiggs(tau))/tau**2
+
+
+#def get_CGa(hmass, a, tb, mHpm):
+#  """ 
+#      Returns CGa computed from the SM particles contribution plus 
+#      Hpm contribution.
+#  """
+
+#	sba = np.sin(np.arctan(tb)-a)
+
+#	if yukawatype == 1:
+#		CV = sba
+#		CU = np.cos(a)/np.sin(np.arctan(tb))
+#		CD = np.cos(a)/np.sin(np.arctan(tb))
+#    
+#	elif yukawatype == 2:
+#		CV = sba
+#		CU = np.cos(a)/np.sin(np.arctan(tb))
+#		CD = -np.sin(a)/np.cos(np.arctan(tb))
+
+#	ChHpmHpm = -2*mHpm**2/v
+
+#	A12t = A12((hmass/(2.*mt))**2.)
+#	A12c = A12((hmass/(2.*mc))**2.)
+#	A12b = A12((hmass/(2.*mb))**2.)
+#	A12tau = A12((hmass/(2.*mtau))**2.)
+#	A1W = A1((hmass/(2.*mW))**2.)
+#	A0Hpm = A0((hmass/(2.*mHpm))**2.)
+
+#	SM_amplitude = CU*4./3.*(A12t + A12c) + CD*1./3.*A12b + CD*A12tau + CV*A1W
+#	Hpm_amplitude = ChHpmHpm*A0Hpm
+#  
+#	CGa = sqrt( abs(SM_amplitude + Hpm_amplitude)**2./abs(SM_amplitude)**2. )
+
+#	C = [CV, CU, CD, CGa]
+
+#	return C
+
 ######################################################################
 # * usrXMLinput: generate XML user input
 ######################################################################
+
+#def usrXMLinput_Hpm(mass=125.09, a=0., tb=1., CV=1, CU=1, CD=1, CGa=1, precision="BEST-QCD"):
+#    """generate XML input from reduced couplings CU, CD, CV, CGa"""
+
+#    myInputTemplate = """<?xml version="1.0"?>
+
+#<lilithinput>
+
+#<reducedcouplings>
+#  <mass>%(mass)s</mass>
+
+#  <C to="uu">%(CU)s</C>
+#  <C to="dd">%(CD)s</C>
+#  <C to="VV">%(CV)s</C>
+#  <C to="gammagamma">%(CGa)s</C>
+#  
+#  <extraBR>
+#    <BR to="invisible">0.</BR>
+#    <BR to="undetected">0.</BR>
+#  </extraBR>
+
+#  <precision>%(precision)s</precision>
+#</reducedcouplings>
+
+#</lilithinput>
+#"""
+
+#    myInput = {'mass':mass, 'CV':CV, 'CU':CU, 'CD':CD, 'precision':precision}
+#        
+#    return myInputTemplate%myInput
+
+
 
 def usrXMLinput(mass=125.09, a=0., tb=1., precision="BEST-QCD"):
     """generate XML input from reduced couplings CU, CD, CV"""
@@ -195,6 +301,9 @@ def func(X, mH, mA, grid):
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
+#		C = get_CGa(hmass, a, tb, mHpm)
+#		myXML_user_input = usrXMLinput(hmass, a=a, tb=tb, C[0], C[1], C[2], C[3], precision=my_precision)
+
 		myXML_user_input = usrXMLinput(hmass, a=a, tb=tb, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
 		L2t_a_tb = lilithcalc.l                 #This is -2*Ln(L) at the (a,tb) point
@@ -202,9 +311,9 @@ def func(X, mH, mA, grid):
 		L2t = L2t_STU + L2t_a_tb
 
 		if cons == False and grid == True:
-			L2t = 10000
+			L2t = 1000000
 		if cons == False and grid == False:
-			L2t = L2t + 100
+			L2t = L2t + 1000
 
 #		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons, flush=True)
 
@@ -225,7 +334,7 @@ def funcmulti(iteration):
 	fresults = open(output[iteration], 'w')
 	i=0
 	mH = mHlist[iteration]
-	m2logLmin=10000
+	m2logLmin=1000000
 	mAmin = 0
 	amin = 0
 	tbmin = 0
@@ -252,7 +361,7 @@ def funcmulti(iteration):
 #		print("minimized ok", flush=True)
 
 		if m2logLmingrid==m2logLmin:
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + '10000.00000    ' + '0.000    ' + '0.000    ')
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + '0.000    ' + '0.000    ')
 
 		else:
 			grid = False
@@ -397,5 +506,3 @@ fig.savefig(outputplot)
 
 print("results are stored in", validation_dir, flush=True)
 print("***** done *****", flush=True)
-
-#9971
