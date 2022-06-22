@@ -440,5 +440,3 @@ fig.savefig(outputplot)
 
 print("results are stored in", validation_dir, flush=True)
 print("***** done *****", flush=True)
-
-#1385609

@@ -22,7 +22,7 @@ yukawatype = 1
 # Scan ranges
 mass_min = 1000
 mass_max = 2000
-m122_min = 100000
+m122_min = 10000
 m122_max = 3000000
 
 cba0 = 0
@@ -31,7 +31,7 @@ tb0 = 1.5
 
 # Precisions
 mass_precision = 10
-m122_precision = 30
+m122_precision = 300
 
 # Output files
 if yukawatype == 1:
@@ -82,7 +82,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 # Getting the data
-data = np.genfromtxt(outputfinal)
+data = np.genfromtxt(output)
 x = data[:,0]
 y = data[:,1]
 consvalue = data[:,2]
