@@ -2,4 +2,6 @@
 .DS_Store
 /results
 /validations/STU/subanalysis/multiprocessing/*
+/validations/STU/subanalysis/multiprocessing.out
 /validations/STU/finalanalysis/multiprocessing/*
+/validations/STU/finalanalysis/multiprocessing.out
