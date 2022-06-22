@@ -48,19 +48,18 @@ mA_min = 200
 mA_max = 2000
 mH_min = 200
 mH_max = 2000
-mHpm = 1000
+mHpm = 500
 
-#mA_min = 250
-#mA_max = 700
-#mH_min = 300
-#mH_max = 700
-#mHpm = 620
-
-#mA_min = 200
+#mA_min = 750
 #mA_max = 800
-#mH_min = 768
+#mH_min = 750
 #mH_max = 800
-#mHpm = 500
+#mHpm = 750
+
+a_min = 0
+a_max = np.pi/2
+tb_min = 0.5
+tb_max = 10
 
 # Experimental results
 #exp_input = validation_dir + "thisRun2.list"
@@ -78,27 +77,14 @@ yukawatype = 1
 # Fit strategy
 strategy = 0
 
-# Scan ranges
-if yukawatype == 1:
-  cba_min = -0.25
-  cba_max = 0.25
-  tb_min = 0.1
-  tb_max = 10
-
-if yukawatype == 2:
-  cba_min = -0.05
-  cba_max = 0.05
-  tb_min = 0.1
-  tb_max = 10
-
 # Precisions
 mH_precision = 40
 mA_precision = 40
-cba_precision = 100
+a_precision = 100
 tb_precision = 100
 #mH_precision = 2
 #mA_precision = 2
-#cba_precision = 10
+#a_precision = 10
 #tb_precision = 10
 
 # Multiprocessing lists
@@ -113,15 +99,15 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_cba_tb_" + str(i) + ".out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_" + str(i) + ".out")
 
 if yukawatype == 1:		
-	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_I_" + "stra" + str(strategy) + "_2HDMc" + ".out"
-	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_I_" + "stra" + str(strategy) + "_2HDMc" + ".pdf"
+	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "stra" + str(strategy) + "_2HDMc" + ".out"
+	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "stra" + str(strategy) + "_2HDMc" + ".pdf"
 
 if yukawatype == 2:
-	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_II_" + "stra" + str(strategy) + "_2HDMc" + ".out"
-	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_II_" + "stra" + str(strategy) + "_2HDMc" + ".pdf"
+	outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "stra" + str(strategy) + "_2HDMc" + ".out"
+	outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "stra" + str(strategy) + "_2HDMc" + ".pdf"
 
 ######################################################################
 # Scan initialization
@@ -138,20 +124,20 @@ lilithcalc.readexpinput(exp_input)
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
+def usrXMLinput(mass=125.09, a=0., tb=1., precision="BEST-QCD"):
     """generate XML input from reduced couplings CU, CD, CV"""
     
-    sba = np.sqrt(1-cba**2)
+    sba = np.sin(np.arctan(tb)-a)
     
     if yukawatype == 1:
       CV = sba
-      CU = sba + cba/tb
-      CD = sba + cba/tb
+      CU = np.cos(a)/np.sin(np.arctan(tb))
+      CD = np.cos(a)/np.sin(np.arctan(tb))
     
     elif yukawatype == 2:
       CV = sba
-      CU = sba + cba/tb
-      CD = sba - cba*tb
+      CU = np.cos(a)/np.sin(np.arctan(tb))
+      CD = -np.sin(a)/np.cos(np.arctan(tb))
 
     else:
       print("Error: 2HDM type parameter should be 1 or 2")
@@ -189,27 +175,31 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
 ######################################################################
 
 def func(X, mH, mA, grid):
-		cba, tb = X[0], X[1]
+		a, tb = X[0], X[1]
 
 		b = np.arctan(tb)
-		sinba = np.sqrt(1-cba**2)
-		m12 = ( np.sin(b)*sinba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
+		sinba = np.sin(b-a)
+		m122 = np.cos(a)**2*mH**2/tb
 
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(yukawatype)], capture_output=True, text=True)
-
-		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
-		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
-		cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+		if m122>999999:
+			S, T, U = float(p1.stdout[1058:1070]), float(p1.stdout[1085:1097]), float(p1.stdout[1112:1124])
+			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+			cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+		else:
+			S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
+			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+			cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
 
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
 
-		myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
+		myXML_user_input = usrXMLinput(hmass, a=a, tb=tb, precision=my_precision)
 		lilithcalc.computelikelihood(userinput=myXML_user_input)
-		L2t_cba_tb = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
+		L2t_a_tb = lilithcalc.l                 #This is -2*Ln(L) at the (a,tb) point
 
-		L2t = L2t_STU + L2t_cba_tb
+		L2t = L2t_STU + L2t_a_tb
 
 		if cons == False and grid == True:
 			L2t = 10000
@@ -225,8 +215,6 @@ def func(X, mH, mA, grid):
 # Scan
 ######################################################################
 
-#cba0=0.001
-#tb0=1.001
 bestfit=[]
 
 print("***** running scan *****", flush=True)
@@ -239,7 +227,7 @@ def funcmulti(iteration):
 	mH = mHlist[iteration]
 	m2logLmin=10000
 	mAmin = 0
-	cbamin = 0
+	amin = 0
 	tbmin = 0
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
@@ -248,48 +236,17 @@ def funcmulti(iteration):
 			print("time = ", time.perf_counter()-start, flush=True)
 		i+=1
 
-#		cons_cba = False
-#		is_cons_tb = False
-#		cba_cons_min = cba_min
-#		cba_cons_max = cba_max
-#		for cba_cons in np.linspace(cba_min, cba_max, cba_precision):
-#			cons_tb = False
-#			tb_cons_min = tb_min
-#			tb_cons_max = tb_max
-#			if is_cons_tb and not cons_cba:
-#				cba_cons_min = cba_cons
-#				cons_cba = True
-#			if cons_cba and not is_cons_tb:
-#				cba_cons_max = cba_cons
-#				cons_cba = False
-#			for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
-#				b_cons = np.arctan(tb_cons)
-#				sinba_cons = np.sqrt(1-cba_cons**2)
-#				m12_cons = ( np.sin(b_cons)*sinba_cons + cba_cons*np.cos(b_cons) ) * (mH/np.sqrt(tb_cons))
-#				p1_cons = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba_cons), '0.00000', '0.00000', str(m12_cons), str(tb_cons), str(type)], capture_output=True, text=True)
-#				Treelevelunitarity, Perturbativity, Stability = int(p1_cons.stdout[969]), int(p1_cons.stdout[994]), int(p1_cons.stdout[1019])
-#				cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
-#				if cba_cons == cba_precision//2:
-#					if cons and not cons_tb:
-#						tb_cons_min = tb_cons
-#						cons_tb = True
-#						is_cons_tb = True
-#					if cons_tb and not cons:
-#						tb_cons_max = tb_cons
-#						cons_tb = False
-#				j+=1
-
-		cba0 = 0
+		a0 = 0
 		tb0 = 0
 		m2logLmingrid=m2logLmin
 
-		for cba_cons in np.linspace(0, cba_max, cba_precision):
-#			print("cba = ", cba_cons)
-			for tb_cons in np.linspace(tb_min, 3, tb_precision):
-				m2logL = func(X=[cba_cons, tb_cons], mH=mH, mA=mA, grid=True)
+		for a_cons in np.linspace(a_min, a_max, a_precision):
+#			print("a = ", a_cons)
+			for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
+				m2logL = func(X=[a_cons, tb_cons], mH=mH, mA=mA, grid=True)
 				if m2logL < m2logLmingrid:
 					m2logLmingrid = m2logL
-					cba0 = cba_cons
+					a0 = a_cons
 					tb0 = tb_cons
 	
 #		print("minimized ok", flush=True)
@@ -299,7 +256,7 @@ def funcmulti(iteration):
 
 		else:
 			grid = False
-			funcminimized = minimize(func, [cba0,tb0], args=(mH, mA, grid), method='migrad', bounds=((cba_min,cba_max),(tb_min,tb_max)), options={'stra': 0})
+			funcminimized = minimize(func, [a0,tb0], args=(mH, mA, grid), method='migrad', bounds=((a_min,a_max),(tb_min,tb_max)), options={'stra': 0})
 
 			m2logL = funcminimized.fun
 			fit = funcminimized.x
@@ -311,13 +268,13 @@ def funcmulti(iteration):
 			if m2logL < m2logLmin:
 				m2logLmin = m2logL
 				mAmin = mA
-				cbamin = fit[0]
+				amin = fit[0]
 				tbmin = fit[1]
 
 		fresults.write('\n')	
 
-#	fresults.write('\n' + '%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%cbamin + '%.3f    '%tbmin)
-#	bestfit.append('%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%cbamin + '%.3f    '%tbmin)
+#	fresults.write('\n' + '%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%amin + '%.3f    '%tbmin)
+#	bestfit.append('%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%amin + '%.3f    '%tbmin)
 #	print("multi ",bestfit)
 
 	if iteration == 0:
