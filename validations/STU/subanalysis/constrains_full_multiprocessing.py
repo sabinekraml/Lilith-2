@@ -125,16 +125,16 @@ def func(iteration):
 					else:
 						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 			
-					if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1				
-						fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%cba + '%.2f    '%tb + '\n')
+					if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:				
+						fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%a + '%.2f    '%tb + '\n')
 						cons = True
-						break
-
+						break	
+				
 				if cons:
 					break
 
-			if cons=False:
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + 'nan    ' + 'nan    ' + 'nan    ' + '\n')
+			if cons==False:
+				fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + 'nan    ' + 'nan    ' + 'nan    ' + '\n')
 
 		if iteration == 0 and mA is not mA_max:
 			print("time = ", time.perf_counter()-start, flush=True)
