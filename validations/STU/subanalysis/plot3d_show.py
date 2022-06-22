@@ -24,8 +24,11 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputplot = validation_dir+"m12/constrains_200_200_604_80_80_200_I.pdf"
 #outputfinal = validation_dir+"m12/constrains_650_650_500_80_80_200_I.out"
 #outputplot = validation_dir+"m12/constrains_650_650_500_80_80_200_I.pdf"
-outputfinal = validation_dir+"constrains_minimal_40_1000_I.out"
-outputplot = validation_dir+"constrains_minimal_40_1000_I.pdf"
+#outputfinal = validation_dir+"constrains_minimal_40_1000_I.out"
+#outputplot = validation_dir+"constrains_minimal_40_1000_I.pdf"
+outputfinal = validation_dir+"constrains_40_40_40_20_20_I.out"
+outputplot = validation_dir+"constrains_40_40_40_20_20_I.pdf"
+
 
 # Preparing plot
 fig = plt.figure()
@@ -50,12 +53,12 @@ sc = ax.scatter(x, y, z, c=consvalue, s=30)
 # Title, labels, color bar...
 #ax.set_xlabel(r'$m_H = m_A = m_{{H^{{\pm}}}}$[GeV]',fontsize=10)
 #ax.set_ylabel(r'$m_{12}$[GeV]',fontsize=10)
-ax.set_xlabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
-ax.set_ylabel(r'$\tan(\beta)$[GeV]',fontsize=10)
-ax.set_zlabel(r'$m_{12}$[GeV]',fontsize=10)
-#ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
-#ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
-#ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
+#ax.set_xlabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
+#ax.set_ylabel(r'$\tan(\beta)$[GeV]',fontsize=10)
+#ax.set_zlabel(r'$m_{12}$[GeV]',fontsize=10)
+ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
+ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
+ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 #ax.set_xlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 #ax.set_ylabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
 #ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)
