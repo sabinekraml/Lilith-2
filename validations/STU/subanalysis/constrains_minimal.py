@@ -30,7 +30,7 @@ sba0 = 1
 tb0 = 1.5
 
 # Precisions
-mass_precision = 4
+mass_precision = 5
 m122_precision = 10000
 
 # Output files
