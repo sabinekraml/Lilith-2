@@ -41,9 +41,9 @@ if type == 2:
   tb_max = 10
 
 # Precisions
-mH_precision = 50
-mA_precision = 50
-mHpm_precision = 50
+mH_precision = 40
+mA_precision = 40
+mHpm_precision = 40
 cba_precision = 20
 tb_precision = 20
 #mH_precision = 2
@@ -80,12 +80,6 @@ if type == 2:
 	outputfinal = validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + ".out"
 
 ######################################################################
-# Tests
-######################################################################
-
-
-
-######################################################################
 # Definition
 ######################################################################
 
@@ -97,10 +91,8 @@ def func(iteration):
 	mH = mHlist[iteration]
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
-		if i==1 and iteration==0:
-				print("mA = ", mA, flush=True)
-		if i%2==0 and iteration==0:
-				print("mA = ", mA, flush=True)
+		if i%(mA_precision/10)==0 and iteration == 0:
+			print("mA = ", mA, flush=True)
 		i+=1
 		for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 			cons = False
@@ -110,8 +102,9 @@ def func(iteration):
 #				print("cba = ", cba)
 #				print("cons = ", cons)
 				for tb in np.linspace(tb_min, tb_max, tb_precision):
-					m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
 					sba = np.sqrt(1-cba**2)
+					m12 = ( np.sin(np.arctan(tb))*sba + cba*np.cos(np.arctan(tb)) )**2 * (mH**2/tb)
+
 					p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
 					Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 					
