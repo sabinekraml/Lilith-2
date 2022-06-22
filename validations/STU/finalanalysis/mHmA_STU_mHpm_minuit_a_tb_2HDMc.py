@@ -48,7 +48,7 @@ mA_min = 200
 mA_max = 2000
 mH_min = 200
 mH_max = 2000
-mHpm = 500
+mHpm = 1000
 
 #mA_min = 750
 #mA_max = 800

@@ -25,7 +25,7 @@ type = 1
 # Scan ranges
 mA_min = 200
 mA_max = 2000
-mH_min = 200
+mH_min = 1000
 mH_max = 2000
 mHpm_min = 200
 mHpm_max = 2000
@@ -47,10 +47,10 @@ mHpm_precision = 40
 cba_precision = 20
 tb_precision = 20
 #mH_precision = 2
-#mA_precision = 5
-#mHpm_precision = 5
-#cba_precision = 5
-#tb_precision = 5
+#mA_precision = 2
+#mHpm_precision = 2
+#cba_precision = 2
+#tb_precision = 2
 
 # Lists
 mHlist = []
@@ -66,7 +66,7 @@ output = []
 outputplot = []
 if type == 1:
 	for i in range(mH_precision):
-		output.append(validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + str(i) + ".out")
+		output.append(validation_dir+"multiprocessing/constrains_" + str(i) + ".out")
 		outputplot = validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + str(i) + ".pdf"
 
 	outputfinal = validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + ".out"
@@ -74,7 +74,7 @@ if type == 1:
 
 if type == 2:
 	for i in range(mH_precision):
-		output = validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + str(i) + ".out"
+		output = validation_dir+"multiprocessing/constrains_" + str(i) + ".out"
 		outputplot = validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + str(i) + ".pdf"
 
 	outputfinal = validation_dir+"multiprocessing/constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + ".out"
@@ -93,6 +93,7 @@ def func(iteration):
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
+			print("time = ", time.perf_counter()-start, flush=True)
 		i+=1
 		for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 			cons = False
@@ -103,10 +104,15 @@ def func(iteration):
 #				print("cons = ", cons)
 				for tb in np.linspace(tb_min, tb_max, tb_precision):
 					sba = np.sqrt(1-cba**2)
-					m12 = ( np.sin(np.arctan(tb))*sba + cba*np.cos(np.arctan(tb)) )**2 * (mH**2/tb)
+					m122 = ( np.sin(np.arctan(tb))*sba + cba*np.cos(np.arctan(tb)) )**2 * (mH**2/tb)
 
-					p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sba), '0.00000', '0.00000', str(m12), str(tb), str(type)], capture_output=True, text=True)
-					Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+
+					p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sba), '0.00000', '0.00000', str(m122), str(tb), str(type)], capture_output=True, text=True)
+
+					if m122>999999:
+						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+					else:
+						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 					
 					if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:
 						cons = True
