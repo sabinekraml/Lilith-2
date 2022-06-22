@@ -23,15 +23,15 @@ yukawatype = 1
 mass_min = 600
 mass_max = 1000
 m122_min = 0
-m122_max = 100000
+m122_max = 1000000
 
 cba0 = 0
-sba0 = 0
+sba0 = 1
 tb0 = 1.5
 
 # Precisions
-mass_precision = 40
-m122_precision = 1000
+mass_precision = 4
+m122_precision = 10000
 
 # Output files
 if yukawatype == 1:
