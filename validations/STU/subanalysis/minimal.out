@@ -1,0 +1,24 @@
+mass =  600.0
+mass =  641.025641025641
+mass =  682.0512820512821
+mass =  723.0769230769231
+mass =  764.1025641025641
+mass =  805.1282051282051
+mass =  846.1538461538462
+mass =  887.1794871794872
+mass =  928.2051282051282
+mass =  969.2307692307693
+Traceback (most recent call last):
+  File "/theo/vaginay/Lilith/Lilith-2/validations/STU/subanalysis/constrains_minimal.py", line 77, in <module>
+    fig = plt.figure()
+  File "/usr/lib64/python3.10/site-packages/matplotlib/pyplot.py", line 787, in figure
+    manager = new_figure_manager(
+  File "/usr/lib64/python3.10/site-packages/matplotlib/pyplot.py", line 306, in new_figure_manager
+    return _backend_mod.new_figure_manager(*args, **kwargs)
+  File "/usr/lib64/python3.10/site-packages/matplotlib/backend_bases.py", line 3494, in new_figure_manager
+    return cls.new_figure_manager_given_figure(num, fig)
+  File "/usr/lib64/python3.10/site-packages/matplotlib/backends/_backend_tk.py", line 925, in new_figure_manager_given_figure
+    window = tk.Tk(className="matplotlib")
+  File "/usr/lib64/python3.10/tkinter/__init__.py", line 2299, in __init__
+    self.tk = _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)
+_tkinter.TclError: couldn't connect to display "localhost:11.0"
