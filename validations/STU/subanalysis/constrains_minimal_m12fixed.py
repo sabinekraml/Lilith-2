@@ -28,7 +28,7 @@ cba_min = 0
 cba_max = 1
 a_min = 0
 a_max = np.pi/2
-tb_min = 0.1
+tb_min = 0.5
 tb_max = 10
 
 # Precisions
@@ -72,7 +72,6 @@ for mass in np.linspace(mass_min, mass_max, mass_precision):
 	i+=1
 	if angletype=="a":
 		for a in np.linspace(a_min, a_max, a_precision):
-			print("a = ", a)
 			for tb in np.linspace(tb_min, tb_max, tb_precision):
 				b = np.arctan(tb)
 				sinba = np.sin(b-a)
@@ -81,7 +80,11 @@ for mass in np.linspace(mass_min, mass_max, mass_precision):
 				p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mass), str(mass), str(mass), str(sinba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
 				if m122>999999:
-					Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+#					print(p1.stdout)
+					if p1.stdout[765] != " ":
+						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[972]), int(p1.stdout[997]), int(p1.stdout[1022])
+					else:
+						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
 				else:
 					Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 					
@@ -99,7 +102,10 @@ for mass in np.linspace(mass_min, mass_max, mass_precision):
 				p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mass), str(mass), str(mass), str(sinba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
 				if m122>999999:
-					Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+					if p1.stdout[765] != " ":
+						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[972]), int(p1.stdout[997]), int(p1.stdout[1022])
+					else:
+						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
 				else:
 					Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 					
@@ -127,7 +133,6 @@ consvalue = data[:,4]
 
 # Plotting
 sc = ax.scatter(x, y, z, c=consvalue, s=30)
-ax.set_aspect(1)
 
 # Title, labels, color bar...
 ax.set_xlabel(r'$m_H = m_A = m_{{H^{{\pm}}}}$[GeV]',fontsize=10)
