@@ -19,7 +19,7 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 # 2HDM type = 1, 2
 yukawatype = 1
 
-angletype = "a"
+angletype = "cba"
 
 # Scan ranges
 mass_min = 200
