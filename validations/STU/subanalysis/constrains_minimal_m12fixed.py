@@ -19,14 +19,14 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 # 2HDM type = 1, 2
 yukawatype = 1
 
-angletype = "cba"
+angletype = "a"
 
 # Scan ranges
 mass_min = 200
 mass_max = 2000
 cba_min = 0
 cba_max = 1
-a_min = 0
+a_min = -np.pi/2
 a_max = np.pi/2
 tb_min = 0.5
 tb_max = 10
@@ -40,12 +40,12 @@ tb_precision = 20
 # Output files
 if angletype=="a":
 	if yukawatype == 1:
-		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a" + ".out"
-		outputplot = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a" + ".pdf"
+		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a-pi/2" + ".out"
+		outputplot = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a-pi/2" + ".pdf"
 
 	if yukawatype == 2:
-		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a" + ".out"
-		outputplot = validation_dir+"constrains_minmial" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a" + ".pdf"
+		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a-pi/2" + ".out"
+		outputplot = validation_dir+"constrains_minmial" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a-pi/2" + ".pdf"
 
 if angletype=="cba":
 	if yukawatype == 1:

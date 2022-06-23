@@ -26,9 +26,10 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputplot = validation_dir+"m12/constrains_650_650_500_80_80_200_I.pdf"
 #outputfinal = validation_dir+"constrains_minimal_40_1000_I.out"
 #outputplot = validation_dir+"constrains_minimal_40_1000_I.pdf"
-outputfinal = validation_dir+"constrains_40_40_40_20_20_I.out"
-outputplot = validation_dir+"constrains_40_40_40_20_20_I_full.pdf"
-
+#outputfinal = validation_dir+"constrains_40_40_40_20_20_I.out"
+#outputplot = validation_dir+"constrains_40_40_40_20_20_I_full.pdf"
+outputfinal = validation_dir+"constrains_minimal_20_20_20_I_cba.out"
+outputplot = validation_dir+"constrains_minimal_20_20_20_I_cba_plot.pdf"
 
 # Preparing plot
 fig = plt.figure()
@@ -40,10 +41,13 @@ data = np.genfromtxt(outputfinal)
 x = data[:,0]
 y = data[:,1]
 z = data[:,2]
-consvalue = data[:,3]
+#consvalue = data[:,3]
+consvalue = data[:,4]
 
 # Plotting
 sc = ax.scatter(x, y, z, c=consvalue, s=30)
+cbar = fig.colorbar(sc)
+cbar.set_label("$m_{12}^2$", fontsize=10)
 #sc = ax.scatter(x, y, c=z, s=30)
 #ax.set_xlim(600, 700)
 #ax.set_ylim(-0.25, 0.25)
@@ -51,14 +55,19 @@ sc = ax.scatter(x, y, z, c=consvalue, s=30)
 #cbar = fig.colorbar(sc)
 
 # Title, labels, color bar...
+ax.set_xlabel(r'$m_H = m_A = m_{{H^{{\pm}}}}$[GeV]',fontsize=10)
+ax.set_ylabel(r'$\alpha$[rad]',fontsize=10)
+ax.set_ylabel(r'$\cos(\beta - \alpha)$[rad]',fontsize=10)
+ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)
+
 #ax.set_xlabel(r'$m_H = m_A = m_{{H^{{\pm}}}}$[GeV]',fontsize=10)
 #ax.set_ylabel(r'$m_{12}$[GeV]',fontsize=10)
 #ax.set_xlabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
 #ax.set_ylabel(r'$\tan(\beta)$[GeV]',fontsize=10)
 #ax.set_zlabel(r'$m_{12}$[GeV]',fontsize=10)
-ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
-ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
-ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
+#ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
+#ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
+#ax.set_zlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 #ax.set_xlabel(r'$m_{H^{\pm}}$[GeV]',fontsize=10)
 #ax.set_ylabel(r'$\cos(\beta - \alpha)$[GeV]',fontsize=10)
 #ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)
