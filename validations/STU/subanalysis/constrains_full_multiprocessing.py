@@ -50,8 +50,8 @@ if yukawatype == 2:
 mH_precision = 40
 mA_precision = 40
 mHpm_precision = 40
-#cba_precision = 20
-a_precision = 20
+cba_precision = 20
+#a_precision = 20
 tb_precision = 20
 #mH_precision = 2
 #mA_precision = 2
