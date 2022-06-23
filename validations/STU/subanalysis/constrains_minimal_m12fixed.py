@@ -40,12 +40,12 @@ tb_precision = 20
 # Output files
 if angletype=="a":
 	if yukawatype == 1:
-		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a-pi/2" + ".out"
-		outputplot = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a-pi/2" + ".pdf"
+		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a_range" + ".out"
+		outputplot = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_I_" + "a_range" + ".pdf"
 
 	if yukawatype == 2:
-		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a-pi/2" + ".out"
-		outputplot = validation_dir+"constrains_minmial" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a-pi/2" + ".pdf"
+		output = validation_dir+"constrains_minimal" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a_range" + ".out"
+		outputplot = validation_dir+"constrains_minmial" + "_" + str(mass_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_II_" + "a_range" + ".pdf"
 
 if angletype=="cba":
 	if yukawatype == 1:
