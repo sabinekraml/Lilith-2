@@ -52,7 +52,7 @@ mA_min = 200
 mA_max = 2000
 mH_min = 200
 mH_max = 2000
-mHpm = 500
+mHpm = 1000
 
 #mA_min = 750
 #mA_max = 800
@@ -82,10 +82,10 @@ yukawatype = 1
 strategy = 0
 
 # Precisions
-mH_precision = 10
-mA_precision = 10
-a_precision = 40
-tb_precision = 40
+mH_precision = 40
+mA_precision = 40
+a_precision = 100
+tb_precision = 100
 #mH_precision = 2
 #mA_precision = 2
 #a_precision = 10
@@ -466,7 +466,7 @@ z = data[:,2]
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2=[]
 for z_el in z:
-  z2.append(z_el-z.min())
+  z2.append(z_el-np.nanmin(z))
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), mH_precision)

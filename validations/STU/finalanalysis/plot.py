@@ -25,6 +25,11 @@ outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_100_100_I_stra
 mH_precision = 40
 mA_precision = 40
 
+outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_10_10_500_40_40_I_stra0_2HDMc.out"
+outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_10_10_500_40_40_I_stra0_2HDMc_plot.pdf"
+mH_precision = 10
+mA_precision = 10
+
 # Preparing plot
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -38,7 +43,7 @@ z = data[:,2]
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2=[]
 for z_el in z:
-  z2.append(z_el-z.min())
+  z2.append(z_el-np.nanmin(z))
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), mH_precision)
