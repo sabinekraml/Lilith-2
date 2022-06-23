@@ -82,10 +82,10 @@ yukawatype = 1
 strategy = 0
 
 # Precisions
-mH_precision = 40
-mA_precision = 40
-a_precision = 100
-tb_precision = 100
+mH_precision = 10
+mA_precision = 10
+a_precision = 40
+tb_precision = 40
 #mH_precision = 2
 #mA_precision = 2
 #a_precision = 10
@@ -350,7 +350,6 @@ def funcmulti(iteration):
 		m2logLmingrid=m2logLmin
 
 		for a_cons in np.linspace(a_min, a_max, a_precision):
-#			print("a = ", a_cons)
 			for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
 				m2logL = func(X=[a_cons, tb_cons], mH=mH, mA=mA, grid=True)
 				if m2logL < m2logLmingrid:
