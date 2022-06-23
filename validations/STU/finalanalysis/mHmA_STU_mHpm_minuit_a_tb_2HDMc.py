@@ -60,7 +60,7 @@ mHpm = 1000
 #mH_max = 800
 #mHpm = 750
 
-a_min = 0
+a_min = -np.pi/2
 a_max = np.pi/2
 tb_min = 0.5
 tb_max = 10
@@ -84,8 +84,8 @@ strategy = 0
 # Precisions
 mH_precision = 40
 mA_precision = 40
-a_precision = 100
-tb_precision = 100
+a_precision = 80
+tb_precision = 80
 #mH_precision = 2
 #mA_precision = 2
 #a_precision = 10
@@ -290,9 +290,14 @@ def func(X, mH, mA, grid):
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
 		if m122>999999:
-			S, T, U = float(p1.stdout[1058:1070]), float(p1.stdout[1085:1097]), float(p1.stdout[1112:1124])
-			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
-			cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+			if p1.stdout[765] != " ":
+				S, T, U = float(p1.stdout[1059:1071]), float(p1.stdout[1086:1098]), float(p1.stdout[1113:1125])
+				Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[972]), int(p1.stdout[997]), int(p1.stdout[1022])
+				cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+			else:
+				S, T, U = float(p1.stdout[1058:1070]), float(p1.stdout[1085:1097]), float(p1.stdout[1112:1124])
+				Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+				cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
 		else:
 			S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
 			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
@@ -360,7 +365,7 @@ def funcmulti(iteration):
 #		print("minimized ok", flush=True)
 
 		if m2logLmingrid==m2logLmin:
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + '0.000    ' + '0.000    ')
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
 
 		else:
 			grid = False
@@ -385,8 +390,13 @@ def funcmulti(iteration):
 #	bestfit.append('%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%amin + '%.3f    '%tbmin)
 #	print("multi ",bestfit)
 
+		if iteration == 0 and mA is not mA_max:
+			print("time = ", time.perf_counter()-start, flush=True)
+
 	if iteration == 0:
 		print("mA = ", mA, flush=True)
+		print("time = ", time.perf_counter()-start, flush=True)
+
 	print("mH = ", mH, " : done")
 
 	fresults.close()
@@ -477,7 +487,7 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=100, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=1000000, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 

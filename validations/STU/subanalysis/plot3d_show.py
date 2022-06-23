@@ -28,8 +28,8 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputplot = validation_dir+"constrains_minimal_40_1000_I.pdf"
 #outputfinal = validation_dir+"constrains_40_40_40_20_20_I.out"
 #outputplot = validation_dir+"constrains_40_40_40_20_20_I_full.pdf"
-outputfinal = validation_dir+"constrains_minimal_20_20_20_I_cba.out"
-outputplot = validation_dir+"constrains_minimal_20_20_20_I_cba_plot.pdf"
+outputfinal = validation_dir+"constrains_minimal_20_20_20_I_a_range.out"
+outputplot = validation_dir+"constrains_minimal_20_20_20_I_a_range_plot.pdf"
 
 # Preparing plot
 fig = plt.figure()
@@ -57,7 +57,7 @@ cbar.set_label("$m_{12}^2$", fontsize=10)
 # Title, labels, color bar...
 ax.set_xlabel(r'$m_H = m_A = m_{{H^{{\pm}}}}$[GeV]',fontsize=10)
 ax.set_ylabel(r'$\alpha$[rad]',fontsize=10)
-ax.set_ylabel(r'$\cos(\beta - \alpha)$[rad]',fontsize=10)
+#ax.set_ylabel(r'$\cos(\beta - \alpha)$[rad]',fontsize=10)
 ax.set_zlabel(r'$\tan(\beta)$[GeV]',fontsize=10)
 
 #ax.set_xlabel(r'$m_H = m_A = m_{{H^{{\pm}}}}$[GeV]',fontsize=10)
