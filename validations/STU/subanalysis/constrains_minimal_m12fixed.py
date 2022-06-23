@@ -97,7 +97,7 @@ for mass in np.linspace(mass_min, mass_max, mass_precision):
 			for tb in np.linspace(tb_min, tb_max, tb_precision):
 				b = np.arctan(tb)
 				sinba = np.sqrt(1-cba**2)
-				m122 = ( np.sin(b)*sinba + cba*np.cos(b) )**2 * (mH**2/tb)
+				m122 = ( np.sin(b)*sinba + cba*np.cos(b) )**2 * (mass**2/tb)
 
 				p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mass), str(mass), str(mass), str(sinba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
