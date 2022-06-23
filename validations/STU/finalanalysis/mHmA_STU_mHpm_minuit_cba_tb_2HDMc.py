@@ -80,22 +80,22 @@ strategy = 0
 
 # Scan ranges
 if yukawatype == 1:
-  cba_min = -0.25
-  cba_max = 0.25
-  tb_min = 0.1
+  cba_min = -1
+  cba_max = 1
+  tb_min = 0.5
   tb_max = 10
 
 if yukawatype == 2:
   cba_min = -0.05
   cba_max = 0.05
-  tb_min = 0.1
+  tb_min = 0.5
   tb_max = 10
 
 # Precisions
 mH_precision = 40
 mA_precision = 40
-cba_precision = 100
-tb_precision = 100
+cba_precision = 160
+tb_precision = 80
 #mH_precision = 2
 #mA_precision = 2
 #cba_precision = 10
@@ -193,14 +193,25 @@ def func(X, mH, mA, grid):
 
 		b = np.arctan(tb)
 		sinba = np.sqrt(1-cba**2)
-		m12 = ( np.sin(b)*sinba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
+		m122 = ( np.sin(b)*sinba + cba*np.cos(b) )**2 * (mH**2/tb)
 
 
 		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m12), str(tb), str(yukawatype)], capture_output=True, text=True)
 
-		S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
-		Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
-		cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+
+		if m122>999999:
+			if p1.stdout[765] != " ":
+				S, T, U = float(p1.stdout[1059:1071]), float(p1.stdout[1086:1098]), float(p1.stdout[1113:1125])
+				Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[972]), int(p1.stdout[997]), int(p1.stdout[1022])
+				cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+			else:
+				S, T, U = float(p1.stdout[1058:1070]), float(p1.stdout[1085:1097]), float(p1.stdout[1112:1124])
+				Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+				cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
+		else:
+			S, T, U = float(p1.stdout[1056:1068]), float(p1.stdout[1083:1095]), float(p1.stdout[1110:1122])
+			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+			cons = Treelevelunitarity==1 and Perturbativity==1 and Stability==1
 
 		X_STU = [S, T, U]
 		L2t_STU = C_STU_inv.dot(X_STU-CEN_STU).dot((X_STU-CEN_STU).T)
@@ -212,9 +223,9 @@ def func(X, mH, mA, grid):
 		L2t = L2t_STU + L2t_cba_tb
 
 		if cons == False and grid == True:
-			L2t = 10000
+			L2t = 1000000
 		if cons == False and grid == False:
-			L2t = L2t + 100
+			L2t = L2t + 1000
 
 #		print("Params = ", '%.0f'%mH, '%.0f  '%mA, '%.4f '%X[0], '%.4f '%X[1], L2t, cons, flush=True)
 
@@ -227,7 +238,7 @@ def func(X, mH, mA, grid):
 
 #cba0=0.001
 #tb0=1.001
-bestfit=[]
+#bestfit=[]
 
 print("***** running scan *****", flush=True)
 
@@ -237,7 +248,7 @@ def funcmulti(iteration):
 	fresults = open(output[iteration], 'w')
 	i=0
 	mH = mHlist[iteration]
-	m2logLmin=10000
+	m2logLmin=1000000
 	mAmin = 0
 	cbamin = 0
 	tbmin = 0
@@ -295,7 +306,7 @@ def funcmulti(iteration):
 #		print("minimized ok", flush=True)
 
 		if m2logLmingrid==m2logLmin:
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + '10000.00000    ' + '0.000    ' + '0.000    ')
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
 
 		else:
 			grid = False
@@ -320,8 +331,13 @@ def funcmulti(iteration):
 #	bestfit.append('%.2f    '%mH + '%.2f    '%mAmin + '%.5f    '%m2logLmin + '%.3f    '%cbamin + '%.3f    '%tbmin)
 #	print("multi ",bestfit)
 
+		if iteration == 0 and mA is not mA_max:
+			print("time = ", time.perf_counter()-start, flush=True)
+
 	if iteration == 0:
 		print("mA = ", mA, flush=True)
+		print("time = ", time.perf_counter()-start, flush=True)
+
 	print("mH = ", mH, " : done")
 
 	fresults.close()
@@ -343,7 +359,7 @@ print("***** scan finalized *****", flush=True)
 print("time = ", stop-start, flush=True)
 
 fresultsfinal = open(outputfinal, 'w')
-bestfit = []
+#bestfit = []
 for i in iterationlist:
 	fresults = open(output[i])
 #	data = np.genfromtxt(fresults)[:,-1]
@@ -401,7 +417,7 @@ z = data[:,2]
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2=[]
 for z_el in z:
-  z2.append(z_el-z.min())
+  z2.append(z_el-np.nanmin(z))
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), mH_precision)
@@ -412,7 +428,7 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=100, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=1000000, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 

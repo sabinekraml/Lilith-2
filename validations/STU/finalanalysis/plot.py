@@ -21,14 +21,14 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_500_100_100_I_stra0_2HDMc.out"
 #outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_500_100_100_I_stra0_2HDMc_plot.pdf"
 outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_100_100_I_stra0_2HDMc.out"
-outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_100_100_I_stra0_2HDMc_plot.pdf"
+outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_100_100_I_stra0_2HDMc_plot2.pdf"
 mH_precision = 40
 mA_precision = 40
 
-outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_10_10_500_40_40_I_stra0_2HDMc.out"
-outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_10_10_500_40_40_I_stra0_2HDMc_plot.pdf"
-mH_precision = 10
-mA_precision = 10
+#outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_10_10_500_40_40_I_stra0_2HDMc.out"
+#outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_10_10_500_40_40_I_stra0_2HDMc_plot.pdf"
+#mH_precision = 10
+#mA_precision = 10
 
 # Preparing plot
 fig = plt.figure()

@@ -329,7 +329,7 @@ def func(X, mH, mA, grid):
 # Scan
 ######################################################################
 
-bestfit=[]
+#bestfit=[]
 
 print("***** running scan *****", flush=True)
 
@@ -366,8 +366,6 @@ def funcmulti(iteration):
 
 		if m2logLmingrid==m2logLmin:
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
-			print("no cons ", '%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
-			fresults.flush()
 
 		else:
 			grid = False
@@ -379,7 +377,6 @@ def funcmulti(iteration):
 			if funcminimized.success == False :
 				print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
-			print("cons ", '%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
 
 			if m2logL < m2logLmin:
 				m2logLmin = m2logL
@@ -421,7 +418,7 @@ print("***** scan finalized *****", flush=True)
 print("time = ", stop-start, flush=True)
 
 fresultsfinal = open(outputfinal, 'w')
-bestfit = []
+#bestfit = []
 for i in iterationlist:
 	fresults = open(output[i])
 #	data = np.genfromtxt(fresults)[:,-1]
