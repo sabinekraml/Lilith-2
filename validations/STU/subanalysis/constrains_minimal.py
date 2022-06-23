@@ -20,7 +20,7 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 yukawatype = 1
 
 # Scan ranges
-mass_min = 1000
+mass_min = 200
 mass_max = 2000
 m122_min = 10000
 m122_max = 3000000
@@ -30,7 +30,7 @@ sba0 = 1
 tb0 = 1.5
 
 # Precisions
-mass_precision = 10
+mass_precision = 20
 m122_precision = 300
 
 # Output files

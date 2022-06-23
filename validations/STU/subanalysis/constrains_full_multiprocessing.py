@@ -30,21 +30,21 @@ mH_max = 2000
 mHpm_min = 200
 mHpm_max = 2000
 
-#if yukawatype == 1:
-#  cba_min = -0.25
-#  cba_max = 0.25
-#  tb_min = 0.1
-#  tb_max = 10
-#if yukawatype == 2:
-#  cba_min = -0.05
-#  cba_max = 0.05
-#  tb_min = 0.1
-#  tb_max = 10
+if yukawatype == 1:
+  cba_min = -0.25
+  cba_max = 0.25
+  tb_min = 0.5
+  tb_max = 10
+if yukawatype == 2:
+  cba_min = -0.05
+  cba_max = 0.05
+  tb_min = 0.5
+  tb_max = 10
 
-a_min = 0
-a_max = np.pi/2
-tb_min = 0.5
-tb_max = 10
+#a_min = 0
+#a_max = np.pi/2
+#tb_min = 0.5
+#tb_max = 10
 
 # Precisions
 mH_precision = 40
@@ -74,23 +74,23 @@ outputplot = []
 if yukawatype == 1:
 	for i in range(mH_precision):
 		output.append(validation_dir+"multiprocessing/constrains_" + str(i) + ".out")
-#		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + str(i) + ".pdf"
+		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + "cba" + ".pdf"
 
-#	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + ".out"
-		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + str(i) + ".pdf"
+	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + "cba" + ".out"
+#		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + "a" + ".pdf"
 
-	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "I" + ".out"
+#	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "I" + "_" + "a" + ".out"
 
 
 if yukawatype == 2:
 	for i in range(mH_precision):
 		output = validation_dir+"multiprocessing/constrains_" + str(i) + ".out"
-#		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + str(i) + ".pdf"
+		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + "cba" + ".pdf"
 
-#	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + ".out"
-		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + str(i) + ".pdf"
+	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(cba_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + "cba" + ".out"
+#		outputplot = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + "a" + ".pdf"
 
-	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "II" + ".out"
+#	outputfinal = validation_dir+"constrains" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + "II" + "_" + "a" + ".out"
 
 ######################################################################
 # Definition
@@ -107,16 +107,16 @@ def func(iteration):
 			print("mA = ", mA, flush=True)
 		i+=1
 		for mHpm in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
-#			for cba in np.linspace(cba_min, cba_max, cba_precision):
 			cons = False
-			for a in np.linspace(a_min, a_max, a_precision):
+			for cba in np.linspace(cba_min, cba_max, cba_precision):
+#			for a in np.linspace(a_min, a_max, a_precision):
 #				print("cba = ", cba)
 #				print("cons = ", cons)
 				for tb in np.linspace(tb_min, tb_max, tb_precision):
-#					sba = np.sqrt(1-cba**2)
-#					m122 = ( np.sin(np.arctan(tb))*sba + cba*np.cos(np.arctan(tb)) )**2 * (mH**2/tb)
-					sba = np.sin(np.arctan(tb)-a)
-					m122 = np.cos(a)**2*mH**2/tb
+					sba = np.sqrt(1-cba**2)
+					m122 = ( np.sin(np.arctan(tb))*sba + cba*np.cos(np.arctan(tb)) )**2 * (mH**2/tb)
+#					sba = np.sin(np.arctan(tb)-a)
+#					m122 = np.cos(a)**2*mH**2/tb
 
 					p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
@@ -126,7 +126,8 @@ def func(iteration):
 						Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 			
 					if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:				
-						fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%a + '%.2f    '%tb + '\n')
+#						fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%a + '%.2f    '%tb + '\n')
+						fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.2f    '%mHpm + '1    ' + '%.2f    '%cba + '%.2f    '%tb + '\n')
 						cons = True
 						break	
 				

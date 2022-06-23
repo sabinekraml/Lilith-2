@@ -27,7 +27,7 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputfinal = validation_dir+"constrains_minimal_40_1000_I.out"
 #outputplot = validation_dir+"constrains_minimal_40_1000_I.pdf"
 outputfinal = validation_dir+"constrains_40_40_40_20_20_I.out"
-outputplot = validation_dir+"constrains_40_40_40_20_20_I.pdf"
+outputplot = validation_dir+"constrains_40_40_40_20_20_I_full.pdf"
 
 
 # Preparing plot
