@@ -84,7 +84,7 @@ strategy = 0
 # Precisions
 mH_precision = 40
 mA_precision = 40
-a_precision = 80
+a_precision = 160
 tb_precision = 80
 #mH_precision = 2
 #mA_precision = 2
@@ -366,6 +366,8 @@ def funcmulti(iteration):
 
 		if m2logLmingrid==m2logLmin:
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
+			print("no cons ", '%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
+			fresults.flush()
 
 		else:
 			grid = False
@@ -377,6 +379,7 @@ def funcmulti(iteration):
 			if funcminimized.success == False :
 				print("Could not minimize for (mH, mA) = ", '%.0f'%mH, '%.0f'%mA, flush=True)
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
+			print("cons ", '%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
 
 			if m2logL < m2logLmin:
 				m2logLmin = m2logL
