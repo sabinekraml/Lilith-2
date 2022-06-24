@@ -82,8 +82,8 @@ yukawatype = 1
 strategy = 0
 
 # Precisions
-mH_precision = 40
-mA_precision = 40
+mH_precision = 100
+mA_precision = 100
 a_precision = 160
 tb_precision = 80
 #mH_precision = 2
@@ -347,7 +347,6 @@ def funcmulti(iteration):
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
-			print("time = ", time.perf_counter()-start, flush=True)
 		i+=1
 
 		a0 = 0

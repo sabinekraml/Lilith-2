@@ -20,8 +20,10 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 
 #outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_500_100_100_I_stra0_2HDMc.out"
 #outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_500_100_100_I_stra0_2HDMc_plot.pdf"
-outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_100_100_I_stra0_2HDMc.out"
-outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_100_100_I_stra0_2HDMc_plot2.pdf"
+outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_160_80_I_stra0_2HDMc.out"
+outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_40_40_1000_160_80_I_stra0_2HDMc.pdf"
+#outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_40_40_1000_100_100_I_stra0_2HDMc.out"
+#outputplot = validation_dir+"mHmA_STU_mHpm_minuit_cba_tb_40_40_1000_100_100_I_stra0_2HDMc.pdf"
 mH_precision = 40
 mA_precision = 40
 
@@ -53,14 +55,16 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
-#sc = ax.scatter(x, y, c=z2, cmap="jet_r")
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=10, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, cmap="jet_r")
+#sc = ax.scatter(x, y, c=z2, vmin=0, vmax=10, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
 ax.set_aspect(1)
 
 # Title, labels, color bar...
+ax.set_xlim([200, 2000])
+ax.set_ylim([200, 2000])
 ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
 ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
 
