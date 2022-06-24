@@ -1,6 +1,33 @@
-#import numpy as np
-#import matplotlib.pyplot as plt
-#from mpl_toolkits.mplot3d import Axes3D
+import sys, os
+from scipy.interpolate import griddata
+import matplotlib.pyplot as plt
+import matplotlib
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+from iminuit.minimize import minimize
+import subprocess
+import time
+import concurrent.futures
+from concurrent.futures import ProcessPoolExecutor as executor 
+from multiprocessing import Pool
+
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
+calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))+"/2HDMc/2HDMC-1.8.0/"
+
+
+p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', "3000", "1000", "1500", "-0.01", '0.00000', '0.00000', "1000000", "1.5", "1"], capture_output=True, text=True)
+print(p1.stdout)
+print(p1.stdout[609:656])
+print(p1.stdout[644])
+
+
+#print(p1.stdout[720:732])
+
+#		if m122>999999:
+#			if p1.stdout[765] != " ":
+#				S, T, U = float(p1.stdout[1059:1071]), float(p1.stdout[1086:1098]), float(p1.stdout[1113:1125])
+#				Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[972]), int(p1.stdout[997]), int(p1.stdout[1022])
+
 
 ## only for example, use your grid
 #z = np.linspace(0, 1, 15)
@@ -181,35 +208,6 @@
 
 #print("***** scan finalized *****")
 
-import sys, os
-import matplotlib.pyplot as plt
-import matplotlib
-import numpy as np
-from scipy.optimize import minimize
-
-#m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
-
-def func(x):
-	return x**2
-
-minimize(func, [1], bounds=((0,1),(0,2)))
-
-x = np.linspace(-0.5,0.5,50)
-y = np.arccos(x)
-
-#print(np.arccos(-0.8))
-#print(0.5*(np.pi-2*np.arcsin(-0.8)))
-
-tb = 2
-cba = -0.1
-mH = 500
-b = np.arctan(tb)
-sba = np.sqrt(1-cba**2)
-m12 = np.cos( np.arctan(tb) - np.arccos(cba) ) * (mH/np.sqrt(tb))
-m12better = ( np.sin(b)*sba + cba*np.cos(b) ) * (mH/np.sqrt(tb))
-print("m12 = ", m12)
-print("m12better = ", m12better)
-
 #print(np.arccos(0.25))
 #print(np.cos(1.823)) # = -0.25
 #print(np.cos(1.318)) # =  0.25
@@ -264,11 +262,11 @@ print("m12better = ", m12better)
 #print("test = ", ca, ca2)
 
 # setting the axes at the centre
-fig = plt.figure()
-ax = fig.add_subplot(1, 1, 1)
+#fig = plt.figure()
+#ax = fig.add_subplot(1, 1, 1)
 
-# plot the function
-plt.plot(x,y, 'r')
+## plot the function
+#plt.plot(x,y, 'r')
 
 # show the plot
 #plt.show()

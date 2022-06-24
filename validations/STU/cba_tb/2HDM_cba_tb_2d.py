@@ -44,8 +44,14 @@ print("validation_dir: ",validation_dir)
 
 print("***** reading parameters *****")
 
+#resultstype = "latestRun2.list"
+resultstype = "thisRun2.list"
+
+# 2HDM type = 1, 2
+yukawatype = "II"
+
 # Experimental results
-exp_input = lilith_dir+"validations/STU/latestRun2.list"
+exp_input = lilith_dir+"validations/STU/finalanalysis/" + resultstype
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -53,26 +59,23 @@ my_precision = "BEST-QCD"
 # Higgs mass to test
 hmass = 125.09
 
-# 2HDM type = 1, 2
-type = 1
-
 # Output files
-if type == 1:
-  output = validation_dir+"cba_tb_I_2d.out"
-  outputplot = validation_dir+"cba_tb_I_2d.pdf"
+if resultstype == "latestRun2.list":
+	output = validation_dir+"cba_tb_" + yukawatype + "_2d_36fb.out"
+	outputplot = validation_dir+"cba_tb_" + yukawatype + "_2d_36fb.pdf"
+if resultstype == "thisRun2.list":
+	output = validation_dir+"cba_tb_"+ yukawatype + "_2d_140fb.out"
+	outputplot = validation_dir+"cba_tb_" + yukawatype + "_2d_140fb.pdf"
 
-if type == 2:
-  output = validation_dir+"cba_tb_II_2d.out"
-  outputplot = validation_dir+"cba_tb_II_2d.pdf"
 
 # Scan ranges
-if type == 1:
+if yukawatype == "I":
   cba_min = -0.5
   cba_max = 0.5
   tb_min = 0.1
   tb_max = 10.
 
-if type == 2:
+if yukawatype == "II":
   cba_min = -0.1
   cba_max = 0.6
   tb_min = 0.1
@@ -90,12 +93,12 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
     
     sba = np.sqrt(1-cba**2)
     
-    if type == 1:
+    if yukawatype == "I":
       CV = sba
       CU = sba + cba/tb
       CD = sba + cba/tb
     
-    elif type == 2:
+    elif yukawatype == "II":
       CV = sba
       CU = sba + cba/tb
       CD = sba - cba*tb
@@ -223,14 +226,15 @@ plt.title("          Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbv
 plt.xlabel(r'$\cos(\beta-\alpha)$',fontsize=25)
 plt.ylabel(r'$\tan\beta$',fontsize=25)
 plt.yscale('log')
-if type == 1:
+if resultstype == "latestRun2.list":
   plt.xlim([-0.601,0.601])
-  plt.text(0.11, 0.2, r'2HDM Type-I', fontsize=15)
-  plt.text(0.08, 0.16, r'(Run 2, 36/fb, ATLAS+CMS)', fontsize=12)
-if type == 2:
-  plt.xlim([-0.151,0.601])
-  plt.text(0.21, 0.2, r'2HDM Type-II', fontsize=15)
-  plt.text(0.21, 0.16, r'(Run 2, 36/fb, ATLAS+CMS)', fontsize=12)
+  plt.text(0.11, 0.2, '2HDM Type-' + yukawatype, fontsize=15)
+  plt.text(0.08, 0.16, r'(Run 2, 36$fb^{-1}$, ATLAS+CMS)', fontsize=12)
+if resultstype == "thisRun2.list":
+  plt.xlim([-0.601,0.601])
+  plt.text(0.11, 0.2, '2HDM Type-' + yukawatype, fontsize=15)
+  plt.text(0.08, 0.16, r'(Run 2, ATLAS 36$fb^{-1}$ + CMS 140$fb^{-1}$)', fontsize=12)
+
 
 fig.set_tight_layout(True)
 
