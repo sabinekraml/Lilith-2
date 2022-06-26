@@ -30,11 +30,11 @@ print("***** reading parameters *****", flush=True)
 # Values
 
 # Scan ranges
-mA_min = 500
-mA_max = 1500
-mH_min = 500
-mH_max = 1500
-mHpm = 1000
+mA_min = 200
+mA_max = 1000
+mH_min = 200
+mH_max = 1000
+mHpm = 500
 
 #mA_min = 200
 #mA_max = 250
