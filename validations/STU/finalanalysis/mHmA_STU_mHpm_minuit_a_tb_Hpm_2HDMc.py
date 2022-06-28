@@ -30,17 +30,17 @@ print("***** reading parameters *****", flush=True)
 # Values
 
 # Scan ranges
-mA_min = 200
-mA_max = 1000
-mH_min = 200
-mH_max = 1000
-mHpm = 500
-
 #mA_min = 200
-#mA_max = 250
+#mA_max = 1000
 #mH_min = 200
-#mH_max = 250
-#mHpm = 200	
+#mH_max = 1000
+#mHpm = 500
+
+mA_min = 1100
+mA_max = 1200
+mH_min = 1000
+mH_max = 1100
+mHpm = 1000
 
 a_min = -np.pi/2
 a_max = np.pi/2
@@ -48,8 +48,8 @@ tb_min = 0.5
 tb_max = 10
 
 # Precisions
-mH_precision = 80
-mA_precision = 80
+mH_precision = 30
+mA_precision = 30
 a_precision = 200
 tb_precision = 100
 
@@ -291,9 +291,9 @@ def func(X, mH, mA, grid):
 		L2t = L2t_STU + L2t_a_tb
 
 		if cons == False and grid == True:
-			L2t = 1000000
+			L2t = 100
 		if cons == False and grid == False:
-			L2t = L2t + 1000
+			L2t = L2t + 10
 
 		return L2t
 
@@ -312,7 +312,7 @@ def funcmulti(iteration):
 	fresults = open(output[iteration], 'w')
 	i=0
 	mH = mHlist[iteration]
-	m2logLmin=1000000
+	m2logLmin=100
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:

@@ -14,11 +14,20 @@ from multiprocessing import Pool
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
 calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))+"/2HDMc/2HDMC-1.8.0/"
 
+data = np.genfromtxt("finalanalysis/mHmA_STU_mHpm_minuit_a_tb_40_40_1000_160_80_I_stra0_2HDMc.out")
+data = np.genfromtxt("finalanalysis/test.out")
+x = data[:,0]
+y = data[:,1]
+z = data[:,2]
+a = data[:,3]
+tb = data[:,4]
 
-p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', "3000", "1000", "1500", "-0.01", '0.00000', '0.00000', "1000000", "1.5", "1"], capture_output=True, text=True)
-print(p1.stdout)
-print(p1.stdout[609:656])
-print(p1.stdout[644])
+print("a_min, a_max, tb_min, tb_max = ", np.nanmin(a), np.nanmax(a), np.nanmin(tb), np.nanmax(tb))
+
+#p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', "3000", "1000", "1500", "-0.01", '0.00000', '0.00000', "1000000", "1.5", "1"], capture_output=True, text=True)
+#print(p1.stdout)
+#print(p1.stdout[609:656])
+#print(p1.stdout[644])
 
 
 #print(p1.stdout[720:732])

@@ -32,6 +32,8 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #mA_precision = 100
 outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_80_80_1000_200_100_I_Hpm_CMS140fb_2HDMc.out"
 outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_80_80_1000_200_100_I_Hpm_CMS140fb_2HDMc_sig.pdf"
+#outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_80_80_500_200_100_I_Hpm_CMS140fb_2HDMc.out"
+#outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_80_80_500_200_100_I_Hpm_CMS140fb_2HDMc_sig.pdf"
 mH_precision = 80
 mA_precision = 80
 
@@ -64,13 +66,16 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
 #sc = ax.scatter(x, y, c=z2, cmap="jet_r")
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=20, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=10, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
-
+# 4.695  9.488
+ 
 ax.set_aspect(1)
 
 # Title, labels, color bar...
+#ax.set_xlim([200, 1000])
+#ax.set_ylim([200, 1000])
 ax.set_xlim([500, 1500])
 ax.set_ylim([500, 1500])
 ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
