@@ -52,13 +52,12 @@ for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/constrains_" + str(i) + ".out")
 
 if yukawatype == 1:
-	outputfinal = validation_dir+"constrains_theo" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_I" + ".out"
-	outputplot = validation_dir+"constrains_theo"  + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_I" + ".pdf"
+	outputfinal = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_I" + ".out"
+	outputplot = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_I" + ".pdf" 
 
 if yukawatype == 2:
-	outputfinal = validation_dir+"constrains_theo" + "_"  + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_II" + ".out"
-	outputplot = validation_dir+"constrains_theo" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_II" +".pdf"
-
+	outputfinal = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_II" + ".out"
+	outputplot = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_II" + ".pdf" 
 
 ######################################################################
 # Definition
