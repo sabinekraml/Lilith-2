@@ -27,12 +27,11 @@ mA_min = 200
 mA_max = 2000
 mH_min = 200
 mH_max = 2000
-mHpm = 1000
 cba = 0
 tb = 1.5
 
 # Precisions
-mH_precision = 2
+mH_precision = 100
 mA_precision = 100
 
 # Lists
@@ -52,12 +51,12 @@ for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/constrains_" + str(i) + ".out")
 
 if yukawatype == 1:
-	outputfinal = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_I" + ".out"
-	outputplot = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_I" + ".pdf" 
+	outputfinal = validation_dir+"constrains_theo" + "_" + "mHpmismH" + "_I" + ".out"
+	outputplot = validation_dir+"constrains_theo" + "_" + "mHpmismH" + "_I" + ".pdf" 
 
 if yukawatype == 2:
-	outputfinal = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_II" + ".out"
-	outputplot = validation_dir+"constrains_theo" + "_" + str(mHpm) + "_II" + ".pdf" 
+	outputfinal = validation_dir+"constrains_theo" + "_" + "mHpmismH" + "_II" + ".out"
+	outputplot = validation_dir+"constrains_theo" + "_" + "mHpmismH" + "_II" + ".pdf" 
 
 ######################################################################
 # Definition
@@ -73,6 +72,7 @@ def func(iteration):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
 		i+=1
+		mHpm = mH
 		b = np.arctan(tb)
 		m122 = np.sin(b)**2 * (mH**2/tb)
 
@@ -141,12 +141,11 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z, (X, Y), method="linear")
 
 # Plotting
-sc = ax.contourf(xi,yi,Z,[10**(-10),2],colors=['blue'])
+#sc = ax.contourf(xi,yi,Z,[10**(-10),2],colors=['blue'])
+sc = ax.scatter(x, y, c=z, s=30)
 
 # Title, labels, color bar...
-ax.set_xlim([600, 1400])
-ax.set_ylim([600, 1400])
-ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
+ax.set_xlabel(r'$m_H = m_{H^{\pm}}$[GeV]',fontsize=10)
 ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
 
 
