@@ -137,39 +137,39 @@ def usrXMLinput(mass=125.09, cba=0., tb=1., precision="BEST-QCD"):
 # Scan initialization
 ######################################################################
 
-print("***** scan initialization *****")
+#print("***** scan initialization *****")
 
-# Prepare output
-fresults = open(output, 'w')
+## Prepare output
+#fresults = open(output, 'w')
 
 # Initialize a Lilith object
 lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
 lilithcalc.readexpinput(exp_input)
 
-######################################################################
-# Scan routine
-######################################################################
+#######################################################################
+## Scan routine
+#######################################################################
 
-m2logLmin=10000
-max=-1
+#m2logLmin=10000
+#max=-1
 
-print("***** running 2HDM scan *****")
+#print("***** running 2HDM scan *****")
 
-for cba in np.linspace(cba_min, cba_max, grid_subdivisions):
-    fresults.write('\n')
-    for tb in np.linspace(tb_min, tb_max, grid_subdivisions):
-        myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
-        lilithcalc.computelikelihood(userinput=myXML_user_input)
-        m2logL = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
-        if m2logL < m2logLmin:
-            m2logLmin = m2logL
-            cbamin = cba
-            tbmin = tb
-        fresults.write('%.5f    '%cba +'%.5f    '%tb + '%.5f     '%m2logL + '\n')
-fresults.close()
+#for cba in np.linspace(cba_min, cba_max, grid_subdivisions):
+#    fresults.write('\n')
+#    for tb in np.linspace(tb_min, tb_max, grid_subdivisions):
+#        myXML_user_input = usrXMLinput(hmass, tb=tb, cba=cba, precision=my_precision)
+#        lilithcalc.computelikelihood(userinput=myXML_user_input)
+#        m2logL = lilithcalc.l                 #This is -2*Ln(L) at the (cba,tb) point
+#        if m2logL < m2logLmin:
+#            m2logLmin = m2logL
+#            cbamin = cba
+#            tbmin = tb
+#        fresults.write('%.5f    '%cba +'%.5f    '%tb + '%.5f     '%m2logL + '\n')
+#fresults.close()
 
-print("***** scan finalized *****")
+#print("***** scan finalized *****")
 
 ######################################################################
 # Plot routine
@@ -228,12 +228,12 @@ plt.ylabel(r'$\tan\beta$',fontsize=25)
 plt.yscale('log')
 if resultstype == "latestRun2.list":
   plt.xlim([-0.601,0.601])
-  plt.text(0.11, 0.2, '2HDM Type-' + yukawatype, fontsize=15)
-  plt.text(0.08, 0.16, r'(Run 2, 36$fb^{-1}$, ATLAS+CMS)', fontsize=12)
+  plt.text(-0.55, 0.2, '2HDM Type-' + yukawatype, fontsize=15)
+  plt.text(-0.55, 0.16, r'(Run 2, 36$fb^{-1}$, ATLAS+CMS)', fontsize=12)
 if resultstype == "thisRun2.list":
   plt.xlim([-0.601,0.601])
-  plt.text(0.11, 0.2, '2HDM Type-' + yukawatype, fontsize=15)
-  plt.text(0.08, 0.16, r'(Run 2, ATLAS 36$fb^{-1}$ + CMS 140$fb^{-1}$)', fontsize=12)
+  plt.text(-0.55, 0.2, '2HDM Type-' + yukawatype, fontsize=15)
+  plt.text(-0.55, 0.16, r'(Run 2, ATLAS 36$fb^{-1}$ + CMS 140$fb^{-1}$)', fontsize=12)
 
 
 fig.set_tight_layout(True)
