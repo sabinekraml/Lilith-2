@@ -6,6 +6,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import subprocess
 import time
+import concurrent.futures
+from concurrent.futures import ProcessPoolExecutor as executor 
+from multiprocessing import Pool
 
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))+"/"
 validation_dir = lilith_dir+"validations/STU/subanalysis/"
@@ -29,16 +32,31 @@ cba = 0
 tb = 1.5
 
 # Precisions
+mH_precision = 2
 mA_precision = 100
-mH_precision = 100
+
+# Lists
+mHlist = []
+for mH in np.linspace(mH_min, mH_max, mH_precision):
+	mHlist.append(mH)
+
+iterationlist = []
+for i in range(mH_precision):
+	iterationlist.append(i)
 
 # Output files
+output = []
+
+# Output files
+for i in range(mH_precision):
+	output.append(validation_dir+"multiprocessing/constrains_" + str(i) + ".out")
+
 if yukawatype == 1:
-	output = validation_dir+"constrains_theo" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_I" + ".out"
+	outputfinal = validation_dir+"constrains_theo" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_I" + ".out"
 	outputplot = validation_dir+"constrains_theo"  + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_I" + ".pdf"
 
 if yukawatype == 2:
-	output = validation_dir+"constrains_theo" + "_"  + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_II" + ".out"
+	outputfinal = validation_dir+"constrains_theo" + "_"  + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_II" + ".out"
 	outputplot = validation_dir+"constrains_theo" + "_" + str(mA_precision) + "_" + str(mH_precision) + "_" + str(mHpm) + "_" + str(cba) + "_" + str(tb) + "_II" +".pdf"
 
 
@@ -46,20 +64,20 @@ if yukawatype == 2:
 # Definition
 ######################################################################
 
-# Prepare output
-fresults = open(output, 'w')
+def func(iteration):
+	# Prepare output
+	fresults = open(output[iteration], 'w')
+	i=0
+	mH = mHlist[iteration]
 
-i=0
-
-for mH in np.linspace(mH_min, mH_max, mH_precision):
-	print("mH = ", mH, flush=True)
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
-		print("mA = ", mA)
+		if i%(mA_precision/10)==0 and iteration == 0:
+			print("mA = ", mA, flush=True)
+		i+=1
 		b = np.arctan(tb)
-		sinba = np.sqrt(1-cba**2)
-		m122 = ( np.sin(b)*sinba + cba*np.cos(b) )**2 * (mH**2/tb)
+		m122 = np.sin(b)**2 * (mH**2/tb)
 
-		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(sinba), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(1), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
 
 		if m122>999999:
 			if p1.stdout[765] != " ":
@@ -68,11 +86,38 @@ for mH in np.linspace(mH_min, mH_max, mH_precision):
 				Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
 		else:
 			Treelevelunitarity, Perturbativity, Stability = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
+
+
+		p1 = subprocess.run([calc2HDM_dir+'CalcPhys', '125.00000', str(mH), str(mA), str(mHpm), str(-1), '0.00000', '0.00000', str(m122), str(tb), str(yukawatype)], capture_output=True, text=True)
+
+		if m122>999999:
+			if p1.stdout[765] != " ":
+				Treelevelunitarity1, Perturbativity1, Stability1 = int(p1.stdout[972]), int(p1.stdout[997]), int(p1.stdout[1022])
+			else:
+				Treelevelunitarity1, Perturbativity1, Stability1 = int(p1.stdout[971]), int(p1.stdout[996]), int(p1.stdout[1021])
+		else:
+			Treelevelunitarity1, Perturbativity1, Stability1 = int(p1.stdout[969]), int(p1.stdout[994]), int(p1.stdout[1019])
 					
-		if Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1:
+		if ( Treelevelunitarity == 1 and Perturbativity == 1 and Stability == 1 ) or ( Treelevelunitarity1 == 1 and Perturbativity1 == 1 and Stability1 == 1 ) :
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + '1    ' + '\n')
 		else:
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + '\n')
+
+######################################################################
+# Multiprocessing
+######################################################################
+
+if __name__ == '__main__':
+	pool = Pool()
+	pool.map(func, iterationlist)
+
+fresultsfinal = open(outputfinal, 'w')
+for i in iterationlist:
+	fresults = open(output[i])
+	content = fresults.read()
+	fresultsfinal.write(content+"\n")
+	fresults.close()
+fresultsfinal.close()
 
 ######################################################################
 # Plot routine
@@ -80,20 +125,28 @@ for mH in np.linspace(mH_min, mH_max, mH_precision):
 
 # Preparing plot
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+ax = fig.add_subplot(111)
 
 # Getting the data
-data = np.genfromtxt(output)
+data = np.genfromtxt(outputfinal)
 
 x = data[:,0]
 y = data[:,1]
 z = data[:,2]
-consvalue = data[:,4]
+
+# Interpolation
+xi = np.linspace(x.min(), x.max(), mH_precision)
+yi = np.linspace(y.min(), y.max(), mA_precision)
+
+X, Y = np.meshgrid(xi, yi)
+Z = griddata((x, y), z, (X, Y), method="linear")
 
 # Plotting
-sc = ax.scatter(x, y, z, c=consvalue, s=30)
+sc = ax.contourf(xi,yi,Z,[10**(-10),2],colors=['blue'])
 
 # Title, labels, color bar...
+ax.set_xlim([600, 1400])
+ax.set_ylim([600, 1400])
 ax.set_xlabel(r'$m_H$[GeV]',fontsize=10)
 ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
 

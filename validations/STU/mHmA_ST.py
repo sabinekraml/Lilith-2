@@ -29,15 +29,23 @@ print("validation_dir: ",validation_dir)
 print("***** reading parameters *****")
 
 # Values
-Scen = 0.15
+#Scen = 0.15
+#Ssigma = 0.08
+#Tcen = 0.27
+#Tsigma = 0.06
+#STcorrelation = 0.93
+
+Scen = 0.05
 Ssigma = 0.08
-Tcen = 0.27
-Tsigma = 0.06
-STcorrelation = 0.93
+Tcen = 0.09
+Tsigma = 0.07
+STcorrelation = 0.92
 
 # Output files
-output = validation_dir+"mHmA_ST.out"
-outputplot = validation_dir+"mHmA_ST.pdf"
+#output = validation_dir+"mHmA_ST_CDF.out"
+#outputplot = validation_dir+"mHmA_ST_CDF.pdf"
+output = validation_dir+"mHmA_ST_PDG.out"
+outputplot = validation_dir+"mHmA_ST_PDG.pdf"
 
 # Scan ranges
 mH_min = -400
@@ -110,6 +118,7 @@ print("***** plotting *****")
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 8
 matplotlib.rcParams['ytick.major.pad'] = 8
+matplotlib.rcParams['axes.linewidth'] = 2
 
 fig = plt.figure( figsize=(5,5) )
 ax = fig.add_subplot(111)
@@ -120,10 +129,8 @@ ax.yaxis.set_label_position('left')
 ax.xaxis.set_ticks_position('both')
 ax.xaxis.set_label_position('bottom')
 
-plt.minorticks_on()
 plt.tick_params(direction='in', labelsize=14, length=10, width=2)
-plt.tick_params(which='minor', direction='in', length=7, width=1.2)
-
+plt.yticks(np.linspace(-400, 400, 5))
 
 # Getting the data
 data = np.genfromtxt(output)
@@ -164,8 +171,10 @@ plt.ylabel(r'$\Delta m_A$[GeV]',fontsize=16)
 plt.text(-360, 335, r'$\cos(\beta - \alpha) = 0$, $m_{H^{\pm}} = 1TeV$', fontsize=9)
 plt.text(-360, 285, f"Best points ($\Delta m_H, \Delta m_A$) = ({mHmin:.0f}, {mAmin:.0f})", fontsize=9)
 plt.text(-360, 255, f"with $\chi^{2}$ = {m2logLmin:.3f}, S = {calc.Scalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}, T = {calc.Tcalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}", fontsize=9)
-plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
-plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
+#plt.text(-360, 205, f"CDF (2022)", fontsize=9)
+plt.text(-360, 205, f"PDG (2021)", fontsize=9)
+#plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
+#plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
 
 fig.set_tight_layout(True)
 
