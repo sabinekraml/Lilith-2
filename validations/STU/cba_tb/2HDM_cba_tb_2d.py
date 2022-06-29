@@ -222,7 +222,7 @@ ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],cmap=matplotlib.cm.get_cmap(cmap,
 #              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 # Title, labels, color bar etc.
-plt.title("          Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=15, ha="left")
+plt.title("                              Lilith-2.1", fontsize=15, ha="left")
 plt.xlabel(r'$\cos(\beta-\alpha)$',fontsize=25)
 plt.ylabel(r'$\tan\beta$',fontsize=25)
 plt.yscale('log')
