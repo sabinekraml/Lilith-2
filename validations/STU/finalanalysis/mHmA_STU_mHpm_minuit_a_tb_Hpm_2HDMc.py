@@ -50,8 +50,8 @@ tb_max = 10
 # Precisions
 mH_precision = 20
 mA_precision = 30
-a_precision = 50
-tb_precision = 50
+a_precision = 200
+tb_precision = 200
 
 #mH_precision = 2
 #mA_precision = 2
@@ -345,16 +345,18 @@ def funcmulti(iteration):
 					a0 = a_cons
 					tb0 = tb_cons
 
-		if m2logLmingrid==m2logLmin or abs(np.sin(np.arctan(tb)-a)<0.99:
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
+#		if m2logLmingrid==m2logLmin or abs(np.sin(np.arctan(tb)-a)<0.99:
+#			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
 
-		else:
-			grid = False
-			funcminimized = minimize(func, [a0,tb0], args=(mH, mA, grid), method='migrad', bounds=((a_min,a_max),(tb_min,tb_max)), options={'stra': strategy})
+#		else:
+#			grid = False
+#			funcminimized = minimize(func, [a0,tb0], args=(mH, mA, grid), method='migrad', bounds=((a_min,a_max),(tb_min,tb_max)), options={'stra': strategy})
 
-			m2logL = funcminimized.fun
-			fit = funcminimized.x
-			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
+#			m2logL = funcminimized.fun
+#			fit = funcminimized.x
+#			fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1])
+
+		fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logLgrid + '%.3f    '%a0 + '%.3f    '%tb0)
 
 		fresults.write('\n')	
 
