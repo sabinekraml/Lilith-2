@@ -30,10 +30,10 @@ print("***** reading parameters *****", flush=True)
 # Values
 
 # Scan ranges
-mA_min = 400
-mA_max = 900
-mH_min = 400
-mH_max = 700
+mA_min = 550
+mA_max = 750
+mH_min = 550
+mH_max = 650
 mHpm = 500
 
 #mA_min = 1100
@@ -48,10 +48,10 @@ tb_min = 0.5
 tb_max = 10
 
 # Precisions
-mH_precision = 60
-mA_precision = 100
-a_precision = 100
-tb_precision = 100
+mH_precision = 20
+mA_precision = 40
+a_precision = 200
+tb_precision = 200
 
 #mH_precision = 2
 #mA_precision = 2
@@ -61,6 +61,10 @@ tb_precision = 100
 # Experimental results
 exptype = "CMS140fb"
 #exptype = "CMS36fb"
+
+# mW
+mWtype = "CDF"
+#mWtype = "PDG"
 
 # 2HDM type = 1, 2
 yukawatype = "I"
@@ -76,25 +80,27 @@ if exptype == "CMS36fb":
 # Fixed Values
 
 # STU
-#Scen = 0.06
-#Ssigma = 0.10
-#Tcen = 0.11
-#Tsigma = 0.12
-#Ucen = 0.14
-#Usigma = 0.09
-#STcorrelation = 0.9
-#SUcorrelation = -0.59
-#TUcorrelation = -0.85
+if mWtype == "CDF"
+	Scen = 0.06
+	Ssigma = 0.10
+	Tcen = 0.11
+	Tsigma = 0.12
+	Ucen = 0.14
+	Usigma = 0.09
+	STcorrelation = 0.9
+	SUcorrelation = -0.59
+	TUcorrelation = -0.85
 
-Scen = 0.06
-Ssigma = 0.10
-Tcen = 0.11
-Tsigma = 0.12
-Ucen = -0.02
-Usigma = 0.09
-STcorrelation = 0.9
-SUcorrelation = -0.57
-TUcorrelation = -0.82
+if mWtype == "PDG"
+	Scen = 0.06
+	Ssigma = 0.10
+	Tcen = 0.11
+	Tsigma = 0.12
+	Ucen = -0.02
+	Usigma = 0.09
+	STcorrelation = 0.9
+	SUcorrelation = -0.57
+	TUcorrelation = -0.82
 
 CEN_STU = np.array([Scen, Tcen, Ucen])
 SIG_STU = np.diag([Ssigma, Tsigma, Usigma])
@@ -122,10 +128,10 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_PDG_" + exptype + "_" + str(i) + ".out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_" +mWtype + "_" + exptype + "_" + str(i) + ".out")
 	
-outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_PDG" + ".out"
-outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_PDG" + ".pdf"
+outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" + mWtype + ".out"
+outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" +mWtype + ".pdf"
 
 
 ######################################################################
@@ -392,72 +398,72 @@ fresultsfinal.close()
 # Plot routine
 ######################################################################
 
-print("***** plotting *****", flush=True)
+#print("***** plotting *****", flush=True)
 
-# Preparing plot
-matplotlib.rcParams['xtick.major.pad'] = 8
-matplotlib.rcParams['ytick.major.pad'] = 8
+## Preparing plot
+#matplotlib.rcParams['xtick.major.pad'] = 8
+#matplotlib.rcParams['ytick.major.pad'] = 8
 
-fig = plt.figure( figsize=(5,5) )
-ax = fig.add_subplot(111)
+#fig = plt.figure( figsize=(5,5) )
+#ax = fig.add_subplot(111)
 
-ax.yaxis.set_ticks_position('both')
-ax.yaxis.set_label_position('left')
+#ax.yaxis.set_ticks_position('both')
+#ax.yaxis.set_label_position('left')
 
-ax.xaxis.set_ticks_position('both')
-ax.xaxis.set_label_position('bottom')
+#ax.xaxis.set_ticks_position('both')
+#ax.xaxis.set_label_position('bottom')
 
-plt.minorticks_on()
-plt.tick_params(direction='in', labelsize=14, length=10, width=2)
-plt.tick_params(which='minor', direction='in', length=7, width=1.2)
-
-
-# Getting the data
-data = np.genfromtxt(outputfinal)
-
-x = data[:,0]
-y = data[:,1]
-z = data[:,2]
+#plt.minorticks_on()
+#plt.tick_params(direction='in', labelsize=14, length=10, width=2)
+#plt.tick_params(which='minor', direction='in', length=7, width=1.2)
 
 
-# Substracting the -2LogL minimum to form Delta(-2LogL)
-z2=[]
-for z_el in z:
-  z2.append(z_el-np.nanmin(z))
+## Getting the data
+#data = np.genfromtxt(outputfinal)
 
-# Interpolating the grid
-xi = np.linspace(x.min(), x.max(), mH_precision)
-yi = np.linspace(y.min(), y.max(), mA_precision)
+#x = data[:,0]
+#y = data[:,1]
+#z = data[:,2]
 
-X, Y = np.meshgrid(xi, yi)
-Z = griddata((x, y), z2, (X, Y), method="linear")
 
-# Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=200, cmap="jet_r")
-cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
-cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
+## Substracting the -2LogL minimum to form Delta(-2LogL)
+#z2=[]
+#for z_el in z:
+#  z2.append(z_el-np.nanmin(z))
 
-ax.set_aspect((mH_max-mH_min)/(mA_max-mA_min))
+## Interpolating the grid
+#xi = np.linspace(x.min(), x.max(), mH_precision)
+#yi = np.linspace(y.min(), y.max(), mA_precision)
 
-# best fit point
-#plt.plot([data[-1,0]],[data[-1,1]], '+', markersize=8, color = 'black', label = 'best fit')
-#plt.legend(loc='upper right')
+#X, Y = np.meshgrid(xi, yi)
+#Z = griddata((x, y), z2, (X, Y), method="linear")
 
-# Title, labels, color bar...
-plt.xlabel(r'$m_H$[GeV]',fontsize=16)
-plt.ylabel(r'$m_A$[GeV]',fontsize=16)
-#plt.text(mH_min + 100, mA_max - 150, r'Values from 2HDMc with unit, pert and stab conditions', fontsize=7)
-#plt.text(mH_min + 100, mA_max - 250, r'Contour plot in the $m_H$, $m_A$ plane with $m_{H^{\pm}}$ minimized at each point', fontsize=7)
-#plt.text(mH_min + 100, mA_max - 350, fr"Range of $m_{{H^{{\pm}}}}$ = ({mHpm_min},{mHpm_max}), with $\cos(\beta - \alpha) = 0$", fontsize=7)
-#plt.text(mH_min + 100, mA_max - 450, fr"Best point ($m_H, m_A$) = ({data[-1,0]:.0f}, {data[-1,1]:.0f}) with $\chi^{2}$ = {data[-1,2]:.3f} and $m_{{H^{{\pm}}}}$ = {data[-1,3]:.0f}", fontsize=7) 
-#plt.text(-360, 255, f"with $\chi^{2}$ = {m2logLmin:.3f}, S = {calc.Scalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}, T = {calc.Tcalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}", fontsize=9)
-#plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
-#plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
+## Plotting
+#sc = ax.scatter(x, y, c=z2, vmin=0, vmax=200, cmap="jet_r")
+#cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
+#cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
-fig.set_tight_layout(True)
+#ax.set_aspect((mH_max-mH_min)/(mA_max-mA_min))
 
-# Saving figure (.pdf)
-fig.savefig(outputplot)
+## best fit point
+##plt.plot([data[-1,0]],[data[-1,1]], '+', markersize=8, color = 'black', label = 'best fit')
+##plt.legend(loc='upper right')
+
+## Title, labels, color bar...
+#plt.xlabel(r'$m_H$[GeV]',fontsize=16)
+#plt.ylabel(r'$m_A$[GeV]',fontsize=16)
+##plt.text(mH_min + 100, mA_max - 150, r'Values from 2HDMc with unit, pert and stab conditions', fontsize=7)
+##plt.text(mH_min + 100, mA_max - 250, r'Contour plot in the $m_H$, $m_A$ plane with $m_{H^{\pm}}$ minimized at each point', fontsize=7)
+##plt.text(mH_min + 100, mA_max - 350, fr"Range of $m_{{H^{{\pm}}}}$ = ({mHpm_min},{mHpm_max}), with $\cos(\beta - \alpha) = 0$", fontsize=7)
+##plt.text(mH_min + 100, mA_max - 450, fr"Best point ($m_H, m_A$) = ({data[-1,0]:.0f}, {data[-1,1]:.0f}) with $\chi^{2}$ = {data[-1,2]:.3f} and $m_{{H^{{\pm}}}}$ = {data[-1,3]:.0f}", fontsize=7) 
+##plt.text(-360, 255, f"with $\chi^{2}$ = {m2logLmin:.3f}, S = {calc.Scalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}, T = {calc.Tcalc(mh = 125, mH = mHmin + my_mHpm, mA = mAmin + my_mHpm, mHpm = my_mHpm, sinba = 1):.3f}", fontsize=9)
+##plt.text(-360, 205, f"CDF Best points ($\Delta m_H, \Delta m_A$) = (396, 24)", fontsize=9)
+##plt.text(-360, 175, f"with $\chi^{2}$ = 3.04, S = 0.01, T = 0.173", fontsize=9)
+
+#fig.set_tight_layout(True)
+
+## Saving figure (.pdf)
+#fig.savefig(outputplot)
 
 print("results are stored in", validation_dir, flush=True)
 print("***** done *****", flush=True)
