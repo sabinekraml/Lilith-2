@@ -30,17 +30,17 @@ print("***** reading parameters *****", flush=True)
 # Values
 
 # Scan ranges
-mA_min = 550
-mA_max = 750
-mH_min = 550
-mH_max = 650
-mHpm = 500
+#mA_min = 550
+#mA_max = 750
+#mH_min = 550
+#mH_max = 650
+#mHpm = 500
 
-#mA_min = 1100
-#mA_max = 1200
-#mH_min = 1000
-#mH_max = 1100
-#mHpm = 1000
+mA_min = 1100
+mA_max = 1180
+mH_min = 1020
+mH_max = 1040
+mHpm = 1000
 
 a_min = -np.pi/2
 a_max = 0
@@ -49,9 +49,9 @@ tb_max = 10
 
 # Precisions
 mH_precision = 20
-mA_precision = 40
-a_precision = 150
-tb_precision = 150
+mA_precision = 30
+a_precision = 100
+tb_precision = 100
 
 #mH_precision = 2
 #mA_precision = 2
@@ -308,9 +308,9 @@ def func(X, mH, mA, grid):
 		L2t = L2t_STU + L2t_a_tb
 
 		if cons == False and grid == True:
-			L2t = 200
+			L2t = 100
 		if cons == False and grid == False:
-			L2t = L2t + 201
+			L2t = L2t + 101
 
 		return L2t
 
@@ -329,7 +329,7 @@ def funcmulti(iteration):
 	fresults = open(output[iteration], 'w')
 	i=0
 	mH = mHlist[iteration]
-	m2logLmin=200
+	m2logLmin=100
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
@@ -345,7 +345,7 @@ def funcmulti(iteration):
 					a0 = a_cons
 					tb0 = tb_cons
 
-		if m2logLmingrid==m2logLmin:
+		if m2logLmingrid==m2logLmin or abs(np.sin(np.arctan(tb)-a)<0.99:
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ')
 
 		else:
