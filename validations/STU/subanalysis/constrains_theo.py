@@ -106,25 +106,33 @@ def func(iteration):
 # Multiprocessing
 ######################################################################
 
-if __name__ == '__main__':
-	pool = Pool()
-	pool.map(func, iterationlist)
+#if __name__ == '__main__':
+#	pool = Pool()
+#	pool.map(func, iterationlist)
 
-fresultsfinal = open(outputfinal, 'w')
-for i in iterationlist:
-	fresults = open(output[i])
-	content = fresults.read()
-	fresultsfinal.write(content+"\n")
-	fresults.close()
-fresultsfinal.close()
+#fresultsfinal = open(outputfinal, 'w')
+#for i in iterationlist:
+#	fresults = open(output[i])
+#	content = fresults.read()
+#	fresultsfinal.write(content+"\n")
+#	fresults.close()
+#fresultsfinal.close()
 
 ######################################################################
 # Plot routine
 ######################################################################
 
 # Preparing plot
-fig = plt.figure()
+matplotlib.rcParams['xtick.major.pad'] = 8
+matplotlib.rcParams['ytick.major.pad'] = 6
+matplotlib.rcParams['axes.linewidth'] = 2
+
+fig = plt.figure(figsize=(5,5))
 ax = fig.add_subplot(111)
+
+plt.tick_params(direction='in', labelsize=14, length=10, width=2)
+plt.xticks(np.linspace(200, 2000, 7))
+plt.yticks(np.linspace(200, 2000, 7))
 
 # Getting the data
 data = np.genfromtxt(outputfinal)
@@ -144,14 +152,17 @@ Z = griddata((x, y), z, (X, Y), method="linear")
 #sc = ax.contourf(xi,yi,Z,[10**(-10),2],colors=['blue'])
 sc = ax.scatter(x, y, c=z, s=30)
 
-# Title, labels, color bar...
-ax.set_xlabel(r'$m_H = m_{H^{\pm}}$[GeV]',fontsize=10)
-ax.set_ylabel(r'$m_A$[GeV]',fontsize=10)
+ax.set_aspect(1)
 
+# Title, labels, color bar...
+ax.set_xlabel(r'$m_H = m_{H^{\pm}}$[GeV]',fontsize=16)
+ax.set_ylabel(r'$m_A$[GeV]',fontsize=16)
+
+fig.set_tight_layout(True)
 
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-plt.show()
+#plt.show()
 
 print("results are stored in", validation_dir, flush=True)

@@ -30,10 +30,10 @@ print("***** reading parameters *****", flush=True)
 # Values
 
 # Scan ranges
-mA_min = 200
-mA_max = 1000
-mH_min = 200
-mH_max = 1000
+mA_min = 500
+mA_max = 900
+mH_min = 500
+mH_max = 700
 mHpm = 500
 
 #mA_min = 1100
@@ -43,14 +43,14 @@ mHpm = 500
 #mHpm = 1000
 
 a_min = -np.pi/2
-a_max = np.pi/2
+a_max = 0
 tb_min = 0.5
 tb_max = 10
 
 # Precisions
-mH_precision = 80
+mH_precision = 40
 mA_precision = 80
-a_precision = 200
+a_precision = 100
 tb_precision = 100
 
 #mH_precision = 2
@@ -76,25 +76,25 @@ if exptype == "CMS36fb":
 # Fixed Values
 
 # STU
-#Scen = 0.06
-#Ssigma = 0.10
-#Tcen = 0.11
-#Tsigma = 0.12
-#Ucen = 0.14
-#Usigma = 0.09
-#STcorrelation = 0.9
-#SUcorrelation = -0.59
-#TUcorrelation = -0.85
-
 Scen = 0.06
 Ssigma = 0.10
 Tcen = 0.11
 Tsigma = 0.12
-Ucen = -0.02
+Ucen = 0.14
 Usigma = 0.09
 STcorrelation = 0.9
-SUcorrelation = -0.57
-TUcorrelation = -0.82
+SUcorrelation = -0.59
+TUcorrelation = -0.85
+
+#Scen = 0.06
+#Ssigma = 0.10
+#Tcen = 0.11
+#Tsigma = 0.12
+#Ucen = -0.02
+#Usigma = 0.09
+#STcorrelation = 0.9
+#SUcorrelation = -0.57
+#TUcorrelation = -0.82
 
 CEN_STU = np.array([Scen, Tcen, Ucen])
 SIG_STU = np.diag([Ssigma, Tsigma, Usigma])
@@ -122,10 +122,10 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_" + exptype + "_" + str(i) + ".out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_CDF_" + exptype + "_" + str(i) + ".out")
 	
-outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_PDG" + ".out"
-outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_PDG" + ".pdf"
+outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_CDF" + ".out"
+outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_CDF" + ".pdf"
 
 
 ######################################################################
@@ -302,9 +302,9 @@ def func(X, mH, mA, grid):
 		L2t = L2t_STU + L2t_a_tb
 
 		if cons == False and grid == True:
-			L2t = 1000000
+			L2t = 200
 		if cons == False and grid == False:
-			L2t = L2t + 100
+			L2t = L2t + 201
 
 		return L2t
 
@@ -323,7 +323,7 @@ def funcmulti(iteration):
 	fresults = open(output[iteration], 'w')
 	i=0
 	mH = mHlist[iteration]
-	m2logLmin=1000000
+	m2logLmin=200
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i%(mA_precision/10)==0 and iteration == 0:
@@ -433,7 +433,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
-sc = ax.scatter(x, y, c=z2, vmin=0, vmax=1000000, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmin=0, vmax=200, cmap="jet_r")
 cbar = fig.colorbar(sc,fraction=0.046, pad=0.04)
 cbar.set_label("$\Delta (-2\log L)$", fontsize=10)
 
