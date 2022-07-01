@@ -50,8 +50,8 @@ tb_max = 10
 # Precisions
 mH_precision = 20
 mA_precision = 40
-a_precision = 200
-tb_precision = 200
+a_precision = 150
+tb_precision = 150
 
 #mH_precision = 2
 #mA_precision = 2
