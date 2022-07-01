@@ -30,9 +30,9 @@ print("***** reading parameters *****", flush=True)
 # Values
 
 # Scan ranges
-mA_min = 500
+mA_min = 400
 mA_max = 900
-mH_min = 500
+mH_min = 400
 mH_max = 700
 mHpm = 500
 
@@ -48,8 +48,8 @@ tb_min = 0.5
 tb_max = 10
 
 # Precisions
-mH_precision = 40
-mA_precision = 80
+mH_precision = 60
+mA_precision = 100
 a_precision = 100
 tb_precision = 100
 
@@ -76,25 +76,25 @@ if exptype == "CMS36fb":
 # Fixed Values
 
 # STU
-Scen = 0.06
-Ssigma = 0.10
-Tcen = 0.11
-Tsigma = 0.12
-Ucen = 0.14
-Usigma = 0.09
-STcorrelation = 0.9
-SUcorrelation = -0.59
-TUcorrelation = -0.85
-
 #Scen = 0.06
 #Ssigma = 0.10
 #Tcen = 0.11
 #Tsigma = 0.12
-#Ucen = -0.02
+#Ucen = 0.14
 #Usigma = 0.09
 #STcorrelation = 0.9
-#SUcorrelation = -0.57
-#TUcorrelation = -0.82
+#SUcorrelation = -0.59
+#TUcorrelation = -0.85
+
+Scen = 0.06
+Ssigma = 0.10
+Tcen = 0.11
+Tsigma = 0.12
+Ucen = -0.02
+Usigma = 0.09
+STcorrelation = 0.9
+SUcorrelation = -0.57
+TUcorrelation = -0.82
 
 CEN_STU = np.array([Scen, Tcen, Ucen])
 SIG_STU = np.diag([Ssigma, Tsigma, Usigma])
@@ -122,10 +122,10 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_CDF_" + exptype + "_" + str(i) + ".out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_PDG_" + exptype + "_" + str(i) + ".out")
 	
-outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_CDF" + ".out"
-outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_CDF" + ".pdf"
+outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_PDG" + ".out"
+outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_PDG" + ".pdf"
 
 
 ######################################################################
