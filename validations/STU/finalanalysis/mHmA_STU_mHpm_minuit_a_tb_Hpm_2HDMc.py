@@ -80,7 +80,7 @@ if exptype == "CMS36fb":
 # Fixed Values
 
 # STU
-if mWtype == "CDF"
+if mWtype == "CDF":
 	Scen = 0.06
 	Ssigma = 0.10
 	Tcen = 0.11
@@ -91,7 +91,7 @@ if mWtype == "CDF"
 	SUcorrelation = -0.59
 	TUcorrelation = -0.85
 
-if mWtype == "PDG"
+if mWtype == "PDG":
 	Scen = 0.06
 	Ssigma = 0.10
 	Tcen = 0.11
@@ -128,7 +128,7 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_" +mWtype + "_" + exptype + "_" + str(i) + ".out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_mHpm_minuit_a_tb_Hpm_" + mWtype + "_" + exptype + "_" + str(i) + ".out")
 	
 outputfinal = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" + mWtype + ".out"
 outputplot = validation_dir+"mHmA_STU_mHpm_minuit_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" +mWtype + ".pdf"
