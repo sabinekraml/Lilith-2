@@ -20,6 +20,20 @@ import lilith
 validation_dir = lilith_dir+"validations/STU/finalanalysis/"
 calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))+"/2HDMc/2HDMC-1.8.0/"
 
+######################################################################
+# Parameters
+######################################################################
+
+#count = 0
+#precision = 120
+#for a in np.linspace(-np.pi/2, 0, precision):
+#	for tb in np.linspace(0.5, 10, precision):	
+#		if abs(np.sin(np.arctan(tb) - a)) > 0.9:
+#			count += 1
+
+#print("counter full 80*160 = ", 80*160)
+#print("counter = ", count)
+
 
 ######################################################################
 # Parameters
@@ -44,16 +58,22 @@ mHpm_max = 2000
 #mHpm = 1000
 
 a_min = -np.pi/2
-a_max = np.pi/2
+a_max = 0
 tb_min = 0.5
 tb_max = 10
 
 # Precisions
-mH_precision = 80
-mA_precision = 80
-mHpm_precision = 80
-a_precision = 200
-tb_precision = 100
+#mH_precision = 80
+#mA_precision = 80
+#mHpm_precision = 80
+#a_precision = 200
+#tb_precision = 200
+
+mH_precision = 19
+mA_precision = 19
+mHpm_precision = 19
+a_precision = 120
+tb_precision = 120
 
 #mH_precision = 2
 #mA_precision = 2
@@ -101,6 +121,9 @@ my_precision = "BEST-QCD"
 
 # Higgs mass to test
 hmass = 125.09
+
+# m2logL
+m2logLmax = 200
 
 # Multiprocessing lists
 mHlist = []
@@ -294,9 +317,9 @@ def func(X, mH, mA, grid):
 		L2t = L2t_STU + L2t_a_tb
 
 		if cons == False and grid == True:
-			L2t = 100
+			L2t = m2logLmax
 		if cons == False and grid == False:
-			L2t = L2t + 10
+			L2t = L2t + 100
 
 		return L2t
 
@@ -315,7 +338,6 @@ def funcmulti(iteration):
 	fresults = open(output[iteration], 'w')
 	i=0
 	mH = mHlist[iteration]
-	m2logLmin=100
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 		if i==1 and iteration == 0:
@@ -324,20 +346,26 @@ def funcmulti(iteration):
 		if i%(mA_precision/10)==0 and iteration == 0:
 			print("mA = ", mA, flush=True)
 		i+=1
-		m2logLmingrid=m2logLmin
+		m2logLmingrid=m2logLmax
 
 
 		for mHpm_cons in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
+			if ( mA - 200 <= mHpm_cons <= mA + 500 == False ) and ( mH - 200 <= mHpm_cons <= mH + 500 == False):
+				fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
+				continue
 			for a_cons in np.linspace(a_min, a_max, a_precision):
 				for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
-					m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)
+					if abs(np.sin(np.arctan(tb_cons) - a_cons)) >= 0.9:
+						m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)
+					else:
+						m2logL = m2logLmax
 					if m2logL < m2logLmingrid:
 						m2logLmingrid = m2logL
 						mHpm0 = mHpm_cons
 						a0 = a_cons
 						tb0 = tb_cons
 
-			if m2logLmingrid==m2logLmin:
+			if m2logLmingrid==m2logLmax:
 				fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 
 			else:
