@@ -71,7 +71,7 @@ tb_max = 10
 
 mH_precision = 19
 mA_precision = 19
-mHpm_precision = 19
+mHpm_precision = 37
 a_precision = 120
 tb_precision = 120
 
@@ -123,7 +123,8 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # m2logL
-m2logLmax = 200
+m2logLmax = 10000
+penalty = m2logLmax/10
 
 # Multiprocessing lists
 mHlist = []
@@ -319,7 +320,7 @@ def func(X, mH, mA, grid):
 		if cons == False and grid == True:
 			L2t = m2logLmax
 		if cons == False and grid == False:
-			L2t = L2t + 100
+			L2t = L2t + penalty
 
 		return L2t
 
@@ -340,6 +341,7 @@ def funcmulti(iteration):
 	mH = mHlist[iteration]
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
+
 		if i==1 and iteration == 0:
 			print("mA = ", mA, flush=True)
 			print("time = ", time.perf_counter()-start, flush=True)
@@ -348,34 +350,40 @@ def funcmulti(iteration):
 		i+=1
 		m2logLmingrid=m2logLmax
 
+		if ( 200 <= mH < 700 and mA > 1200 ) or ( 700 <= mH <= 2000 and mH - 500 < mA < mH + 500 == False ):
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
+			fresults.write('\n')
+			continue
 
 		for mHpm_cons in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
-			if ( mA - 200 <= mHpm_cons <= mA + 500 == False ) and ( mH - 200 <= mHpm_cons <= mH + 500 == False):
-				fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
+
+			if ( 200 <= mH < 700 and mHpm_cons > 1500 ) or ( 700 <= mH <= 2000 and mH - 700 < mHpm_cons < mH + 700 == False ):
 				continue
+
 			for a_cons in np.linspace(a_min, a_max, a_precision):
 				for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
-					if abs(np.sin(np.arctan(tb_cons) - a_cons)) >= 0.9:
-						m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)
-					else:
-						m2logL = m2logLmax
+
+					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons > 1000 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.98 ):
+						continue
+
+					m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)
 					if m2logL < m2logLmingrid:
 						m2logLmingrid = m2logL
 						mHpm0 = mHpm_cons
 						a0 = a_cons
 						tb0 = tb_cons
 
-			if m2logLmingrid==m2logLmax:
-				fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
+		if m2logLmingrid==m2logLmax:
+			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
+			fresults.write('\n')
+			continue
 
-			else:
-				grid = False
-				funcminimized = minimize(func, [mHpm0,a0,tb0], args=(mH, mA, grid), method='migrad', bounds=((mHpm_min,mHpm_max),(a_min,a_max),(tb_min,tb_max)), options={'stra': strategy})
-
-				m2logL = funcminimized.fun
-				fit = funcminimized.x
-				fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1] + '%.3f    '%fit[2])
-
+		grid = False
+		funcminimized = minimize(func, [mHpm0,a0,tb0], args=(mH, mA, grid), method='migrad', bounds=((mHpm_min,mHpm_max),(a_min,a_max),(tb_min,tb_max)), options={'stra': strategy})
+		m2logL = funcminimized.fun
+		fit = funcminimized.x
+		sinbafit = np.sin(np.arctan(fit[2]) - fit[1])
+		fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1] + '%.3f    '%fit[2] + '%.3f    '%sinbafit)
 		fresults.write('\n')	
 
 		if iteration == 0 and mA is not mA_max:

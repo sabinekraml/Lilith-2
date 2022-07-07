@@ -24,10 +24,16 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #outputfinal = validation_dir + "mHmA_STU_mHpm_minuit_a_tb_30_30_1000_200_100_I_Hpm_CMS140fb_2HDMc.out"
 #mH_precision = 30
 #mA_precision = 30
-outputfinal = validation_dir + "mHmA_STU_mHpm_minuit_a_tb_80_80_1000_200_100_I_Hpm_CMS140fb_2HDMc.out"
-outputplot = validation_dir + "mHpm1000_CDF_finalresults_10.pdf"
-mH_precision = 80
-mA_precision = 80
+#outputfinal = validation_dir + "mHmA_STU_mHpm_minuit_a_tb_80_80_1000_200_100_I_Hpm_CMS140fb_2HDMc.out"
+#outputplot = validation_dir + "mHpm1000_CDF_finalresults_10.pdf"
+#mH_precision = 80
+#mA_precision = 80
+
+outputfinal = validation_dir + "CDF_finalresults_large.out"
+outputplot = validation_dir + "CDF_finalresults_large.pdf"
+mH_precision = 19
+mA_precision = 19
+
 
 
 # Preparing plot
@@ -64,7 +70,7 @@ Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
 #sc = ax.scatter(x, y, c=z2, cmap="jet_r")
-sc = ax.scatter(x, y, c=z2, vmax=10, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, vmax=100, cmap="jet_r")
 #cbar = fig.colorbar(sc,fraction=0.25, pad=0.05)
 cbar = fig.colorbar(sc)
 cbar.set_label("$\chi^2$", fontsize=16, labelpad=-4)
@@ -78,8 +84,10 @@ cbar.ax.tick_params(direction='out', labelsize=14, length=10, width=2)
 #ax.set_ylim([400, 900])
 #ax.set_xlim([1000, 1100])
 #ax.set_ylim([1100, 1200])
-ax.set_xlim([800, 1200])
-ax.set_ylim([800, 1200])
+#ax.set_xlim([800, 1200])
+#ax.set_ylim([800, 1200])
+ax.set_xlim([200,2000])
+ax.set_ylim([200,2000])
 ax.set_xlabel(r'$m_H$[GeV]',fontsize=16)
 ax.set_ylabel(r'$m_A$[GeV]',fontsize=16)
 
