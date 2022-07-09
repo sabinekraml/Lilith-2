@@ -350,7 +350,7 @@ def funcmulti(iteration):
 		i+=1
 		m2logLmingrid=m2logLmax
 
-		if ( 200 <= mH <= 600 and mA > 900 ) or ( 600 < mH <= 700 and mA > 1000 ) or or ( 700 < mH <= 800 and 500 < mA < 1100 == False) or ( 800 < mH <= 900 and mH - 100 < mA < mH + 300 == False ) or ( 900 < mH <= 2000 and mH - 100 < mA < mH + 200 == False ):
+		if ( 200 <= mH <= 600 and mA > 900 ) or ( 600 < mH <= 700 and mA > 1000 ) or ( 700 < mH <= 800 and 500 < mA < 1100 == False) or ( 800 < mH <= 900 and mH - 100 < mA < mH + 300 == False ) or ( 900 < mH <= 2000 and mH - 100 < mA < mH + 200 == False ):
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 			fresults.write('\n')
 			continue
