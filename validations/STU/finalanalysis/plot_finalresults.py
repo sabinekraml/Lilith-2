@@ -29,8 +29,10 @@ calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(o
 #mH_precision = 80
 #mA_precision = 80
 
-outputfinal = validation_dir + "CDF_finalresults_large.out"
-outputplot = validation_dir + "CDF_finalresults_large.pdf"
+#outputfinal = validation_dir + "CDF_finalresults_large.out"
+#outputplot = validation_dir + "CDF_finalresults_large.pdf"
+outputfinal = validation_dir + "mHmA_STU_minuit_mHpm_a_tb_19_19_37_120_120_I_Hpm_CMS140fb_2HDMc.out"
+outputplot = validation_dir + "mHmA_STU_minuit_mHpm_a_tb_19_19_37_120_120_I_Hpm_CMS140fb_2HDMc_chi2.pdf"
 mH_precision = 19
 mA_precision = 19
 
@@ -53,6 +55,7 @@ data = np.genfromtxt(outputfinal)
 x = data[:,0]
 y = data[:,1]
 z = data[:,2]
+mHpm = data[:,3]
 
 #z = np.where(z > np.nanmin(z)+10, np.nan, z)
 
@@ -60,6 +63,9 @@ z = data[:,2]
 z2=[]
 for z_el in z:
   z2.append(z_el-np.nanmin(z))
+print(z2)
+np.where(z2>12, z2, 'nan')
+print(z2)
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), mH_precision)
@@ -69,11 +75,12 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting
-#sc = ax.scatter(x, y, c=z2, cmap="jet_r")
-sc = ax.scatter(x, y, c=z2, vmax=100, cmap="jet_r")
+#sc = ax.scatter(x, y, c=mHpm, cmap="jet_r")
+sc = ax.scatter(x, y, c=z2, cmap="jet_r")
 #cbar = fig.colorbar(sc,fraction=0.25, pad=0.05)
 cbar = fig.colorbar(sc)
 cbar.set_label("$\chi^2$", fontsize=16, labelpad=-4)
+#cbar.set_label("$m_{H^{\pm}}$", fontsize=16, labelpad=-4)
 cbar.ax.tick_params(direction='out', labelsize=14, length=10, width=2)
 # 4.695  9.488
 

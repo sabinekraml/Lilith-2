@@ -69,11 +69,11 @@ tb_max = 10
 #a_precision = 200
 #tb_precision = 200
 
-mH_precision = 19
-mA_precision = 19
-mHpm_precision = 37
-a_precision = 120
-tb_precision = 120
+mH_precision = 80
+mA_precision = 80
+mHpm_precision = 80
+a_precision = 200
+tb_precision = 200
 
 #mH_precision = 2
 #mA_precision = 2
@@ -123,7 +123,7 @@ my_precision = "BEST-QCD"
 hmass = 125.09
 
 # m2logL
-m2logLmax = 10000
+m2logLmax = 100
 penalty = m2logLmax/10
 
 # Multiprocessing lists
@@ -350,20 +350,20 @@ def funcmulti(iteration):
 		i+=1
 		m2logLmingrid=m2logLmax
 
-		if ( 200 <= mH < 700 and mA > 1200 ) or ( 700 <= mH <= 2000 and mH - 500 < mA < mH + 500 == False ):
+		if ( 200 <= mH <= 600 and mA > 900 ) or ( 600 < mH <= 700 and mA > 1000 ) or or ( 700 < mH <= 800 and 500 < mA < 1100 == False) or ( 800 < mH <= 900 and mH - 100 < mA < mH + 300 == False ) or ( 900 < mH <= 2000 and mH - 100 < mA < mH + 200 == False ):
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 			fresults.write('\n')
 			continue
 
 		for mHpm_cons in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 
-			if ( 200 <= mH < 700 and mHpm_cons > 1500 ) or ( 700 <= mH <= 2000 and mH - 700 < mHpm_cons < mH + 700 == False ):
+			if ( 200 <= mH < 800 and mHpm_cons > mH + 100 or mHpm_cons > mA + 100) or ( 800 <= mH <= 2000 and mH - 100 < mHpm_cons < mH + 100 == False or mA - 200 < mHpm_cons < mA + 100 == False ):
 				continue
 
 			for a_cons in np.linspace(a_min, a_max, a_precision):
 				for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
 
-					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons > 1000 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.98 ):
+					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons >= 400 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.95 ):
 						continue
 
 					m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)

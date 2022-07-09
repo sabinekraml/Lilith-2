@@ -21,7 +21,7 @@ print(  'df\p' , '| ', PValueList[0], ' | ', PValueList[1], ' | ', PValueList[2]
                       PValueList[3], ' | ', PValueList[4], ' | ', PValueList[5], ' | ', \
                       PValueList[6], ' | ')
 
-for i in range(2,10):
+for i in range(2,6):
     dfreedom = i 
     Result = []
     for pvalue in PValueList:
