@@ -69,11 +69,11 @@ tb_max = 10
 #a_precision = 200
 #tb_precision = 200
 
-mH_precision = 80
-mA_precision = 80
+mH_precision = 40
+mA_precision = 40
 mHpm_precision = 80
-a_precision = 200
-tb_precision = 200
+a_precision = 180
+tb_precision = 180
 
 #mH_precision = 2
 #mA_precision = 2
