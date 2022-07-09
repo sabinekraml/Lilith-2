@@ -138,7 +138,7 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_minuit_mHpm_a_tb_Hpm_" + exptype + "_" + str(i) + ".out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_minuit_mHpm_a_tb_Hpm_" + exptype + "_" + str(i) + "_40.out")
 	
 outputfinal = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc" + ".out"
 outputplot = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc" + ".pdf"
