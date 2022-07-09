@@ -72,8 +72,8 @@ tb_max = 10
 mH_precision = 40
 mA_precision = 40
 mHpm_precision = 80
-a_precision = 180
-tb_precision = 180
+a_precision = 150
+tb_precision = 150
 
 #mH_precision = 2
 #mA_precision = 2
@@ -84,6 +84,10 @@ tb_precision = 180
 # Experimental results
 exptype = "CMS140fb"
 #exptype = "CMS36fb"
+
+# mW
+#mWtype = "CDF"
+mWtype = "PDG"
 
 # 2HDM type = 1, 2
 yukawatype = "I"
@@ -99,15 +103,28 @@ if exptype == "CMS36fb":
 # Fixed Values
 
 # STU
-Scen = 0.06
-Ssigma = 0.10
-Tcen = 0.11
-Tsigma = 0.12
-Ucen = 0.14
-Usigma = 0.09
-STcorrelation = 0.9
-SUcorrelation = -0.59
-TUcorrelation = -0.85
+if mWtype == "CDF":
+	Scen = 0.06
+	Ssigma = 0.10
+	Tcen = 0.11
+	Tsigma = 0.12
+	Ucen = 0.14
+	Usigma = 0.09
+	STcorrelation = 0.9
+	SUcorrelation = -0.59
+	TUcorrelation = -0.85
+
+if mWtype == "PDG":
+	Scen = 0.06
+	Ssigma = 0.10
+	Tcen = 0.11
+	Tsigma = 0.12
+	Ucen = -0.02
+	Usigma = 0.09
+	STcorrelation = 0.9
+	SUcorrelation = -0.57
+	TUcorrelation = -0.82
+
 CEN_STU = np.array([Scen, Tcen, Ucen])
 SIG_STU = np.diag([Ssigma, Tsigma, Usigma])
 COR_STU = np.array(([1, STcorrelation, SUcorrelation],
@@ -138,10 +155,10 @@ for i in range(mH_precision):
 # Output files
 output = []
 for i in range(mH_precision):
-	output.append(validation_dir+"multiprocessing/mHmA_STU_minuit_mHpm_a_tb_Hpm_" + exptype + "_" + str(i) + "_40.out")
+	output.append(validation_dir+"multiprocessing/mHmA_STU_minuit_mHpm_a_tb_Hpm_" + mWtype + "_" + exptype + "_" + str(i) + ".out")
 	
-outputfinal = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc" + ".out"
-outputplot = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc" + ".pdf"
+outputfinal = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" + mWtype + ".out"
+outputplot = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" + mWtype + ".pdf"
 
 
 ######################################################################
@@ -337,27 +354,22 @@ def funcmulti(iteration):
 
 	# Prepare output
 	fresults = open(output[iteration], 'w')
-	i=0
 	mH = mHlist[iteration]
 
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 
-		if i==1 and iteration == 0:
-			print("mA = ", mA, flush=True)
-			print("time = ", time.perf_counter()-start, flush=True)
-		if i%(mA_precision/10)==0 and iteration == 0:
-			print("mA = ", mA, flush=True)
-		i+=1
+		if iteration == 0 or iteration == 30:
+			print("iteration", iteration, "mA = ", mA, "time = ", time.perf_counter()-start, flush=True)
 		m2logLmingrid=m2logLmax
 
-		if ( 200 <= mH <= 600 and mA > 900 ) or ( 600 < mH <= 700 and mA > 1000 ) or ( 700 < mH <= 800 and 500 < mA < 1100 == False) or ( 800 < mH <= 900 and mH - 100 < mA < mH + 300 == False ) or ( 900 < mH <= 2000 and mH - 100 < mA < mH + 200 == False ):
+		if ( 200 <= mH <= 600 and mA > 1100 ) or ( 600 < mH <= 700 and mA > 1200 ) or ( 700 < mH <= 800 and 300 < mA < 1300 == False) or ( 800 < mH <= 900 and mH - 300 < mA < mH + 500 == False ) or ( 900 < mH <= 2000 and mH - 300 < mA < mH + 400 == False ):
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 			fresults.write('\n')
 			continue
 
 		for mHpm_cons in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 
-			if ( 200 <= mH < 800 and mHpm_cons > mH + 100 or mHpm_cons > mA + 100) or ( 800 <= mH <= 2000 and mH - 100 < mHpm_cons < mH + 100 == False or mA - 200 < mHpm_cons < mA + 100 == False ):
+			if ( 200 <= mH < 800 and mHpm_cons > mH + 100 or mHpm_cons > mA + 100) or ( 800 <= mH <= 2000 and mH - 100 < mHpm_cons < mH + 100 == False or mA - 300 < mHpm_cons < mA + 100 == False ):
 				continue
 
 			for a_cons in np.linspace(a_min, a_max, a_precision):
@@ -386,12 +398,9 @@ def funcmulti(iteration):
 		fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1] + '%.3f    '%fit[2] + '%.3f    '%sinbafit)
 		fresults.write('\n')	
 
-		if iteration == 0 and mA is not mA_max:
-			print("time = ", time.perf_counter()-start, flush=True)
-
-	if iteration == 0:
-		print("mA = ", mA, flush=True)
-		print("time = ", time.perf_counter()-start, flush=True)
+	if iteration == 0 or iteration == 30:
+		print("iteration = ", iteration, "mA = ", mA, "time = ", time.perf_counter()-start, flush=True)
+	m2logLmingrid=m2logLmax
 
 	print("mH = ", mH, " : done")
 

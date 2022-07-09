@@ -36,6 +36,8 @@ outputplot = validation_dir + "mHmA_STU_minuit_mHpm_a_tb_19_19_37_120_120_I_Hpm_
 mH_precision = 19
 mA_precision = 19
 
+chi2max = 20
+
 
 
 # Preparing plot
@@ -56,6 +58,9 @@ x = data[:,0]
 y = data[:,1]
 z = data[:,2]
 mHpm = data[:,3]
+#print(np.nanmin(z))
+z[z>(np.nanmin(z)+chi2max)] = 'nan'
+print(z)
 
 #z = np.where(z > np.nanmin(z)+10, np.nan, z)
 
@@ -63,9 +68,9 @@ mHpm = data[:,3]
 z2=[]
 for z_el in z:
   z2.append(z_el-np.nanmin(z))
-print(z2)
-np.where(z2>12, z2, 'nan')
-print(z2)
+#print(z2)
+#np.where(z2>12, z2, 'nan')
+#print(z2)
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), mH_precision)
@@ -103,6 +108,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot, bbox_inches='tight')
 
-plt.show()
+#plt.show()
 
 print("results are stored in", validation_dir, flush=True)
