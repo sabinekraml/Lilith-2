@@ -54,8 +54,8 @@ exptype = "CMS140fb"
 #exptype = "CMS36fb"
 
 # mW
-mWtype = "CDF"
-#mWtype = "PDG"
+#mWtype = "CDF"
+mWtype = "PDG"
 
 # 2HDM type = 1, 2
 yukawatype = "I"
@@ -330,7 +330,7 @@ def funcmulti(iteration):
 
 		m2logLmingrid=m2logLmax
 
-		if ( 200 <= mH <= 600 and mA > 1000 ) or ( 600 < mH <= 700 and mA > 1100 ) or ( 700 < mH <= 800 and ( (500 < mA < 1100) == False ) ) or ( 800 < mH <= 900 and ( (mH - 100 < mA < mH + 400) == False ) ) or ( 900 < mH <= 2000 and ( (mH - 100 < mA < mH + 300) == False ) ):
+		if ( 200 <= mH <= 600 and mA > 1200 ) or ( 600 < mH <= 700 and mA > 1300 ) or ( 700 < mH <= 800 and ( (400 < mA < 1200) == False ) ) or ( 800 < mH <= 900 and ( (mH - 200 < mA < mH + 500) == False ) ) or ( 900 < mH <= 2000 and ( (mH - 200 < mA < mH + 400) == False ) ):
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 			fresults.write('\n')
 			continue
@@ -343,7 +343,7 @@ def funcmulti(iteration):
 			for a_cons in np.linspace(a_min, a_max, a_precision):
 				for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
 
-					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons >= 400 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.98 ):
+					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons >= 400 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.95 ):
 						continue
 
 					m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)
