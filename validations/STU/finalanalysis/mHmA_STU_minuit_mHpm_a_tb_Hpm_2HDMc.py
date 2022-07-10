@@ -20,20 +20,6 @@ import lilith
 validation_dir = lilith_dir+"validations/STU/finalanalysis/"
 calc2HDM_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))+"/2HDMc/2HDMC-1.8.0/"
 
-######################################################################
-# Parameters
-######################################################################
-
-#count = 0
-#precision = 120
-#for a in np.linspace(-np.pi/2, 0, precision):
-#	for tb in np.linspace(0.5, 10, precision):	
-#		if abs(np.sin(np.arctan(tb) - a)) > 0.9:
-#			count += 1
-
-#print("counter full 80*160 = ", 80*160)
-#print("counter = ", count)
-
 
 ######################################################################
 # Parameters
@@ -51,43 +37,25 @@ mH_max = 2000
 mHpm_min = 200
 mHpm_max = 2000
 
-#mA_min = 1100
-#mA_max = 1200
-#mH_min = 1000
-#mH_max = 1100
-#mHpm = 1000
-
 a_min = -np.pi/2
 a_max = 0
 tb_min = 0.5
 tb_max = 10
 
 # Precisions
-#mH_precision = 80
-#mA_precision = 80
-#mHpm_precision = 80
-#a_precision = 200
-#tb_precision = 200
-
 mH_precision = 40
 mA_precision = 40
 mHpm_precision = 80
 a_precision = 150
 tb_precision = 150
 
-#mH_precision = 2
-#mA_precision = 2
-#mHpm_precision = 2
-#a_precision = 20
-#tb_precision = 20
-
 # Experimental results
 exptype = "CMS140fb"
 #exptype = "CMS36fb"
 
 # mW
-#mWtype = "CDF"
-mWtype = "PDG"
+mWtype = "CDF"
+#mWtype = "PDG"
 
 # 2HDM type = 1, 2
 yukawatype = "I"
@@ -157,8 +125,7 @@ output = []
 for i in range(mH_precision):
 	output.append(validation_dir+"multiprocessing/mHmA_STU_minuit_mHpm_a_tb_Hpm_" + mWtype + "_" + exptype + "_" + str(i) + ".out")
 	
-outputfinal = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" + mWtype + ".out"
-outputplot = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm_" + exptype + "_2HDMc_" + mWtype + ".pdf"
+outputfinal = validation_dir+"mHmA_STU_minuit_mHpm_a_tb_" + str(mH_precision) + "_" + str(mA_precision) + "_" + str(mHpm_precision) + "_" + str(a_precision) + "_" + str(tb_precision) + "_" + yukawatype + "_Hpm" + "_2HDMc_" + exptype + "_" + mWtype + ".out"
 
 
 ######################################################################
@@ -287,7 +254,7 @@ def func(X, mH, mA, grid):
 
 		b = np.arctan(tb)
 		sinba = np.sin(b-a)
-		cosba = np.sin(b-a)
+		cosba = np.cos(b-a)
 		m122 = np.cos(a)**2*mH**2/tb
 
 		if yukawatype=="I":
@@ -359,23 +326,24 @@ def funcmulti(iteration):
 	for mA in np.linspace(mA_min, mA_max, mA_precision):
 
 		if iteration == 0 or iteration == 30:
-			print("iteration", iteration, "mA = ", mA, "time = ", time.perf_counter()-start, flush=True)
+			print("iteration = ", iteration, "mA = ", mA, "time = ", time.perf_counter()-start, flush=True)
+
 		m2logLmingrid=m2logLmax
 
-		if ( 200 <= mH <= 600 and mA > 1100 ) or ( 600 < mH <= 700 and mA > 1200 ) or ( 700 < mH <= 800 and 300 < mA < 1300 == False) or ( 800 < mH <= 900 and mH - 300 < mA < mH + 500 == False ) or ( 900 < mH <= 2000 and mH - 300 < mA < mH + 400 == False ):
+		if ( 200 <= mH <= 600 and mA > 1000 ) or ( 600 < mH <= 700 and mA > 1100 ) or ( 700 < mH <= 800 and ( (500 < mA < 1100) == False ) ) or ( 800 < mH <= 900 and ( (mH - 100 < mA < mH + 400) == False ) ) or ( 900 < mH <= 2000 and ( (mH - 100 < mA < mH + 300) == False ) ):
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 			fresults.write('\n')
 			continue
 
 		for mHpm_cons in np.linspace(mHpm_min, mHpm_max, mHpm_precision):
 
-			if ( 200 <= mH < 800 and mHpm_cons > mH + 100 or mHpm_cons > mA + 100) or ( 800 <= mH <= 2000 and mH - 100 < mHpm_cons < mH + 100 == False or mA - 300 < mHpm_cons < mA + 100 == False ):
+			if ( 200 <= mH < 800 and ( mHpm_cons > mH + 100 or mHpm_cons > mA + 400 ) ) or ( 800 <= mH <= 2000 and ( ( (mH - 100 < mHpm_cons < mH + 100) == False ) or ( (mA - 400 < mHpm_cons < mA + 100) == False ) ) ):	
 				continue
 
 			for a_cons in np.linspace(a_min, a_max, a_precision):
 				for tb_cons in np.linspace(tb_min, tb_max, tb_precision):
 
-					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons >= 400 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.95 ):
+					if ( abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.9 ) or ( mHpm_cons >= 400 and abs(np.sin(np.arctan(tb_cons) - a_cons)) <= 0.98 ):
 						continue
 
 					m2logL = func(X=[mHpm_cons, a_cons, tb_cons], mH=mH, mA=mA, grid=True)
@@ -385,7 +353,7 @@ def funcmulti(iteration):
 						a0 = a_cons
 						tb0 = tb_cons
 
-		if m2logLmingrid==m2logLmax:
+		if m2logLmingrid >= m2logLmax:
 			fresults.write('%.2f    '%mH + '%.2f    '%mA + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ' + 'nan    ')
 			fresults.write('\n')
 			continue
@@ -397,10 +365,6 @@ def funcmulti(iteration):
 		sinbafit = np.sin(np.arctan(fit[2]) - fit[1])
 		fresults.write('%.2f    '%mH + '%.2f    '%mA + '%.5f    '%m2logL + '%.3f    '%fit[0] + '%.3f    '%fit[1] + '%.3f    '%fit[2] + '%.3f    '%sinbafit)
 		fresults.write('\n')	
-
-	if iteration == 0 or iteration == 30:
-		print("iteration = ", iteration, "mA = ", mA, "time = ", time.perf_counter()-start, flush=True)
-	m2logLmingrid=m2logLmax
 
 	print("mH = ", mH, " : done")
 
