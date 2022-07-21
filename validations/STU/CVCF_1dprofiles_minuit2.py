@@ -23,7 +23,7 @@ from iminuit import Minuit
 from iminuit.cost import LeastSquares
 import matplotlib
 
-lilith_dir = "/home/Willy/Lilith/Lilith-2/"
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))+"/"
 sys.path.append(lilith_dir)
 import lilith
 

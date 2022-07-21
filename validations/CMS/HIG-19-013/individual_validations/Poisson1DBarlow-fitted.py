@@ -14,9 +14,12 @@ f = open('HIG-19-013-Llh-1d-Grid.txt', 'r')
 # Plot the grids
 fig = plt.figure()
 text = [[float(num) for num in line.split()] for line in f]
+print("1",text)
 f.close()
 text = np.array(text)
+print("2",text)
 textt = np.transpose(text)
+print("3",text)
 x = textt[0]
 y = textt[1]
 plt.plot(x,y,'.',markersize=3, color = 'blue',label="Observed")

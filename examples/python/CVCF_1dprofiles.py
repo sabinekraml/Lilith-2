@@ -23,6 +23,7 @@ from iminuit import Minuit
 import matplotlib
 
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
@@ -34,7 +35,7 @@ import lilith
 
 # Exprimental results
 #myexpinput = "data/latest.list"
-myexpinput = "data/latestRun2.list"
+myexpinput = lilith_dir+"/data/latestRun2.list"
 
 # Lilith precision mode
 myprecision = "BEST-QCD"
@@ -112,7 +113,7 @@ lilithcalc.readexpinput(myexpinput)
 print("\n***** performing model fit: migrad, hesse, minos *****")
 
 # Initialize the fit; parameter starting values and limits
-m = Minuit(getL, CV=1, limit_CV=(0,3), CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=0.2, error_CF=0.2)
+m = Minuit(getL, CV=1, limit_CV=(0,3), limit_CGa=(0,3),CF=1, limit_CF=(0,3), print_level=0, errordef=1, error_CV=0.2, error_CF=0.2, error_CGa=0.2)
 
 # Minimization and error estimation
 m.migrad()

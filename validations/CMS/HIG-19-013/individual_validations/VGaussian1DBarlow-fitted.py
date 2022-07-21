@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import scipy.optimize as optimize
 
 # Open the 1D grid files
-f = open('HIG-19-013-Llh-1d-Grid.txt', 'r')
+f = open('HIG-19-013-Llh-1d-Grid_as.txt', 'r')
 
 
 # Plot the grids
@@ -31,9 +31,12 @@ def fit5para(xr, yr):
 
 ff = fit5para(x, y)
 cen2,sig1,sig2 = ff[0], ff[1], ff[2]
+print("sig1:",sig1)
+print("sig2:",sig2)
+
 print("\n Parameters:")
 print("cen2, sig1, sig2 =", ff[0], ",", ff[1], ",", ff[2])
-
+	
 # Find central value and uncertainties from those parameters
 print("\n Central value and uncertainties:")
 def g1(y):
@@ -49,10 +52,10 @@ print("sig2m =", a2)
 x = np.arange(0,5,0.005)
 
 y2 = (x-cen2)**2/(sig1+sig2*(-x+cen2))
-
+y3= (x-cen2)**2/(a1*a2+(a2-a1)*(x-cen2))
 
 plt.plot(x,y2,'-',markersize=2, color = 'g',label="Barlow's V. Gaussian Appx.")
-
+plt.plot(x,y3,'-',markersize=2, color = 'red',label="y3")
 # Choose VBF - ggH
 plt.xlabel(r'$\mu_{\gamma\gamma}^{ttH}$', fontsize=20)
 # plt.xlabel(r'$\mu_{ZZ}^{ggH}$', fontsize=20)

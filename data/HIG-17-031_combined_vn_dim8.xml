@@ -1,0 +1,98 @@
+<!--
+CMS combination of the H -> gammagamma, ZZ, WW, tautau, bb and mumu decay modes.
+Best-fit values and uncertainties taken from Table 3, correlations from Additional Figure 1 at 
+http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-17-031/
+-->
+
+<expmu dim="8" type="vn">
+  <experiment>CMS</experiment>
+  <source type="published">HIG-17-031</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="ggH" decay="bb">1.0</eff>
+  <eff axis="d2" prod="ggH" decay="mumu">1.0</eff>
+  
+  <eff axis="d3" prod="VBF" decay="mumu">1.0</eff>  
+  
+  <eff axis="d4" prod="WH" decay="bb">1.0</eff>
+
+  <eff axis="d5" prod="ZH" decay="bb">1.0</eff>
+
+  <eff axis="d6" prod="ttH" decay="WW">1.0</eff>
+  <eff axis="d7" prod="ttH" decay="bb">1.0</eff>
+  <eff axis="d8" prod="ttH" decay="tautau">1.0</eff>
+
+  <bestfit>
+	<d1>2.51</d1>
+	<d2>0.31</d2>
+	
+	<d3>2.72</d3>
+	
+	<d4>1.73</d4>
+	
+	<d5>0.99</d5>
+	
+	<d6>1.60</d6>
+	<d7>0.91</d7>
+	<d8>0.23</d8>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-2.01</uncertainty>
+    <uncertainty axis="d1" side="right">+2.43</uncertainty>
+    <uncertainty axis="d2" side="left">-1.79</uncertainty>
+    <uncertainty axis="d2" side="right">+1.80</uncertainty>
+    <uncertainty axis="d3" side="left">-7.03</uncertainty>
+    <uncertainty axis="d3" side="right">+7.12</uncertainty>
+    <uncertainty axis="d4" side="left">-0.68</uncertainty>
+    <uncertainty axis="d4" side="right">+0.70</uncertainty>
+    <uncertainty axis="d5" side="left">-0.45</uncertainty>
+    <uncertainty axis="d5" side="right">+0.47</uncertainty>
+    <uncertainty axis="d6" side="left">-0.59</uncertainty>
+    <uncertainty axis="d6" side="right">+0.65</uncertainty>
+    <uncertainty axis="d7" side="left">-0.43</uncertainty>
+    <uncertainty axis="d7" side="right">+0.45</uncertainty>
+    <uncertainty axis="d8" side="left">-0.88</uncertainty>
+    <uncertainty axis="d8" side="right">+1.03</uncertainty>
+ 
+	
+    <correlation entry="d1d2">0</correlation>
+	<correlation entry="d1d3">0</correlation>
+	<correlation entry="d1d4">-0.02</correlation>
+	<correlation entry="d1d5">0</correlation>
+	<correlation entry="d1d6">0</correlation>
+	<correlation entry="d1d7">0</correlation>
+    <correlation entry="d1d8">0</correlation>
+
+	<correlation entry="d2d3">-0.54</correlation>
+	<correlation entry="d2d4">0</correlation>
+	<correlation entry="d2d5">0</correlation>
+	<correlation entry="d2d6">0</correlation>
+	<correlation entry="d2d7">0</correlation>
+    <correlation entry="d2d8">0</correlation>
+
+	<correlation entry="d3d4">0</correlation>
+	<correlation entry="d3d5">0</correlation>
+	<correlation entry="d3d6">0</correlation>
+	<correlation entry="d3d7">0</correlation>
+    <correlation entry="d3d8">0</correlation>
+	
+	<correlation entry="d4d5">-0.03</correlation>
+	<correlation entry="d4d6">0</correlation>
+	<correlation entry="d4d7">0</correlation>
+    <correlation entry="d4d8">0</correlation>
+	
+	<correlation entry="d5d6">0</correlation>
+	<correlation entry="d5d7">0</correlation>
+    <correlation entry="d5d8">0</correlation>
+	
+	<correlation entry="d6d7">0.03</correlation>
+    <correlation entry="d6d8">-0.42</correlation>
+	
+    <correlation entry="d7d8">0</correlation>
+	
+  </param>
+</expmu>
+

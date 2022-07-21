@@ -11,10 +11,10 @@ http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-00
   <mass>125.38</mass>
   <CL>68%</CL> <!-- optional -->
 
-  <eff axis="d1" prod="VBF" decay="gamma">1.0</eff>
-  <eff axis="d2" prod="ggH" decay="gamma">1.0</eff>
-  <eff axis="d3" prod="ttH" decay="gamma">1.0</eff>
-  <eff axis="d4" prod="VH" decay="gamma">1.0</eff>
+  <eff axis="d1" prod="VBF" decay="gammagamma">1.0</eff>
+  <eff axis="d2" prod="ggH" decay="gammagamma">1.0</eff>
+  <eff axis="d3" prod="ttH" decay="gammagamma">1.0</eff>
+  <eff axis="d4" prod="VH" decay="gammagamma">1.0</eff>
 
   <bestfit>
   	<d1>1.36</d1>

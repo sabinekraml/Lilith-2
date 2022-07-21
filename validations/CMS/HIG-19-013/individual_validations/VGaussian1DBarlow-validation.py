@@ -7,13 +7,14 @@ import scipy.optimize as optimize
 
 # Choose VBF - ggH - ttH - VH
 # f = open('HIGG-2016-22_VBF-1d-Grid.txt', 'r')
-f = open('HIG-19-013-Llh-1d-Grid.txt', 'r')
+f = open('HIG-19-013-Llh-1d-Grid_as.txt', 'r')
 # f = open('HIGG-2016-22_ttH-1d-Grid.txt', 'r')
 # f = open('HIGG-2016-22_VH-1d-Grid.txt', 'r')
 
 # Plot the grids
 fig = plt.figure()
-text = [[float(num) for num in line.split()] for line in f]
+text = [[float(nu) for nu in lin.split()] for lin in f]
+print("text:",text)
 f.close()
 text = np.array(text)
 textt = np.transpose(text)

@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+lilith_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith

@@ -30,7 +30,7 @@ plt.plot(x,y,'.',markersize=3, color = 'blue',label="Observed")
 #ggF
 # cen1, sig1m, sig1p = 1.11+0.01, np.sqrt(0.2**2 + 0.06**2 + 0.04**2)+0.01, np.sqrt(0.22**2+0.07**2+0.04**2)+0.01
 #VBF
-cen1, sig1m, sig1p = 1.38, 0.29, 0.36
+cen1, sig1m, sig1p = 1.38, 0.29, 0.36 #section efficace de ttH par rapport au SM
 
 
 def f(t):

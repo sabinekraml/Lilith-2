@@ -1,0 +1,24 @@
+<!--
+CMS result for mu(H->gammagamma) at mH = 125 GeV, ttH-tag category; 
+with signal strength and uncertainties taken from Add. Fig. 13
+http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-19-013/
+-->
+
+<expmu decay="gammagamma" dim="1" type="vn1">
+  <experiment>CMS</experiment>
+  <source type="published">HIG-19-013</source>
+  <sqrts>13</sqrts>
+  <mass>125</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff prod="ttH">1.0</eff>
+  
+  <bestfit>1.4064302934491155</bestfit>
+ 
+  <param>
+    <uncertainty side="left">0.29396557106970445</uncertainty>
+    <uncertainty side="right">0.3388307019416081</uncertainty>
+  </param>
+</expmu>
+
+
