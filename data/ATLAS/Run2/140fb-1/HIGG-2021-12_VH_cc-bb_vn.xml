@@ -1,0 +1,30 @@
+<!--
+ATLAS result for mu(VH -> cc,bb)  at mH = 125 GeV,
+with signal strength and correlation fitted
+from 95% CL in section 7, Fig. 5 from HIGG-2021-12
+(http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-12/)
+-->
+
+<expmu dim="2" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="published">HIGG-2021-12</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>95%</CL> <!-- optional -->
+
+  <eff axis="x" prod="VH" decay="cc">1.0</eff>
+  <eff axis="y" prod="VH" decay="bb">1.0</eff>
+
+  <bestfit>
+    <x>-9</x>
+    <y>1.06</y>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="x" side="left">-15</uncertainty>
+    <uncertainty axis="x" side="right">+15</uncertainty>
+    <uncertainty axis="y" side="left">-0.18</uncertainty>
+    <uncertainty axis="y" side="right">+0.19</uncertainty>
+    <correlation>-0.12</correlation>
+  </param>
+</expmu>

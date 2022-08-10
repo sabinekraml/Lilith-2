@@ -1,0 +1,44 @@
+<!--
+ATLAS result for mu(H->tautau) at mH = 125.09 GeV for 4 prod. modes;
+best fit-values and uncertainties from Figures 13a, 
+correlations taken from Fig. 13b in HIGG-2019-09
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2019-09/
+-->
+
+<expmu dim="4" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="published">HIGG-2019-09</source>
+  <sqrts>13</sqrts>
+  <mass>125.09</mass>
+  <CL>95%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="VBF" decay="tautau">1.0</eff>
+  <eff axis="d2" prod="ggH" decay="tautau">1.0</eff>
+  <eff axis="d3" prod="VH" decay="tautau">1.0</eff>
+  <eff axis="d4" prod="ttH" decay="tautau">1.0</eff>
+
+  <bestfit>
+    <d1>0.90</d1>
+    <d2>0.96</d2>
+    <d3>0.98</d3>
+    <d4>1.06</d4>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.17</uncertainty>
+    <uncertainty axis="d1" side="right">+0.20</uncertainty>
+    <uncertainty axis="d2" side="left">-0.28</uncertainty>
+    <uncertainty axis="d2" side="right">+0.34</uncertainty>
+    <uncertainty axis="d3" side="left">-0.58</uncertainty>
+    <uncertainty axis="d3" side="right">+0.61</uncertainty>
+    <uncertainty axis="d4" side="left">-1.08</uncertainty>
+    <uncertainty axis="d4" side="right">+1.28</uncertainty>
+     
+    <correlation entry="d1d2">-0.24</correlation>
+    <correlation entry="d1d3">0.081</correlation>
+    <correlation entry="d1d4">0.021</correlation>
+    <correlation entry="d2d3">-0.29</correlation>
+    <correlation entry="d2d4">-0.02</correlation>
+    <correlation entry="d3d4">-0.021</correlation>
+  </param>
+</expmu>
