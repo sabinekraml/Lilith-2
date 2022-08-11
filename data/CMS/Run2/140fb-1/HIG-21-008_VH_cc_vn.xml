@@ -1,0 +1,22 @@
+<!--
+CMS result for mu(VH, cc) at mH = 125.38 GeV for 138/fb,
+with best-fit values and uncertainties fitted from 95% CL in Table 1 at
+http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/HIG-21-008/
+-->
+
+<expmu decay="cc" dim="1" type="vn">
+  <experiment>CMS</experiment>
+  <source type="preliminary">HIG-21-008</source>
+  <sqrts>13</sqrts>
+  <mass>125.38</mass>
+  <CL>95%</CL> <!-- optional -->
+
+  <eff prod="VH">1.0</eff>
+  
+  <bestfit>7.7</bestfit>
+ 
+  <param>
+    <uncertainty side="left">-3.5</uncertainty>
+    <uncertainty side="right">+3.8</uncertainty>
+  </param>
+</expmu>
