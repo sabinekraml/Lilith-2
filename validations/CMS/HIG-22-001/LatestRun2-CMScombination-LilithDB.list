@@ -1,0 +1,29 @@
+
+#---------------------------
+#---  CMS Run2, 36 fb-1  ---
+#---------------------------
+
+## Combination paper (all channels)
+CMS/Run2/36fb-1/HIG-17-031_combined_vn_dim24.xml
+
+
+#---------------------------
+#--- CMS Run2, 140 fb-1  ---
+#---------------------------
+
+## H -> ZZ 
+CMS/Run2/140fb-1/HIG-19-001_ggH-VBF-VH-ttH_vn_dim4.xml
+
+## VBF, ggH -> tautau
+CMS/Run2/140fb-1/HIG-19-010_VBF-ggH_tautau_vn68_fig14b.xml
+
+## ttH -> gammagamma
+CMS/Run2/140fb-1/HIG-19-013_ttH_gammagamma_vs.xml
+
+## H -> gammagamma
+CMS/Run2/140fb-1/HIG-19-015_ggH-VBF-WH-ZH-ttH-tH_gammagamma_vn_dim6.xml
+
+## VH -> cc
+CMS/Run2/140fb-1/HIG-21-008_VH_cc_vn.xml
+
+
