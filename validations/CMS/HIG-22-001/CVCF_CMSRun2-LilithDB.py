@@ -29,7 +29,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/LatestRun2-CMScombination-HIG-22-001.list"
+exp_input = "data/LatestRun2-CMScombination-LilithDB.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -40,8 +40,8 @@ hmass = 125.38
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "results/CVCF-CMScombination-Run2-LilithDB.out"
-outputplot = "results/CVCF-CMScombination-Run2-LilithDB.pdf"
+output = "results/CVCF-CMS-Run2-LilithDB.out"
+outputplot = "results/CVCF-CMS-Run2-LilithDB.pdf"
 
 # Scan ranges
 CV_min = 0.8
