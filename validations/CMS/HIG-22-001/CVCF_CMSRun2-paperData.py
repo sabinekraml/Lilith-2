@@ -15,12 +15,10 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
-
-
 
 ######################################################################
 # Parameters
@@ -29,7 +27,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/LatestRun2-CMScombination-paperData.list"
+exp_input = "validations/CMS/HIG-22-001/LatestRun2-CMScombination-paperData.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -40,14 +38,14 @@ hmass = 125.38
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "results/CVCF-CMS-Run2-paperData.out"
-outputplot = "results/CVCF-CMScombination-Run2-paperData.pdf"
+output = "validations/CMS/HIG-22-001/CVCF-CMS-Run2-paperData.out"
+outputplot = "validations/CMS/HIG-22-001/CVCF-CMS-Run2-paperData.pdf"
 
 # Scan ranges
-CV_min = 0.8
-CV_max = 1.2
-CF_min = 0.6
-CF_max = 1.2
+CV_min = 0.9
+CV_max = 1.1
+CF_min = 0.75
+CF_max = 1.05
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -143,7 +141,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=20, length=14, width=2)
+plt.tick_params(labelsize=15, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
 
 
@@ -167,7 +165,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Import Official data from file 
-dataload = open('examples/python/CMS-HIG-22-001-Run2-official.csv','r')
+dataload = open('validations/CMS/HIG-22-001/CMS-HIG-22-001-Run2-official.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -188,14 +186,14 @@ plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 plt.plot([1],[1], '+', c='k', ms=10)
 
 # Plotting the Offical contours 
-plt.scatter(dorix,doriy,s=3,c='b',marker='o',label='CMS official')    
+plt.scatter(dorix,doriy,s=5,c='b',marker='o',label='CMS official')    
 plt.legend(loc='lower right', scatterpoints = 3)
 
 # Title, labels, color bar...
-plt.title("  Lilith-"+str(lilith.__version__)+", DB "+str(lilithcalc.dbversion), fontsize=12, ha="left")
-plt.xlabel(r'$C_V$',fontsize=15)
-plt.ylabel(r'$C_F$',fontsize=15)
-#plt.text(0.83, 1.35, r'Exp. input:'+exp_input, fontsize=10)
+plt.title("  Lilith-2.1, CMS-HIG-22-001 validation" , fontsize=12, ha="center")
+plt.xlabel(r'$C_V$',fontsize=20)
+plt.ylabel(r'$C_F$',fontsize=20)
+plt.text(0.91, 1.03, r'Exp. input type = vn', fontsize=12, ha = 'left')
 
 fig.set_tight_layout(True)
 
