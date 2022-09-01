@@ -1,0 +1,56 @@
+<!--
+CMS combination of the H -> WW decay modes for 139/fb.
+Best-fit values and uncertainties taken from Auxillary Figure 06, 
+correlations from Aux Figure 07
+http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-23/
+validated: waiting  
+-->
+
+<expmu dim="5" type="vn">
+    <experiment>ATLAS</experiment>
+    <source type="published">HIGG-2021-23</source>
+    <sqrts>13</sqrts>
+    <mass>125.09</mass>
+    <CL>95%</CL> <!-- optional -->
+
+    <eff axis="d1" prod="ggH" decay="WW">1.0</eff>
+    <eff axis="d2" prod="VBF" decay="WW">1.0</eff>
+    <eff axis="d3" prod="WH" decay="WW">1.0</eff>
+    <eff axis="d4" prod="ZH" decay="WW">1.0</eff>
+    <eff axis="d5" prod="top" decay="WW">1.0</eff>
+
+    <bestfit>
+        <d1>1.14</d1>
+        <d2>1.13</d2>
+	<d3>2.26</d3>
+        <d4>2.86</d4>
+	<d5>1.64</d5>
+    </bestfit>
+
+    <param>
+        <uncertainty axis="d1" side="left">-0.13</uncertainty>
+        <uncertainty axis="d1" side="right">+0.13</uncertainty>
+        <uncertainty axis="d2" side="left">-0.18</uncertainty>
+        <uncertainty axis="d2" side="right">+0.19</uncertainty>
+        <uncertainty axis="d3" side="left">-1.02</uncertainty>
+        <uncertainty axis="d3" side="right">+1.21</uncertainty>
+        <uncertainty axis="d4" side="left">-1.33</uncertainty>
+        <uncertainty axis="d4" side="right">+1.84</uncertainty>
+        <uncertainty axis="d5" side="left">-0.61</uncertainty>
+        <uncertainty axis="d5" side="right">+0.65</uncertainty>  
+
+        <correlation entry="d1d2">-0.10</correlation>
+        <correlation entry="d1d3">0.01</correlation>
+        <correlation entry="d1d4">0.01</correlation>
+        <correlation entry="d1d5">0.02</correlation>
+        
+        <correlation entry="d2d3">0.0</correlation>
+        <correlation entry="d2d4">0.0</correlation>
+        <correlation entry="d2d5">0.01</correlation>
+        
+        <correlation entry="d3d4">-0.05</correlation>
+        <correlation entry="d3d5">-0.01</correlation>
+        
+        <correlation entry="d4d5">0.0</correlation>
+    </param>
+</expmu>
