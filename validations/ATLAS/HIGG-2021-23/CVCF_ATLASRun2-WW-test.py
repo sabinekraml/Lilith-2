@@ -44,7 +44,7 @@ outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-WW-test.pdf"
 # Scan ranges
 CV_min = 0.95
 CV_max = 1.2
-CF_min = 0.7
+CF_min = 0.75
 CF_max = 1.4
 
 # Number of grid steps in each of the two dimensions (squared grid)
@@ -165,7 +165,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2021-23/ATLAS-official-WW-68.csv','r')
+dataload = open('validations/ATLAS/HIGG-2021-23/ATLAS-official-WW-95.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -185,22 +185,20 @@ ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
 plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 
 # Standard Model 
-plt.plot([1],[1], '+', c='k', ms=10, label='SM')
-
-# Best fit point - official 
-plt.plot([1.0895184135977338],[1.0753246753246752], 'P', c='k', ms=6, label='ATLAS official best fit')
-
+plt.plot([1],[1], '+', c='w', ms=10)
 
 # Plotting the Offical contours 
 plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='ATLAS official 68%')    
 plt.legend(loc='lower right', scatterpoints = 3) 
 
+# Best fit point - official 
+plt.plot([1.0895184135977338],[1.0753246753246752], 'P', c='k', ms=6)
 
 # Title, labels, color bar...
 plt.title("  Lilith-2.1, ATLAS-2021-23 "+r' $H\to WW^*$' +' validation', fontsize=12, ha="center")
 plt.xlabel(r'$C_V$',fontsize=20)
 plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.96, 1.35, r'Exp. input type = vn', fontsize=10, ha = 'left')
+plt.text(0.96, 1.35, r'Exp. input type = vn1', fontsize=10, ha = 'left')
 
 fig.set_tight_layout(True)
 

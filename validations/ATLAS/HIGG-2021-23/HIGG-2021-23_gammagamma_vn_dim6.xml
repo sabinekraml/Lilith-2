@@ -13,7 +13,8 @@ validated: waiting
     <mass>125.09</mass>
     <CL>95%</CL> <!-- optional -->
 
-    <eff axis="d1" prod="ggH" decay="gammagamma">1.0</eff>
+    <eff axis="d1" prod="ggH" decay="gammagamma">0.988636</eff>
+    <eff axis="d1" prod="bbH" decay="gammagamma">0.011364</eff>
     <eff axis="d2" prod="VBF" decay="gammagamma">1.0</eff>
     <eff axis="d3" prod="WH" decay="gammagamma">1.0</eff>
     <eff axis="d4" prod="ZH" decay="gammagamma">1.0</eff>

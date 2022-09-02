@@ -27,7 +27,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2021-23/LatestRun2-ATLAScombination-gammagamma.list"
+exp_input = "validations/ATLAS/HIGG-2021-23/LatestRun2-ATLAScombination-bb.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -38,14 +38,14 @@ hmass = 125.38
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-gammagamma-test.out"
-outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-gammagamma-test.pdf"
+output = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-bb-test.out"
+outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-bb-test.pdf"
 
 # Scan ranges
-CV_min = 0.9
-CV_max = 1.2
-CF_min = 0.7
-CF_max = 1.3
+CV_min = 0.6
+CV_max = 1.4
+CF_min = 0.5
+CF_max = 1.05
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -141,7 +141,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=15, length=14, width=2)
+plt.tick_params(labelsize=10, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
 
 
@@ -165,7 +165,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2021-23/ATLAS-official-gammagamma-95.csv','r')
+dataload = open('validations/ATLAS/HIGG-2021-23/ATLAS-official-bb-68.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -185,20 +185,20 @@ ax.set_aspect((CV_max-CV_min)/(CF_max-CF_min))
 plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 
 # Standard Model 
-plt.plot([1],[1], '+', c='w', ms=10)
+plt.plot([1],[1], '+', c='k', ms=10, label="SM")
+
+# Best fit point - official 
+plt.plot([1.196887159533074],[0.709090909090909], 'P', c='k', ms=6, label="ATLAS official best fit")
 
 # Plotting the Offical contours 
 plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='ATLAS official 68%')    
-plt.legend(loc='lower right', scatterpoints = 3) 
-
-# Best fit point - official 
-plt.plot([1.019402985074627],[0.9571428571428571], 'P', c='k', ms=6)
+plt.legend(loc='lower left', scatterpoints = 3) 
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, ATLAS-2021-23 "+r' $H\to\gamma\gamma$' +' validation', fontsize=12, ha="center")
-plt.xlabel(r'$C_V$',fontsize=20)
-plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.91, 1.25, r'Exp. input type = vn1', fontsize=10, ha = 'left')
+plt.title("  Lilith-2.1, ATLAS-2021-23 "+r' $H\to \tau\tau$' +' validation', fontsize=10, ha="center")
+plt.xlabel(r'$C_V$',fontsize=15)
+plt.ylabel(r'$C_F$',fontsize=15)
+plt.text(0.78, 1.17, r'Exp. input type = vn', fontsize=10, ha = 'left')
 
 fig.set_tight_layout(True)
 
