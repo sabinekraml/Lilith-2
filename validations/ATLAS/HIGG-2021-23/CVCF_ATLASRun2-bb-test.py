@@ -195,10 +195,10 @@ plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='ATLAS official 68%')
 plt.legend(loc='lower left', scatterpoints = 3) 
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, ATLAS-2021-23 "+r' $H\to \tau\tau$' +' validation', fontsize=10, ha="center")
+plt.title("  Lilith-2.1, ATLAS-2021-23 "+r' $H\to b\bar{b}$' +' validation', fontsize=10, ha="center")
 plt.xlabel(r'$C_V$',fontsize=15)
 plt.ylabel(r'$C_F$',fontsize=15)
-plt.text(0.78, 1.17, r'Exp. input type = vn', fontsize=10, ha = 'left')
+plt.text(0.62, 1.01, r'Exp. input type = vn', fontsize=10, ha = 'left')
 
 fig.set_tight_layout(True)
 
