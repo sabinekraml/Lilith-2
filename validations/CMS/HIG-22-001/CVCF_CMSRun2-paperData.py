@@ -164,15 +164,33 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
-# Import Official data from file 
-dataload = open('validations/CMS/HIG-22-001/CMS-HIG-22-001-Run2-official.csv','r')
-dorix = []
-doriy = []
-for line in dataload:
-  fdat = line.split(',')
-  dorix.append(float(fdat[0]))
-  doriy.append(float(fdat[1]))
- 
+# Import Official data from csv file 
+#dataload = open('validations/CMS/HIG-22-001/CMS-HIG-22-001-Run2-official.csv','r')
+#dorix = []
+#doriy = []
+#for line in dataload:
+#  fdat = line.split(',')
+#  dorix.append(float(fdat[0]))
+#  doriy.append(float(fdat[1]))
+
+# Import official 68% contour 
+dataload68 = open('validations/CMS/HIG-22-001/official68.txt','r')
+dorix68 = []
+doriy68 = []
+for line in dataload68:
+  fdat68 = line.split('\t')
+  dorix68.append(float(fdat68[0]))
+  doriy68.append(float(fdat68[1]))
+
+# Import official 95% contour 
+data95 = open('validations/CMS/HIG-22-001/official95.txt','r')
+dorix95 = []
+doriy95 = []
+for line in data95:
+  dat95 = line.split('\t')
+  dorix95.append(float(dat95[0]))
+  doriy95.append(float(dat95[1]))
+   
 # Plotting the 68%, 95% and 99.7% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
@@ -185,9 +203,20 @@ plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 # Standard Model 
 plt.plot([1],[1], '+', c='k', ms=10)
 
-# Plotting the Offical contours 
-plt.scatter(dorix,doriy,s=5,c='b',marker='o',label='CMS official')    
+# Plotting the Offical contours from csv file
+#plt.scatter(dorix,doriy,s=5,c='b',marker='o',label='CMS official')    
+#plt.legend(loc='lower right', scatterpoints = 3)
+
+# Plotting the contours from official 68
+plt.scatter(dorix68,doriy68,s=5,c='k',marker='o',label='CMS official',alpha=1)    
 plt.legend(loc='lower right', scatterpoints = 3)
+
+# Plotting the contours from official 95
+plt.scatter(dorix95,doriy95,s=5,c='k',marker='o', alpha=1)    
+plt.legend(loc='lower right', scatterpoints = 3)
+
+# Plotting the official best fit point (CV,CF)
+plt.plot([1.014],[0.906], 'o', c='k', ms=3, alpha=1)
 
 # Title, labels, color bar...
 plt.title("  Lilith-2.1, CMS-HIG-22-001 validation" , fontsize=12, ha="center")
