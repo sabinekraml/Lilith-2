@@ -27,7 +27,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2021-23/LatestRun2-ATLAS-combine.list"
+exp_input = "validations/ATLAS/HIGG-2020-16/LatestRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -38,17 +38,15 @@ hmass = 125.38
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-test.out"
-#outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-test.pdf"
-#outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-newcor.pdf"
-outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-newcor-unc.pdf"
+output = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16-cor.out"
+#outputplot = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16-cor.pdf"
+outputplot = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16.pdf"
 
 # Scan ranges
-CV_min = 0.95
-CV_max = 1.15
-CF_min = 0.75
-CF_max = 1.15
-
+CV_min = 0.85
+CV_max = 1.2
+CF_min = 0.6
+CF_max = 1.6
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
 
@@ -136,14 +134,14 @@ print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 print("***** plotting *****")
 
 # Preparing plot
-matplotlib.rcParams['xtick.major.pad'] = 10
-matplotlib.rcParams['ytick.major.pad'] = 10
+matplotlib.rcParams['xtick.major.pad'] = 15
+matplotlib.rcParams['ytick.major.pad'] = 15
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=10, length=14, width=2)
+plt.tick_params(labelsize=15, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
 
 
@@ -166,17 +164,24 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
+# Import Official data from csv file 
+#dataload = open('validations/CMS/HIG-22-001/CMS-HIG-22-001-Run2-official.csv','r')
+#dorix = []
+#doriy = []
+#for line in dataload:
+#  fdat = line.split(',')
+#  dorix.append(float(fdat[0]))
+#  doriy.append(float(fdat[1]))
+
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2021-23/ATLAS-combine.csv','r')
+dataload = open('validations/ATLAS/HIGG-2020-16/HIGG-2020-16.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
   fdat = line.split(',')
   dorix.append(float(fdat[0]))
   doriy.append(float(fdat[1]))
-
-
- 
+   
 # Plotting the 68%, 95% and 99.7% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
@@ -189,18 +194,18 @@ plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 # Standard Model 
 plt.plot([1],[1], '+', c='k', ms=10)
 
-# Best fit point - official 
-plt.plot([1.0350194552529182],[0.9533596837944663], 'P', c='k', ms=6, label="ATLAS official best fit")
-
 # Plotting the Offical contours 
-plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='ATLAS official')    
+plt.scatter(dorix,doriy,s=3,c='b',marker='o',label='ATLAS official')    
 plt.legend(loc='lower right', scatterpoints = 3) 
 
+# best fit point
+plt.plot([1.0183206106870228],[1.0045454545454544], 'o', c='b', ms=3)
+
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, ATLAS HIGG-2021-23 validation", fontsize=10, ha="center")
-plt.xlabel(r'$C_V$',fontsize=15)
-plt.ylabel(r'$C_F$',fontsize=15)
-plt.text(0.96, 1.12, r'Exp. input type = vn', fontsize=10, ha = 'left')
+plt.title("  Lilith-2.1, ATLAS HIGG-2020-16 validation" , fontsize=12, ha="center")
+plt.xlabel(r'$C_V$',fontsize=20)
+plt.ylabel(r'$C_F$',fontsize=20)
+plt.text(0.86, 1.5, r'Exp. input type = vn1', fontsize=12, ha = 'left')
 
 fig.set_tight_layout(True)
 

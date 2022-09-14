@@ -39,7 +39,8 @@ hmass = 125.38
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "validations/CMS/HIG-22-001/CVCF-CMS-Run2-paperData.out"
-outputplot = "validations/CMS/HIG-22-001/CVCF-CMS-Run2-paperData.pdf"
+#outputplot = "validations/CMS/HIG-22-001/CVCF-CMS-Run2-paperData.pdf"
+outputplot = "validations/CMS/HIG-22-001/CVCF-CMS-Run2-paperData-incruncer.pdf"
 
 # Scan ranges
 CV_min = 0.9
