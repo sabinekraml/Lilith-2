@@ -40,12 +40,12 @@ if (not os.path.exists("results")):
     os.mkdir("results")
 output = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57.out"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-noSMerr.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-SMerr-test.pdf"
+##outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-SMerr-test.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx3-SMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx2-g05-SMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx2-g20-SMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx2-g50-SMerr.pdf"
-
+outputplot = "validations/ATLAS/HIGG-2018-57/ninh-SMerr-test.pdf"
 # Scan ranges
 CV_min = 0.9
 CV_max = 1.2
