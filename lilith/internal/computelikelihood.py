@@ -193,7 +193,8 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
                     add_var = (del_alpha/B_vec)*f_vec
                     add_cov = add_var*diag_mat*add_var.T
 # total covariance                    
-                    cov_m_tot = cov_m_prime + add_cov
+#                    cov_m_tot = cov_m_prime + add_cov
+                    cov_m_tot = cov_m_prime
 
 ## the likelihood from covariance
                     inv_cov_m = np.linalg.inv(cov_m_tot)
