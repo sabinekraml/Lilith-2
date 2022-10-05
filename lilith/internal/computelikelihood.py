@@ -160,41 +160,56 @@ def compute_likelihood(exp_mu, user_mu, user_mode):
 #                    unc_sym = np.sqrt(np.abs(mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec))
 #                    cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
 #                    cov_m_tot = cov_m 
-## declare data for experimental and theoretical XS.BR                  
-                    A_vec = np.array([97,1230,10400,2700,11.1,249,450,260,6100,5.0,36,1380,1.46,212,51,270])
-                    error_ex_p = np.array([14,190,1800,1700,3.2,91,270,130,3400,2.6,63,310,0.55,84,41,200])
-                    error_ex_m = np.array([14,180,1800,1500,2.8,77,260,120,3300,2.5,41,290,0.47,81,25,200])
-                    B_vec = np.array([101.5,1181,9600,2800,7.98,92.8,756,220,2040,4.54,52.8,1162,1.33,142,36.7,341])
-##                    error_th_p = np.array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])    # use when testing for the case of no theoretical uncertainty
-##                    error_th_m = np.array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])    # use when testing for the case of not theoretical uncertainty             
-                    error_th_p = np.array([5.3,61,500,140,0.21,2.3,19,6,50,0.13,1.4,31,0.08,8,2.2,20])
-                    error_th_m = np.array([5.3,61,500,140,0.21,2.3,19,6,50,0.12,1.4,29,0.11,12,3.1,29])
+## declare data for experimental and theoretical XS.BR for HIGG-2018-57                 
+                    A_vec = np.array([[97,1230,10400,2700,11.1,249,450,260,6100,5.0,36,1380,1.46,212,51,270]])
+                    error_ex_p = np.array([[14,190,1800,1700,3.2,91,270,130,3400,2.6,63,310,0.55,84,41,200]])
+                    error_ex_m = np.array([[14,180,1800,1500,2.8,77,260,120,3300,2.5,41,290,0.47,81,35,200]])
+                    B_vec = np.array([[101.5,1181,9600,2800,7.98,92.8,756,220,2040,4.54,52.8,1162,1.33,142,36.7,341]])
+#                    error_th_p = np.array([[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]])    # use when testing for the case of no theoretical uncertainty
+#                    error_th_m = np.array([[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]])    # use when testing for the case of not theoretical uncertainty             
+                    error_th_p = np.array([[5.3,61,500,140,0.21,2.3,19,6,50,0.13,1.4,31,0.08,8,2.2,20]])
+                    error_th_m = np.array([[5.3,61,500,140,0.21,2.3,19,6,50,0.12,1.4,29,0.11,12,3.1,29]])
                     f_vec = A_vec/B_vec
+#                    f_vec = np.array([[0.96,1.04,1.08,0.96,1.39,2.68,0.59,1.16,3.01,1.09,0.68,1.19,1.1,1.5,1.38,0.79]])
                     
-                    mu_vec = np.array([user_mu_effscaled["d1"] - f_vec[0],
-                                       user_mu_effscaled["d2"] - f_vec[1],
-                                       user_mu_effscaled["d3"] - f_vec[2]])
+                    mu_vec = np.array([user_mu_effscaled["d1"] - f_vec[0][0],
+                                       user_mu_effscaled["d2"] - f_vec[0][1],
+                                       user_mu_effscaled["d3"] - f_vec[0][2]])
                     for i in range(4,mu["dim"]+1):
                         d = "d"+str(i)
-                        mu_vec = np.append(mu_vec,[user_mu_effscaled[d] - f_vec[i-1]])
-#                     
-                    mu_ex_vec = mu_vec*B_vec
-                    VGau = error_ex_p*error_ex_m 
-                    VGau_prime = (error_ex_p - error_ex_m)   
+                        mu_vec = np.append(mu_vec,[user_mu_effscaled[d] - f_vec[0][i-1]])
+                     
+                    unc_p = np.sqrt((error_ex_p/B_vec)**2+(error_th_p/B_vec)**2*f_vec**2)
+                    unc_m = np.sqrt((error_ex_m/B_vec)**2+(error_th_m/B_vec)**2*f_vec**2)
+                    unc_ex_p = error_ex_p/B_vec
+                    unc_ex_m = error_ex_m/B_vec
+                    unc_th_p = (error_th_p/B_vec)*f_vec
+                    unc_th_m = (error_th_m/B_vec)*f_vec
+                    VGau_ex = unc_ex_p*unc_ex_m
+                    VGau_ex_prime = unc_ex_p - unc_ex_m
+                    Sigma_ex = np.sqrt(np.abs(VGau_ex + VGau_ex_prime*mu_vec))
+                    VGau_th = unc_th_p*unc_th_m
+                    VGau_th_prime = unc_th_p - unc_th_m
+                    Sigma_th = np.sqrt(np.abs(VGau_th + VGau_th_prime*mu_vec))
+                    
 
-                    unc_sym = np.sqrt(np.abs(VGau + VGau_prime*mu_ex_vec))
-                    cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-
-                    Binv=1.0/B_vec	
-                    cov_m_prime = Binv*cov_m*Binv.T
-
+                    
+                    cov_ex = Sigma_ex*mu["param"]["corr_m"]*Sigma_ex.T
+                    
+#                    print("Sigma_ex = ",Sigma_ex)
+                    
                     diag_mat = np.identity(mu["dim"])
-                    del_alpha = (error_th_p + error_th_m)/2.0
-                    add_var = (del_alpha/B_vec)*f_vec
-                    add_cov = add_var*diag_mat*add_var.T
+                    cov_th = Sigma_th*diag_mat*Sigma_th.T
+                    
 # total covariance                    
-#                    cov_m_tot = cov_m_prime + add_cov
-                    cov_m_tot = cov_m_prime
+                    cov_m_tot = cov_ex + cov_th
+                    
+#                    Binv=1.0/B_vec												
+#                    cov_m_tot = Binv*cov_ex*Binv.T + f_vec*(Binv*cov_th*Binv.T)*f_vec.T		# this is wrong 
+                    
+
+#                    print("f_vec.T = ",f_vec.T)
+#                    print("B_vec.T = ",B_vec.T) 
 
 ## the likelihood from covariance
                     inv_cov_m = np.linalg.inv(cov_m_tot)
