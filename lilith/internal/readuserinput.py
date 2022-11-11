@@ -371,7 +371,7 @@ class ReadUserInput:
 
         accepted_prod = ["ggH", "VVH", "ttH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "tHq", "tHW", "tH", "top", "bbH"]
         accepted_decay = ["gammagamma", "VV", "WW", "ZZ", "bb", "tautau",
-                          "dd", "uu", "ll", "cc", "ff", "Zgamma", "mumu", "invisible", "gg"]
+                          "dd", "uu", "ll", "cc", "ff", "Zgamma", "mumu", "invisible", "gg", "SM"]
 
         mu_block = None
 

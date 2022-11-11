@@ -75,7 +75,7 @@ class ComputeMuFromReducedCouplings:
 
         considered_decay_modes = [
         "gammagamma", "ZZ", "WW", "bb", "cc", "tautau", "Zgamma", "mumu", "gg",
-        "invisible"
+        "invisible", "SM"
         ]
 
         width = {}
@@ -110,6 +110,8 @@ class ComputeMuFromReducedCouplings:
             if decay == "invisible":
                 # one cannot define a "reduced" branching ratio
                 redBR[decay] = redCp["extra"]["BRinvisible"]
+            elif decay == "SM":
+                redBR[decay] = 1
             else:
                 redBR[decay] = (inv_und * width[decay] / reduced_width /
                                 self.BR[decay])

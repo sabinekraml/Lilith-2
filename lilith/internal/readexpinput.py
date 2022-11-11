@@ -134,7 +134,7 @@ class ReadExpInput:
         """Get the dimension, decay and type of the experimental mu."""
         
         allowed_decays = ["gammagamma", "ZZ", "WW", "Zgamma",
-                          "tautau", "bb", "cc", "mumu", "invisible", "gg"]
+                          "tautau", "bb", "cc", "mumu", "invisible", "gg", "SM"]
 
         mandatory_attribs = {"type":["n", "vn", "vn1", "p", "f"]}  
                              # types vn, vn1 and p added for variable Gaussian and Poisson fits
@@ -215,7 +215,7 @@ class ReadExpInput:
 
     def read_eff(self, root, dim, decay):
         allowed_decays = ["gammagamma", "ZZ", "WW", "Zgamma",
-                          "tautau", "bb", "cc", "mumu", "invisible", "gg"]
+                          "tautau", "bb", "cc", "mumu", "invisible", "gg", "SM"]
 
         # read the efficiencies
         if dim == 1: # 1D signal strength
