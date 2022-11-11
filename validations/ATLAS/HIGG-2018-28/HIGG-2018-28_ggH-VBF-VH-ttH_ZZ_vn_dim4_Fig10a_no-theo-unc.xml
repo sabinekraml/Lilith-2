@@ -1,0 +1,46 @@
+<!--
+ATLAS result for mu(H->ZZ) at mH = 125 GeV for 4 prod. modes,
+with best fit-values and propagated uncertainties (without theo. uncertainties)   
+taken from Fig. 10a, correlations taken from Fig. 10b, at
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-28/
+-->
+
+<expmu dim="4" type="vn">
+  <experiment>ATLAS</experiment>
+  <source type="published">HIGG-2018-28</source>
+  <sqrts>13</sqrts>
+  <mass>125</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="ggH" decay="ZZ">1.0</eff>
+  <eff axis="d2" prod="VBF" decay="ZZ">1.0</eff>
+  <eff axis="d3" prod="VH" decay="ZZ">1.0</eff>
+  <eff axis="d4" prod="top" decay="ZZ">1.0</eff>
+
+  <bestfit>
+    <d1>0.957264957</d1>
+    <d2>1.195652174</d2>
+    <d3>1.43129771</d3>
+    <d4>1.688311688</d4>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.111111111</uncertainty>
+    <uncertainty axis="d1" side="right">+0.111111111</uncertainty>
+    <uncertainty axis="d2" side="left">-0.434782609</uncertainty>
+    <uncertainty axis="d2" side="right">+0.434782609</uncertainty>
+    <uncertainty axis="d3" side="left">-0.935114504</uncertainty>
+    <uncertainty axis="d3" side="right">+1.164122137</uncertainty>
+    <uncertainty axis="d4" side="left">-1.103896104</uncertainty>
+    <uncertainty axis="d4" side="right">+1.688311688</uncertainty>
+
+    <correlation entry="d1d2">-0.22</correlation>
+    <correlation entry="d1d3">-0.27</correlation>
+    <correlation entry="d1d4">0.01</correlation>
+    
+    <correlation entry="d2d3">-0.02</correlation>
+    <correlation entry="d2d4">0</correlation>
+    
+    <correlation entry="d3d4">-0.18</correlation>
+  </param>
+</expmu>
