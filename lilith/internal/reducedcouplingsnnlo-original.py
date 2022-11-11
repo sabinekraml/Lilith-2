@@ -386,19 +386,18 @@ def redCVBF(CW, CZ, grid_interp):
 #### 13 TeV production: VBF -> h @ NLO-QCD & reduced coupling ####
 
 def redCVBF13(CW, CZ, grid_interp):
-#    VBFW_NLO =  grid_interp["CVBF13W_NLO"]
-#    VBFZ_NLO =  grid_interp["CVBF13Z_NLO"]
-#    VBFWZ_NLO = grid_interp["CVBF13WZ_NLO"]
-#    
-#    print("kW**2 coeff = ",VBFW_NLO/(VBFW_NLO + VBFZ_NLO + VBFWZ_NLO))
-#    print("kZ**2 coeff = ",VBFZ_NLO/(VBFW_NLO + VBFZ_NLO + VBFWZ_NLO))
-#    print("kZ*kW coeff = ",VBFWZ_NLO/(VBFW_NLO + VBFZ_NLO + VBFWZ_NLO))
-#
-#    return sqrt( (CW**2*VBFW_NLO + CZ**2*VBFZ_NLO + CW*CZ*VBFWZ_NLO)/
-#                  (VBFW_NLO + VBFZ_NLO + VBFWZ_NLO) )
+    VBFW_NLO =  grid_interp["CVBF13W_NLO"]
+    VBFZ_NLO =  grid_interp["CVBF13Z_NLO"]
+    VBFWZ_NLO = grid_interp["CVBF13WZ_NLO"]
     
-#def redCVBF13(CW,CZ):
-	return sqrt(0.733*CW**2+0.267*CZ**2)
+    print("kW**2 coeff = ",VBFW_NLO/(VBFW_NLO + VBFZ_NLO + VBFWZ_NLO))
+    print("kZ**2 coeff = ",VBFZ_NLO/(VBFW_NLO + VBFZ_NLO + VBFWZ_NLO))
+    print("kZ*kW coeff = ",VBFWZ_NLO/(VBFW_NLO + VBFZ_NLO + VBFWZ_NLO))
+
+    return sqrt( (CW**2*VBFW_NLO + CZ**2*VBFZ_NLO + CW*CZ*VBFWZ_NLO)/
+                  (VBFW_NLO + VBFZ_NLO + VBFWZ_NLO) )
+    
+
 
 #### production: g g -> h @ BEST-QCD & reduced coupling ####
 
@@ -406,26 +405,20 @@ def redCggF_LHC8(CT, CB, grid_interp):
     ggFT_NNLO_LHC8 =  grid_interp["CggFT_NNLO_LHC8"]
     ggFB_NNLO_LHC8 =  grid_interp["CggFB_NNLO_LHC8"]
     ggFTB_NNLO_LHC8 = grid_interp["CggFTB_NNLO_LHC8"]
-   
+    
     return sqrt( (CT**2*ggFT_NNLO_LHC8 + CB**2*ggFB_NNLO_LHC8 + CT*CB*ggFTB_NNLO_LHC8)/
                  (ggFT_NNLO_LHC8 + ggFB_NNLO_LHC8 + ggFTB_NNLO_LHC8) )
 
 
-
 #### production: g g -> h @ BEST-QCD @ LHC13 & reduced coupling ####
 
-#def redCggF_LHC13(CT, CB, grid_interp):
-#    ggFT_NNLO_LHC13 =  grid_interp["CggFT_NNLO_LHC13"]
-#    ggFB_NNLO_LHC13 =  grid_interp["CggFB_NNLO_LHC13"]
-#    ggFTB_NNLO_LHC13 = grid_interp["CggFTB_NNLO_LHC13"]
-#
-#    return sqrt( (CT**2*ggFT_NNLO_LHC13 + CB**2*ggFB_NNLO_LHC13 + CT*CB*ggFTB_NNLO_LHC13)/
-#                 (ggFT_NNLO_LHC13 + ggFB_NNLO_LHC13 + ggFTB_NNLO_LHC13) )
+def redCggF_LHC13(CT, CB, grid_interp):
+    ggFT_NNLO_LHC13 =  grid_interp["CggFT_NNLO_LHC13"]
+    ggFB_NNLO_LHC13 =  grid_interp["CggFB_NNLO_LHC13"]
+    ggFTB_NNLO_LHC13 = grid_interp["CggFTB_NNLO_LHC13"]
 
-def redCggF_LHC13(CT, CB, CC):
-    return sqrt( 1.040*CT**2-0.038*CT*CB+0.002*CB**2 )
-
-#	return sqrt( 1.040*CT**2-0.038*CT*CB+0.002*CB**2-0.005*CT*CC+0.0004*CB*CC+0.00002*CC**2 )
+    return sqrt( (CT**2*ggFT_NNLO_LHC13 + CB**2*ggFB_NNLO_LHC13 + CT*CB*ggFTB_NNLO_LHC13)/
+                 (ggFT_NNLO_LHC13 + ggFB_NNLO_LHC13 + ggFTB_NNLO_LHC13) )
 
 
 #### production: g g -> h @ BEST-QCD @ Tevatron & reduced coupling ####

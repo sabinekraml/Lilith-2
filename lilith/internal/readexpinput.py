@@ -89,9 +89,18 @@ class ReadExpInput:
         self.filepath = filepath
 
         root = self.produce_tree()
-        if root.tag != "expmu":
-            raise ExpInputError(self.filepath, "root tag is not <expmu>")
-
+        
+        if root.tag not in ["expmu","expstxs"] :
+            raise ExpInputError(self.filepath, "root tag is not correct")
+        dat = 0 #expmu
+        if root.tag == "expstxs":
+            dat = 1            
+        
+        if dat == 0:
+            print("Run calculation for Signal Strength")
+        else:
+            print("Run calculation for STXS")
+            
         (dim, decay, type) = self.get_mode(root)
         
         self.get_mass(root)
@@ -106,7 +115,7 @@ class ReadExpInput:
                         "bestfit": bestfit, "param": param, "grid": grid,
                         "Lxy": Lxy, "LChi2min": LChi2min,
                         "experiment": experiment, "source": source,
-                        "sqrts": sqrts, "eff": eff})
+                        "sqrts": sqrts, "eff": eff, "dat":dat})
 
     def produce_tree(self):
         """Produce the XML tree with ElementTree."""
