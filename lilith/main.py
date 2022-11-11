@@ -35,6 +35,8 @@ from warnings import warn
 from .errors import ExpNdfComputationError, UserMuTotComputationError, \
                    UserInputIOError
 from .internal.readexpinput import ReadExpInput
+from .internal.readsminput import ReadSMInput   #testing
+from .internal.readsmcorrinput import ReadSMCorrInput #testing
 from .internal.readuserinput import ReadUserInput
 from .internal.computereducedcouplings import ComputeReducedCouplings
 from .internal.computemufromreducedcouplings import \
@@ -84,6 +86,10 @@ class Lilith:
         self.results = []
         self.l = 0.
         self.l_SM = 0.
+        
+        ##testing for SM prediction 
+        self.smread = []
+        self.smcorr_read = []
 
     def info(self, message):
         """Print information only is verbose is True"""
@@ -258,7 +264,7 @@ class Lilith:
 
         t0 = time.time()
         self.results, self.l = compute_likelihood(self.exp_mu,
-                                                  self.user_mu_tot,self.mode)
+                                                  self.user_mu_tot,self.mode,self.smread,self.smcorr_read)
         self.tinfo("computing the likelihood", time.time() - t0)
         
     def computeSMlikelihood(self, userinput=None, exp_filepath=None,
@@ -270,7 +276,7 @@ class Lilith:
         decay_modes = ["gammagamma", "ZZ", "WW", "bb", "cc", "tautau", "Zgamma", "mumu", "gg","invisible"]
         prod_modes = ["ggH", "VBF", "WH", "qqZH", "ggZH", "ttH", "tHq", "tHW", "bbH"]
         SM_mu = dict(((l1,l2), float(l2!="invisible")) for l1 in prod_modes for l2 in decay_modes)
-        self.results, self.l_SM = compute_likelihood(self.exp_mu, SM_mu, "signalstrengths")
+        self.results, self.l_SM = compute_likelihood(self.exp_mu, SM_mu, "signalstrengths",self.smread,self.smcorr_read)
 
 
     def writecouplings(self, filepath):
@@ -303,3 +309,21 @@ class Lilith:
         else:
             writeoutput.results_xml(self.results, self.l, version.__version__, self.dbversion,
                                     filepath)
+# testing                                     
+    def readsmpred(self, filepath):
+        """Read the SM prediction input."""
+    
+        self.info("Processing the SM prediction input...")
+        # initialize the reading of the experimental input
+        self.smdata = ReadSMInput(filepath,self.exp_mu)
+        self.smread = self.smdata.smpredic
+    
+    def readsmcorr(self, filepath):
+        """Read the SM prediction input."""
+    
+        self.info("Processing the SM prediction input...")
+        # initialize the reading of the experimental input
+        self.smcorrdata = ReadSMCorrInput(filepath,self.exp_mu)
+        self.smcorr_read = self.smcorrdata.smcorr    
+        
+        
