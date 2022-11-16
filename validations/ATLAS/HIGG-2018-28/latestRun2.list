@@ -1,15 +1,11 @@
 #---------------------------
 #--- ATLAS Run2, 140 fb-1 ---
 #---------------------------
-#HIGG-2018-28_stxs_vn_dim4_no-theo-unc.xml
-#HIGG-2018-28_stxs_vn1_dim4_no-theo-unc.xml
-#HIGG-2018-28_stxs_n_dim4_no-theo-unc.xml
-#HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Fig10a.xml
-#HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Fig10a-test.xml
+HIGG-2018-28_stxs_vn_dim12.xml
+#HIGG-2018-28_stxs_vn1_dim12.xml
+#HIGG-2018-28_stxs_n_dim12.xml
 #HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Fig10a_no-theo-unc.xml
-#HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Table08.xml
-HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Table08-bbH.xml
-
+#HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Table08-bbH.xml
 
 
 

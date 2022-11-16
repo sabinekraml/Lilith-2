@@ -30,9 +30,8 @@ print("***** reading parameters *****")
 # Experimental results
 exp_input = "validations/ATLAS/HIGG-2018-28/latestRun2.list"
 # Sm predictions     
-smpred_input = "validations/ATLAS/HIGG-2018-28/SMbin-prediction.txt"
-smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr.txt" 
-    
+smpred_input = "validations/ATLAS/HIGG-2018-28/SMbin-prediction-noThunc.txt"
+smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr.txt"
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
@@ -44,13 +43,7 @@ if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
 #outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a_no-theo-unc.pdf"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a-test.pdf"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS-noTheoErr-test.pdf"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS-withTheoErr-approx3-test.pdf"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS-withTheoErr-SMcorr-test.pdf"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS-withTheoErr-SMcorr-vsHS2.pdf"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS-withTheoErr-SMcorr-vsHS2-vn1.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS-withTheoErr-SMcorr-vsHS2-Gauss.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_STXS.pdf"
 
 # Scan ranges
 CV_min = 0.85
@@ -152,16 +145,16 @@ print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 print("***** plotting *****")
 
 # Preparing plot
-matplotlib.rcParams['xtick.major.pad'] = 15
-matplotlib.rcParams['ytick.major.pad'] = 15
-plt.locator_params(axis='y', nbins=10)
-plt.locator_params(axis='x', nbins=10)
+matplotlib.rcParams['xtick.major.pad'] = 10
+matplotlib.rcParams['ytick.major.pad'] = 10
+#plt.locator_params(axis='y', nbins=10)
+#plt.locator_params(axis='x', nbins=10)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=14, length=14, width=2)
+plt.tick_params(labelsize=10, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
 
 # Getting the data
@@ -207,22 +200,24 @@ plt.plot(xExp, yExp, '.', markersize=4, color='blue', label="ATLAS official")
 plt.legend(loc='best', scatterpoints = 3) 
 
 # Title, labels, color bar...
-plt.title("  Lilith - STXS - test - HIGG-2018-28", fontsize=17, ha="center")
-plt.xlabel(r'$C_V$', fontsize=15)
-plt.ylabel(r'$C_F$', fontsize=15)
-#plt.text(0.6, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
-plt.text(0.86, 2.4, r'type = Gaussian', fontsize=10)
+plt.title("  Lilith - STXS - test - HIGG-2018-28", fontsize=14, ha="center")
+plt.xlabel(r'$C_V$', fontsize=12)
+plt.ylabel(r'$C_F$', fontsize=12)
+#plt.text(0.6, 2.15, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
+#plt.text(0.87, 2.2, r'ggF theo. correlation', fontsize=10)
 #plt.text(0.7, 2.0, r'very fisrt test, no theoretical uncertainty', fontsize=8)
 #plt.text(0.7, 2.0, r'very fisrt test, with theo. uncertainty, approx. 3', fontsize=8)
-plt.text(0.86, 2.5, r'with theo. uncertainty, theo-corr.', fontsize=10)
+plt.text(0.87, 2.3, r'no theo. uncertainty', fontsize=10)
+plt.text(0.87, 2.4, r'type = vn', fontsize=10)
+
 
 
 
 fig.set_tight_layout(True)
 
 # plt.show()
-#set aspect ratio to 0.85
-ratio = 0.85
+#set aspect ratio to 0.8
+ratio = 0.8
 x_left, x_right = ax.get_xlim()
 y_low, y_high = ax.get_ylim()
 ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)
