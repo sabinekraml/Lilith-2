@@ -222,7 +222,7 @@ class ReadExpInput:
             eff = {"x": {}}
             axis_label = "x"
 
-            mandatory_attribs = {"prod": ["ggH", "VVH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "ttH", "tHq", "tHW", "tH", "top", "bbH"]}
+            mandatory_attribs = {"prod": ["ggH", "VVH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "ttH", "tHq", "tHW", "tH", "top", "bbH", "invBrZZ"]}
             if decay == "mixture":
                 mandatory_attribs["decay"] = allowed_decays
 
@@ -273,7 +273,7 @@ class ReadExpInput:
             eff = {"x": {}, "y": {}}
 
             mandatory_attribs = {"axis": ["x", "y"],
-                             "prod": ["ggH", "VVH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "ttH", "tHq", "tHW", "tH", "top", "bbH"]}
+                             "prod": ["ggH", "VVH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "ttH", "tHq", "tHW", "tH", "top", "bbH", "invBrZZ"]}
             if decay == "mixture":
                 mandatory_attribs["decay"] = allowed_decays
             
@@ -331,7 +331,7 @@ class ReadExpInput:
                 d = "d" + str(i)
                 eff.update({d: {}})
                 axis_attribs.append(d)
-            prod_attribs = ["ggH", "VVH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "ttH", "tHq", "tHW", "tH", "top", "bbH"]
+            prod_attribs = ["ggH", "VVH", "VBF", "VH", "WH", "qqZH", "ggZH", "ZH", "ttH", "tHq", "tHW", "tH", "top", "bbH", "invBrZZ"]
             mandatory_attribs = {"axis": axis_attribs, "prod": prod_attribs}
 
             if decay == "mixture":

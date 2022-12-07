@@ -28,6 +28,9 @@ print("***** reading parameters *****")
 
 # Experimental results
 exp_input = "validations/ATLAS/HIGG-2018-57/LatestRun2.list"
+# Sm predictions     
+smpred_input = "validations/ATLAS/HIGG-2018-57/SMPrediction-dim19.txt"
+smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corr.txt" 
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -40,12 +43,14 @@ if (not os.path.exists("results")):
     os.mkdir("results")
 output = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57.out"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-noSMerr.pdf"
-##outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-SMerr-test.pdf"
+#outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-stxs-ZZ.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-stxs-all.pdf"
+
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx3-SMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx2-g05-SMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx2-g20-SMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-approx2-g50-SMerr.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-57/ninh-SMerr-test.pdf"
+
 # Scan ranges
 CV_min = 0.9
 CV_max = 1.2
@@ -103,7 +108,10 @@ lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
 lilithcalc.readexpinput(exp_input)
 
+# Read SM prediction input and correlation 
 
+lilithcalc.readsmpred(smpred_input)
+lilithcalc.readsmcorr(smbin_corr_input)
 ######################################################################
 # Scan routine
 ######################################################################
@@ -177,6 +185,8 @@ for line in dataload:
   dorix.append(float(fdat[0]))
   doriy.append(float(fdat[1]))
    
+
+   
 # Plotting the 68%, 95% and 99.7% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99,11.83],colors=['#ff3300','#ffa500','#ffff00'], \
               vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
@@ -190,19 +200,18 @@ plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 plt.plot([1],[1], '+', c='k', ms=10)
 
 # Plotting the Offical contours 
-plt.scatter(dorix,doriy,s=3,c='b',marker='o',label='ATLAS official ')    
+plt.scatter(dorix,doriy,s=4,c='b',marker='o',label='ATLAS official ')    
 plt.legend(loc='lower right', scatterpoints = 3) 
-
 # best fit point
-#plt.plot([1.053485254691689],[1.0492700729927007], 'o', c='b', ms=3)
+plt.plot([1.053485254691689],[1.0492700729927007], 'o', c='b', ms=3)
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, ATLAS HIGG-2018-57 validation" , fontsize=12, ha="center")
+plt.title("  Lilith-2.1, ATLAS HIGG-2018-57 STXS" , fontsize=12, ha="center")
 plt.xlabel(r'$C_V$',fontsize=20)
 plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.91, 1.35, r'Exp. input type = vn, include SM error', fontsize=9, ha = 'left')
+plt.text(0.91, 1.30, r'Exp. input type = vn', fontsize=9, ha = 'left')
 #plt.text(0.91, 1.30, r'No SM error', fontsize=9, ha = 'left')
-plt.text(0.91, 1.30, r'recoded computelikelihood.py', fontsize=9, ha = 'left')
+plt.text(0.91, 1.35, r'ggF theoretical correlation', fontsize=9, ha = 'left')
 #plt.text(0.91, 1.30, r'approx 2 of correlation, gamma = 5.0', fontsize=9, ha = 'left')
 
 fig.set_tight_layout(True)

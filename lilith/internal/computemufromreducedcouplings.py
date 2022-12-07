@@ -24,6 +24,15 @@
 #    along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##########################################################################
+#
+#	This code is modified in order to test for STXS - combined data	
+# 	It will not work for normal data 
+# 	In this code, I assume the data of STXS to have 2 type: 
+#		- STXS
+#		- ratio of BR of individual channel to ZZ channel (ATLAS do this way)
+# 	I add an attrib to eff, with key "brratio" (0 for STXS, 1 for BR_ratio)
+#
+###########################################################################
 
 import sys
 import math
@@ -120,10 +129,13 @@ class ComputeMuFromReducedCouplings:
         prod_modes = {"ggH": "gg_prod_lhc8", "VBF": "VBF", "WH": "WH",
                       "qqZH": "qqZH", "ttH": "tt", "ggH13": "gg_prod_lhc13", "VBF13": "VBF13",
                       "tHq": "tHq", "tHW": "tHW", "bbH": "bb", "tHq13": "tHq13", "tHW13": "tHW13",
-                      "ggZH": "ggZH", "ggZH13": "ggZH13"}
+                      "ggZH": "ggZH", "ggZH13": "ggZH13", "invBrZZ":"invBrZZ"}
         for prod,coupling in list(prod_modes.items()):
             for decay in considered_decay_modes:
-                mu[(prod,decay)] = redCp[coupling]**2 * redBR[decay]
+                if prod == "invBrZZ":
+                    mu[(prod,decay)] = redBR[decay]/redBR["ZZ"]
+                else:
+                    mu[(prod,decay)] = redCp[coupling]**2 * redBR[decay]
         if "extra" not in mu:
             if "name" in redCp["extra"]:
                 mu["extra"]={"mass": self.mass, "name": redCp["extra"]["name"]}
