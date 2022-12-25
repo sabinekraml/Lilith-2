@@ -28,15 +28,15 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2018-28/latestRun2.list"
+exp_input = "validations/ATLAS/HIGG-2020-16/STXS.list"
 # Sm predictions     
-smpred_input = "validations/ATLAS/HIGG-2018-28/SMbin-prediction.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corrSTXS.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corrWG1.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr2017-scheme.txt"
-smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corrJVE.txt"
-
+smpred_input = "validations/ATLAS/HIGG-2020-16/SMprediction.txt" 
+#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corr1.txt" 
+#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corrSTXS.txt" 
+#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corrWG1.txt" 
+#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corrJVE.txt" 
+smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corr2017-scheme.txt" 
+    
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
@@ -47,14 +47,13 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a_no-theo-unc.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_STXS-Corr-JVE.pdf"
+outputplot = "validations/ATLAS/HIGG-2020-16/CVCF_stxs_corr-2017.pdf"
 
 # Scan ranges
 CV_min = 0.85
 CV_max = 1.2
-CF_min = 0.4
-CF_max = 2.6
+CF_min = 0.6
+CF_max = 1.8
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -159,10 +158,8 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=10, length=14, width=2)
-plt.tick_params(which='minor', length=7, width=1.2)
-
-
+plt.tick_params(labelsize=10, length=10, width=2)
+plt.tick_params(which='minor', length=5, width=1.2)
 
 # Getting the data
 data = np.genfromtxt(output)
@@ -184,7 +181,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting the 68%, 95% and 99.7% CL regions
-ax.contourf(xi, yi, Z, [10 ** (-10), 2.3, 5.99], colors=['#ff3300', '#ffa500'], \
+ax.contourf(xi, yi, Z, [10 ** (-10), 2.3, 5.99, 11.83], colors=['#ff3300', '#ffa500', '#ffff00'], \
             vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 ax.set_aspect((CV_max - CV_min) / (CF_max - CF_min))
@@ -196,47 +193,47 @@ plt.plot([CVmin], [CFmin], '*', c='w', ms=10)
 plt.plot([1], [1], '+', c='k', ms=10, label="SM")
 
 # Official best fit point
-plt.plot([1.022857143], [0.878732748], '*', c='b', ms=10, label="Official best fit")
+#plt.plot([1.0350194552529182], [0.9533596837944663], '*', c='b', ms=10, label="Official best fit")
 
-# read data for official 68% and 95% CL contours & plot (added by TQL)
-expdata = np.genfromtxt('validations/ATLAS/HIGG-2018-28/HIGG-2018-28-CVCF-Grids.txt')
-xExp = expdata[:, 0]
-yExp = expdata[:, 1]
-plt.plot(xExp, yExp, '.', markersize=4, color='blue', label="ATLAS official")
-#plt.scatter(dorix,doriy,s=6,c='b',marker='o',label='ATLAS official')    
+# Import Official data from file 
+dataload = open('validations/ATLAS/HIGG-2020-16/HIGG-2020-16.csv','r')
+dorix = []
+doriy = []
+for line in dataload:
+  fdat = line.split(',')
+  dorix.append(float(fdat[0]))
+  doriy.append(float(fdat[1]))
+
+#plt.plot(dorix, doriy, '.', markersize=4, color='blue', label="ATLAS official")
+plt.scatter(dorix,doriy,s=6,c='b',marker='o',label='ATLAS official')    
 plt.legend(loc='best', scatterpoints = 3) 
 
-# Plotting the HS2 contours 
-#plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='HS2')    
-#plt.legend(loc='best', scatterpoints = 3) 
-
 # Title, labels, color bar...
-plt.title("  Lilith - STXS - test - HIGG-2018-28", fontsize=14, ha="center")
+plt.title("  Lilith - STXS - test - HIGG-2020-16", fontsize=15, ha="center")
 plt.xlabel(r'$C_V$', fontsize=12)
 plt.ylabel(r'$C_F$', fontsize=12)
-#plt.text(0.6, 2.15, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
-#plt.text(0.87, 2.2, r'ggF theo. correlation', fontsize=10)
+#plt.text(0.6, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
+plt.text(0.86, 1.5, r'type = vn', fontsize=10)
 #plt.text(0.7, 2.0, r'very fisrt test, no theoretical uncertainty', fontsize=8)
 #plt.text(0.7, 2.0, r'very fisrt test, with theo. uncertainty, approx. 3', fontsize=8)
-plt.text(0.87, 2.25, r'JVE-ggF theo. corr.', fontsize=10)
-plt.text(0.87, 2.4, r'type = vn (variable Gaussian)', fontsize=10)
-
+plt.text(0.86, 1.7, r'with theo. uncertainty', fontsize=10)
+plt.text(0.86, 1.6, r'2017-scheme-ggF theo. corr.', fontsize=10)
 
 
 
 fig.set_tight_layout(True)
 
 # plt.show()
-#set aspect ratio to 0.8
-ratio = 0.8
-x_left, x_right = ax.get_xlim()
-y_low, y_high = ax.get_ylim()
-ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)
+#set aspect ratio to 0.85
+#ratio = 0.85
+#x_left, x_right = ax.get_xlim()
+#y_low, y_high = ax.get_ylim()
+#ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)
 
 
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2018-28/")
+print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2020-16/")
 print("***** done *****")
 

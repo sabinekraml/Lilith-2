@@ -1,7 +1,11 @@
 <!--
 ATLAS combination of the H -> gammagamma, ZZ, WW, tautau, bb and mumu decay modes for 80/fb. 
-STXS data with best-fit values and uncertainties taken from Table. 8, correlations from Fig. 11 at 
+Best-fit values and uncertainties taken from Table. 8, correlations from Fig. 6 at 
 https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-57/
+
+ttH+tH: "H->VV refers to the combination of H->WW and H->ZZ, with a relative weight 
+fixed by their respective SM branching fractions."
+BR(H->WW) = 2.152E-01, BR(H->ZZ) = 2.641E-02 i.e WW is 89%  
 -->
 
 <expstxs dim="19" type="vn">
