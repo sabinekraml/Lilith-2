@@ -28,14 +28,11 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2018-28/latestRun2.list"
+exp_input = "validations/ATLAS/HIGG-2018-28/latestRun2-stxs.list"
+
 # Sm predictions     
-smpred_input = "validations/ATLAS/HIGG-2018-28/SMbin-prediction.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corrSTXS.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corrWG1.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr2017-scheme.txt"
-smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corrJVE.txt"
+smpred_input = "validations/ATLAS/HIGG-2018-28/SMbin-prediction-v1.txt"
+smbin_corr_input = "validations/ATLAS/HIGG-2018-28/SMbin-corr.txt" 
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -47,8 +44,7 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
-#outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_2d_Fig10a_no-theo-unc.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-28/CVCF_STXS-Corr-JVE.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28/CVCF-stxs-v1-ggF.pdf"
 
 # Scan ranges
 CV_min = 0.85
@@ -75,7 +71,7 @@ def usrXMLinput(mass=125, CV=1, CF=1, precision="BEST-QCD"):
   <mass>%(mass)s</mass>
 
   <C to="tt">%(CF)s</C>
-  <C to="bb">%(CF)s</C>
+  <C to="bb">%(CF)s</C
   <C to="cc">%(CF)s</C>
   <C to="tautau">%(CF)s</C>
   <C to="ZZ">%(CV)s</C>
@@ -150,19 +146,17 @@ print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 print("***** plotting *****")
 
 # Preparing plot
-matplotlib.rcParams['xtick.major.pad'] = 10
-matplotlib.rcParams['ytick.major.pad'] = 10
-#plt.locator_params(axis='y', nbins=10)
-#plt.locator_params(axis='x', nbins=10)
+matplotlib.rcParams['xtick.major.pad'] = 15
+matplotlib.rcParams['ytick.major.pad'] = 15
+plt.locator_params(axis='y', nbins=10)
+plt.locator_params(axis='x', nbins=10)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=10, length=14, width=2)
+plt.tick_params(labelsize=14, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
-
-
 
 # Getting the data
 data = np.genfromtxt(output)
@@ -184,7 +178,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Plotting the 68%, 95% and 99.7% CL regions
-ax.contourf(xi, yi, Z, [10 ** (-10), 2.3, 5.99], colors=['#ff3300', '#ffa500'], \
+ax.contourf(xi, yi, Z, [10 ** (-10), 2.3, 5.99, 11.83], colors=['#ff3300', '#ffa500', '#ffff00'], \
             vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
 ax.set_aspect((CV_max - CV_min) / (CF_max - CF_min))
@@ -206,29 +200,23 @@ plt.plot(xExp, yExp, '.', markersize=4, color='blue', label="ATLAS official")
 #plt.scatter(dorix,doriy,s=6,c='b',marker='o',label='ATLAS official')    
 plt.legend(loc='best', scatterpoints = 3) 
 
-# Plotting the HS2 contours 
-#plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='HS2')    
-#plt.legend(loc='best', scatterpoints = 3) 
-
 # Title, labels, color bar...
-plt.title("  Lilith - STXS - test - HIGG-2018-28", fontsize=14, ha="center")
-plt.xlabel(r'$C_V$', fontsize=12)
-plt.ylabel(r'$C_F$', fontsize=12)
-#plt.text(0.6, 2.15, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
-#plt.text(0.87, 2.2, r'ggF theo. correlation', fontsize=10)
+plt.title("  Lilith - STXS - test - data-v1", fontsize=17, ha="center")
+plt.xlabel(r'$C_V$', fontsize=15)
+plt.ylabel(r'$C_F$', fontsize=15)
+#plt.text(0.6, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
+plt.text(0.86, 2.4, r'type = vn', fontsize=10)
 #plt.text(0.7, 2.0, r'very fisrt test, no theoretical uncertainty', fontsize=8)
 #plt.text(0.7, 2.0, r'very fisrt test, with theo. uncertainty, approx. 3', fontsize=8)
-plt.text(0.87, 2.25, r'JVE-ggF theo. corr.', fontsize=10)
-plt.text(0.87, 2.4, r'type = vn (variable Gaussian)', fontsize=10)
-
+plt.text(0.86, 2.5, r'Identity theo-corr.', fontsize=10)
 
 
 
 fig.set_tight_layout(True)
 
 # plt.show()
-#set aspect ratio to 0.8
-ratio = 0.8
+#set aspect ratio to 0.85
+ratio = 0.85
 x_left, x_right = ax.get_xlim()
 y_low, y_high = ax.get_ylim()
 ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)

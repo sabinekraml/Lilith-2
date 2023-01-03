@@ -47,18 +47,18 @@ class ReadSMInput:
         dimcount = exp_mu[0]["dim"]
         try:
             with open(filename) as readtest:
-                print("reading SM predictions.............. ok")
+                print("reading SM predictions...................... ok")
                 readtest.close()
                 self.file = np.genfromtxt(filename)
                 if len(self.file) == dimcount:
                     self.readsmcount = 1
-                    print("test dim of SM prediction........... ok")
+                    print("        test dim of SM prediction........... ok")
                 else:
-                    print("test dim of SM prediction........... error!")
-                    print("SM prediction data does not have the same dim with experimental data.")    
+                    print("        test dim of SM prediction........... error!")
+                    print("        SM prediction data does not have the same dim with experimental data.")    
         except IOError as readerror:
-            print("reading SM predictions............... error!")
-            print("SM prediction not found!")
+            print("reading SM predictions....................... error!")
+            print("        SM prediction not found!")
         
         if self.readsmcount == 1:
             self.smpredic = np.array(self.file[:,:])

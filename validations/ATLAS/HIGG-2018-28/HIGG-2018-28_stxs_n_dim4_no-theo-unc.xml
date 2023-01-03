@@ -19,7 +19,7 @@ https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-28/
   <eff axis="d5" prod="ggH" decay="ZZ">1.0</eff>
   <eff axis="d6" prod="ggH" decay="ZZ">1.0</eff>
   <eff axis="d7" prod="ggH" decay="ZZ">1.0</eff>
-  <eff axis="d8" prod="VH" decay="ZZ">1.0</eff>
+  <eff axis="d8" prod="VBF" decay="ZZ">1.0</eff>
   <eff axis="d9" prod="VBF" decay="ZZ">1.0</eff>
   <eff axis="d10" prod="VBF" decay="ZZ">1.0</eff>
   <eff axis="d11" prod="VH" decay="ZZ">1.0</eff>

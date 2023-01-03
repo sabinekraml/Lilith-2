@@ -30,11 +30,7 @@ print("***** reading parameters *****")
 exp_input = "validations/ATLAS/HIGG-2018-57/LatestRun2.list"
 # Sm predictions     
 smpred_input = "validations/ATLAS/HIGG-2018-57/SMPrediction-dim19.txt"
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corr.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corr2017-scheme.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corrJVE.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corrSTXS.txt" 
-smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corrWG1.txt" 
+smbin_corr_input = "validations/ATLAS/HIGG-2018-57/SMbin-corr.txt" 
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -46,9 +42,8 @@ hmass = 125.38
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57.out"
-#outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-noSMerr.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-stxs-ZZ.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57--stxs-Corr-WG1.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-57/CVCF-HIGG-2018-57-stxs-all.pdf"
 
 # Scan ranges
 CV_min = 0.9
@@ -176,7 +171,9 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Import Official data from file 
+#dataload = open('validations/ATLAS/HIGG-2018-57/HIGG-2018-57-official.csv','r')
 dataload = open('validations/ATLAS/HIGG-2018-57/HIGG-2018-57-official.csv','r')
+dorix = []
 dorix = []
 doriy = []
 for line in dataload:
@@ -210,7 +207,7 @@ plt.xlabel(r'$C_V$',fontsize=20)
 plt.ylabel(r'$C_F$',fontsize=20)
 plt.text(0.91, 1.30, r'Exp. input type = vn', fontsize=9, ha = 'left')
 #plt.text(0.91, 1.30, r'No SM error', fontsize=9, ha = 'left')
-plt.text(0.91, 1.35, r'WG1-ggF theo. corr.', fontsize=9, ha = 'left')
+plt.text(0.91, 1.35, r'ggF theoretical correlation', fontsize=9, ha = 'left')
 #plt.text(0.91, 1.30, r'approx 2 of correlation, gamma = 5.0', fontsize=9, ha = 'left')
 
 fig.set_tight_layout(True)

@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
@@ -27,7 +27,11 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "data/latestRun2.list"
+exp_input = "validations/ATLAS/CONF-2021-053/latestRun2.list"
+# Sm predictions     
+smpred_input = ""
+smbin_corr_input = "" 
+
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -38,14 +42,14 @@ hmass = 125.
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "results/CVCF_2d.out"
+output = "validations/ATLAS/CONF-2021-053/CVCF_2d.out"
 outputplot = "validations/ATLAS/CONF-2021-053/CVCF_2d.pdf"
 
 # Scan ranges
-CV_min = 0.8
-CV_max = 1.3
+CV_min = 0.9
+CV_max = 1.2
 CF_min = 0.7
-CF_max = 1.4
+CF_max = 1.1
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -99,7 +103,11 @@ lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
 lilithcalc.readexpinput(exp_input)
 
+# Read SM prediction input and correlation 
 
+lilithcalc.readsmpred(smpred_input)
+
+lilithcalc.readsmcorr(smbin_corr_input)
 ######################################################################
 # Scan routine
 ######################################################################
@@ -190,11 +198,11 @@ plt.plot(xExp,yExp,'.',markersize=4, color = 'blue', label="ATLAS official")
 plt.legend()
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14.5, ha="left")
-plt.xlabel(r'$C_V$',fontsize=25)
-plt.ylabel(r'$C_F$',fontsize=25)
-plt.text(0.83, 1.3, r'Data from: ATLAS-CONF-2021-053', fontsize=12)
-plt.text(0.83, 1.22, r'(Fig. 4 + Fig. 5)', fontsize=11)
+plt.title("  Lilith-2.1, DB 22.x develop", fontsize=8, ha="left")
+plt.xlabel(r'$C_V$',fontsize=15)
+plt.ylabel(r'$C_F$',fontsize=15)
+plt.text(1.0, 0.75, r'Data from: ATLAS-CONF-2021-053', fontsize=8)
+plt.text(1.0, 0.73, r'(Fig. 4 + Fig. 5)', fontsize=8)
 
 fig.set_tight_layout(True)
 
@@ -205,4 +213,4 @@ fig.savefig(outputplot)
 
 print("results are stored in", lilith_dir + "/validations/ATLAS/CONF-2021-053/")
 print("***** done *****")
-
+ 

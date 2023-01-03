@@ -423,9 +423,9 @@ def redCggF_LHC8(CT, CB, grid_interp):
 #                 (ggFT_NNLO_LHC13 + ggFB_NNLO_LHC13 + ggFTB_NNLO_LHC13) )
 
 def redCggF_LHC13(CT, CB, CC):
-    return sqrt( 1.040*CT**2-0.038*CT*CB+0.002*CB**2 )
+    return sqrt( 1.040*CT**2-0.04*CT*CB+0.002*CB**2 )
 
-#	return sqrt( 1.040*CT**2-0.038*CT*CB+0.002*CB**2-0.005*CT*CC+0.0004*CB*CC+0.00002*CC**2 )
+#	return sqrt( 1.040*CT**2 - 0.038*CT*CB + 0.002*CB**2 - 0.005*CT*CC + 0.0004*CB*CC + 0.00002*CC**2 )
 
 
 #### production: g g -> h @ BEST-QCD @ Tevatron & reduced coupling ####
@@ -464,4 +464,5 @@ def redCggZH(CZ, CT, CB):
 #### 13 TeV production, mH = 125 GeV: gg -> ZH cross section & reduced coupling ####
 def redCggZH13(CZ, CT, CB):
     return sqrt( 0.456*CT**2 + 0.0004*CB**2 + 2.455*CZ**2 + 0.003*CT*CB - 1.902*CT*CZ - 0.011*CB*CZ )
+
 # end LDN added

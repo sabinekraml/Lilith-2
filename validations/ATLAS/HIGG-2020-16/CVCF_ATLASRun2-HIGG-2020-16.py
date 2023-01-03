@@ -39,14 +39,14 @@ hmass = 125.38
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16-cor.out"
-#outputplot = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16-cor.pdf"
-outputplot = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16.pdf"
+outputplot = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16-test-cor.pdf"
+#outputplot = "validations/ATLAS/HIGG-2020-16/CVCF-HIGG-2020-16-test.pdf"
 
 # Scan ranges
 CV_min = 0.85
 CV_max = 1.2
 CF_min = 0.6
-CF_max = 1.6
+CF_max = 1.8
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
 
@@ -205,7 +205,7 @@ plt.plot([1.0183206106870228],[1.0045454545454544], 'o', c='b', ms=3)
 plt.title("  Lilith-2.1, ATLAS HIGG-2020-16 validation" , fontsize=12, ha="center")
 plt.xlabel(r'$C_V$',fontsize=20)
 plt.ylabel(r'$C_F$',fontsize=20)
-plt.text(0.86, 1.5, r'Exp. input type = vn1', fontsize=12, ha = 'left')
+plt.text(1, 1.7, r'Exp. input type = vn, new corr.', fontsize=12, ha = 'left')
 
 fig.set_tight_layout(True)
 

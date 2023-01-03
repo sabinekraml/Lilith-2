@@ -30,12 +30,8 @@ print("***** reading parameters *****")
 # Experimental results
 exp_input = "validations/ATLAS/HIGG-2020-16/STXS.list"
 # Sm predictions     
-smpred_input = "validations/ATLAS/HIGG-2020-16/SMprediction.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corr1.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corrSTXS.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corrWG1.txt" 
-#smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corrJVE.txt" 
-smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corr2017-scheme.txt" 
+smpred_input = "validations/ATLAS/HIGG-2020-16/SMprediction.txt"
+smbin_corr_input = "validations/ATLAS/HIGG-2020-16/SMbin-corr.txt" 
     
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -47,7 +43,7 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/CVCF_2d.out"
-outputplot = "validations/ATLAS/HIGG-2020-16/CVCF_stxs_corr-2017.pdf"
+outputplot = "validations/ATLAS/HIGG-2020-16/CVCF_2d_STXS.pdf"
 
 # Scan ranges
 CV_min = 0.85
@@ -209,15 +205,14 @@ plt.scatter(dorix,doriy,s=6,c='b',marker='o',label='ATLAS official')
 plt.legend(loc='best', scatterpoints = 3) 
 
 # Title, labels, color bar...
-plt.title("  Lilith - STXS - test - HIGG-2020-16", fontsize=15, ha="center")
+plt.title("  Lilith - STXS-test - HIGG-2020-16", fontsize=15, ha="center")
 plt.xlabel(r'$C_V$', fontsize=12)
 plt.ylabel(r'$C_F$', fontsize=12)
 #plt.text(0.6, 2.2, r'Exp. input: ATLAS-HIGG-2018-28_Fig10a_no-theo-unc.xml', fontsize=12)
 plt.text(0.86, 1.5, r'type = vn', fontsize=10)
 #plt.text(0.7, 2.0, r'very fisrt test, no theoretical uncertainty', fontsize=8)
 #plt.text(0.7, 2.0, r'very fisrt test, with theo. uncertainty, approx. 3', fontsize=8)
-plt.text(0.86, 1.7, r'with theo. uncertainty', fontsize=10)
-plt.text(0.86, 1.6, r'2017-scheme-ggF theo. corr.', fontsize=10)
+plt.text(0.86, 1.6, r'ggF correlation', fontsize=10)
 
 
 

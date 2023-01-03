@@ -2,13 +2,5 @@
 #--- ATLAS Run2, 36 fb-1 ---
 #---------------------------
 
-#HIGG-2018-57_combined_vn_dim16.xml
-#HIGG-2018-57_combined_vn_dim16_SMerr.xml
-#HIGG-2018-57_combine_vn_dim16_approx3-SMerr.xml
-#HIGG-2018-57_combine_vn_dim16_approx2-g05-SMerr.xml
-#HIGG-2018-57_combine_vn_dim16_approx2-g20-SMerr.xml
-#HIGG-2018-57_combine_vn_dim16_approx2-g50-SMerr.xml
-#stxs-HIGG-2018-57_ZZ_vn_dim15.xml
-#stxs-HIGG-2018-57_ZZ_vn_dim15-mu.xml
-#stxs-HIGG-2018-57_ZZ_vn_dim15-paper.xml
 stxs-HIGG-2018-57_dim19.xml
+#stxs-HIGG-2018-57_dim15_ZZ.xml

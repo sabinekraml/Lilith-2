@@ -42,6 +42,7 @@ from .internal.computereducedcouplings import ComputeReducedCouplings
 from .internal.computemufromreducedcouplings import \
     ComputeMuFromReducedCouplings
 from .internal.computelikelihood import compute_likelihood
+from .internal.computelikelihoodsmeft import compute_likelihood_smeft
 import lilith.internal.writeoutput as writeoutput
 import lilith.version as version
 
@@ -87,9 +88,15 @@ class Lilith:
         self.l = 0.
         self.l_SM = 0.
         
-        ##testing for SM prediction 
+        ##SM prediction - Nhi added 
         self.smread = []
         self.smcorr_read = []
+        
+        ##test for SMEFT - mu - Nhi added
+        self.smeft_user_mu = []
+        self.smeft_user_mu_ac = []
+        self.smeft_results = []
+        self.smeft_l = 1000
 
     def info(self, message):
         """Print information only is verbose is True"""
@@ -266,7 +273,14 @@ class Lilith:
         self.results, self.l = compute_likelihood(self.exp_mu,
                                                   self.user_mu_tot,self.mode,self.smread,self.smcorr_read)
         self.tinfo("computing the likelihood", time.time() - t0)
+    
+    def computelikelihoodsmeft(self):
+        """Computes the likelihood from the signal strengths (computed from)
+           the user input and the experimental results."""
+
+        self.smeft_results, self.smeft_l = compute_likelihood_smeft(self.exp_mu, self.smeft_user_mu, self.smread,self.smcorr_read)
         
+
     def computeSMlikelihood(self, userinput=None, exp_filepath=None,
                           userfilepath=None):
         """Computes the SM likelihood from the signal strengths (computed from)
@@ -309,7 +323,7 @@ class Lilith:
         else:
             writeoutput.results_xml(self.results, self.l, version.__version__, self.dbversion,
                                     filepath)
-# testing                                     
+# added by BN for stxs                                  
     def readsmpred(self, filepath):
         """Read the SM prediction input."""
     
@@ -325,5 +339,4 @@ class Lilith:
         # initialize the reading of the experimental input
         self.smcorrdata = ReadSMCorrInput(filepath,self.exp_mu)
         self.smcorr_read = self.smcorrdata.smcorr    
-        
-        
+# end of addition         

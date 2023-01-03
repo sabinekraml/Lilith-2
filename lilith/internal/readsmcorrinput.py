@@ -47,19 +47,19 @@ class ReadSMCorrInput:
         dimcount = exp_mu[0]["dim"]
         try:
             with open(filename) as readtest:
-                print("reading SM correlation.............. ok")
+                print("reading SM correlation...................... ok")
                 readtest.close()
                 self.file = np.genfromtxt(filename)
                 if len(self.file) == dimcount:
                     if len(self.file[0]) == len(self.file):
                         self.readsmcount = 1
-                        print("test dim of SM correlation ......... ok")
+                        print("        test dim of SM correlation ......... ok")
                     else:
-                        print("test dim of SM correlation ......... error!")
+                        print("        test dim of SM correlation ......... error!")
                         print("Wrong size of SM correlation. Use identity correlation instead!")    
         except IOError as readerror:
-            print("test dim of SM correlation ......... error!")
-            print("SM correlation not found. Use identity correlation instead!")
+            print("reading SM correlation...................... error!")
+            print("        SM correlation not found. Use identity correlation instead!")
         
         if self.readsmcount == 1:
             self.smcorr = np.array(self.file[:,:])
