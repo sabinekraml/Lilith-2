@@ -21,10 +21,10 @@ exp_input = "validations/ATLAS/HIGG-2018-28-SMEFT/latestRun2-stxs.list"
 
 # Sm predictions     
 smpred_input = "validations/ATLAS/HIGG-2018-28-SMEFT/SMbin-prediction.txt"
-smbin_corr_input = "validations/ATLAS/HIGG-2018-28-SMEFT/SMbin-corr2017-scheme.txt" 
+smbin_corr_input = "validations/ATLAS/HIGG-2018-28-SMEFT/SMbin-corrJVE.txt" 
 
 # SMEFT parameterized data
-smeft_input = "validations/ATLAS/HIGG-2018-28-SMEFT/smeft-param.txt"
+smeft_input = "validations/ATLAS/HIGG-2018-28-SMEFT/smeft-param-CPeven.txt"
     
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -36,25 +36,25 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/SMEFT_2d.out"
-outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/SMEFT-17b-cHB-cHG-2.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/2d-results/Validation-17a-cHW-cHB-even-corrJVE.pdf"
 
 # ======================================================================
 #			Setting initial values for parameters
 # ======================================================================
 
-cHW = 0
+#cHW = 0
 #cHB = 0
 cHWB = 0
-#cHG = 0
+cHG = 0
 cuH = 0 
 
 # Scan ranges
-cx_min = -17
-cx_max = 17
-cy_min = -0.03
-cy_max = 0.08
+cx_min = -5
+cx_max = 4
+cy_min = -3
+cy_max = 4
 # Number of grid steps in each of the two dimensions (squared grid)
-grid_subdivisions = 100
+grid_subdivisions = 101
 
 # ======================================================================
 # 			Loading and import input 
@@ -97,6 +97,7 @@ else:
     print("reading SMEFT parameterized input........... error!")
     print("        wrong dimension of SMEFT parameterized. ")
 
+
 # Prepare output
 fresults = open(output, 'w')
 
@@ -112,11 +113,11 @@ maxpy_ac = cy_min
 
 print("***** Scanning *****")
 
-for cHG in np.linspace(cy_min,cy_max,grid_subdivisions):
+for cHB in np.linspace(cy_min,cy_max,grid_subdivisions):
     fresults.write('\n')
-    for cHB in np.linspace(cx_min,cx_max,grid_subdivisions):
-	    cx = cHB
-	    cy = cHG
+    for cHW in np.linspace(cx_min,cx_max,grid_subdivisions):
+	    cx = cHW
+	    cy = cHB
 	    smeft_mu_vec = []
 	    smeft_mu_ac_vec = []
 	    for i in range(len(news)-2):
@@ -196,21 +197,21 @@ T = griddata((x, y), t2, (X, Y), method="linear")
 
 # Plotting the 95% CL regions
 ax.contourf(xi,yi,Z,[10**(-10),5.99],colors=['#ffa500'], \
-              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()],zorder=-1, alpha=0.7)
-ax.contourf(xi,yi,T,[10**(-10),5.99],colors=['#bd8fbe'], \
-              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()],zorder=-0.5, alpha=0.6)	      
+              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()],zorder=-1, alpha=1)
+#ax.contourf(xi,yi,T,[10**(-10),5.99],colors=['#bd8fbe'], \
+#              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()],zorder=-0.5, alpha=0.7)	      
 
 ax.set_aspect((cx_max-cx_min)/(cy_max-cy_min))
 
 # best fit point
 plt.plot([maxpx_ac],[maxpy_ac], '*', c='r', ms=10,zorder=0)
-plt.plot([maxpx],[maxpy], '*', c='b', ms=10,zorder=0)
+#plt.plot([maxpx],[maxpy], '*', c='b', ms=10,zorder=0,alpha=0.7)
 
 # Standard Model 
 plt.plot([0],[0], '+', c='k', ms=10)
 
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2018-28-SMEFT/fig17b-cHB-cHG.csv','r')
+dataload = open('validations/ATLAS/HIGG-2018-28-SMEFT/official-data/fig17a.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -225,10 +226,10 @@ plt.legend(loc='lower left', scatterpoints = 3)
 
 # Title, labels, color bar...
 plt.title("  Lilith-2.1, DB 22.x develop", fontsize=8, ha="left")
-plt.xlabel(r'$cHB$',fontsize=15)
-plt.ylabel(r'$cHG$',fontsize=15)
-plt.text(0, 0.07, r'Data from ATLAS HIGG-2018-28', fontsize=8)
-plt.text(0, 0.065, r'$H\to ZZ^*\to 4\ell$', fontsize=8)
+plt.xlabel(r'$cHW$',fontsize=15)
+plt.ylabel(r'$cHB$',fontsize=15)
+plt.text(-1,3.5, r'Data from ATLAS HIGG-2018-28', fontsize=8)
+plt.text(-1,3.2, r'$H\to ZZ^*\to 4\ell$', fontsize=8)
 
 fig.set_tight_layout(True)
 
@@ -237,6 +238,6 @@ fig.set_tight_layout(True)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2018-28-SMEFT/")
+print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2018-28-SMEFT/2d-results")
 print("***** done *****")
 
