@@ -23,7 +23,7 @@ smpred_input = "validations/ATLAS/HIGG-2018-28-SMEFT/SMbin-prediction.txt"
 smbin_corr_input = "validations/ATLAS/HIGG-2018-28-SMEFT/SMbin-corr2017.txt" 
 
 # SMEFT parameterized data
-smeft_input = "validations/ATLAS/HIGG-2018-28-SMEFT/smeft-param-CPeven.txt"
+smeft_input = "validations/ATLAS/HIGG-2018-28-SMEFT/smeft-param-CPodd.txt"
     
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -35,21 +35,21 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "validations/ATLAS/HIGG-2018-28-SMEFT/SMEFT_1d.out"
-outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/1d-results/auxfig12a-cuH-even-corr2017.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/1d-results/auxfig13e-cHWB-odd-corr2017.pdf"
 
 # ======================================================================
 #			Setting initial values for parameters
 # ======================================================================
 
-#cuH = 0
+cuH = 0
 cHG = 0
 cHW = 0
 cHB = 0
-cHWB = 0
+#cHWB = 0
 
 # Scan ranges
-c_min = -25
-c_max = 35
+c_min = -1.5
+c_max = 1.5
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 1000
@@ -109,8 +109,8 @@ xlist = []
 ylist = []
 zlist = []
 print("***** Scanning *****")
-for cuH in np.linspace(c_min,c_max,grid_subdivisions):
-    cx = cuH 
+for cHWB in np.linspace(c_min,c_max,grid_subdivisions):
+    cx = cHWB 
     smeft_mu_vec = []
     smeft_mu_ac_vec = []
     for i in range(len(news)-2):
@@ -169,7 +169,7 @@ plt.tick_params(which='minor', direction='in', length=6, width=1.0)
 plt.plot(xlist,zlist,c="r",label='Lilith\'s fit ')
 
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2018-28-SMEFT/official-data/auxfig-12a-cuH-even.csv','r')
+dataload = open('validations/ATLAS/HIGG-2018-28-SMEFT/official-data/auxfig-13e-cHWB-odd.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -182,10 +182,10 @@ plt.legend(loc='lower right', scatterpoints = 3)
 
 # Title, labels, color bar...
 plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14, ha="left")
-plt.xlabel(r'$cuH$',fontsize=15)
+plt.xlabel(r'$cH\widetilde{W}B$',fontsize=15)
 plt.ylabel(r'$-2\ln\lambda$',fontsize=15)
-plt.text(0, 7, r'Data from ATLAS HIGG-2018-28', fontsize=10)
-plt.text(0, 6, r'$H\to ZZ^*\to 4\ell$', fontsize=10)
+plt.text(0, 6, r'Data from ATLAS HIGG-2018-28', fontsize=10)
+plt.text(0, 5, r'$H\to ZZ^*\to 4\ell$', fontsize=10)
 
 # show plot or save plot
 #plt.show()

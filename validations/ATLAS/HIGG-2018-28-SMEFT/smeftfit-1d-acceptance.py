@@ -35,7 +35,7 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/SMEFT_1d.out"
-outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/1d-results/auxfig12a-cHW-even-corr1-vs_acceptance.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/1d-results/auxfig12c-cHW-even-corr1-vs_acceptance.pdf"
 
 # ======================================================================
 #			Setting initial values for parameters
@@ -179,7 +179,7 @@ plt.plot(xalist,ylist,c="b",label='no acceptance')
 plt.plot(xlist,zlist,c="r",label='with acceptance')
 
 # Import Official data from file 
-#dataload = open('validations/ATLAS/HIGG-2018-28-SMEFT/official-data/auxfig-12a-cHWB-odd.csv','r')
+#dataload = open('validations/ATLAS/HIGG-2018-28-SMEFT/official-data/auxfig-12c-cHW-even.csv','r')
 #dorix = []
 #doriy = []
 #for line in dataload:

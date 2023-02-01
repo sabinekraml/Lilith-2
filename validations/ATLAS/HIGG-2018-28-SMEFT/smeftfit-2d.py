@@ -36,7 +36,7 @@ hmass = 125
 if (not os.path.exists("results")):
     os.mkdir("results")
 output = "results/SMEFT_2d.out"
-outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/2d-results/Validation-17a-cHW-cHB-even-corrJVE.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/2d-results/fig17a-cHW-cHB-even-corrJVE.pdf"
 
 # ======================================================================
 #			Setting initial values for parameters
@@ -229,7 +229,7 @@ plt.title("  Lilith-2.1, DB 22.x develop", fontsize=8, ha="left")
 plt.xlabel(r'$cHW$',fontsize=15)
 plt.ylabel(r'$cHB$',fontsize=15)
 plt.text(-1,3.5, r'Data from ATLAS HIGG-2018-28', fontsize=8)
-plt.text(-1,3.2, r'$H\to ZZ^*\to 4\ell$', fontsize=8)
+plt.text(-1,3, r'$H\to ZZ^*\to 4\ell$', fontsize=8)
 
 fig.set_tight_layout(True)
 

@@ -122,13 +122,13 @@ Theo. uncertainties is Fig. 10c are written in "SMbin-prediction-v3.txt"
     <correlation entry="d6d9">-0.28</correlation>
     <correlation entry="d6d10">0.04</correlation>  
     <correlation entry="d6d11">-0.01</correlation>
-    <correlation entry="d6d12">0.04</correlation>
+    <correlation entry="d6d12">-0.04</correlation>
     
     <correlation entry="d7d8">-0.13</correlation>
     <correlation entry="d7d9">-0.06</correlation>
     <correlation entry="d7d10">-0.42</correlation>  
     <correlation entry="d7d11">-0.04</correlation>
-    <correlation entry="d7d12">0.10</correlation>
+    <correlation entry="d7d12">-0.10</correlation>
     
     <correlation entry="d8d9">0.06</correlation>
     <correlation entry="d8d10">0.03</correlation>  
