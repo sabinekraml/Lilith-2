@@ -71,7 +71,7 @@ def usrXMLinput(mass=125, CV=1, CF=1, precision="BEST-QCD"):
   <mass>%(mass)s</mass>
 
   <C to="tt">%(CF)s</C>
-  <C to="bb">%(CF)s</C
+  <C to="bb">%(CF)s</C>
   <C to="cc">%(CF)s</C>
   <C to="tautau">%(CF)s</C>
   <C to="ZZ">%(CV)s</C>
@@ -107,9 +107,7 @@ lilithcalc = lilith.Lilith(verbose=False, timer=False)
 lilithcalc.readexpinput(exp_input)
 
 # Read SM prediction input and correlation 
-
 lilithcalc.readsmpred(smpred_input)
-
 lilithcalc.readsmcorr(smbin_corr_input)
 ######################################################################
 # Scan routine

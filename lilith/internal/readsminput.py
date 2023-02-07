@@ -45,26 +45,42 @@ class ReadSMInput:
     
         self.readsmcount = 0 
         dimcount = exp_mu[0]["dim"]
-        try:
-            with open(filename) as readtest:
-                print("reading SM predictions...................... ok")
-                readtest.close()
-                self.file = np.genfromtxt(filename)
-                if len(self.file) == dimcount:
-                    self.readsmcount = 1
-                    print("        test dim of SM prediction........... ok")
-                else:
-                    print("        test dim of SM prediction........... error!")
-                    print("        SM prediction data does not have the same dim with experimental data.")    
-        except IOError as readerror:
-            print("reading SM predictions....................... error!")
-            print("        SM prediction not found!")
-        
-        if self.readsmcount == 1:
-            self.smpredic = np.array(self.file[:,:])
-        else:
-            self.smpredic = np.zeros((dimcount,3))    
+        if exp_mu[0]["dat"]==1:     # STXS run
+            try:
+                with open(filename) as readtest:
+                    print("reading SM predictions...................... ok")
+                    readtest.close()
+                    self.file = np.genfromtxt(filename)
+                    if len(self.file) == dimcount:
+                        self.readsmcount = 1
+                        print("        test dim of SM prediction........... ok")
+                    else:
+                        print("        test dim of SM prediction........... error!")
+                        print("        SM prediction data does not have the same dim with experimental data.")    
+            except IOError as readerror:
+                print("reading SM predictions...................... error!")
+                print("        SM prediction not found!")
+            if self.readsmcount == 1:
+                self.smpredic = np.array(self.file[:,:])
+            else:
+                self.smpredic = np.zeros((dimcount,3))
+        else:   # Signal strength run 
+            try:
+                with open(filename) as readtest:
+                    print("reading SM predictions...................... ok")
+                    readtest.close()
+                    self.file = np.genfromtxt(filename)
+                    if len(self.file) == dimcount:
+                        self.readsmcount = 1
+                        print("        test dim of SM prediction........... ok")
+                    else:
+                        print("        test dim of SM prediction........... error!")
+                        print("        SM prediction data does not have the same dim with experimental data.")    
+            except IOError as readerror:
+                print("reading SM predictions...................... error!")
+                print("        SM prediction not found. Theoretical uncertainties are set to zeros.")            
+            if self.readsmcount == 1:
+                self.smpredic = np.array(self.file[:,:])
+            else:
+                self.smpredic = np.zeros((dimcount,3))
 
-#            self.smcent = np.array([np.zeros(mu["dim"])])
-#np.array([SMbin_corr_data[:,:]])
- 

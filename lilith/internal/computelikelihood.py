@@ -35,7 +35,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
     l = 0. # actually -2log(likelihood)
 
 # load SM prediction     
-    xbin = smread[:,0]
+    stxs_bin = smread[:,0]
     error_th_m = smread[:,1]
     error_th_p = smread[:,2]
     
@@ -81,7 +81,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
                         if mu["dat"]==0: # signal strength run
                             user_mu_effscaled[d] += eff_prod*user_mu[prod,decay]
                         else:            # STXS run    
-                            user_mu_effscaled[d] += eff_prod*user_mu[prod,decay]*xbin[i-1]                        
+                            user_mu_effscaled[d] += eff_prod*user_mu[prod,decay]*stxs_bin[i-1]                        
 
         except KeyError as s:
             if "s" in ["eff", "x", "y"]:
@@ -124,22 +124,16 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
                         mu_vec = np.append(mu_vec,[user_mu_effscaled[d] - mu["bestfit"][d]])
                         cov_m = np.linalg.inv(mu["param"]["inv_cov_m"])
 
-## include theoretical errors with no correlations:
-                    unc_sym_th = (error_th_p + error_th_m)/2.0
-# load SM correlation                
+                    ## include theoretical errors with no correlations:
+                    unc_sym_th = np.reshape((error_th_p + error_th_m)/2.0,(-1,mu["dim"]))
+                    # load SM correlation                
                     corr_m_th = smcorr_read
-#                    print("corr_m_th =",corr_m_th)
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
-
-# no theoretical correlation  
-#                    cov_m_tot = cov_m # default option
-# with theoretical correlation
-                    cov_m_tot = cov_m + cov_m_th 
-
+                    # option: with or without theoretical correlation  
+                    #cov_m_tot = cov_m               # without theoretical correlation
+                    cov_m_tot = cov_m + cov_m_th    # with theoretical correlation
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
-                    
-#                    cur_l = mu["param"]["inv_cov_m"].dot(mu_vec).dot(mu_vec.T)
 
             # likelihood computation in case of a type="variable normal"
             # following "Variable Gaussian 2", Barlow arXiv:physics/0406120v1, Eq. 18
@@ -186,21 +180,17 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
 
                     unc_sym = np.sqrt(np.abs(mu["param"]["VGau"] + mu["param"]["VGau_prime"]*mu_vec))
                     cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-
-## include theoretical errors with no correlations:
+                    
+                    ## include theoretical errors with no correlations:
                     mu_th_VGau = error_th_p*error_th_m
                     mu_th_VGau_prime = error_th_p - error_th_m
-                    unc_sym_th = np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec))
-# load SM correlation                
+                    unc_sym_th = np.reshape(np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec)),(-1,mu["dim"]))
+                    # load SM correlation                
                     corr_m_th = smcorr_read
-#                    print("corr_m_th =",corr_m_th)
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
-
-# no theoretical correlation  
-#                    cov_m_tot = cov_m # default option
-# with theoretical correlation
-                    cov_m_tot = cov_m + cov_m_th 
-
+                    # option: with or without theoretical correlation
+                    #cov_m_tot = cov_m               # without theoretical correlation
+                    cov_m_tot = cov_m + cov_m_th    # with theoretical correlation
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
@@ -251,19 +241,16 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
 
                     unc_sym = mu["param"]["SGau"] + mu["param"]["SGau_prime"]*mu_vec
                     cov_m = unc_sym*mu["param"]["corr_m"]*unc_sym.T
-
-#                    cov_m_tot = cov_m # default option
-## include theoretical errors with no correlations:
+                    ## include theoretical errors with no correlations:
                     mu_th_SGau = 2.0*error_th_p*error_th_m/(error_th_p + error_th_m)
                     mu_th_SGau_prime = (error_th_p - error_th_m)/(error_th_p + error_th_m)
-                    unc_sym_th = np.abs(mu_th_SGau + mu_th_SGau_prime*mu_vec)
-# load SM correlation                
+                    unc_sym_th = np.reshape(np.abs(mu_th_SGau + mu_th_SGau_prime*mu_vec),(-1,mu["dim"]))
+                    # load SM correlation                
                     corr_m_th = smcorr_read
-                    
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
-#                    print("cov_m_th =",cov_m_th)
-                    cov_m_tot = cov_m + cov_m_th 
-                    
+                    # option: with or without theoretical correlation
+                    cov_m_tot = cov_m + cov_m_th        # with theo. correlation
+                    #cov_m_tot = cov_m                   #without theo. correlation
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 
