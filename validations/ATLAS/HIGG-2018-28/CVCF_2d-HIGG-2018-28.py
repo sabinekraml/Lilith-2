@@ -160,8 +160,8 @@ plt.tick_params(which='minor', length=7, width=1.2)
 data = np.genfromtxt(output)
 
 x = data[:, 0]
-y = data[:, 1]
-z = data[:, 2]
+y = data[:, 1] # no acceptance
+z = data[:, 2] # with acceptance
 
 # Substracting the -2LogL minimum to form Delta(-2LogL)
 z2 = []

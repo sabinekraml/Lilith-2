@@ -1,0 +1,37 @@
+#cross section
+
+1 + 35.8*cHG 
+
+1 + 35.33*cHG 
+
+1 + 31.27*cHG 
+
+1 + 29.55*cHG 
+
+1 + 28*cHG 
+
+1 + 17.62*cHG 
+
+1 + 17.77*cHG 
+
+1 + 0.593*cHW  + 0.019*cHB  + 0.088*cHWB 
+   
+1 + 0.059*cHW  + 0.002*cHB  + 0.037*cHWB  
+
+1 + 0.19*cHW  - 0.002*cHB  + 0.042*cHWB  
+
+1 + 0.828*cHW  + 0.035*cHB  + 0.127*cHWB 
+
+1 + 0.483*cHG  - 0.108*cuH 
+
+#branching ratio 
+
+(1 - 0.199*cHW  - 0.112*cHB  + 0.181*cHWB )/(1 -
+    0.054*cHW  - 0.076*cHB  + 0.062*cHWB + 1.519*cHG )
+
+#acceptance (neglet only c**3 terms)
+
+0.153 + 0.763876/(0.881+2.294*(0.005+cHB)**2+0.614*(-0.133+cHW)**2+
+ 0.5*(0.16*cHB*cHW - 2.44*cHB*cHWB - 2.42*cHW*cHWB)  +
+ 0.703*(0.12+cHWB)**2) 
+ 

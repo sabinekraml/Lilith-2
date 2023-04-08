@@ -34,8 +34,8 @@ hmass = 125
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2018-28-SMEFT/SMEFT_1d.out"
-outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/1d-results/auxfig13e-cHWB-even-corr2017-ln2.pdf"
+output = "validations/ATLAS/HIGG-2018-28-SMEFT/output/auxfig-12e-cHWB-even-ln2.out"
+outputplot = "validations/ATLAS/HIGG-2018-28-SMEFT/1d-results/graph1d-linear1-test.pdf"
 
 # ======================================================================
 #			Setting initial values for parameters
@@ -48,8 +48,8 @@ cHB = 0
 #cHWB = 0
 
 # Scan ranges
-c_min = -3.0
-c_max = 10.0
+c_min = -4
+c_max = 12
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 1000
@@ -179,6 +179,12 @@ for line in dataload:
 # Plotting the Offical contours 
 plt.scatter(dorix,doriy,s=4,c='b',marker='o',label='ATLAS official ')    
 plt.legend(loc='lower right', scatterpoints = 3)  
+
+# 68% and 95% CL line
+plt.axhline(y=1, color='k', linestyle='--', linewidth=0.5)
+plt.text(c_max+0.07*(c_max - c_min), 0.8, r'$1\sigma$', fontsize=10)
+plt.axhline(y=4, color='k', linestyle='--', linewidth=0.5)
+plt.text(c_max + 0.07*(c_max - c_min), 3.8, r'$2\sigma$', fontsize=10)
 
 # Title, labels, color bar...
 plt.title("  Lilith-2.1, DB 22.x develop", fontsize=14, ha="left")
