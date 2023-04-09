@@ -41,7 +41,7 @@ hmass = 125.09
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-test.out"
+output = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-test-mu.out"
 
 #outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-noThError.pdf"
 #outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-withThError.pdf"
@@ -51,8 +51,8 @@ output = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-test.out"
 outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CH-1d-combine.pdf"
 
 # Scan ranges
-CH_min = 0.95
-CH_max = 1.10
+CH_min = 0.95**2
+CH_max = 1.10**2
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
@@ -61,34 +61,80 @@ grid_subdivisions = 100
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
+def usrXMLinput(mass=125.09, Cmu=1, precision="BEST-QCD"):
     """generate XML input from reduced couplings CV, CF"""
     
     myInputTemplate = """<?xml version="1.0"?>
 
 <lilithinput>
+  <!-- signal strengths in theory space, like mu(gg -> H -> ZZ), as input -->
+  <signalstrengths part="h">
+    <mass>125</mass>
+    <!-- optionnal:
+    if not given, Higgs mass of 125 GeV is assumed
+    valid Higgs masses are in the [123,128] GeV range
+    -->
 
-<reducedcouplings>
-  <mass>%(mass)s</mass>
+    <mu prod="ggH" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="ggH" decay="WW">%(Cmu)s</mu>
+    <mu prod="ggH" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="ggH" decay="bb">%(Cmu)s</mu>
+    <mu prod="ggH" decay="tautau">%(Cmu)s</mu>
+    <mu prod="ggH" decay="mumu">%(Cmu)s</mu>
 
-  <C to="tt">%(CF)s</C>
-  <C to="bb">%(CF)s</C>
-  <C to="cc">%(CF)s</C>
-  <C to="tautau">%(CF)s</C>
-  <C to="ZZ">%(CV)s</C>
-  <C to="WW">%(CV)s</C>
+    <mu prod="VBF" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="VBF" decay="WW">%(Cmu)s</mu>
+    <mu prod="VBF" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="VBF" decay="bb">%(Cmu)s</mu>
+    <mu prod="VBF" decay="tautau">%(Cmu)s</mu>
+    <mu prod="VBF" decay="mumu">%(Cmu)s</mu>
 
-  <extraBR>
-    <BR to="invisible">0.</BR>
-    <BR to="undetected">0.</BR>
-  </extraBR>
+    <mu prod="WH" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="WH" decay="WW">%(Cmu)s</mu>
+    <mu prod="WH" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="WH" decay="bb">%(Cmu)s</mu>
+    <mu prod="WH" decay="tautau">%(Cmu)s</mu>
+    <mu prod="WH" decay="mumu">%(Cmu)s</mu>
+        
+    <mu prod="ZH" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="ZH" decay="WW">%(Cmu)s</mu>
+    <mu prod="ZH" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="ZH" decay="bb">%(Cmu)s</mu>
+    <mu prod="ZH" decay="tautau">%(Cmu)s</mu>
+    <mu prod="ZH" decay="mumu">%(Cmu)s</mu>
+        
+    <mu prod="ttH" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="ttH" decay="WW">%(Cmu)s</mu>
+    <mu prod="ttH" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="ttH" decay="bb">%(Cmu)s</mu>
+    <mu prod="ttH" decay="tautau">%(Cmu)s</mu>
+    <mu prod="ttH" decay="mumu">%(Cmu)s</mu>
+    
+    <mu prod="tHq" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="tHq" decay="WW">%(Cmu)s</mu>
+    <mu prod="tHq" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="tHq" decay="bb">%(Cmu)s</mu>
+    <mu prod="tHq" decay="tautau">%(Cmu)s</mu>
+    <mu prod="tHq" decay="mumu">%(Cmu)s</mu>
+    
+    <mu prod="tHW" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="tHW" decay="WW">%(Cmu)s</mu>
+    <mu prod="tHW" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="tHW" decay="bb">%(Cmu)s</mu>
+    <mu prod="tHW" decay="tautau">%(Cmu)s</mu>
+    <mu prod="tHW" decay="mumu">%(Cmu)s</mu>
+    
+    <mu prod="bbH" decay="gammagamma">%(Cmu)s</mu>
+    <mu prod="bbH" decay="WW">%(Cmu)s</mu>
+    <mu prod="bbH" decay="ZZ">%(Cmu)s</mu>
+    <mu prod="bbH" decay="bb">%(Cmu)s</mu>
+    <mu prod="bbH" decay="tautau">%(Cmu)s</mu>
+    <mu prod="bbH" decay="mumu">%(Cmu)s</mu>
 
-  <precision>%(precision)s</precision>
-</reducedcouplings>
-
+  </signalstrengths>
 </lilithinput>
 """
-    myInput = {'mass':mass, 'CV':CV, 'CF':CF, 'precision':precision}
+    myInput = {'mass':mass, 'Cmu':Cmu, 'precision':precision}
         
     return myInputTemplate%myInput
 
@@ -119,20 +165,20 @@ max=-1
 
 print("***** running scan *****")
 
-for CH in np.linspace(CH_min, CH_max, grid_subdivisions):
+for Cmu in np.linspace(CH_min, CH_max, grid_subdivisions):
     fresults.write('\n')
-    myXML_user_input = usrXMLinput(hmass, CV=CH, CF=CH, precision=my_precision)
+    myXML_user_input = usrXMLinput(hmass, Cmu=Cmu, precision=my_precision)
     lilithcalc.computelikelihood(userinput=myXML_user_input)
     m2logL = lilithcalc.l
     if m2logL < m2logLmin:
         m2logLmin = m2logL
-        CHmin = CH
-    fresults.write('%.5f    '%CH**2 + '%.5f     '%m2logL + '\n')
+        CHmin = Cmu
+    fresults.write('%.5f    '%Cmu + '%.5f     '%m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
-print("minimum at CV, CF, -2logL_min = ", CHmin**2, m2logLmin)
+print("minimum at CV, CF, -2logL_min = ", CHmin, m2logLmin)
 
 #========================================================
 #       plot

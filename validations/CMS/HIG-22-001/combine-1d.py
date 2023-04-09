@@ -121,12 +121,12 @@ for CH in np.linspace(CH_min, CH_max, grid_subdivisions):
     if m2logL < m2logLmin:
         m2logLmin = m2logL
         CHmin = CH
-    fresults.write('%.5f    '%CH + '%.5f     '%m2logL + '\n')
+    fresults.write('%.5f    '%CH**2 + '%.5f     '%m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
-print("minimum at CV, CF, -2logL_min = ", CHmin, m2logLmin)
+print("minimum at CV, CF, -2logL_min = ", CHmin**2, m2logLmin)
 
 #========================================================
 #       plot
