@@ -29,7 +29,7 @@ print("***** reading parameters *****")
 # Experimental results
 exp_input = "validations/ATLAS/HIGG-2018-57-ss/LatestRun2.list"
 smpred_input = "validations/ATLAS/HIGG-2018-57-ss/SM-prediction-ss.txt"
-smbin_corr_input = "" 
+smbin_corr_input = "validations/ATLAS/HIGG-2018-57-ss/SM-corr.txt" 
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -46,7 +46,10 @@ output = "validations/ATLAS/HIGG-2018-57-ss/CVCF-HIGG-2018-57.out"
 #outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-cov-mod.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-approx-g1.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-approx-g2.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-wSMprediction.pdf"
+#outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-separatedXSBR.pdf"
+#outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-separatedXSBR-acc.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-XSBR.pdf"
+
 
 # Scan ranges
 CV_min = 0.9
@@ -215,8 +218,8 @@ plt.ylabel(r'$C_F$',fontsize=18)
 plt.text(0.915, 1.41, r'Exp. input type = SS', fontsize=12, ha = 'left')
 #plt.text(0.915, 1.37, r'include theoretical error', fontsize=12, ha = 'left')
 #plt.text(0.915, 1.33, r'correlation approx, gamma = 2.0', fontsize=12, ha = 'left')
-plt.text(0.915, 1.37, r'include theoretical error', fontsize=12, ha = 'left')
-plt.text(0.915, 1.33, r'add Theo. err. from twiki.cern.ch', fontsize=12, ha = 'left')
+plt.text(0.915, 1.37, r'theo. unc. of XS*BR from table 6', fontsize=12, ha = 'left')
+plt.text(0.915, 1.33, r'corr.=1 for same XS or BR', fontsize=12, ha = 'left')
 plt.text(0.915, 1.29, r'distribution = vn', fontsize=12, ha = 'left')
 
 fig.set_tight_layout(True)
