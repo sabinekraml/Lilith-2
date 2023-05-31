@@ -27,6 +27,7 @@
 
 from ..errors import LikelihoodComputationError
 import numpy as np
+import os
 
 def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
     """Computes the likelihood from experimental mu and user mu."""
@@ -34,14 +35,19 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
     likelihood_results = []
     l = 0. # actually -2log(likelihood)
 
-# load SM prediction     
-    stxs_bin = smread[:,0]
-    error_th_m = smread[:,1]
-    error_th_p = smread[:,2]
-    
     for mu in exp_mu:
         # compute user mu value scaled to efficiencies
         user_mu_effscaled = {}
+        
+        # read SM prediction 
+        stxs_th_bin = mu["SMpred"][:,0]
+        error_th_m = mu["SMpred"][:,1]
+        error_th_p = mu["SMpred"][:,2]
+      
+        # read SM correlation  
+        corr_m_th = mu["SMcorr"]      
+
+                
         try:
             if mu["dim"] == 1:
                 user_mu_effscaled["x"] = 0.
@@ -71,7 +77,6 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
                 for i in range(1,mu["dim"]+1):
                     d = "d" + str(i)
                     user_mu_effscaled[d] = 0.
-#                    print("d=",d)
                     for (prod,decay),eff_prod in list(mu["eff"][d].items()):
                         if mu["sqrts"] not in ["1.96","7","8","7.","8.","7.0","8.0","7+8"]\
                           and (prod == "ggH" or prod == "VBF" or prod == "tHq" or prod == "tHW" or prod == "ggZH"):
@@ -81,7 +86,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
                         if mu["dat"]==0: # signal strength run
                             user_mu_effscaled[d] += eff_prod*user_mu[prod,decay]
                         else:            # STXS run    
-                            user_mu_effscaled[d] += eff_prod*user_mu[prod,decay]*stxs_bin[i-1]                        
+                            user_mu_effscaled[d] += eff_prod*user_mu[prod,decay]*stxs_th_bin[i-1]                        
 
         except KeyError as s:
             if "s" in ["eff", "x", "y"]:
@@ -126,8 +131,6 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
 
                     ## include theoretical errors with no correlations:
                     unc_sym_th = np.reshape((error_th_p + error_th_m)/2.0,(-1,mu["dim"]))
-                    # load SM correlation                
-                    corr_m_th = smcorr_read
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
                     # option: with or without theoretical correlation  
                     #cov_m_tot = cov_m               # without theoretical correlation
@@ -185,11 +188,10 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
                     mu_th_VGau = error_th_p*error_th_m
                     mu_th_VGau_prime = error_th_p - error_th_m
                     unc_sym_th = np.reshape(np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec)),(-1,mu["dim"]))
-                    # load SM correlation                
-                    corr_m_th = smcorr_read
+                    # calculate theoretical covariance
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
                     # option: with or without theoretical correlation
-                    #cov_m_tot = cov_m               # without theoretical correlation
+#                    cov_m_tot = cov_m               # without theoretical correlation
                     cov_m_tot = cov_m + cov_m_th    # with theoretical correlation
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
@@ -245,8 +247,7 @@ def compute_likelihood(exp_mu, user_mu, user_mode, smread, smcorr_read):
                     mu_th_SGau = 2.0*error_th_p*error_th_m/(error_th_p + error_th_m)
                     mu_th_SGau_prime = (error_th_p - error_th_m)/(error_th_p + error_th_m)
                     unc_sym_th = np.reshape(np.abs(mu_th_SGau + mu_th_SGau_prime*mu_vec),(-1,mu["dim"]))
-                    # load SM correlation                
-                    corr_m_th = smcorr_read
+                    # calculate theoretical covariance                
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
                     # option: with or without theoretical correlation
                     cov_m_tot = cov_m + cov_m_th        # with theo. correlation

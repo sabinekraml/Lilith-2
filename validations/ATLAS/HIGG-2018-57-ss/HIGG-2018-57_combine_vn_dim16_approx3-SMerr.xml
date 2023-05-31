@@ -17,6 +17,8 @@ BR(H->WW) = 2.152E-01, BR(H->ZZ) = 2.641E-02 i.e WW is 89%
   <sqrts>13</sqrts>
   <mass>125.09</mass>
   <CL>68%</CL> <!-- optional -->
+  <SMpred>SM-prediction-ss.txt</SMpred>
+  <SMcorr>SM-corr.txt</SMcorr>
 
   <eff axis="d1" prod="ggH" decay="gammagamma">1.0</eff>
   <eff axis="d2" prod="ggH" decay="ZZ">1.0</eff>
@@ -229,9 +231,7 @@ BR(H->WW) = 2.152E-01, BR(H->ZZ) = 2.641E-02 i.e WW is 89%
         <correlation entry="d14d16">0.</correlation>
   
         <correlation entry="d15d16">0.01</correlation>
-  
-  
-
-
   </param>
+  
+
 </expmu>

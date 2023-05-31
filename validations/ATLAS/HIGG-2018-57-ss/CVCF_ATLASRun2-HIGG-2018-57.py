@@ -28,8 +28,8 @@ print("***** reading parameters *****")
 
 # Experimental results
 exp_input = "validations/ATLAS/HIGG-2018-57-ss/LatestRun2.list"
-smpred_input = "validations/ATLAS/HIGG-2018-57-ss/SM-prediction-ss.txt"
-smbin_corr_input = "validations/ATLAS/HIGG-2018-57-ss/SM-corr.txt" 
+#smpred_input = "validations/ATLAS/HIGG-2018-57-ss/SM-prediction-ss.txt"
+#smbin_corr_input = "validations/ATLAS/HIGG-2018-57-ss/SM-corr.txt" 
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -48,7 +48,7 @@ output = "validations/ATLAS/HIGG-2018-57-ss/CVCF-HIGG-2018-57.out"
 #outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-approx-g2.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-separatedXSBR.pdf"
 #outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-separatedXSBR-acc.pdf"
-outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/CVCF-HIGG-2018-57-ss-XSBR.pdf"
+outputplot = "validations/ATLAS/HIGG-2018-57-ss/figs/ss-test1.pdf"
 
 
 # Scan ranges
@@ -107,8 +107,8 @@ fresults = open(output, 'w')
 lilithcalc = lilith.Lilith(verbose=False,timer=False)
 # Read experimental data
 lilithcalc.readexpinput(exp_input)
-lilithcalc.readsmpred(smpred_input)
-lilithcalc.readsmcorr(smbin_corr_input)
+#lilithcalc.readsmpred(smpred_input)
+#lilithcalc.readsmcorr(smbin_corr_input)
 ######################################################################
 # Scan routine
 ######################################################################

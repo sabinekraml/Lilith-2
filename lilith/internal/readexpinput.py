@@ -37,6 +37,7 @@ from scipy.optimize import fsolve
 import math
 from . import brsm as BR_SM
 from warnings import warn
+import os
 
 class ReadExpInput:
     """Read the experimental input in XML and extracts all information."""
@@ -96,15 +97,11 @@ class ReadExpInput:
         if root.tag == "expstxs":
             dat = 1            
         
-        if dat == 0:
-            print("Run calculation for Signal Strength")
-        else:
-            print("Run calculation for STXS")
-            
+           
         (dim, decay, type) = self.get_mode(root)
         
         self.get_mass(root)
-        (experiment, source, sqrts) = self.get_metadata(root)
+        (experiment, source, sqrts, SMpred, SMcorr) = self.get_metadata(root)
        
         eff = self.read_eff(root, dim, decay)
         (bestfit, param, grid, Lxy, LChi2min) = self.read_mus(root, dim, type)
@@ -115,7 +112,7 @@ class ReadExpInput:
                         "bestfit": bestfit, "param": param, "grid": grid,
                         "Lxy": Lxy, "LChi2min": LChi2min,
                         "experiment": experiment, "source": source,
-                        "sqrts": sqrts, "eff": eff, "dat":dat})
+                        "sqrts": sqrts, "eff": eff, "dat":dat, "SMpred": SMpred, "SMcorr":SMcorr})
 
     def produce_tree(self):
         """Produce the XML tree with ElementTree."""
@@ -202,6 +199,8 @@ class ReadExpInput:
         experiment = ""
         source = ""
         sqrts = ""
+        SMpred = []
+        SMcorr = []
 
         for child in root:
             if child.tag == "experiment":
@@ -210,8 +209,57 @@ class ReadExpInput:
                 source = child.text
             if child.tag == "sqrts":
                 sqrts = child.text
-            
-        return (experiment, source, sqrts)
+            if child.tag == "SMpred":
+                SMpred_path = os.path.dirname(self.filepath)+"/"+child.text
+                readSMcount = 0
+                dim = int(root.attrib["dim"])
+                if root.tag == "expstxs":     # STXS run
+                    try:
+                        with open(SMpred_path) as readSMpred:
+                            readSMpred.close()
+                            SMpred_value = np.genfromtxt(SMpred_path)
+                            if len(SMpred_value) == dim:
+                                readSMcount = 1
+                    except IOError as readerror:
+                        pass
+                    if readSMcount == 1:
+                        SMpred = np.array(SMpred_value[:,:])
+                    else:
+#                        print("        Warning: ",self.filepath,": can not read SM-prediction or wrong data dimension")
+                        SMpred = np.zeros((dim,3))
+                else:   # Signal strength run
+                    try:
+                        with open(SMpred_path) as readSMpred:
+                            readSMpred.close()
+                            SMpred_value = np.genfromtxt(SMpred_path)
+                            if len(SMpred_value) == dim:
+                                readSMcount = 1
+                    except IOError as readerror:
+                        pass
+                    if readSMcount == 1:
+                        SMpred = np.array(SMpred_value[:,:])                        
+            if SMpred == []:
+#                print("        Warning: ",self.filepath,": can not read SM-prediction or wrong data dimension")
+#                print("                  Theoretical uncertainties are set to zeros.")
+                SMpred = np.zeros((int(root.attrib["dim"]),3))
+                                    
+            if child.tag == "SMcorr":
+                SMcorr_path = os.path.dirname(self.filepath)+"/"+child.text
+                readSMcorrcount = 0
+                try:
+                    with open(SMcorr_path) as readSMcorr:
+                        readSMcorr.close()
+                        SMcorr_value = np.genfromtxt(SMcorr_path)
+                        if len(SMcorr_value) == int(root.attrib["dim"]):
+                            if len(SMcorr_value[0]) == len(SMcorr_value):
+                                readSMcorrcount = 1
+                except IOError as readerror:
+                    pass
+                if  readSMcorrcount== 1:
+                    SMcorr = np.array(SMcorr_value[:,:])
+            if SMcorr == []:
+                SMcorr = np.identity(int(root.attrib["dim"]))
+        return (experiment, source, sqrts, SMpred, SMcorr)
 
     def read_eff(self, root, dim, decay):
         allowed_decays = ["gammagamma", "ZZ", "WW", "Zgamma",
