@@ -2,6 +2,7 @@
 ATLAS result for mu(VH -> cc,bb)  at mH = 125 GeV,
 with signal strength and correlation from section 7, HIGG-2021-12
 (http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-12/)
+validated: waiting
 -->
 
 <expmu dim="2" type="vn">

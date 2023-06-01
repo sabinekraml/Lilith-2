@@ -1,7 +1,8 @@
 <!--
-CMS result for H -> WW decay mode at mH = 125.38 GeV.
+CMS result for H -> WW decay mode at mH = 125.38 GeV, data collect during 2016-2018, up to 138fb-1.
 Best-fit values and uncertainties taken from Fig. 23, correlations from Fig. 24 at 
 http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-20-013/
+validated: waiting
 -->
 
 <expmu dim="4" type="vn">

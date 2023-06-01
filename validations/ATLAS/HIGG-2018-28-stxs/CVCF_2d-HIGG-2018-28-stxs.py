@@ -16,6 +16,7 @@ import matplotlib
 import numpy as np
 
 lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+#lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
@@ -27,36 +28,37 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2021-12/LatestRun2.list"
+exp_input = "validations/ATLAS/HIGG-2018-28-stxs/stxs.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
-hmass = 125.38
+hmass = 125
 
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2021-12/results/cbcc-run2-HIGG-2021-12.out"
-outputplot = "validations/ATLAS/HIGG-2021-12/results/cbcc-run2-HIGG-2021-12.pdf"
+output = "validations/ATLAS/HIGG-2018-28-stxs/results/CVCF-stxs-corrggF2017.out"
+outputplot = "validations/ATLAS/HIGG-2018-28-stxs/results/CVCF-stxs-corrggF2017.pdf"
 
 # Scan ranges
-CB_min = -3.75
-CB_max = 3.75
-CC_min = -25
-CC_max = 20
+CV_min = 0.85
+CV_max = 1.2
+CF_min = 0.4
+CF_max = 2.0
 
 # Number of grid steps in each of the two dimensions (squared grid)
 grid_subdivisions = 100
+
 
 ######################################################################
 # * usrXMLinput: generate XML user input
 ######################################################################
 
-def usrXMLinput(mass=125.09, CB=1, CC=1, precision="BEST-QCD"):
-    """generate XML input from reduced couplings CB, CC"""
-    
+def usrXMLinput(mass=125, CV=1, CF=1, precision="BEST-QCD"):
+    """generate XML input from reduced couplings CV, CF"""
+
     myInputTemplate = """<?xml version="1.0"?>
 
 <lilithinput>
@@ -64,12 +66,12 @@ def usrXMLinput(mass=125.09, CB=1, CC=1, precision="BEST-QCD"):
 <reducedcouplings>
   <mass>%(mass)s</mass>
 
-  <C to="tt">1</C>
-  <C to="bb">%(CB)s</C>
-  <C to="cc">%(CC)s</C>
-  <C to="tautau">1</C>
-  <C to="ZZ">1</C>
-  <C to="WW">1</C>
+  <C to="tt">%(CF)s</C>
+  <C to="bb">%(CF)s</C>
+  <C to="cc">%(CF)s</C>
+  <C to="tautau">%(CF)s</C>
+  <C to="ZZ">%(CV)s</C>
+  <C to="WW">%(CV)s</C>
 
   <extraBR>
     <BR to="invisible">0.</BR>
@@ -81,9 +83,10 @@ def usrXMLinput(mass=125.09, CB=1, CC=1, precision="BEST-QCD"):
 
 </lilithinput>
 """
-    myInput = {'mass':mass, 'CB':CB, 'CC':CC, 'precision':precision}
-        
-    return myInputTemplate%myInput
+    myInput = {'mass': mass, 'CV': CV, 'CF': CF, 'precision': precision}
+
+    return myInputTemplate % myInput
+
 
 ######################################################################
 # Scan initialization
@@ -95,36 +98,36 @@ print("***** scan initialization *****")
 fresults = open(output, 'w')
 
 # Initialize a Lilith object
-lilithcalc = lilith.Lilith(verbose=False,timer=False)
+lilithcalc = lilith.Lilith(verbose=False, timer=False)
 # Read experimental data
 lilithcalc.readexpinput(exp_input)
-
 
 ######################################################################
 # Scan routine
 ######################################################################
 
-m2logLmin=10000
-max=-1
+m2logLmin = 10000
+max = -1
 
 print("***** running scan *****")
 
-for CB in np.linspace(CB_min, CB_max, grid_subdivisions):
+for CV in np.linspace(CV_min, CV_max, grid_subdivisions):
     fresults.write('\n')
-    for CC in np.linspace(CC_min, CC_max, grid_subdivisions):
-        myXML_user_input = usrXMLinput(hmass, CB=CB, CC=CC, precision=my_precision)
+    for CF in np.linspace(CF_min, CF_max, grid_subdivisions):
+#        print("testing...") 
+        myXML_user_input = usrXMLinput(hmass, CV=CV, CF=CF, precision=my_precision)
         lilithcalc.computelikelihood(userinput=myXML_user_input)
         m2logL = lilithcalc.l
         if m2logL < m2logLmin:
             m2logLmin = m2logL
-            CBmin = CB
-            CCmin = CC
-        fresults.write('%.5f    '%CB +'%.5f    '%CC + '%.5f     '%m2logL + '\n')
+            CVmin = CV
+            CFmin = CF
+        fresults.write('%.5f    ' % CV + '%.5f    ' % CF + '%.5f     ' % m2logL + '\n')
 
 fresults.close()
 
 print("***** scan finalized *****")
-print("minimum at CB, CC, -2logL_min = ", CBmin, CCmin, m2logLmin)
+print("minimum at CV, CF, -2logL_min = ", CVmin, CFmin, m2logLmin)
 
 ######################################################################
 # Plot routine
@@ -136,26 +139,27 @@ print("***** plotting *****")
 # Preparing plot
 matplotlib.rcParams['xtick.major.pad'] = 15
 matplotlib.rcParams['ytick.major.pad'] = 15
+plt.locator_params(axis='y', nbins=10)
+plt.locator_params(axis='x', nbins=10)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
 plt.minorticks_on()
-plt.tick_params(labelsize=15, length=14, width=2)
+plt.tick_params(labelsize=14, length=14, width=2)
 plt.tick_params(which='minor', length=7, width=1.2)
-
 
 # Getting the data
 data = np.genfromtxt(output)
 
-x = data[:,0]
-y = data[:,1]
-z = data[:,2]
+x = data[:, 0]
+y = data[:, 1]
+z = data[:, 2]
 
 # Substracting the -2LogL minimum to form Delta(-2LogL)
-z2=[]
+z2 = []
 for z_el in z:
-  z2.append(z_el-z.min())
+    z2.append(z_el - z.min())
 
 # Interpolating the grid
 xi = np.linspace(x.min(), x.max(), grid_subdivisions)
@@ -164,53 +168,51 @@ yi = np.linspace(y.min(), y.max(), grid_subdivisions)
 X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
-# Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2021-12/officialData/HIGG-2021-12.csv','r')
-dorix = []
-doriy = []
-for line in dataload:
-  fdat = line.split(',')
-  dorix.append(float(fdat[0]))
-  doriy.append(float(fdat[1]))
- 
 # Plotting the 68%, 95% and 99.7% CL regions
-ax.contourf(xi,yi,Z,[10**(-10),2.3,5.99],colors=['#ff3300','#ffa500'], \
-              vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
+ax.contourf(xi, yi, Z, [10 ** (-10), 2.3, 5.99, 11.83], colors=['#ff3300', '#ffa500', '#ffff00'], \
+            vmin=0, vmax=20, origin='lower', extent=[x.min(), x.max(), y.min(), y.max()])
 
-ax.set_aspect((CB_max-CB_min)/(CC_max-CC_min))
+ax.set_aspect((CV_max - CV_min) / (CF_max - CF_min))
 
 # best fit point
-plt.plot([CBmin],[CCmin], '*', c='w', ms=9)
+plt.plot([CVmin], [CFmin], '*', c='w', ms=10)
 
 # Standard Model 
-plt.plot([1],[1], '+', c='k', ms=10, label = 'SM')
+plt.plot([1], [1], '+', c='k', ms=10, label="SM")
 
-# best fit point - Official
-plt.plot([-1.0180505415162449],[0.12244897959184442], 'P', c='k', ms=5, label = 'ATLAS official best fit')
+# Official best fit point
+plt.plot([1.022857143], [0.878732748], '*', c='b', ms=10, label="Official best fit")
 
-# Plotting the Offical contours 
-plt.scatter(dorix,doriy,s=3,c='k',marker='o',label='ATLAS official')    
-plt.legend(loc='lower right', scatterpoints = 3)
+# read data for official 68% and 95% CL contours & plot (added by TQL)
+expdata = np.genfromtxt('validations/ATLAS/HIGG-2018-28-stxs/officialData/HIGG-2018-28-CVCF-Grids.txt')
+xExp = expdata[:, 0]
+yExp = expdata[:, 1]
+plt.plot(xExp, yExp, '.', markersize=4, color='blue', label="ATLAS official")
+#plt.scatter(dorix,doriy,s=6,c='b',marker='o',label='ATLAS official')    
+plt.legend(loc='best', scatterpoints = 3) 
 
 # Title, labels, color bar...
-plt.title("  Lilith-2.1, ATLAS-HIGG-2021-12 validation" , fontsize=12, ha="center")
-plt.xlabel(r'$C_B$',fontsize=20)
-plt.ylabel(r'$C_C$',fontsize=20)
-plt.text(-2.5, 16.5 , r'Exp. input type = vn', fontsize=12, ha = 'left')
+plt.title("  Lilith 2.2 - STXS - HIGG-2018-28", fontsize=17, ha="center")
+plt.xlabel(r'$C_V$', fontsize=15)
+plt.ylabel(r'$C_F$', fontsize=15)
+plt.text(0.86, 1.9, r'type = vn', fontsize=10)
+plt.text(0.86, 1.8, r'ggF 2017 corr.', fontsize=10)
+
+
 
 fig.set_tight_layout(True)
 
-#set aspect ratio to 0.618
-ratio = 0.618
+# plt.show()
+#set aspect ratio to 0.85
+ratio = 0.85
 x_left, x_right = ax.get_xlim()
 y_low, y_high = ax.get_ylim()
 ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)
 
-#plt.show()
 
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2021-12/results")
+print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2018-28-stxs/results")
 print("***** done *****")
 

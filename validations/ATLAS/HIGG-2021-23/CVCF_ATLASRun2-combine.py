@@ -27,30 +27,35 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2021-23/LatestRun2-ATLAS-combine.list"
+exp_input = "validations/ATLAS/HIGG-2021-23-Oct22/Run2-ATLAS-HIGG-2021-23-combine.list"
+xsbr_input = "validations/ATLAS/HIGG-2021-23-Oct22/Run2-ATLAS-HIGG-2021-23-combine-xsbr.txt" 
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
 
 # Higgs mass to test
-hmass = 125.38
+hmass = 125.09
 
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-test.out"
-#outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-test.pdf"
-#outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-newcor.pdf"
-outputplot = "validations/ATLAS/HIGG-2021-23/CVCF-ATLAS-Run2-combine-newcor-unc.pdf"
+output = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-test.out"
+
+#outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-noThError.pdf"
+#outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-withThError.pdf"
+#outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-approx2-gamma1.pdf"
+#outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-approx2-gamma05.pdf"
+#outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-approx2-gamma5.pdf"
+outputplot = "validations/ATLAS/HIGG-2021-23-Oct22/CVCF-ATLAS-Run2-combine-approx2-gamma10.pdf"
 
 # Scan ranges
 CV_min = 0.95
-CV_max = 1.15
-CF_min = 0.75
-CF_max = 1.15
+CV_max = 1.125
+CF_min = 0.8
+CF_max = 1.125
 
 # Number of grid steps in each of the two dimensions (squared grid)
-grid_subdivisions = 100
+grid_subdivisions = 50
 
 ######################################################################
 # * usrXMLinput: generate XML user input
@@ -92,6 +97,7 @@ def usrXMLinput(mass=125.09, CV=1, CF=1, precision="BEST-QCD"):
 ######################################################################
 
 print("***** scan initialization *****")
+
 
 # Prepare output
 fresults = open(output, 'w')
@@ -167,7 +173,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2021-23/ATLAS-combine.csv','r')
+dataload = open('validations/ATLAS/HIGG-2021-23-Oct22/ATLAS-CVCF-official.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -190,18 +196,19 @@ plt.plot([CVmin],[CFmin], '*', c='w', ms=10)
 plt.plot([1],[1], '+', c='k', ms=10)
 
 # Best fit point - official 
-plt.plot([1.0350194552529182],[0.9533596837944663], 'P', c='k', ms=6, label="ATLAS official best fit")
+#plt.plot([1.0350194552529182],[0.9533596837944663], 'P', c='k', ms=6, label="ATLAS official best fit")
 
 # Plotting the Offical contours 
-plt.scatter(dorix,doriy,s=6,c='k',marker='o',label='ATLAS official')    
+plt.scatter(dorix,doriy,s=6,c='b',marker='o',label='ATLAS official')    
 plt.legend(loc='lower right', scatterpoints = 3) 
 
 # Title, labels, color bar...
 plt.title("  Lilith-2.1, ATLAS HIGG-2021-23 validation", fontsize=10, ha="center")
 plt.xlabel(r'$C_V$',fontsize=15)
 plt.ylabel(r'$C_F$',fontsize=15)
-plt.text(0.96, 1.12, r'Exp. input type = vn', fontsize=10, ha = 'left')
-
+plt.text(0.96, 1.08, r'Exp. input type = vn', fontsize=10, ha = 'left')
+#plt.text(0.96, 1.1, r'no theoretical error, original correlation', fontsize=10, ha = 'left')
+plt.text(0.96, 1.1, r'include theoretical error, approx 2, $\gamma=10.0$', fontsize=10, ha = 'left')
 fig.set_tight_layout(True)
 
 #plt.show()

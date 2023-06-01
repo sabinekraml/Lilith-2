@@ -1,6 +1,6 @@
 <!--
 CMS combination of the H -> bb decay modes for 139/fb.
-Best-fit values and uncertainties taken from Auxillary Figure 06, 
+Best-fit values and uncertainties taken from Fig3 (data point, HEPdata), 
 correlations from Aux Figure 07
 http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-23/
 validated: waiting  
@@ -54,84 +54,84 @@ validated: waiting
     <eff axis="d25" prod="VH" decay="mumu">0.363636</eff>
 
     <bestfit>
-        <d1>1.04</d1>
-        <d2>1.36</d2>
-	<d3>1.53</d3>
-        <d4>-0.22</d4>
-        <d5>0.9</d5>
-        <d6>2.6</d6>
-	<d7>0.95</d7>
-        <d8>1.33</d8>
-        <d9>1.5</d9>
-        <d10>1.68</d10>
-	<d11>1.14</d11>
-        <d12>1.13</d12>
-        <d13>2.26</d13>
-        <d14>2.86</d14>
-	<d15>1.64</d15>
-        <d16>0.9</d16>
-        <d17>1.0</d17>
-        <d18>1.0</d18>
-	<d19>1.37</d19>
-        <d20>1.06</d20>
-        <d21>1.0</d21>
-        <d22>0.35</d22>
-	<d23>0.98</d23>
-        <d24>0.54</d24>
-        <d25>2.31</d25>
+        <d1>1.0377</d1>
+        <d2>1.3576</d2>
+        <d3>1.528</d3>
+        <d4>-0.22116</d4>
+        <d5>0.90103</d5>
+        <d6>2.6099</d6>
+        <d7>0.95157</d7>
+        <d8>1.3313</d8>
+        <d9>1.4999</d9>
+        <d10>1.6832</d10>
+        <d11>1.1402</d11>
+        <d12>1.1284</d12>
+        <d13>2.2639</d13>
+        <d14>2.8611</d14>
+        <d15>1.639</d15>
+        <d16>0.89788</d16>
+        <d17>0.99778</d17>
+        <d18>1.0037</d18>
+        <d19>1.3731</d19>
+        <d20>1.0585</d20>
+        <d21>1.0008</d21>
+        <d22>0.34799</d22>
+        <d23>0.98031</d23>
+        <d24>0.53722</d24>
+        <d25>2.3139</d25>
     </bestfit>
 
     <param>
-        <uncertainty axis="d1" side="left">-0.1</uncertainty>
-        <uncertainty axis="d1" side="right">+0.1</uncertainty>
-        <uncertainty axis="d2" side="left">-0.27</uncertainty>
-        <uncertainty axis="d2" side="right">+0.30</uncertainty>
-        <uncertainty axis="d3" side="left">-0.51</uncertainty>
-        <uncertainty axis="d3" side="right">+0.56</uncertainty>
-        <uncertainty axis="d4" side="left">-0.54</uncertainty>
-        <uncertainty axis="d4" side="right">+0.61</uncertainty>
-        <uncertainty axis="d5" side="left">-0.31</uncertainty>
-        <uncertainty axis="d5" side="right">+0.33</uncertainty>
-        <uncertainty axis="d6" side="left">-3.4</uncertainty>
-        <uncertainty axis="d6" side="right">+4.2</uncertainty>
-        <uncertainty axis="d7" side="left">-0.1</uncertainty>
-        <uncertainty axis="d7" side="right">+0.11</uncertainty>
-        <uncertainty axis="d8" side="left">-0.43</uncertainty>
-        <uncertainty axis="d8" side="right">+0.52</uncertainty>
-        <uncertainty axis="d9" side="left">-0.94</uncertainty>
-        <uncertainty axis="d9" side="right">+1.17</uncertainty>
-        <uncertainty axis="d10" side="left">-1.11</uncertainty>
-        <uncertainty axis="d10" side="right">+1.68</uncertainty>
-        <uncertainty axis="d11" side="left">-0.13</uncertainty>
-        <uncertainty axis="d11" side="right">+0.13</uncertainty>
-        <uncertainty axis="d12" side="left">-0.18</uncertainty>
-        <uncertainty axis="d12" side="right">+0.19</uncertainty>
-        <uncertainty axis="d13" side="left">-1.02</uncertainty>
-        <uncertainty axis="d13" side="right">+1.21</uncertainty>
-        <uncertainty axis="d14" side="left">-1.33</uncertainty>
-        <uncertainty axis="d14" side="right">+1.84</uncertainty>
-        <uncertainty axis="d15" side="left">-0.61</uncertainty>
-        <uncertainty axis="d15" side="right">+0.65</uncertainty>
-        <uncertainty axis="d16" side="left">-0.26</uncertainty>
-        <uncertainty axis="d16" side="right">+0.29</uncertainty>
-        <uncertainty axis="d17" side="left">-0.18</uncertainty>
-        <uncertainty axis="d17" side="right">+0.21</uncertainty>
-        <uncertainty axis="d18" side="left">-0.59</uncertainty>
-        <uncertainty axis="d18" side="right">+0.62</uncertainty>
-        <uncertainty axis="d19" side="left">-0.75</uncertainty>
-        <uncertainty axis="d19" side="right">+0.86</uncertainty>
-        <uncertainty axis="d20" side="left">-0.26</uncertainty>
-        <uncertainty axis="d20" side="right">+0.28</uncertainty>
-        <uncertainty axis="d21" side="left">-0.23</uncertainty>
-        <uncertainty axis="d21" side="right">+0.25</uncertainty>
-        <uncertainty axis="d22" side="left">-0.33</uncertainty>
-        <uncertainty axis="d22" side="right">+0.34</uncertainty>
-        <uncertainty axis="d23" side="left">-0.36</uncertainty>
-        <uncertainty axis="d23" side="right">+0.38</uncertainty>	
-        <uncertainty axis="d24" side="left">-0.88</uncertainty>
-        <uncertainty axis="d24" side="right">+0.89</uncertainty> 
-        <uncertainty axis="d25" side="left">-1.26</uncertainty>
-        <uncertainty axis="d25" side="right">+1.33</uncertainty>
+        <uncertainty axis="d1" side="left">0.09916</uncertainty>
+        <uncertainty axis="d1" side="right">0.103</uncertainty>
+        <uncertainty axis="d2" side="left">0.26491</uncertainty>
+        <uncertainty axis="d2" side="right">0.29687</uncertainty>
+        <uncertainty axis="d3" side="left">0.50742</uncertainty>
+        <uncertainty axis="d3" side="right">0.5604</uncertainty>
+        <uncertainty axis="d4" side="left">0.54052</uncertainty>
+        <uncertainty axis="d4" side="right">0.6056</uncertainty>
+        <uncertainty axis="d5" side="left">0.30859</uncertainty>
+        <uncertainty axis="d5" side="right">0.32752</uncertainty>
+        <uncertainty axis="d6" side="left">3.3784</uncertainty>
+        <uncertainty axis="d6" side="right">4.2259</uncertainty>
+        <uncertainty axis="d7" side="left">0.1047</uncertainty>
+        <uncertainty axis="d7" side="right">0.10984</uncertainty>
+        <uncertainty axis="d8" side="left">0.43235</uncertainty>
+        <uncertainty axis="d8" side="right">0.51944</uncertainty>
+        <uncertainty axis="d9" side="left">0.93885</uncertainty>
+        <uncertainty axis="d9" side="right">1.1664</uncertainty>
+        <uncertainty axis="d10" side="left">1.1065</uncertainty>
+        <uncertainty axis="d10" side="right">1.6821</uncertainty>
+        <uncertainty axis="d11" side="left">0.12581</uncertainty>
+        <uncertainty axis="d11" side="right">0.13022</uncertainty>
+        <uncertainty axis="d12" side="left">0.1835</uncertainty>
+        <uncertainty axis="d12" side="right">0.19453</uncertainty>
+        <uncertainty axis="d13" side="left">1.0218</uncertainty>
+        <uncertainty axis="d13" side="right">1.2116</uncertainty>
+        <uncertainty axis="d14" side="left">1.3348</uncertainty>
+        <uncertainty axis="d14" side="right">1.8361</uncertainty>
+        <uncertainty axis="d15" side="left">0.61363</uncertainty>
+        <uncertainty axis="d15" side="right">0.64953</uncertainty>
+        <uncertainty axis="d16" side="left">0.25638</uncertainty>
+        <uncertainty axis="d16" side="right">0.29101</uncertainty>
+        <uncertainty axis="d17" side="left">0.1826</uncertainty>
+        <uncertainty axis="d17" side="right">0.20661</uncertainty>
+        <uncertainty axis="d18" side="left">0.59479</uncertainty>
+        <uncertainty axis="d18" side="right">0.62433</uncertainty>
+        <uncertainty axis="d19" side="left">0.75279</uncertainty>
+        <uncertainty axis="d19" side="right">0.85932</uncertainty>
+        <uncertainty axis="d20" side="left">0.26408</uncertainty>
+        <uncertainty axis="d20" side="right">0.28364</uncertainty>
+        <uncertainty axis="d21" side="left">0.2256</uncertainty>
+        <uncertainty axis="d21" side="right">0.2459</uncertainty>
+        <uncertainty axis="d22" side="left">0.32988</uncertainty>
+        <uncertainty axis="d22" side="right">0.34131</uncertainty>
+        <uncertainty axis="d23" side="left">0.36282</uncertainty>
+        <uncertainty axis="d23" side="right">0.37558</uncertainty>
+        <uncertainty axis="d24" side="left">0.88495</uncertainty>
+        <uncertainty axis="d24" side="right">0.8908</uncertainty>
+        <uncertainty axis="d25" side="left">1.2576</uncertainty>
+        <uncertainty axis="d25" side="right">1.33</uncertainty>
 
         <correlation entry="d1d2">-0.15</correlation>
         <correlation entry="d1d3">-0.04</correlation>
