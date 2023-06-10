@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+lilith_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))
 sys.path.append(lilith_dir)
 sys.path.append('../..')
 import lilith
@@ -27,7 +27,7 @@ import lilith
 print("***** reading parameters *****")
 
 # Experimental results
-exp_input = "validations/ATLAS/HIGG-2021-12/LatestRun2.list"
+exp_input = "data/latestRun2.list"
 
 # Lilith precision mode
 my_precision = "BEST-QCD"
@@ -38,8 +38,8 @@ hmass = 125.38
 # Output files
 if (not os.path.exists("results")):
     os.mkdir("results")
-output = "validations/ATLAS/HIGG-2021-12/results/cbcc-run2-HIGG-2021-12.out"
-outputplot = "validations/ATLAS/HIGG-2021-12/results/cbcc-run2-HIGG-2021-12.pdf"
+output = "results/cbcc-run2-HIGG-2021-12.out"
+outputplot = "results/cbcc-run2-HIGG-2021-12.pdf"
 
 # Scan ranges
 CB_min = -3.75
@@ -165,7 +165,7 @@ X, Y = np.meshgrid(xi, yi)
 Z = griddata((x, y), z2, (X, Y), method="linear")
 
 # Import Official data from file 
-dataload = open('validations/ATLAS/HIGG-2021-12/officialData/HIGG-2021-12.csv','r')
+dataload = open('data/ATLAS/Run2/140fb-1/HIGG-2021-12/officialData/HIGG-2021-12.csv','r')
 dorix = []
 doriy = []
 for line in dataload:
@@ -211,6 +211,6 @@ ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)
 # Saving figure (.pdf)
 fig.savefig(outputplot)
 
-print("results are stored in", lilith_dir + "/validations/ATLAS/HIGG-2021-12/results")
+print("results are stored in", lilith_dir + "/results")
 print("***** done *****")
 
