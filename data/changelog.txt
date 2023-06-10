@@ -56,3 +56,8 @@ For the changelog of the Lilith library, see ../changelog
 ** Sep 30, 2019: 19.09, added 3 missing 36 fb-1 Run 2 results from ATLAS: 
                         HIGG-2017-14, HIGG-2016-10 and HIGG-2018-54 	  
                              
+** Jun, 2023: 23.06
+		* final run2 from ATLAS and CMS (ATLAS HIGG-2021-23 and CMS HIG-22-001) added
+		* ATLAS HIGG-2021-12 (VH)(c-c, b-b) added
+		* CMS HIG-20-013 (ggH+VBH+ZH+WH)(WW) added
+		* 3 first STXS results from ATLAS: HIGG-2018-28, HIGG-2018-57, HIGG-2020-16. 

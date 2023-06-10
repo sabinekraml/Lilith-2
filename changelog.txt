@@ -46,3 +46,8 @@ For the changelog of the database of experimental results, see data/changelog
 ** Dec, 2020: added Variable Gaussian 1, added abs() to the denominator of Variable Gaussian 2 to force LogL negative
 (this is to avoid numerical issue with sqrt() of the denominator)
 
+** Jun, 2023: Le Duc Ninh and Nguyen Dang Bao Nhi code: 
+	* add theoretical covariance to the likelihood calculation
+	* change directory structure of data: each paper data in a folder, together with theoretical correlation, SM prediction, official contours.
+	* extend readexpinput and likelihood calculation to use STXS data. 
+	* define new "prod" mode as inv_Br_ZZ for STXS combined data input.

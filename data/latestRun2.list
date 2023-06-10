@@ -31,6 +31,17 @@ ATLAS/Run2/36fb-1/HIGG-2016-28_ZH_invisible_f.xml
 ATLAS/Run2/36fb-1/HIGG-2018-54_VBF_invisible_f.xml
 
 
+#----------------------------
+#--- ATLAS Run2, 140 fb-1 ---
+#----------------------------
+
+## Combination paper (all channels)
+ATLAS/HIGG-2021-23/HIGG-2021-23_combine_vn_dim25.xml
+
+## VH -> cc, bb
+ATLAS/HIGG-2021-12/HIGG-2021-12_VH_cc-bb_vn.xml
+
+
 #---------------------------
 #--- CMS Run2, 36 fb-1 ---
 #---------------------------
@@ -47,4 +58,30 @@ CMS/Run2/36fb-1/HIG-17-023_ggH_invisible_vs.xml
 CMS/Run2/36fb-1/HIG-17-023_qqH_invisible_f.xml
 CMS/Run2/36fb-1/HIG-17-023_VqqH_invisible_vs.xml
 CMS/Run2/36fb-1/HIG-17-023_ZllH_invisible_vs.xml
+
+#---------------------------
+#--- CMS Run2, 140 fb-1  ---
+#---------------------------
+
+## Combination paper (all channels)
+CMS/HIG-22-001/HIG-22-001_combined_vn_dim30.xml
+
+## H -> WW
+CMS/HIG-20-013/HIG-20-013_H_WW_vn_dim4.xml
+
+############## STXS data ####################
+
+#----------------------------------
+#--- ATLAS Run2, STXS, 140 fb-1 ---
+#----------------------------------
+
+## H -> ZZ -> 4l
+ATLAS/HIGG-2018-28-stxs/HIGG-2018-28_stxs_vn_dim12.xml
+
+## combination paper 
+ATLAS/HIGG-2018-57-stxs/HIGG-2018-57_stxs_vn_dim19.xml
+
+## H -> gamma gamma 
+ATLAS/HIGG-2020-16-stxs/HIGG-2020-16_stxs_vn_dim28.xml
+
 
