@@ -35,8 +35,6 @@ from warnings import warn
 from .errors import ExpNdfComputationError, UserMuTotComputationError, \
                    UserInputIOError
 from .internal.readexpinput import ReadExpInput
-from .internal.readsminput import ReadSMInput   #testing
-from .internal.readsmcorrinput import ReadSMCorrInput #testing
 from .internal.readuserinput import ReadUserInput
 from .internal.computereducedcouplings import ComputeReducedCouplings
 from .internal.computemufromreducedcouplings import \
@@ -87,10 +85,6 @@ class Lilith:
         self.results = []
         self.l = 0.
         self.l_SM = 0.
-        
-        ##SM prediction - Nhi added 
-        self.smread = []
-        self.smcorr_read = []
         
         ##test for SMEFT - mu - Nhi added
         self.smeft_user_mu = []
@@ -278,7 +272,7 @@ class Lilith:
         """Computes the likelihood from the signal strengths (computed from)
            the user input and the experimental results."""
 
-        self.smeft_results, self.smeft_l = compute_likelihood_smeft(self.exp_mu, self.smeft_user_mu, self.smread,self.smcorr_read)
+        self.smeft_results, self.smeft_l = compute_likelihood_smeft(self.exp_mu, self.smeft_user_mu)
         
 
     def computeSMlikelihood(self, userinput=None, exp_filepath=None,
@@ -323,20 +317,6 @@ class Lilith:
         else:
             writeoutput.results_xml(self.results, self.l, version.__version__, self.dbversion,
                                     filepath)
-# added by BN for stxs                                  
-    def readsmpred(self, filepath):
-        """Read the SM prediction input."""
-    
-        self.info("Processing the SM prediction input...")
-        # initialize the reading of the experimental input
-        self.smdata = ReadSMInput(filepath,self.exp_mu)
-        self.smread = self.smdata.smpredic
-    
-    def readsmcorr(self, filepath):
-        """Read the SM prediction input."""
-    
-        self.info("Processing the SM prediction input...")
-        # initialize the reading of the experimental input
-        self.smcorrdata = ReadSMCorrInput(filepath,self.exp_mu)
-        self.smcorr_read = self.smcorrdata.smcorr    
+
+
 # end of addition         

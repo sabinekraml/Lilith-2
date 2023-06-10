@@ -29,7 +29,7 @@ from ..errors import LikelihoodComputationError
 import numpy as np
 import os
 
-def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
+def compute_likelihood_smeft(exp_mu, smeft_user_mu):
     """Computes the likelihood from experimental mu and user mu."""
     
     likelihood_results = []
@@ -53,10 +53,7 @@ def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
                     d = "d" + str(i)
                     user_mu_effscaled[d] = 0.
                     for (prod,decay),eff_prod in list(mu["eff"][d].items()):
-                        if mu["dat"]==0: # signal strength run
-                            user_mu_effscaled[d] += eff_prod*smeft_user_mu[i-1]
-                        else:            # STXS run    
-                            user_mu_effscaled[d] += eff_prod*smeft_user_mu[i-1]*stxs_th_bin[i-1]
+                        user_mu_effscaled[d] += eff_prod*smeft_user_mu[i-1]*stxs_th_bin[i-1]
             
         except KeyError as s:
             if "s" in ["eff", "x", "y"]:
