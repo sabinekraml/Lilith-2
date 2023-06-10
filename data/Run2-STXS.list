@@ -1,0 +1,16 @@
+############## STXS data ####################
+
+#----------------------------------
+#--- ATLAS Run2, STXS, 140 fb-1 ---
+#----------------------------------
+
+## H -> ZZ -> 4l
+ATLAS/Run2/140fb-1/HIGG-2018-28-stxs/HIGG-2018-28_stxs_vn_dim12.xml
+
+## combination paper 
+#ATLAS/Run2/140fb-1/HIGG-2018-57-stxs/HIGG-2018-57_stxs_vn_dim19.xml
+
+## H -> gamma gamma 
+#ATLAS/Run2/140fb-1/HIGG-2020-16-stxs/HIGG-2020-16_stxs_vn_dim28.xml
+
+
