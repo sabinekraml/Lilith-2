@@ -1,5 +1,5 @@
 #---------------------------
-#--- ATLAS Run2, 36 fb-1 ---
+#--- ATLAS Run2, 140 fb-1 ---
 #---------------------------
 
 ## H -> gamma gamma
@@ -7,5 +7,8 @@
 #ATLAS/Run2/140fb-1/HIGG-2018-28/HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Fig10a.xml
 #ATLAS/Run2/140fb-1/HIGG-2018-28/HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Fig10a_no-theo-unc.xml
 #ATLAS/Run2/140fb-1/HIGG-2018-28/HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Table08.xml
-ATLAS/Run2/140fb-1/HIGG-2018-28/HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Table08-bbH.xml
-#ATLAS/Run2/140fb-1/HIGG-2021-23/HIGG-2021-23_combine_vn_dim25.xml
+#ATLAS/Run2/140fb-1/HIGG-2018-28/HIGG-2018-28_ggH-VBF-VH-ttH_ZZ_vn_dim4_Table08-bbH.xml
+ATLAS/Run2/140fb-1/HIGG-2021-23/HIGG-2021-23_combine_vn_dim25.xml
+
+## SMEFT 
+#ATLAS/Run2/140fb-1/HIGG-2018-28-SMEFT/HIGG-2018-28_stxs_vn_dim12.xml

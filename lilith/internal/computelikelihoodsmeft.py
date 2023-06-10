@@ -27,20 +27,26 @@
 
 from ..errors import LikelihoodComputationError
 import numpy as np
+import os
 
 def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
     """Computes the likelihood from experimental mu and user mu."""
+    
     likelihood_results = []
     l = 0. # actually -2log(likelihood)
 
-# load SM prediction     
-    xbin = smread[:,0]
-    error_th_m = smread[:,1]
-    error_th_p = smread[:,2]
-    
     for mu in exp_mu:
         # compute user mu value scaled to efficiencies
         user_mu_effscaled = {}
+	
+	# read SM prediction 
+        stxs_th_bin = mu["SMpred"][:,0]
+        error_th_m = mu["SMpred"][:,1]
+        error_th_p = mu["SMpred"][:,2]
+      
+        # read SM correlation  
+        corr_m_th = mu["SMcorr"] 
+	
         try:
             if mu["dim"] >= 3:
                 for i in range(1,mu["dim"]+1):
@@ -50,7 +56,7 @@ def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
                         if mu["dat"]==0: # signal strength run
                             user_mu_effscaled[d] += eff_prod*smeft_user_mu[i-1]
                         else:            # STXS run    
-                            user_mu_effscaled[d] += eff_prod*smeft_user_mu[i-1]*xbin[i-1]
+                            user_mu_effscaled[d] += eff_prod*smeft_user_mu[i-1]*stxs_th_bin[i-1]
             
         except KeyError as s:
             if "s" in ["eff", "x", "y"]:
@@ -78,10 +84,7 @@ def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
                     
                     ## include theoretical errors with no correlations:
                     unc_sym_th = np.reshape((error_th_p + error_th_m)/2.0,(1,mu["dim"]))
-                    corr_m_th = smcorr_read     # load SM correlation
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
-                    # option: with or without theoretical correlation
-                    #cov_m_tot = cov_m          # without theo. correlation
                     cov_m_tot = cov_m + cov_m_th    # with theo. correlation 
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
@@ -104,10 +107,7 @@ def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
                     mu_th_VGau = error_th_p*error_th_m
                     mu_th_VGau_prime = error_th_p - error_th_m
                     unc_sym_th = np.reshape(np.sqrt(np.abs(mu_th_VGau + mu_th_VGau_prime*mu_vec)),(-1,mu["dim"]))
-                    corr_m_th = smcorr_read     # load SM correlation
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
-                    # option: with or without theoretical correlation
-                    #cov_m_tot = cov_m      # without theoretical correlation
                     cov_m_tot = cov_m + cov_m_th 
 
                     inv_cov_m = np.linalg.inv(cov_m_tot)
@@ -165,11 +165,8 @@ def compute_likelihood_smeft(exp_mu, smeft_user_mu, smread, smcorr_read):
                     mu_th_SGau = 2.0*error_th_p*error_th_m/(error_th_p + error_th_m)
                     mu_th_SGau_prime = (error_th_p - error_th_m)/(error_th_p + error_th_m)
                     unc_sym_th = np.reshape(np.abs(mu_th_SGau + mu_th_SGau_prime*mu_vec),(-1,mu["dim"]))         
-                    corr_m_th = smcorr_read # load SM correlation
                     cov_m_th = unc_sym_th*corr_m_th*unc_sym_th.T
-                    # option: with or without theoretical correlation
                     cov_m_tot = cov_m + cov_m_th # with theo. correlation
-                    #cov_m_tot = cov_m  # without theo. correlation
                     inv_cov_m = np.linalg.inv(cov_m_tot)
                     cur_l = inv_cov_m.dot(mu_vec).dot(mu_vec.T)
 

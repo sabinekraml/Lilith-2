@@ -1,0 +1,38 @@
+#cross section
+
+1 + 317.69*cHG**2
+
+1 + 319.85*cHG**2
+
+1 + 272.23*cHG**2
+
+1 + 238.29*cHG**2
+
+1 + 233.95*cHG**2
+
+1 + 113.95*cHG**2
+
+1 + 162.11*cHG**2
+
+1 + 0.1912*cHW**2 + 0.0125*cHB**2 + 0.0124*cHWB**2 + 0.0022*cHW*cHB + 0.0101*cHW*cHWB -0.0002*cHB*cHWB
+
+1 + 0.0617*cHW**2 + 0.0253*cHB**2 + 0.0148*cHWB**2 + 0.0148*cHW*cHB - 0.019*cHW*cHWB - 0.0256*cHB*cHWB
+   
+1 + 0.5138*cHW**2 + 0.0585*cHB**2 + 0.0523*cHWB**2 + 0.0105*cHW*cHB - 0.0665*cHW*cHWB - 0.0334*cHB*cHWB
+
+1 + 0.2075*cHW**2 + 0.0141*cHB**2 + 0.0158*cHWB**2 - 0.0009*cHW*cHB + 0.0203*cHW*cHWB + 0.0083*cHB*cHWB
+
+1 + 0.599*cHG**2 + 0.002*cuH**2 + 0.043*cHG*cuH
+
+#branching ratio 
+
+(1 + 0.702*cHW**2 + 2.586*cHB**2 + 0.811*cHWB**2 + 0.05*cHW*cHB - 1.325*cHW*cHWB - 1.434*cHB*cHWB)/(1 
+    + 0.161*cHW**2 + 1.206*cHB**2 + 0.357*cHWB**2 + 14.888*cHG**2 + 0.518*cHW*cHB - 
+    0.440*cHW*cHWB - 1.129*cHB*cHWB)
+
+#acceptance
+
+0.118 + 0.727609/(0.826+2.022*(-0.001+cHB)**2+0.572*(-0.001+cHW)**2+0.5*(-
+ 0.02*cHB*cHW - 2.17*cHB*cHWB - 2.14*cHW*cHWB) - 0.06*cHW*cHB*cHWB +
+ 0.644*(0.001+cHWB)**2) 
+ 
