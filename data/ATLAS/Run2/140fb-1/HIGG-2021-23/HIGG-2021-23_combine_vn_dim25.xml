@@ -12,6 +12,7 @@ validated: waiting
     <sqrts>13</sqrts>
     <mass>125.09</mass>
     <CL>95%</CL> <!-- optional -->
+    <SMpred>SMprediction.txt</SMpred>
 
     <eff axis="d1" prod="ggH" decay="gammagamma">0.988636</eff>
     <eff axis="d1" prod="bbH" decay="gammagamma">0.011364</eff>

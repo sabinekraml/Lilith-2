@@ -265,7 +265,7 @@ class Lilith:
 
         t0 = time.time()
         self.results, self.l = compute_likelihood(self.exp_mu,
-                                                  self.user_mu_tot,self.mode,self.smread,self.smcorr_read)
+                                                  self.user_mu_tot,self.mode)
         self.tinfo("computing the likelihood", time.time() - t0)
     
     def computelikelihoodsmeft(self):
