@@ -1,8 +1,14 @@
 <!--
-ATLAS STXS result for XS*BR(H->ZZ) at mH = 125 GeV for 139fb-1, 12 STXS bins.
-with best fit-values and propagated uncertainties taken from Fig. 10c, 
-correlations taken from Fig. 10d, at
-https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-28/
+ATLAS STXS result in 4leptons final state (H->ZZ) with 139fb-1, Reduced Stage 1.1 (12 STXS bins)
+publication: EPJC 80 (2020) 957, https://link.springer.com/article/10.1140/epjc/s10052-020-8227-9
+arXiv: https://arxiv.org/abs/2004.03447
+hepdata: https://www.hepdata.net/record/ins1790250
+wiki: https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-28/
+dataSources: 
+  best fit-values and propagated uncertainties taken from Fig. 10c --> same as Table 8 ???
+  Table 08: STXS Result, https://doi.org/10.17182/hepdata.94311.v1/t25 
+  Fig. 10d: Correlation matrix for Reduced Stage 1.1, https://doi.org/10.17182/hepdata.94311.v1/t27
+  Aux-Fig 07: Acceptance Reduced Stage 1.1, https://doi.org/10.17182/hepdata.94311.v1/t54
 validated: waiting
 -->
 
