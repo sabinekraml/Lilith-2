@@ -5,7 +5,7 @@ arXiv: https://arxiv.org/abs/2004.03447
 hepdata: https://www.hepdata.net/record/ins1790250
 wiki: https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2018-28/
 dataSources: 
-  best fit-values and propagated uncertainties taken from Fig. 10c --> same as Table 8 ???
+  best fit-values and propagated uncertainties taken from Fig. 10c .... same as Table 8 ???
   Table 08: STXS Result, https://doi.org/10.17182/hepdata.94311.v1/t25 
   Fig. 10d: Correlation matrix for Reduced Stage 1.1, https://doi.org/10.17182/hepdata.94311.v1/t27
   Aux-Fig 07: Acceptance Reduced Stage 1.1, https://doi.org/10.17182/hepdata.94311.v1/t54
