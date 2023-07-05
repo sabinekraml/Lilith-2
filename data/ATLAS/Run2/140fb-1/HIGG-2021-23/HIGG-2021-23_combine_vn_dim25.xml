@@ -1,8 +1,12 @@
 <!--
-CMS combination of the H -> bb decay modes for 139/fb.
-Best-fit values and uncertainties taken from Fig3 (data point, HEPdata), 
-correlations from Aux Figure 07
-http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-23/
+ATLAS combined Higgs results from "A detailed map of Higgs boson interactions by the ATLAS experiment ten years after the discovery" 
+publication: Nature 607, pages 52-59 (2022) https://www.nature.com/articles/s41586-022-04893-w
+arXiv: https://arxiv.org/abs/2207.00092
+hepdata: https://doi.org/10.17182/hepdata.130266
+wiki: http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2021-23/
+dataSources: 
+    best-fit values and uncertainties taken from Fig. 3, https://doi.org/10.17182/hepdata.130266.v1/t3 
+    correlations from Aux Fig. 7 (not on HEPData)
 validated: waiting  
 -->
 
