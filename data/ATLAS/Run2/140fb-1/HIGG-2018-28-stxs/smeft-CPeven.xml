@@ -1,0 +1,72 @@
+<!--
+	smeft data file. 3rd testing version: xml smeft input. 
+	Will need to import by readexpinput and readsmeftinput procedures. 		
+-->
+<smeft>
+	<stxsexpdata>ATLAS/Run2/140fb-1/HIGG-2018-28-stxs/HIGG-2018-28_stxs_vn_dim12.xml</stxsexpdata>
+	<smeftsource>data/ATLAS/Run2/140fb-1/HIGG-2018-28-stxs/smeft-param-CPeven-1.txt</smeftsource>
+	<smeftSMsource>data/ATLAS/Run2/140fb-1/HIGG-2018-28-stxs/smeft-bin-stxssm.txt</smeftSMsource>
+	<smeftbin bindim="12">
+		<d1>
+			<pro>1</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d1>
+		<d2>
+			<pro>2</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d2>
+		<d3>
+			<pro>3</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d3>
+		<d4>
+			<pro>4</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d4>
+		<d5>
+			<pro>5</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d5>
+		<d6>
+			<pro>6</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d6>
+		<d7>
+			<pro>7</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d7>
+		<d8>
+			<pro>8</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d8>
+		<d9>
+			<pro>9</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d9>
+		<d10>
+			<pro>10</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d10>
+		<d11>
+			<pro>11</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d11>
+		<d12>
+			<pro>12</pro>
+			<dec>1</dec>
+			<acc>1</acc>
+		</d12>
+	</smeftbin>
+</smeft>
+

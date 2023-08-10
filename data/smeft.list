@@ -1,0 +1,28 @@
+############## SMEFT data ####################
+
+#----------------------------------
+#--- ATLAS Run2, STXS, 140 fb-1 ---
+#----------------------------------
+
+## H -> ZZ -> 4l (HIGG-2018-28)
+# CPodd Wilson operators, official 
+#ATLAS/Run2/140fb-1/HIGG-2018-28-stxs/smeft-CPodd.xml
+#CPeven Wilson operators, official
+#ATLAS/Run2/140fb-1/HIGG-2018-28-stxs/smeft-CPeven.xml	
+
+## combination paper 
+#ATLAS/Run2/140fb-1/HIGG-2018-57-stxs/HIGG-2018-57_stxs_vn_dim19.xml # not smeft yet
+
+ATLAS/Run2/140fb-1/CONF-2021-053-stxs/conf-2021-053-smeft.xml# testing
+
+
+## H -> gamma gamma 
+#ATLAS/Run2/140fb-1/HIGG-2020-16-stxs/HIGG-2020-16_stxs_vn_dim28.xml #not smeft yet
+
+
+#----------------------------------
+#---  CMS Run2, STXS, 140 fb-1  ---
+#----------------------------------
+
+
+

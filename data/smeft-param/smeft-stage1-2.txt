@@ -1,0 +1,200 @@
+#bin number	bin name						production mode
+#	1	inv_BR_ZZ						1/BR(H>ZZ>4l)				
+#	2	gg2H, 0j, pTH[0,10] 				ggF
+#	3 	gg2H, 0j, pTH[10,200] 				ggF
+#	4 	gg2H, 1j, pTH[0,60]				ggF
+#	5 	gg2H, 1j, pTH[60,120]				ggF
+# 	6 	gg2H, 1j, pTH[120,200]				ggF
+# 	7 	gg2H, >=2j, mjj[0,350], pTH[0,60]		ggF
+#	8 	gg2H, >=2j, mjj[0,350], pTH[60,120] 	ggF
+#	9 	gg2H, >=2j, mjj[0,350], pTH[120,200]	ggF
+#	10 	gg2H, >=2j, mjj[350,700], pTH[0,200]	ggF
+#	11 	gg2H, >=2j, mjj[700,], pTH[0,200] 		ggF
+#	12 	gg2H, pTH[200,300]				ggF
+#	13 	gg2H, pTH[300,450]				ggF
+#	14 	gg2H, pTH[450,]					ggF
+#	15 	qq2Hqq, <=1j							
+#	16 	qq2Hqq, >=2j, mjj[0,60]&[120,350]		
+#			, pTH[0,200]
+# 	17	qq2Hqq, >=2j, pTH[60,120]
+#	18 	qq2Hqq, >=2j, mjj[350,700], pTH[0,200]
+#	19 	qq2Hqq, >=2j, mjj[700,1000], pTH[0,200]
+#	20 	qq2Hqq, >=2j, mjj[1000,1500], pTH[0,200]
+#	21	qq2Hqq, >=2j, mjj[1500,], pTH[0.200]
+#	22	qq2Hqq, >=2j, mjj[350,], pTH[200,]
+#	23 	qq2Hlv, pTV[0,75]					WH
+# 	24	qq2Hlv, pTV[75,150]				WH
+#	25 	qq2Hlv, pTV[150,250]				WH
+#	26 	qq2Hlv, pTV[250,400]				WH
+# 	27 	qq2Hlv, pTV[400,]					WH
+#	28 	qq2Hll, pTV[0,150]				ZH
+#	29 	qq2Hll, pTV[150,250]				ZH
+#	30 	qq2Hll, pTV[250,400]				ZH
+#	31 	qq2Hll, pTV[400,]					ZH
+#	32 	ttH, pTH[0,60]					ttH
+#	33	ttH, pTH[60,120]					ttH
+#	34	ttH, pTH[120,200]					ttH
+#	35	ttH, pTH[200,300]					ttH
+#	36 	ttH, pTH[300,450]					ttH
+#	37 	ttH, pTH[450,]					ttH
+#	38	tH							tH
+# - - - - - - - - Branching ratio - - - - - - - - - - - - -
+#	1 	H>ZZ* >4l
+#	2 	H>WW* >lvlv
+#	3	H>yy
+#	4	H>bb
+#	5	H>tautau 
+#	6	H>all
+# - - - - acceptance correction - - - - - - - - - - -
+#	0	no acceptance
+# 	1	H>ZZ>4l
+#	2	ggH, H>lvlv
+#	3	VBF, H>lvlv
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# --------- cross section ---------------
+bin number: 1 #inverse-BR(H>ZZ)
+1/(1 + 0.119 * cHBox + 0.003 * cHDD - 0.303 * cHW - 0.200 * cHB + 0.299 * cHWB + 0.127 * c1Hl - 0.235 * c3Hl - 0.102 * cHe + 0.181 * cllprime ) 
+
+bin number: 2 #gg2H, 0j, pTH[0,10] 
+1 + 0.118 * cHBox - 0.0294 * cHDD + 42.0 * cHG - 0.117 * cuH + 1.59 * cuG - 0.117 * c3Hl + 0.0587 * cllprime
+
+bin number: 3 #gg2H, 0j, pTH[10,200] 
+1 + 0.1176 * cHBox - 0.0295 * cHDD + 42.2 * cHG - 0.1186 * cuH + 1.62 * cuG - 0.1182 * c3Hl + 0.0590 * cllprime
+
+bin number: 4 #gg2H, 1j, pTH[0,60]
+1 + 0.132 * cHBox - 0.0330 * cHDD + 44.0 * cHG - 0.132 * cuH + 1.60 * cuG - 0.132 * c3Hl + 0.065 * cllprime
+
+bin number: 5 #gg2H, 1j, pTH[60,120]
+1 + 0.125 * cHBox - 0.0314 * cHDD + 43.5 * cHG - 0.125 * cuH + 1.58 * cuG - 0.125 * c3Hl + 0.063 * cllprime
+
+bin number: 6 #gg2H, 1j, pTH[120,200]
+1 + 0.115 * cHBox - 0.028 * cHDD + 44 * cHG - 0.118 * cuH + 1.60 * cuG - 0.112 * c3Hl + 0.058 * cllprime
+
+bin number: 7 #gg2H, >=2j, mjj[0,350], pTH[0,60]
+1 + 0.128 * cHBox - 0.033 * cHDD + 46 * cHG - 0.128 * cuH + 1.63 * cuG - 0.132 * c3Hl + 0.065 * cllprime
+
+bin number: 8 #gg2H, >=2j, mjj[0,350], pTH[60,120] 
+1 + 0.130 * cHBox - 0.033 * cHDD + 47 * cHG - 0.133 * cuH + 1.59 * cuG - 0.130 * c3Hl + 0.065 * cllprime
+
+bin number: 9 #gg2H, >=2j, mjj[0,350], pTH[120,200]
+1 + 0.133 * cHBox - 0.032 * cHDD + 46 * cHG - 0.132 * cuH + 1.48 * cuG - 0.130 * c3Hl + 0.066 * cllprime
+
+bin number: 10 #gg2H, >=2j, mjj[350,700], pTH[0,200]
+1 + 0.137 * cHBox - 0.035 * cHDD + 44 * cHG - 0.144 * cuH + 1.48 * cuG - 0.135 * c3Hl + 0.069 * cllprime  
+
+bin number: 11 #gg2H, >=2j, mjj[700,], pTH[0,200] 
+1 + 0.13 * cHBox - 0.032 * cHDD + 45 * cHG - 0.13 * cuH + 1.5 * cuG - 0.131 * c3Hl + 0.065 * cllprime 
+
+bin number: 12 #gg2H, pTH[200,300]
+1 + 0.111 * cHBox - 0.030 * cHDD + 47 * cHG - 0.122 * cuH + 1.69 * cuG - 0.120 * c3Hl + 0.058 * cllprime 
+
+bin number: 13 #gg2H, pTH[300,450]
+1 + 0.12 * cHBox - 0.029 * cHDD + 60 * cHG - 0.12 * cuH + 2.1 * cuG - 0.11 * c3Hl + 0.055 * cllprime 
+
+bin number: 14 #gg2H, pTH[450,]
+1 + 0.13 * cHBox - 0.029 * cHDD + 80 * cHG - 0.13 * cuH + 2.9 * cuG - 0.13 * c3Hl + 0.07 * cllprime 
+
+bin number: 15 #qq2Hqq, <=1j
+1 + 0.121 * cHBox - 0.0099 * cHDD + 0.227 * cHW + 0.0075 * cHB + 0.0561 * cHWB - 0.363 * c3Hl + 0.369 * c3Hq + 0.0313 * cHu - 0.0136 * cHd + 0.182 * cllprime
+
+bin number: 16 #qq2Hqq, >=2j, mjj[0,60] [120,350], pTH[0,200]
+1 + 0.122 * cHBox - 0.0089 * cHDD + 0.027 * cHW + 0.0029 * cHB + 0.0407 * cHWB - 0.365 * c3Hl - 0.002 * c1Hq - 0.059 * c3Hq + 0.0038 * cHu + 0.182 * cllprime  
+
+bin number: 17 #qq2Hqq, >=2j, pTH[60,120]
+1 + 0.119 * cHBox - 0.0041 * cHDD + 0.575 * cHW + 0.0221 * cHB + 0.102 * cHWB - 0.357 * c3Hl - 0.004 * c1Hq + 1.76 * c3Hq + 0.149 * cHu - 0.0605 * cHd + 0.180 * cllprime 
+
+bin number: 18 #qq2Hqq, >=2j, mjj[350,700], pTH[0,200]
+1 + 0.121 * cHBox - 0.0097 * cHDD - 0.134 * cHW + 0.0270 * cHB - 0.367 * c3Hl - 0.003 * c1Hq - 0.370 * c3Hq - 0.0198 * cHu + 0.0091 * cHd + 0.184 * cllprime 
+
+bin number: 19 #qq2Hqq, >=2j, mjj[700,1000], pTH[0,200]
+1 + 0.123 * cHBox - 0.0100 * cHDD - 0.145 * cHW + 0.024 * cHB - 0.371 * c3Hl + 0.005 * c1Hq - 0.40 * c3Hq - 0.0242 * cHu + 0.0096 * cHd + 0.183 * cllprime 
+
+bin number: 20 #qq2Hqq, >=2j, mjj[1000,1500], pTH[0,200]
+1 + 0.123 * cHBox - 0.0092 * cHDD - 0.147 * cHW - 0.0014 * cHB + 0.025 * cHWB - 0.371 * c3Hl + 0.010 * c1Hq - 0.42 * c3Hq - 0.0259 * cHu + 0.0090 * cHd + 0.181 * cllprime 
+
+bin number: 21 #qq2Hqq, >=2j, mjj[1500,], pTH[0.200]
+1 + 0.123 * cHBox - 0.010 * cHDD - 0.158 * cHW + 0.028 * cHB - 0.370 * c3Hl + 0.024 * c1Hq - 0.43 * c3Hq - 0.0296 * cHu + 0.0085 * cHd + 0.186 * cllprime 
+
+bin number: 22 #qq2Hqq, >=2j, mjj[350,], pTH[200,]
+1 + 0.120 * cHBox - 0.0063 * cHDD + 0.18 * cHW + 0.040 * cHB - 0.355 * c3Hl + 0.037 * c1Hq - 1.26 * c3Hq - 0.088 * cHu + 0.0311 * cHd + 0.178 * cllprime 
+
+bin number: 23 #qq2Hlv, pTV[0,75]
+1 + 0.1209 * cHBox - 0.0301 * cHDD + 0.814 * cHW - 0.241 * c3Hl + 1.14 * c3Hq + 0.181 * cllprime 
+
+bin number: 24 #qq2Hlv, pTV[75,150]
+1 + 0.121 * cHBox - 0.0305 * cHDD + 0.941 * cHW - 0.242 * c3Hl + 1.91 * c3Hq + 0.182 * cllprime 
+
+bin number: 25 #qq2Hlv, pTV[150,250]
+1 + 0.123 * cHBox - 0.0303 * cHDD + 1.05 * cHW - 0.242 * c3Hl + 3.85 * c3Hq + 0.184 * cllprime 
+
+bin number: 26 #qq2Hlv, pTV[250,400]
+1 + 0.122 * cHBox - 0.031 * cHDD + 1.12 * cHW - 0.242 * c3Hl + 8.4 * c3Hq + 0.186 * cllprime 
+
+bin number: 27 #qq2Hlv, pTV[400,]
+1 + 0.116 * cHBox - 0.028 * cHDD + 1.06 * cHW - 0.23 * c3Hl + 22 * c3Hq + 0.17 * cllprime 
+
+bin number: 28 #qq2Hll, pTV[0,150]
+1 + 0.1350 * cHBox + 0.0101 * cHDD + 0.6820 * cHW + 0.0820 * cHB + 0.3030 * cHWB + 0.0060 * cuH + 0.0435 * cuG - 0.0458 * c1Hl - 0.2470 * c3Hl - 0.0326 * cHe - 0.1100 * c1Hq + 1.5500 * c3Hq + 0.3880 * cHu - 0.1170 * cHd + 0.1880 * cllprime 
+
+bin number: 29 #qq2Hll, pTV[150,250]
+1 + 0.1380 * cHBox + 0.0126 * cHDD + 0.6800 * cHW + 0.0830 * cHB + 0.3000 * cHWB + 0.0189 * cuH + 0.1070 * cuG - 0.0460 * c1Hl - 0.2500 * c3Hl - 0.0328 * cHe - 0.2500 * c1Hq + 2.6700 * c3Hq + 0.6860 * cHu - 0.1960 * cHd + 0.1930 * cllprime 
+
+bin number: 30 #qq2Hll, pTV[250,400]
+1 + 0.131 * cHBox + 0.019 * cHDD + 0.690 * cHW + 0.096 * cHB + 0.310 * cHWB + 0.031 * cuH + 0.132 * cuG - 0.044 * c1Hl - 0.244 * c3Hl - 0.032 * cHe - 0.610 * c1Hq + 5.800 * c3Hq + 1.450 * cHu - 0.460 * cHd + 0.186 * cllprime 
+
+bin number: 31 #qq2Hll, pTV[400,]
+1 + 0.130 * cHBox + 0.022 * cHDD + 0.660 * cHW + 0.130 * cHB + 0.370 * cHWB + 0.038 * cuH + 0.149 * cuG - 0.050 * c1Hl - 0.260 * c3Hl - 0.032 * cHe - 2.500 * c1Hq + 17.0 * c3Hq + 4.600 * cHu - 1.340 * cHd + 0.200 * cllprime
+
+bin number: 32 #ttH, pTH[0,60]
+1 - 0.002 * cG + 0.117 * cHBox - 0.0294 * cHDD + 0.408 * cHG - 0.119 * cuH - 0.775 * cuG - 0.004 * cuW - 0.001 * cuB - 0.120 * c3Hl + 0.002 * c3Hq + 0.0595 * cllprime + 0.0061 * c1qq + 0.130 * cqq + 0.0234 * c3qq + 0.294 * c31qq + 0.0087 * cuu + 0.131 * c1uu - 0.001 * c1ud + 0.0218 * c8ud + 0.0055 * c1qu + 0.085 * c8qu - 0.001 * c1qd + 0.0220 * c8qd  
+
+bin number: 33 #ttH, pTH[60,120]
+1 + 0.037 * cG + 0.118 * cHBox - 0.0295 * cHDD + 0.479 * cHG - 0.118 * cuH - 0.859 * cuG - 0.005 * cuW - 0.001 * cuB - 0.119 * c3Hl + 0.003 * c3Hq + 0.0599 * cllprime + 0.0077 * c1qq + 0.161 * cqq + 0.0292 * c3qq + 0.357 * c31qq + 0.0106 * cuu + 0.159 * c1uu - 0.001 * c1ud + 0.0265 * c8ud + 0.0069 * c1qu + 0.104 * c8qu - 0.001 * c1qd + 0.0263 * c8qd 
+
+bin number: 34 #ttH, pTH[120,200]
+1 + 0.119 * cG + 0.116 * cHBox - 0.0290 * cHDD + 0.599 * cHG + 0.001 * cHW - 0.117 * cuH - 0.97 * cuG - 0.007 * cuW - 0.002 * cuB - 0.119 * c3Hl + 0.004 * c3Hq + 0.0597 * cllprime + 0.0130 * c1qq + 0.244 * cqq + 0.0453 * c3qq + 0.537 * c31qq + 0.0161 * cuu + 0.240 * c1uu - 0.002 * c1ud + 0.0385 * c8ud + 0.0102 * c1qu + 0.155 * c8qu - 0.001 * c1qd + 0.0384 * c8qd 
+
+bin number: 35 #ttH, pTH[200,300]	
+1 + 0.252 * cG + 0.112 * cHBox - 0.0284 * cHDD + 0.73 * cHG + 0.001 * cHW - 0.001 * cHWB - 0.115 * cuH -1.03 * cuG - 0.0106 * cuW - 0.003 * cuB - 0.115 * c3Hl - 0.001 * c1Hq + 0.0088 * c3Hq + 0.0582 * cllprime + 0.0226 * c1qq + 0.409 * cqq + 0.076 * c3qq + 0.88 * c31qq + 0.0270 * cuu + 0.406 * c1uu - 0.004 * c1ud + 0.0617 * c8ud + 0.0163 * c1qu + 0.257 * c8qu - 0.002 * c1qd + 0.0616 * c8qd  
+
+bin number: 36 #ttH, pTH[300,450]
+1 + 0.43 * cG + 0.110 * cHBox - 0.0278 * cHDD + 0.87 * cHG + 0.002 * cHW - 0.001 * cHWB - 0.110 * cuH - 1.06 * cuG - 0.0155 * cuW - 0.0055 * cuB - 0.112 * c3Hl - 0.0041 * c1Hq + 0.0238 * c3Hq + 0.0044 * cHu - 0.001 * cHd + 0.056 * cllprime + 0.042 * c1qq + 0.73 * cqq + 0.133 * c3qq + 1.53 * c31qq + 0.0464 * cuu + 0.72 * c1uu - 0.0069 * c1ud + 0.102 * c8ud + 0.0264 * c1qu + 0.456 * c8qu - 0.003 * c1qd + 0.103 * c8qd
+
+bin number: 37 #ttH, pTH[450,]
+1 + 0.64 * cG + 0.126 * cHBox - 0.031 * cHDD + 1.26 * cHG + 0.002 * cHW - 0.001 * cHWB - 0.091 * cuH - 1.08 * cuG - 0.0172 * cuW - 0.0066 * cuB - 0.083 * c3Hl - 0.0198 * c1Hq + 0.087 * c3Hq + 0.0212 * cHu - 0.0058 * cHd + 0.041 * cllprime + 0.075 * c1qq + 1.39 * cqq + 0.208 * c3qq +2.72 * c31qq + 0.075 * cuu + 1.37 * c1uu - 0.0099 * c1ud + 0.172 * c8ud + 0.037 * c1qu + 0.84 * c8qu - 0.0044 * c1qd + 0.172 * c8qd 
+
+bin number: 38 #tH
+1 + 0.1112 * cHBox - 0.0278 * cHDD + 0.232 * cHG + 0.1841 * cHW - 0.0784 * cuH - 0.116 * cuG - 0.178 * cuW - 0.274 * c3Hl + 0.321 * c3Hq + 0.1369 * cllprime + 0.428 * c3qq
+
+# ------- branching ratio --------
+br number: 1 #BR H>ZZ * >4l
+1 + 0.119 * cHBox + 0.003 * cHDD - 0.303 * cHW - 0.200 * cHB + 0.299 * cHWB + 0.127 * c1Hl - 0.235 * c3Hl - 0.102 * cHe + 0.181 * cllprime 
+
+br number: 2 #BR H>WW * >lvlv
+1 + 0.122 * cHBox - 0.031 * cHDD - 0.096 * cHW + 0.006 * cHB + 0.002 * cHWB - 0.229 * c3Hl - 0.004 * cHe + 0.183 * cllprime
+
+br number: 3 #BR H>yy
+1 -0.945 * cW + 0.121 * cHBox - 0.241 * cHDD - 13.065 * cHW - 40.113 * cHB + 22.379 * cHWB + 0.034 * cuH - 1.150 * cuW - 2.148 * cuB - 0.363 * c3Hl + 0.182 * cllprime
+
+br number: 4 #BR H>bb
+1 + 0.121 * cHBox -0.030 * cHDD -0.121 * cdH -0.121 * c3Hl + 0.061 * cllprime
+
+br number: 5 #BR H>tautau 
+1 + 0.121 * cHBox - 0.030 * cHDD - 0.121 * ceH - 0.121 * c3Hl + 0.061 * cllprime 
+
+br number: 6 #BR H>all
+1 + 0.001 * cW + 0.121 * cHBox - 0.030 * cHDD + 1.363 * cHG - 0.048 * cHW - 0.049 * cHB + 0.046 * cHWB - 0.005 * ceH - 0.012 * cuH - 0.085 * cdH + 0.051 * cuG - 0.002 * cuW - 0.003 * cuB - 0.151 * c3Hl + 0.013 * c3Hq + 0.079 * cllprime
+
+# acceptance * correction
+acceptance number: 0 #no acceptance
+1
+
+acceptance number: 1 #H>4l
+1 + 0.162 * cHW + 0.021 * cHB - 0.162 * cHWB
+
+acceptance number: 2 #ggH, H>lvlv
+1 - 0.007 * cHW + 0.006 * c3Hl
+
+acceptance number: 3 #VBF, H>lvlv
+1 - 0.018 * cHW + 0.007 * c3Hl

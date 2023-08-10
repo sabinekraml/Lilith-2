@@ -1,0 +1,46 @@
+<!--
+CMS result for H -> WW decay mode at mH = 125.38 GeV, data collect during 2016-2018, up to 138fb-1.
+Best-fit values and uncertainties taken from Fig. 23, correlations from Fig. 24 at 
+http://cms-results.web.cern.ch/cms-results/public-results/publications/HIG-20-013/
+validated: waiting
+-->
+
+<expmu dim="4" type="vn">
+  <experiment>CMS</experiment>
+  <source type="published">HIG-20-013</source>
+  <sqrts>13</sqrts>
+  <mass>125.38</mass>
+  <CL>68%</CL> <!-- optional -->
+
+  <eff axis="d1" prod="ggH" decay="WW">1.0</eff>
+  <eff axis="d2" prod="VBF" decay="WW">1.0</eff>
+  <eff axis="d3" prod="ZH" decay="WW">1.0</eff>
+  <eff axis="d4" prod="WH" decay="WW">1.0</eff>
+
+  <bestfit>
+  	<d1>0.92</d1>
+	<d2>0.71</d2>
+	<d3>2.0</d3>
+	<d4>2.2</d4>
+  </bestfit>
+ 
+  <param>
+    <uncertainty axis="d1" side="left">-0.10</uncertainty>
+    <uncertainty axis="d1" side="right">+0.11</uncertainty>
+    <uncertainty axis="d2" side="left">-0.25</uncertainty>
+    <uncertainty axis="d2" side="right">+0.28</uncertainty>
+    <uncertainty axis="d3" side="left">-0.7</uncertainty>
+    <uncertainty axis="d3" side="right">+0.7</uncertainty>
+    <uncertainty axis="d4" side="left">-0.6</uncertainty>
+    <uncertainty axis="d4" side="right">+0.6</uncertainty>
+    
+    <correlation entry="d1d2">-0.13</correlation>
+    <correlation entry="d1d3">0.0</correlation>
+    <correlation entry="d1d4">0.01</correlation>
+    
+    <correlation entry="d2d3">0.0</correlation>
+    <correlation entry="d2d4">0.0</correlation>
+    
+    <correlation entry="d3d4">-0.04</correlation>
+  </param>
+</expmu>

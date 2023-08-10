@@ -140,7 +140,6 @@ class ComputeMuFromReducedCouplings:
             if "name" in redCp["extra"]:
                 mu["extra"]={"mass": self.mass, "name": redCp["extra"]["name"]}
             else:
-                mu["extra"]={"mass": self.mass}
-#        print("just calculated mu-value = ",mu)        
+                mu["extra"]={"mass": self.mass}     
         return mu
 
