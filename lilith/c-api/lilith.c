@@ -55,7 +55,7 @@ PyObject* initialize_lilith(char* experimental_input)
             exit(1);
       }
 
-      if(PyList_Append(sys_path, PyString_FromString(pathtolilith)) < 0) {
+      if(PyList_Append(sys_path, PyUnicode_FromString(pathtolilith)) < 0) {
             printf("Error in appending sys_path and path_to_lh\n");
             exit(1);
       }
@@ -66,7 +66,7 @@ PyObject* initialize_lilith(char* experimental_input)
       // |------------------|
 
       // Defining lilith module
-      PyObject* lilithModuleString = PyString_FromString((char*)"lilith");
+      PyObject* lilithModuleString = PyUnicode_FromString((char*)"lilith");
       // Importing lilith module
       PyObject* lilithModule = PyImport_Import(lilithModuleString);
 
@@ -91,7 +91,7 @@ PyObject* initialize_lilith(char* experimental_input)
       PyObject* lilithsetexpinput = PyObject_GetAttrString(lilithcalc,(char*)"readexpinput");
 
       // Creating the argument for the previous function
-      args = PyTuple_Pack(1, PyString_FromString((char*)experimental_input));
+      args = PyTuple_Pack(1, PyUnicode_FromString((char*)experimental_input));
 
       // Calling the function
       // lastestLHC.list is used by default if no other list was provided
@@ -126,7 +126,7 @@ PyObject* lilith_readuserinput(PyObject* lilithcalc, char* XMLinputstring)
 
       // Passing the user input file to this function
       PyObject* args;
-      args = PyTuple_Pack(1, PyString_FromString(XMLinputstring));
+      args = PyTuple_Pack(1, PyUnicode_FromString(XMLinputstring));
       PyObject_CallObject(readuserinput, args);
 
       // Checking if error has occured
@@ -156,7 +156,7 @@ PyObject* lilith_readuserinput_fromfile(PyObject* lilithcalc, char* XMLinputfile
       PyObject* readuserinput = PyObject_GetAttrString(lilithcalc,(char*)"readuserinputfile");
       // Passing the user input file to this function
       PyObject* args;
-      args = PyTuple_Pack(1, PyString_FromString(XMLinputfile));
+      args = PyTuple_Pack(1, PyUnicode_FromString(XMLinputfile));
       PyObject* lilithcalc_read = PyObject_CallObject(readuserinput, args);
 
       // Checking if error has occured
@@ -247,7 +247,7 @@ void lilith_couplings_output(PyObject* lilithcalc, char* outputfilepath)
       PyObject* writecouplings = PyObject_GetAttrString(lilithcalc,(char*)"writecouplings");
       // Passing the output filepath to this function
       PyObject* args;
-      args = PyTuple_Pack(1, PyString_FromString(outputfilepath));
+      args = PyTuple_Pack(1, PyUnicode_FromString(outputfilepath));
 
       PyObject_CallObject(writecouplings, args);
   
@@ -286,10 +286,10 @@ void lilith_likelihood_output(PyObject* lilithcalc, char* outputfilepath, int sl
       // Passing the output filepath to this function
       PyObject* args;
       if(slha==0){
-        args = PyTuple_Pack(2, PyString_FromString(outputfilepath), Py_False);
+        args = PyTuple_Pack(2, PyUnicode_FromString(outputfilepath), Py_False);
         }
       else{
-        args = PyTuple_Pack(2, PyString_FromString(outputfilepath), Py_True);
+        args = PyTuple_Pack(2, PyUnicode_FromString(outputfilepath), Py_True);
         }
       PyObject_CallObject(writeresults, args);
   
@@ -326,10 +326,10 @@ void lilith_mu_output(PyObject* lilithcalc, char* outputfilepath, int tot)
       // Passing the output filepath to this function
       PyObject* args;
       if(tot==0){
-        args = PyTuple_Pack(2, PyString_FromString(outputfilepath), Py_False);
+        args = PyTuple_Pack(2, PyUnicode_FromString(outputfilepath), Py_False);
         }
       else{
-        args = PyTuple_Pack(2, PyString_FromString(outputfilepath), Py_True);
+        args = PyTuple_Pack(2, PyUnicode_FromString(outputfilepath), Py_True);
         }
       PyObject_CallObject(writesignalstrengths, args);
   
