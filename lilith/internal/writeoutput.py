@@ -241,25 +241,25 @@ def results_xml(results, l, lilithversion, dbversion, filepath):
 # added by Ninh for v2.0
                 if result["dim"] > 2:
                     f.write("""    <expmu dim="{}" type="{}">
-""".format(result["dim"], result["type"]))
+""".format(result["dim"], result["type"]).encode())
                     for i in range(result["dim"]):
                         for key, val in list(dd[i].items()):
                             f.write("""      <eff axis={} prod="{}" decay="{}">{}</eff>
-""".format("d" + str(i+1), key[0], key[1], val))
-                    f.write("""    </expmu>
+""".format("d" + str(i+1), key[0], key[1], val).encode())
+                    f.write(b"""    </expmu>
 """)
 # end of addition
 # corrected by Ninh for v2.0
                 if result["dim"] == 2:
                     f.write("""    <expmu dim="{}" type="{}">
-""".format(result["dim"], result["type"]))
+""".format(result["dim"], result["type"]).encode())
                     for key, val in list(x.items()):
                         f.write("""      <eff axis="x" prod="{}" decay="{}">{}</eff>
-""".format(key[0], key[1], val))
+""".format(key[0], key[1], val).encode())
                     for key, val in list(y.items()):
                         f.write("""      <eff axis="y" prod="{}" decay="{}">{}</eff>
-""".format(key[0], key[1], val))
-                    f.write("""    </expmu>
+""".format(key[0], key[1], val).encode())
+                    f.write(b"""    </expmu>
 """)
                 if result["dim"] == 1:
                     f.write("""    <expmu dim="{}" type="{}">

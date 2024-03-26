@@ -7,9 +7,9 @@ MAIN = lilith_compute
 
 # all lines below do not need to be modified
 CC = gcc
-CFLAGS += $(shell python2-config --cflags)
+CFLAGS += $(shell python3-config --cflags)
 INCLUDES = -I$(LILITHCAPI)
-LFLAGS += $(shell python2-config --ldflags)
+LFLAGS += $(shell python3-config --ldflags --embed)
 SRCS = $(MAIN).c $(LILITHCAPI)/lilith.c
 OBJS = $(SRCS:.c=.o)
 
